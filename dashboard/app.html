@@ -77,8 +77,13 @@
       gap: 0.5rem;
       text-decoration: none;
       color: #000;
-      cursor: default;
+      cursor: pointer;
       user-select: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .app-brand:hover {
+      opacity: 0.78;
     }
 
     .app-brand-dot {
@@ -700,10 +705,10 @@
   <!-- Top Navigation Header - Streamlined, Zero Clutter -->
   <header class="app-header">
     <div class="app-header-left">
-      <div class="app-brand">
+      <a href="index.html" class="app-brand" title="Return to Chronos Landing Page">
         <span class="app-brand-dot"></span>
         <span class="app-brand-name">chronos</span>
-      </div>
+      </a>
 
       <nav class="app-header-tabs">
         <span class="app-tab active" onclick="switchView('arena', this)">Trading Arena</span>
