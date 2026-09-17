@@ -94,6 +94,133 @@ html_content = f"""<!DOCTYPE html>
       font-family: var(--font-terminal);
     }}
 
+    /* Refined, Ultra-Sleek Header Pill (Compact Low-Profile) */
+    .header-wrapper {{
+      position: fixed;
+      top: 0.85rem !important;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+      padding: 0 1rem;
+    }}
+
+    .header-pill {{
+      pointer-events: auto;
+      background-color: rgba(255, 255, 255, 0.95) !important;
+      backdrop-filter: blur(20px) !important;
+      -webkit-backdrop-filter: blur(20px) !important;
+      border: 1px solid rgba(0, 0, 0, 0.09) !important;
+      border-radius: 30px !important;
+      padding: 0.24rem 0.32rem 0.24rem 0.85rem !important;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.85rem !important;
+      width: auto !important;
+      min-width: 250px !important;
+      max-width: 320px !important;
+      height: 38px !important;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05) !important;
+      transition: max-width 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+                  width 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+                  padding 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                  gap 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.3s ease,
+                  border-color 0.3s ease !important;
+    }}
+
+    .header-pill:hover {{
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.09) !important;
+      border-color: rgba(0, 0, 0, 0.16) !important;
+    }}
+
+    .header-pill.is-scrolled {{
+      min-width: 0 !important;
+      max-width: 840px !important;
+      width: 85% !important;
+      padding: 0.24rem 0.35rem 0.24rem 0.95rem !important;
+      gap: 1.25rem !important;
+      height: 38px !important;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08) !important;
+      border-color: rgba(0, 0, 0, 0.12) !important;
+    }}
+
+    .header-logo-img {{
+      height: 20px !important;
+      width: auto !important;
+      object-fit: contain !important;
+      display: block !important;
+    }}
+
+    .header-nav {{
+      display: flex !important;
+      align-items: center !important;
+      gap: 0px !important;
+      max-width: 0px !important;
+      opacity: 0 !important;
+      overflow: hidden !important;
+      pointer-events: none !important;
+      transform: scale(0.96) !important;
+      white-space: nowrap !important;
+      transition: max-width 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+                  opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                  gap 0.45s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }}
+
+    .header-pill.is-scrolled .header-nav {{
+      max-width: 560px !important;
+      opacity: 1 !important;
+      pointer-events: auto !important;
+      gap: 1.25rem !important;
+      transform: scale(1) !important;
+    }}
+
+    .header-nav a {{
+      color: #4B5563 !important;
+      text-decoration: none !important;
+      font-family: var(--font-sans-body) !important;
+      font-size: 0.76rem !important;
+      font-weight: 500 !important;
+      letter-spacing: 0.01em !important;
+      display: inline-block !important;
+      position: relative !important;
+      transition: color 0.2s ease !important;
+    }}
+
+    .header-nav a:hover {{
+      color: var(--color-black) !important;
+    }}
+
+    .header-pill .btn-launch-black {{
+      padding: 0.24rem 0.72rem !important;
+      font-size: 0.7rem !important;
+      letter-spacing: 0.02em !important;
+      gap: 0.3rem !important;
+      height: 28px !important;
+      border-radius: 16px !important;
+    }}
+
+    .header-pill .btn-launch-black:hover {{
+      border-radius: 5px !important;
+    }}
+
+    .header-pill .badge-pill-green {{
+      padding: 0.16rem 0.45rem !important;
+      font-size: 0.64rem !important;
+      letter-spacing: 0.04em !important;
+      gap: 0.3rem !important;
+    }}
+
+    .landing-hero-container {{
+      padding-top: 6rem !important;
+      padding-bottom: 4rem !important;
+    }}
+
     /* Section Spacing */
     .section-spacious {{
       padding: 5.5rem 0;
@@ -458,7 +585,7 @@ html_content = f"""<!DOCTYPE html>
     <header class="header-pill" id="mainHeaderPill">
       <!-- Left: Brand Logo -->
       <a href="#hero" style="display: flex; align-items: center; text-decoration: none; gap: 0.65rem;">
-        <img src="assets/chronos_logo.svg" alt="Chronos" class="header-logo-img" style="height: 38px;">
+        <img src="assets/chronos_logo.svg" alt="Chronos" class="header-logo-img" style="height: 20px;">
       </a>
 
       <!-- Middle: Dynamic Nav links expanding on scroll -->
