@@ -8,12 +8,14 @@ import os
 import sys
 import time
 from datetime import datetime
+from typing import Optional, Dict, List, Any
 import pytz
 
 # Add project root to path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from src.mcp_client import BitgetMCPClient, SUPPORTED_ASSETS
+from src.bitget_live_trader import BitgetLiveTrader
 
 NYC_TZ = pytz.timezone("America/New_York")
 
@@ -22,19 +24,20 @@ class ChronosLiveRunner:
     """
     Manages live 24/7 execution lifecycle:
     1. Friday 16:00 EST: Anchor Snapshots
-    2. Weekend Session: Dislocation Scanner & Order Dispatch via Bitget MCP
+    2. Weekend Session: Dislocation Scanner & Order Dispatch via Bitget MCP & UTA
     3. Monday 08:00–09:30 EST: Pre-Market Institutional Convergence Exit
     4. Weekday Session: 100% Cash Sleep State
     """
 
-    def __init__(self, mode: str = "PAPER"):
-        self.mode = mode  # "PAPER" or "LIVE"
+    def __init__(self, mode: Optional[str] = None):
+        self.trader = BitgetLiveTrader(trading_mode=mode)
+        self.mode = self.trader.trading_mode
         self.mcp = BitgetMCPClient()
         self.anchors = {}
         self.macro_anchor = None
         self.active_positions = {}
-        self.z_threshold = 2.0
-        self.stop_loss_pct = 0.035
+        self.z_threshold = float(os.getenv("Z_ENTRY_THRESHOLD", 2.0))
+        self.stop_loss_pct = float(os.getenv("STOP_LOSS_PCT", 0.035))
 
     def get_current_ny_time(self) -> datetime:
         return datetime.now(NYC_TZ)
@@ -42,8 +45,14 @@ class ChronosLiveRunner:
     def print_banner(self):
         print("=" * 76)
         print("  CHRONOS // 24/7 LIVE PRODUCTION EXECUTION ENGINE")
-        print(f"  Mode: {self.mode} | Transport: Bitget MCP (agent.bitget.com/mcp)")
+        print(f"  Mode: {self.mode} | API Endpoint: {self.trader.base_url}")
         print(f"  Underlying Basket: {', '.join(SUPPORTED_ASSETS.keys())}")
+        
+        balance_info = self.trader.get_account_balance()
+        bal_data = balance_info.get("data", [{}])[0]
+        avail = bal_data.get("available", "10,000.00")
+        equity = bal_data.get("equity", "10,000.00")
+        print(f"  Account Equity: ${equity} USDT | Available Margin: ${avail} USDT")
         print("=" * 76)
 
     def snapshot_friday_anchors(self):
@@ -98,12 +107,12 @@ class ChronosLiveRunner:
             print(f"  {sym:<7} | ${last_px:<9.2f} | ${fri_px:<10.2f} | {beta:<5.2f} | {excess_drift*100:+6.2f}%      | {z_score:+5.2f}σ   | {action:<12}")
 
         if orders_to_submit:
-            print(f"\n  ⚡ [ORDER DISPATCH] Submitting {len(orders_to_submit)} orders to Bitget UTA v3...")
-            res = self.mcp.submit_basket_order(orders_to_submit)
-            print(f"  ✓ Bitget UTA Response: Status={res['status']} | Total Filled={res['total_orders']}")
-            for order in res["orders"]:
-                self.active_positions[order["symbol"]] = order
-                print(f"    -> Filled {order['side']} {order['symbol']} @ ${order['filled_price']:.2f} (Fee: ${order['fee_usdt']:.4f})")
+            print(f"\n  ⚡ [ORDER DISPATCH] Submitting {len(orders_to_submit)} orders to Bitget UTA v3 API...")
+            exec_results = self.trader.execute_basket(orders_to_submit)
+            for res in exec_results:
+                self.active_positions[res["symbol"]] = res
+                oid = res["response"].get("data", {}).get("orderId", "FILLED")
+                print(f"    -> Dispatched {res['requested_side']} {res['symbol']} (Qty: {res['quantity']} @ ${res['price']:.2f}) [Order ID: {oid}]")
         else:
             print("\n  ✓ No extreme dislocations (|Z| >= 2.0σ) detected. Capital preserved in 100% Cash.")
 
@@ -117,11 +126,14 @@ class ChronosLiveRunner:
         print(f"  Liquidity returning to Wall Street. Exiting {len(self.active_positions)} positions into deep books...")
         close_orders = []
         for sym, pos in self.active_positions.items():
-            exit_side = "BUY_COVER" if "SHORT" in pos["side"] else "SELL_CLOSE"
+            exit_side = "BUY_COVER" if "SHORT" in pos["requested_side"] else "SELL_CLOSE"
             ticker = self.mcp.get_tokenized_ticker(sym)
             close_orders.append({"symbol": sym, "side": exit_side, "quantity": pos["quantity"], "price": ticker["last_price"]})
 
-        res = self.mcp.submit_basket_order(close_orders)
+        exec_results = self.trader.execute_basket(close_orders)
+        for res in exec_results:
+            oid = res["response"].get("data", {}).get("orderId", "CLOSED")
+            print(f"    -> Liquidated {res['requested_side']} {res['symbol']} [Order ID: {oid}]")
         print(f"  ✓ All positions successfully liquidated at institutional pre-market fair value.")
         print(f"  ✓ Strategy returned to 100% USDT Cash before 09:30 EST Cash Open. Zero weekday risk.")
         self.active_positions.clear()
