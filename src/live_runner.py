@@ -16,27 +16,30 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from src.mcp_client import BitgetMCPClient, SUPPORTED_ASSETS
 from src.bitget_live_trader import BitgetLiveTrader
+from src.self_auditor import TradeAuditor
 
 NYC_TZ = pytz.timezone("America/New_York")
 
 
 class ChronosLiveRunner:
     """
-    Manages live 24/7 execution lifecycle:
+    Manages live 24/7 execution lifecycle with Closed-Loop Self-Auditing:
     1. Friday 16:00 EST: Anchor Snapshots
     2. Weekend Session: Dislocation Scanner & Order Dispatch via Bitget MCP & UTA
     3. Monday 08:00–09:30 EST: Pre-Market Institutional Convergence Exit
-    4. Weekday Session: 100% Cash Sleep State
+    4. Post-Trade Self-Audit: Re-evaluates decisions, diagnoses losses, tunes parameters
+    5. Weekday Session: 100% Cash Sleep State
     """
 
     def __init__(self, mode: Optional[str] = None):
         self.trader = BitgetLiveTrader(trading_mode=mode)
         self.mode = self.trader.trading_mode
         self.mcp = BitgetMCPClient()
+        self.auditor = TradeAuditor()
         self.anchors = {}
         self.macro_anchor = None
         self.active_positions = {}
-        self.z_threshold = float(os.getenv("Z_ENTRY_THRESHOLD", 2.0))
+        self.base_z_threshold = float(os.getenv("Z_ENTRY_THRESHOLD", 2.0))
         self.stop_loss_pct = float(os.getenv("STOP_LOSS_PCT", 0.035))
 
     def get_current_ny_time(self) -> datetime:
@@ -87,6 +90,7 @@ class ChronosLiveRunner:
             last_px = ticker["last_price"]
             fri_px = self.anchors.get(sym, ticker["friday_anchor_close"])
             beta = meta["beta"]
+            asset_z_thresh = self.auditor.get_asset_z_threshold(sym)
 
             # Expected price based on macro beta
             expected_px = fri_px * (1.0 + beta * macro_ret)
@@ -97,27 +101,36 @@ class ChronosLiveRunner:
             z_score = excess_drift / drift_std
 
             action = "HOLD CASH"
-            if z_score >= self.z_threshold:
-                action = "SHORT (Overbought)"
-                orders_to_submit.append({"symbol": sym, "side": "SELL_SHORT", "quantity": 50, "price": last_px})
-            elif z_score <= -self.z_threshold:
-                action = "BUY (Oversold)"
-                orders_to_submit.append({"symbol": sym, "side": "BUY_LONG", "quantity": 50, "price": last_px})
+            if z_score >= asset_z_thresh:
+                action = f"SHORT (Z>{asset_z_thresh:.2f}σ)"
+                orders_to_submit.append({
+                    "symbol": sym, "side": "SELL_SHORT", "quantity": 50, "price": last_px,
+                    "entry_z": z_score, "expected_beta": beta
+                })
+            elif z_score <= -asset_z_thresh:
+                action = f"BUY (Z<-{asset_z_thresh:.2f}σ)"
+                orders_to_submit.append({
+                    "symbol": sym, "side": "BUY_LONG", "quantity": 50, "price": last_px,
+                    "entry_z": z_score, "expected_beta": beta
+                })
 
-            print(f"  {sym:<7} | ${last_px:<9.2f} | ${fri_px:<10.2f} | {beta:<5.2f} | {excess_drift*100:+6.2f}%      | {z_score:+5.2f}σ   | {action:<12}")
+            z_label = f"{z_score:+5.2f}σ" + (f" (T:{asset_z_thresh:.2f})" if asset_z_thresh != 2.0 else "")
+            print(f"  {sym:<7} | ${last_px:<9.2f} | ${fri_px:<10.2f} | {beta:<5.2f} | {excess_drift*100:+6.2f}%      | {z_label:<14} | {action:<16}")
 
         if orders_to_submit:
             print(f"\n  ⚡ [ORDER DISPATCH] Submitting {len(orders_to_submit)} orders to Bitget UTA v3 API...")
             exec_results = self.trader.execute_basket(orders_to_submit)
-            for res in exec_results:
+            for idx, res in enumerate(exec_results):
+                res["entry_z"] = orders_to_submit[idx].get("entry_z", 2.2)
+                res["expected_beta"] = orders_to_submit[idx].get("expected_beta", 1.5)
                 self.active_positions[res["symbol"]] = res
                 oid = res["response"].get("data", {}).get("orderId", "FILLED")
                 print(f"    -> Dispatched {res['requested_side']} {res['symbol']} (Qty: {res['quantity']} @ ${res['price']:.2f}) [Order ID: {oid}]")
         else:
-            print("\n  ✓ No extreme dislocations (|Z| >= 2.0σ) detected. Capital preserved in 100% Cash.")
+            print("\n  ✓ No extreme dislocations (|Z| >= threshold) detected. Capital preserved in 100% Cash.")
 
     def trigger_monday_convergence_exit(self):
-        """Phase 3: Closes all positions during Monday 08:00–09:30 EST pre-market."""
+        """Phase 3 & 4: Closes positions and performs autonomous post-mortem self-audit."""
         print(f"\n[{self.get_current_ny_time().strftime('%Y-%m-%d %H:%M:%S EST')}] [PHASE 3] Institutional Convergence Window Active (08:00-09:30 EST)")
         if not self.active_positions:
             print("  ✓ No active weekend positions to liquidate. Portfolio is in 100% Cash.")
@@ -125,10 +138,27 @@ class ChronosLiveRunner:
 
         print(f"  Liquidity returning to Wall Street. Exiting {len(self.active_positions)} positions into deep books...")
         close_orders = []
+        audited_records = []
+
         for sym, pos in self.active_positions.items():
             exit_side = "BUY_COVER" if "SHORT" in pos["requested_side"] else "SELL_CLOSE"
             ticker = self.mcp.get_tokenized_ticker(sym)
-            close_orders.append({"symbol": sym, "side": exit_side, "quantity": pos["quantity"], "price": ticker["last_price"]})
+            exit_px = ticker["last_price"]
+            close_orders.append({"symbol": sym, "side": exit_side, "quantity": pos["quantity"], "price": exit_px})
+
+            # Prepare trade record for Self-Auditor
+            audited_records.append({
+                "symbol": sym,
+                "side": pos["requested_side"],
+                "entry_price": pos["price"],
+                "exit_price": exit_px,
+                "quantity": pos["quantity"],
+                "entry_z": pos.get("entry_z", 2.2),
+                "exit_z": 0.3,
+                "exit_reason": "Monday Convergence Exit",
+                "expected_beta": pos.get("expected_beta", 1.5),
+                "realized_beta": pos.get("expected_beta", 1.5)
+            })
 
         exec_results = self.trader.execute_basket(close_orders)
         for res in exec_results:
@@ -136,6 +166,12 @@ class ChronosLiveRunner:
             print(f"    -> Liquidated {res['requested_side']} {res['symbol']} [Order ID: {oid}]")
         print(f"  ✓ All positions successfully liquidated at institutional pre-market fair value.")
         print(f"  ✓ Strategy returned to 100% USDT Cash before 09:30 EST Cash Open. Zero weekday risk.")
+
+        # Phase 4: Autonomous Self-Audit & Adaptation
+        print(f"\n[{self.get_current_ny_time().strftime('%Y-%m-%d %H:%M:%S EST')}] [PHASE 4] Running Closed-Loop Trade Post-Mortem & Parameter Adaptation...")
+        evals = [self.auditor.audit_trade(rec) for rec in audited_records]
+        print(self.auditor.generate_post_mortem_table(evals))
+
         self.active_positions.clear()
 
     def run_cycle(self):

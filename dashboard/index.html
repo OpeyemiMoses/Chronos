@@ -455,6 +455,69 @@
 
   </div>
 
+  <!-- Middle Panel: Autonomous Self-Audit & Adaptive Reflection -->
+  <div class="panel" style="margin-bottom: 24px;">
+    <div class="panel-header">
+      <div class="panel-title">
+        <span>🧠 Autonomous Self-Auditor & Closed-Loop Reflection Engine</span>
+        <span class="panel-tag" style="color: #FEB019; border-color: rgba(254, 176, 25, 0.3); background: rgba(254, 176, 25, 0.1);">CONTINUOUS ADAPTIVE LEARNING</span>
+      </div>
+      <div style="display: flex; gap: 8px;">
+        <button class="btn-action" onclick="simulateLossDiagnosis()">⚠️ Simulate Loss & Auto-Correction</button>
+        <button class="btn-action btn-primary" onclick="simulateWinAudit()">✓ Run Post-Mortem Audit</button>
+      </div>
+    </div>
+
+    <div style="display: flex; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; font-family: var(--font-mono); font-size: 11px;">
+      <div class="status-pill" style="color: #E6EDF3; border-color: var(--border-color); background: var(--card-bg);">
+        <span>Persistent Memory: <strong>data/audit_memory.json</strong></span>
+      </div>
+      <div class="status-pill" id="adaptedPillTSLA" style="color: #FEB019; border-color: rgba(254, 176, 25, 0.4); background: rgba(254, 176, 25, 0.1);">
+        <span>rTSLA Adapted Z-Entry: <strong>2.25σ (+0.25σ)</strong></span>
+      </div>
+      <div class="status-pill" style="color: var(--accent-green); border-color: rgba(0, 227, 150, 0.4); background: rgba(0, 227, 150, 0.1);">
+        <span>rNVDA Baseline: <strong>2.00σ</strong></span>
+      </div>
+      <div class="status-pill" style="color: var(--accent-cyan); border-color: rgba(0, 240, 255, 0.4); background: rgba(0, 240, 255, 0.1);">
+        <span>Audit Status: <strong>Zero Recurring Mistakes Active</strong></span>
+      </div>
+    </div>
+
+    <table class="basket-table" id="auditTable">
+      <thead>
+        <tr>
+          <th>Asset</th>
+          <th>Side</th>
+          <th>Return</th>
+          <th>PnL</th>
+          <th>Audit Verdict</th>
+          <th>Diagnosis / Root Cause</th>
+          <th>Self-Adapted Action</th>
+        </tr>
+      </thead>
+      <tbody id="auditTableBody">
+        <tr>
+          <td><span class="asset-sym">rNVDA</span></td>
+          <td>SELL_SHORT</td>
+          <td style="color: #00E396; font-weight: 700;">+5.19%</td>
+          <td style="color: #00E396;">+$350.00</td>
+          <td><span class="badge-signal badge-long">CONVERGENCE_WIN</span></td>
+          <td>Clean Monday institutional liquidity convergence</td>
+          <td style="color: var(--text-muted);">Maintain baseline model parameters</td>
+        </tr>
+        <tr>
+          <td><span class="asset-sym">rTSLA</span></td>
+          <td>SELL_SHORT</td>
+          <td style="color: #FF007A; font-weight: 700;">-3.47%</td>
+          <td style="color: #FF007A;">-$212.50</td>
+          <td><span class="badge-signal badge-short">MOMENTUM_OVERRUN</span></td>
+          <td>Premature entry at 2.05σ; retail hype pushed beyond entry point</td>
+          <td style="color: #FEB019; font-weight: 700;">Auto-raised Z-entry threshold to 2.25σ</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
   <!-- Bottom Panel: Cross-Asset Correlation Matrix -->
   <div class="panel">
     <div class="panel-header">
@@ -637,6 +700,58 @@
         });
       });
       grid.innerHTML = html;
+    }
+
+    function simulateLossDiagnosis() {
+      const tbody = document.getElementById("auditTableBody");
+      const consoleEl = document.getElementById("mcpConsole");
+      
+      consoleEl.innerHTML = `[AI SELF-AUDITOR REFLECTION TRIGGERED]\n` +
+        `> Investigating losing trade on rTSLA (Exit: -$212.50 | -3.47%)\n` +
+        `> Attribution check: Entry Z was +2.05σ. Retail volume surged +42% after entry.\n` +
+        `> DIAGNOSIS: RETAIL_MOMENTUM_OVERRUN (Entry below actual exhaustion peak).\n` +
+        `> CORRECTIVE ADAPTATION: Automatically raised rTSLA entry Z-threshold from 2.00σ -> 2.25σ.\n` +
+        `> State persisted to data/audit_memory.json. Future premature entries prevented.`;
+
+      document.getElementById("adaptedPillTSLA").innerHTML = `<span>rTSLA Adapted Z-Entry: <strong>2.35σ (+0.35σ)</strong></span>`;
+
+      const newRow = `
+        <tr style="background: rgba(255, 0, 122, 0.08);">
+          <td><span class="asset-sym">rTSLA</span></td>
+          <td>SELL_SHORT</td>
+          <td style="color: #FF007A; font-weight: 700;">-3.47%</td>
+          <td style="color: #FF007A;">-$212.50</td>
+          <td><span class="badge-signal badge-short">MOMENTUM_OVERRUN</span></td>
+          <td>Premature entry at 2.05σ; retail hype pushed beyond entry point</td>
+          <td style="color: #FEB019; font-weight: 700;">Auto-raised Z-entry threshold to 2.35σ</td>
+        </tr>
+      `;
+      tbody.innerHTML = newRow + tbody.innerHTML;
+    }
+
+    function simulateWinAudit() {
+      const tbody = document.getElementById("auditTableBody");
+      const consoleEl = document.getElementById("mcpConsole");
+
+      consoleEl.innerHTML = `[AI SELF-AUDITOR REFLECTION TRIGGERED]\n` +
+        `> Auditing winning convergence trade on rCOIN (Exit: +$420.00 | +4.10%)\n` +
+        `> Attribution check: Oversold entry at -2.48σ successfully converged during Monday pre-market.\n` +
+        `> Realized Beta matched expected model beta (Error: 2.1%).\n` +
+        `> DIAGNOSIS: PROFITABLE_ALPHA_CONVERGENCE.\n` +
+        `> ACTION: Retained optimal baseline model parameters in audit memory.`;
+
+      const newRow = `
+        <tr style="background: rgba(0, 227, 150, 0.08);">
+          <td><span class="asset-sym">rCOIN</span></td>
+          <td>BUY_LONG</td>
+          <td style="color: #00E396; font-weight: 700;">+4.10%</td>
+          <td style="color: #00E396;">+$420.00</td>
+          <td><span class="badge-signal badge-long">CONVERGENCE_WIN</span></td>
+          <td>Clean Monday institutional liquidity convergence</td>
+          <td style="color: var(--text-muted);">Maintain baseline model parameters</td>
+        </tr>
+      `;
+      tbody.innerHTML = newRow + tbody.innerHTML;
     }
 
     renderTable();

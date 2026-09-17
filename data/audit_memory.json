@@ -1,0 +1,109 @@
+{
+  "total_audited_trades": 4,
+  "win_count": 2,
+  "loss_count": 2,
+  "cumulative_pnl_usd": 275.0,
+  "asset_adjustments": {
+    "rNVDA": {
+      "z_entry": 2.0,
+      "weight_cap": 0.25,
+      "consecutive_losses": 0
+    },
+    "rTSLA": {
+      "z_entry": 2.5,
+      "weight_cap": 0.25,
+      "consecutive_losses": 2
+    },
+    "rAAPL": {
+      "z_entry": 2.0,
+      "weight_cap": 0.25,
+      "consecutive_losses": 0
+    },
+    "rCOIN": {
+      "z_entry": 2.0,
+      "weight_cap": 0.25,
+      "consecutive_losses": 0
+    },
+    "rMSTR": {
+      "z_entry": 2.0,
+      "weight_cap": 0.25,
+      "consecutive_losses": 0
+    },
+    "rSPY": {
+      "z_entry": 2.0,
+      "weight_cap": 0.25,
+      "consecutive_losses": 0
+    },
+    "rQQQ": {
+      "z_entry": 2.0,
+      "weight_cap": 0.25,
+      "consecutive_losses": 0
+    }
+  },
+  "recent_post_mortems": [
+    {
+      "trade_id": "tr_1789659239029",
+      "symbol": "rTSLA",
+      "side": "SELL_SHORT",
+      "return_pct": -3.47,
+      "pnl_usd": -212.5,
+      "exit_reason": "Stop-Loss Triggered",
+      "entry_z": 2.05,
+      "exit_z": 2.6,
+      "mae_pct": 3.8,
+      "beta_deviation_pct": 2.7,
+      "verdict": "RETAIL_MOMENTUM_OVERRUN",
+      "root_cause": "Premature entry at 2.05\u03c3; retail hype pushed beyond entry point",
+      "corrective_action": "Raise rTSLA entry threshold Z-score from 2.25\u03c3 to 2.50\u03c3",
+      "timestamp": "2026-09-17 16:33:59 EST"
+    },
+    {
+      "trade_id": "tr_1789659239029",
+      "symbol": "rNVDA",
+      "side": "SELL_SHORT",
+      "return_pct": 5.19,
+      "pnl_usd": 350.0,
+      "exit_reason": "Monday Convergence Exit",
+      "entry_z": 2.4,
+      "exit_z": 0.3,
+      "mae_pct": 1.2,
+      "beta_deviation_pct": 2.1,
+      "verdict": "PROFITABLE_ALPHA_CONVERGENCE",
+      "root_cause": "Clean Monday institutional liquidity convergence",
+      "corrective_action": "Maintain baseline model parameters",
+      "timestamp": "2026-09-17 16:33:59 EST"
+    },
+    {
+      "trade_id": "tr_1789659116136",
+      "symbol": "rTSLA",
+      "side": "SELL_SHORT",
+      "return_pct": -3.47,
+      "pnl_usd": -212.5,
+      "exit_reason": "Stop-Loss Triggered",
+      "entry_z": 2.05,
+      "exit_z": 2.6,
+      "mae_pct": 3.8,
+      "beta_deviation_pct": 2.7,
+      "verdict": "RETAIL_MOMENTUM_OVERRUN",
+      "root_cause": "Premature entry at 2.05\u03c3; retail hype pushed beyond entry point",
+      "corrective_action": "Raise rTSLA entry threshold Z-score from 2.00\u03c3 to 2.25\u03c3",
+      "timestamp": "2026-09-17 16:31:56 EST"
+    },
+    {
+      "trade_id": "tr_1789659116136",
+      "symbol": "rNVDA",
+      "side": "SELL_SHORT",
+      "return_pct": 5.19,
+      "pnl_usd": 350.0,
+      "exit_reason": "Monday Convergence Exit",
+      "entry_z": 2.4,
+      "exit_z": 0.3,
+      "mae_pct": 1.2,
+      "beta_deviation_pct": 2.1,
+      "verdict": "PROFITABLE_ALPHA_CONVERGENCE",
+      "root_cause": "Clean Monday institutional liquidity convergence",
+      "corrective_action": "Maintain baseline model parameters",
+      "timestamp": "2026-09-17 16:31:56 EST"
+    }
+  ]
+}

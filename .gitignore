@@ -2,6 +2,7 @@
 .venv/
 env/
 venv/
+.env
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -15,5 +16,5 @@ Thumbs.db
 # Jupyter Checkpoints
 .ipynb_checkpoints/
 
-# Data cache (optional, keep local)
+# Data cache
 data/cache/*.csv
