@@ -604,7 +604,7 @@ html_content = f"""<!DOCTYPE html>
           <span style="width: 6px; height: 6px; border-radius: 50%; background: var(--color-green); display: inline-block;"></span>
           <span>BITGET UTA v3 · ACTIVE</span>
         </div>
-        <button class="btn-launch-black" onclick="document.getElementById('terminal-preview').scrollIntoView({{behavior: 'smooth'}})">
+        <button class="btn-launch-black" onclick="window.location.href='app.html'">
           <span>Launch Terminal</span>
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </button>
@@ -630,7 +630,7 @@ html_content = f"""<!DOCTYPE html>
         </p>
 
         <div style="display: flex; align-items: center; gap: 0.85rem; flex-wrap: wrap;">
-          <button class="btn-launch-black" onclick="document.getElementById('terminal-preview').scrollIntoView({{behavior: 'smooth'}})">
+          <button class="btn-launch-black" onclick="window.location.href='app.html'">
             <span>Launch Alpha Terminal</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </button>
@@ -1044,7 +1044,7 @@ CURRENT PARAMETER STATE:
             <span>View Source on GitHub</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           </a>
-          <button class="btn-pill-dark-outline" onclick="document.getElementById('terminal-preview').scrollIntoView({{behavior: 'smooth'}})">
+          <button class="btn-pill-dark-outline" onclick="window.location.href='app.html'">
             <span>Explore Alpha Simulator</span>
           </button>
         </div>
