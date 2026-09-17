@@ -572,7 +572,7 @@
         <a href="#metrics">Alpha Metrics</a>
         <a href="#architecture">Architecture</a>
         <a href="#guardrails">Guardrails</a>
-        <a href="#terminal-preview">Terminal</a>
+        <a href="#platform">Platform Suite</a>
         <a href="#ledger">Trade Ledger</a>
       </nav>
 
@@ -591,8 +591,14 @@
     <div class="landing-hero-grid">
       <!-- Left Column: Editorial Pitch -->
       <div class="hero-pop">
-        <div class="badge-pill-gold" style="margin-bottom: 1.25rem;">
-          <span style="font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em;">BITGET AI BASE CAMP S2 · TRACK 1: ALPHA FACTORY</span>
+        <div style="display: flex; align-items: center; gap: 0.65rem; margin-bottom: 1.25rem; flex-wrap: wrap;">
+          <div class="badge-pill-gold">
+            <span style="font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em;">BITGET AI BASE CAMP S2 · TRACK 1: ALPHA FACTORY</span>
+          </div>
+          <div class="badge-pill-green" style="cursor: pointer;" onclick="window.location.href='app.html'">
+            <span style="width: 6px; height: 6px; border-radius: 50%; background: var(--color-green); display: inline-block;"></span>
+            <span>$50,000 PAPER ARENA READY</span>
+          </div>
         </div>
         <h1 class="hero-h1">
           Autonomous After-Hours<br>
@@ -608,12 +614,12 @@
             <span>Launch Alpha Terminal</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </button>
-          <a href="#architecture" class="btn-docs-grey">
-            <span>Protocol Architecture</span>
-          </a>
-          <button class="btn-pill-dark-outline" style="color: var(--color-black); border-color: rgba(0,0,0,0.22);" onclick="runSelfAuditDemo()">
-            <span>Trigger Self-Audit</span>
+          <button class="btn-docs-grey" onclick="window.location.href='app.html'">
+            <span>Explore Live Dashboard</span>
           </button>
+          <a href="#platform" class="btn-pill-dark-outline" style="color: var(--color-black); border-color: rgba(0,0,0,0.22); text-decoration: none;">
+            <span>Platform Overview</span>
+          </a>
         </div>
 
         <div style="display: flex; align-items: center; gap: 2rem; margin-top: 2.5rem; font-size: 0.82rem; color: var(--color-grey-text); font-family: var(--font-terminal);">
@@ -835,23 +841,123 @@
     </div>
   </section>
 
-  <!-- Interactive Terminal & Live Chart Preview -->
-  <section class="section-spacious" id="terminal-preview" style="background-color: var(--color-canvas-subtle);">
+  <!-- Platform Suite / Dashboard Showcase -->
+  <section class="section-spacious" id="platform" style="background-color: var(--color-canvas-subtle);">
     <div class="container">
-      <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem;">
         <div>
           <div class="section-tag">
             <span class="section-tag-dot"></span>
-            <span>STRATEGY SIMULATOR & TERMINAL</span>
+            <span>THE CHRONOS PLATFORM</span>
           </div>
-          <h2 class="section-title" style="margin-bottom: 0.35rem;">Real-Time Dislocation & Convergence Chart</h2>
-          <p class="section-desc">Interactive inspection of continuous hourly price curves, Friday anchors, weekend dislocation drift, and execution markers.</p>
+          <h2 class="section-title" style="margin-bottom: 0.35rem;">An Institutional Terminal Built for Everyone</h2>
+          <p class="section-desc">Experience statistical arbitrage with a dedicated web interface designed for quantitative precision and non-dev clarity.</p>
         </div>
-        <div class="badge-pill-green">
-          <span>DATA SOURCE: 120D AUDITED BACKTEST</span>
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <button class="btn-launch-black" onclick="window.location.href='app.html'">
+            <span>Launch Live Terminal</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </button>
         </div>
       </div>
 
+      <!-- 3 Core Platform Pillars (Card Grid) -->
+      <div class="landing-grid-3col" style="margin-bottom: 2.5rem;">
+        <!-- Card 1: Trading Arena -->
+        <div class="card-paper" style="display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+              <span class="badge-pill-light" style="font-size: 0.72rem; font-weight: 700;">MODULE 01</span>
+              <span class="badge-pill-green" style="font-size: 0.7rem;">LIVE ARENA</span>
+            </div>
+            <h3 style="font-family: var(--font-serif-editorial); font-size: 1.65rem; margin-bottom: 0.6rem;">Real-Time Trading Arena</h3>
+            <p style="font-size: 0.88rem; color: var(--color-grey-text); line-height: 1.6; margin-bottom: 1.25rem;">
+              Track continuous price discovery across 7 tokenized U.S. equities against Friday 16:00 EST anchor prices. Live dislocation gauges alert you when retail order flow drifts beyond statistical normal limits (|Z| ≥ 2.0σ).
+            </p>
+            <ul style="list-style: none; font-size: 0.82rem; color: #4B5563; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; font-family: var(--font-terminal);">
+              <li style="display: flex; align-items: center; gap: 0.45rem;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Live Candlestick Chart & Friday Anchor</span>
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.45rem;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Auto-Pilot vs. Manual Rebalancing</span>
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.45rem;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>One-Click Allocation Presets (25%, 50%, 100%)</span>
+              </li>
+            </ul>
+          </div>
+          <button class="btn-docs-grey" style="width: 100%; justify-content: center;" onclick="window.location.href='app.html'">
+            <span>Enter Trading Arena →</span>
+          </button>
+        </div>
+
+        <!-- Card 2: Cognitive Self-Auditor -->
+        <div class="card-paper" style="display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+              <span class="badge-pill-light" style="font-size: 0.72rem; font-weight: 700;">MODULE 02</span>
+              <span class="badge-pill-gold" style="font-size: 0.7rem;">CLOSED-LOOP AI</span>
+            </div>
+            <h3 style="font-family: var(--font-serif-editorial); font-size: 1.65rem; margin-bottom: 0.6rem;">Cognitive Self-Auditor</h3>
+            <p style="font-size: 0.88rem; color: var(--color-grey-text); line-height: 1.6; margin-bottom: 1.25rem;">
+              Every trade is diagnosed after Monday convergence. When an anomalous drawdown occurs, Chronos pinpoints the market regime shift and tightens risk thresholds—all explained in human-readable cards with zero confusing JSON.
+            </p>
+            <ul style="list-style: none; font-size: 0.82rem; color: #4B5563; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; font-family: var(--font-terminal);">
+              <li style="display: flex; align-items: center; gap: 0.45rem;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Automated Post-Mortem Diagnostics</span>
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.45rem;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>rTSLA Overrun: Entry Z raised to 2.50σ</span>
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.45rem;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>rMSTR Decoupling: Max cap trimmed to 25%</span>
+              </li>
+            </ul>
+          </div>
+          <button class="btn-docs-grey" style="width: 100%; justify-content: center;" onclick="window.location.href='app.html#tab=audit'">
+            <span>Inspect Self-Auditor →</span>
+          </button>
+        </div>
+
+        <!-- Card 3: Dual Execution Engine -->
+        <div class="card-paper" style="display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+              <span class="badge-pill-light" style="font-size: 0.72rem; font-weight: 700;">MODULE 03</span>
+              <span class="badge-pill-light" style="font-size: 0.7rem; font-weight: 700;">NON-CUSTODIAL</span>
+            </div>
+            <h3 style="font-family: var(--font-serif-editorial); font-size: 1.65rem; margin-bottom: 0.6rem;">Dual Execution Engine</h3>
+            <p style="font-size: 0.88rem; color: var(--color-grey-text); line-height: 1.6; margin-bottom: 1.25rem;">
+              Onboard risk-free with $50,000 simulated USDT without needing API keys or signups. When ready to trade real capital, connect Bitget UTA v3 credentials securely stored in your local browser session.
+            </p>
+            <ul style="list-style: none; font-size: 0.82rem; color: #4B5563; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; font-family: var(--font-terminal);">
+              <li style="display: flex; align-items: center; gap: 0.45rem;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>$50k Risk-Free Paper Balance Pre-loaded</span>
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.45rem;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Bitget UTA v3 REST / MCP Gateway</span>
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.45rem;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>HMAC-SHA256 Non-Custodial Security</span>
+              </li>
+            </ul>
+          </div>
+          <button class="btn-docs-grey" style="width: 100%; justify-content: center;" onclick="window.location.href='app.html'">
+            <span>Start Paper Trading ($50k) →</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Live Terminal Interactive Preview & Dislocation Chart -->
       <div class="dashboard-arena-grid">
         <!-- Left: Interactive Canvas Chart Box -->
         <div class="chart-box">
@@ -884,73 +990,91 @@
           </div>
         </div>
 
-        <!-- Right: Cognitive Self-Auditor & Bitget Console -->
-        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-          <!-- Cognitive Brain Card -->
-          <div class="terminal-window">
-            <div class="terminal-header">
-              <div class="terminal-title">
-                <span style="width: 7px; height: 7px; border-radius: 50%; background-color: var(--color-green); display: inline-block;"></span>
-                <span>COGNITIVE SELF-AUDITOR</span>
+        <!-- Right: Terminal Quick Launch Card (Clean, Human Readable, Zero Raw JSON) -->
+        <div class="card-paper" style="display: flex; flex-direction: column; justify-content: space-between; height: 100%; padding: 1.75rem;">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--color-green); display: inline-block;"></span>
+                <span class="font-terminal" style="font-size: 0.76rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">Terminal Active</span>
               </div>
-              <span class="badge-pill-green" style="font-size: 0.68rem; padding: 0.15rem 0.5rem;">CLOSED-LOOP ACTIVE</span>
+              <span class="badge-pill-green" style="font-size: 0.7rem;">INSTANT ACCESS</span>
             </div>
 
-            <div style="font-size: 0.78rem; color: #AAA; margin-bottom: 0.85rem;">
-              Automatic post-mortem diagnosis of closed positions with parameter recalibration:
-            </div>
+            <h3 style="font-family: var(--font-serif-editorial); font-size: 1.85rem; margin-bottom: 0.75rem; line-height: 1.15;">
+              Ready to execute after-hours alpha?
+            </h3>
+            <p style="font-size: 0.88rem; color: var(--color-grey-text); line-height: 1.6; margin-bottom: 1.5rem;">
+              Launch the full Chronos Trading Terminal in your browser. Seamlessly toggle between paper and live trading, monitor real-time order books, and explore post-mortem learning reports.
+            </p>
 
-            <div class="terminal-log" id="auditTerminalLog">
-[AUDIT SYSTEM INITIALIZED]
-Loaded memory states from data/audit_memory.json
-Total Closed Trades Analyzed: 26 (20 Wins, 6 Losses)
-
-DIAGNOSTIC SUMMARY:
-• RETAIL_MOMENTUM_OVERRUN : 4 occurrences (Avg Loss: -1.48%)
-  -> Action: Raised rTSLA Entry Z from 2.00σ to 2.50σ
-• BETA_DECOUPLING         : 2 occurrences (Avg Loss: -1.62%)
-  -> Action: Trimmed rMSTR Allocation Cap from 0.35 to 0.25
-• CONVERGENCE_LATENCY     : 0 occurrences (100% Mon Exits Clean)
-
-CURRENT PARAMETER STATE:
-• rTSLA Entry Z: 2.50σ (Adapted from 2.00σ)
-• rMSTR Max Cap: 0.25 (Trimmed from 0.35)
-• System Health: OPTIMAL // ADAPTIVE DRIFT TUNING ENGAGED
-            </div>
-
-            <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
-              <button class="btn-pill-dark-outline" style="font-size: 0.74rem; width: 100%; justify-content: center;" onclick="runSelfAuditDemo()">
-                <span>Re-Evaluate All Decisions</span>
-              </button>
+            <div style="background: var(--color-canvas-subtle); border-radius: 6px; padding: 1rem; margin-bottom: 1.5rem; font-family: var(--font-terminal); font-size: 0.78rem; display: flex; flex-direction: column; gap: 0.6rem;">
+              <div style="display: flex; justify-content: space-between;">
+                <span style="color: var(--color-grey-text);">Default Account:</span>
+                <strong style="color: var(--color-green);">Paper Mode ($50,000 USDT)</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span style="color: var(--color-grey-text);">Strategy Mode:</span>
+                <strong style="color: var(--color-black);">Autonomous Auto-Pilot</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span style="color: var(--color-grey-text);">Active Pairs:</span>
+                <strong style="color: var(--color-black);">7 Tokenized Equities + BTC</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span style="color: var(--color-grey-text);">Gateway Latency:</span>
+                <strong style="color: var(--color-black);">14ms Direct UTA v3</strong>
+              </div>
             </div>
           </div>
 
-          <!-- Bitget MCP Interactive Tool Execution -->
-          <div class="card-paper" style="padding: 1.25rem;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-              <span class="font-terminal" style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase;">Bitget MCP Tool Execution</span>
-              <span class="badge-pill-light" style="font-size: 0.7rem;">HMAC-SHA256</span>
-            </div>
-
-            <div style="display: flex; gap: 0.35rem; margin-bottom: 0.75rem; flex-wrap: wrap;">
-              <button class="filter-btn active" style="padding: 0.3rem 0.65rem; font-size: 0.72rem;" onclick="runMcpTool('audit_system_state')">audit_system_state</button>
-              <button class="filter-btn" style="padding: 0.3rem 0.65rem; font-size: 0.72rem;" onclick="runMcpTool('execute_rebalance')">execute_rebalance</button>
-              <button class="filter-btn" style="padding: 0.3rem 0.65rem; font-size: 0.72rem;" onclick="runMcpTool('sign_header')">sign_header</button>
-            </div>
-
-            <pre id="mcpOutputBox" style="background: #111; color: #A3E635; font-family: var(--font-terminal); font-size: 0.72rem; padding: 0.75rem; border-radius: 4px; max-height: 120px; overflow-y: auto; white-space: pre-wrap;">
-{
-  "jsonrpc": "2.0",
-  "result": {
-    "status": "HEALTHY",
-    "regime": "WEEKEND_DISLOCATION",
-    "active_orders": 3,
-    "current_portfolio_pnl": "+39.71%",
-    "margin_utilization": "28.4%"
-  }
-}
-            </pre>
+          <div style="display: flex; flex-direction: column; gap: 0.65rem;">
+            <button class="btn-launch-black" style="width: 100%; justify-content: center; padding: 0.75rem;" onclick="window.location.href='app.html'">
+              <span>Launch Live Trading Terminal</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </button>
+            <button class="btn-docs-grey" style="width: 100%; justify-content: center;" onclick="window.location.href='app.html#tab=audit'">
+              <span>Open Cognitive Self-Auditor</span>
+            </button>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How to Get Started in 3 Steps -->
+  <section class="section-spacious" style="background-color: var(--color-canvas-light);">
+    <div class="container">
+      <div class="section-tag">
+        <span class="section-tag-dot"></span>
+        <span>ONBOARDING WORKFLOW</span>
+      </div>
+      <h2 class="section-title">Get Started in 3 Simple Steps</h2>
+      <p class="section-desc">Designed with frictionless onboarding. Start paper trading in seconds without connecting API keys or wallet setups.</p>
+
+      <div class="landing-grid-3col" style="margin-top: 2.5rem;">
+        <div class="card-paper">
+          <div class="step-index">01 /</div>
+          <h3 style="font-family: var(--font-serif-editorial); font-size: 1.45rem; margin-bottom: 0.45rem;">Launch in Paper Mode</h3>
+          <p style="font-size: 0.88rem; color: var(--color-grey-text); line-height: 1.6;">
+            Open the terminal with $50,000 pre-loaded simulated USDT. Test the full strategy, toggle auto-pilot, and observe live executions without risking real capital.
+          </p>
+        </div>
+
+        <div class="card-paper">
+          <div class="step-index">02 /</div>
+          <h3 style="font-family: var(--font-serif-editorial); font-size: 1.45rem; margin-bottom: 0.45rem;">Monitor Weekend Drift</h3>
+          <p style="font-size: 0.88rem; color: var(--color-grey-text); line-height: 1.6;">
+            Observe continuous price feeds across tokenized equities. Statistical Z-scores automatically notify you when retail sentiment creates tradeable dislocations.
+          </p>
+        </div>
+
+        <div class="card-paper">
+          <div class="step-index">03 /</div>
+          <h3 style="font-family: var(--font-serif-editorial); font-size: 1.45rem; margin-bottom: 0.45rem;">Connect Bitget UTA v3</h3>
+          <p style="font-size: 0.88rem; color: var(--color-grey-text); line-height: 1.6;">
+            When you're ready for real deployment, add your Bitget API credentials in the non-custodial modal. Chronos handles execution and Monday cash unwinds autonomously.
+          </p>
         </div>
       </div>
     </div>
@@ -969,11 +1093,17 @@ CURRENT PARAMETER STATE:
           <p class="section-desc">Every trade executed by Chronos with exact entry, Monday convergence exit, net PnL, and self-audit post-mortem status.</p>
         </div>
 
-        <!-- Filter Tabs -->
-        <div class="filter-btn-group">
-          <button class="filter-btn active" onclick="filterTrades('all', this)">All Trades (26)</button>
-          <button class="filter-btn" onclick="filterTrades('win', this)">Profitable Wins (20)</button>
-          <button class="filter-btn" onclick="filterTrades('loss', this)">Audited Losses (6)</button>
+        <!-- Filter Tabs & Open in Terminal Button -->
+        <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+          <div class="filter-btn-group" style="margin-bottom: 0;">
+            <button class="filter-btn active" onclick="filterTrades('all', this)">All Trades (26)</button>
+            <button class="filter-btn" onclick="filterTrades('win', this)">Profitable Wins (20)</button>
+            <button class="filter-btn" onclick="filterTrades('loss', this)">Audited Losses (6)</button>
+          </div>
+          <button class="btn-launch-black" style="padding: 0.42rem 1rem; font-size: 0.76rem;" onclick="window.location.href='app.html#tab=ledger'">
+            <span>Open in Terminal</span>
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </button>
         </div>
       </div>
 
@@ -1014,13 +1144,14 @@ CURRENT PARAMETER STATE:
           Chronos runs autonomously 24/7 on Python with zero human intervention required. Seamlessly connects to Bitget UTA v3 and Bitget MCP tools.
         </p>
         <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
-          <a href="https://github.com/OpeyemiMoses/Chronos" target="_blank" class="btn-launch-white" style="text-decoration: none;">
+          <button class="btn-launch-white" onclick="window.location.href='app.html'">
+            <span>Launch Alpha Terminal</span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </button>
+          <a href="https://github.com/OpeyemiMoses/Chronos" target="_blank" class="btn-pill-dark-outline" style="text-decoration: none;">
             <span>View Source on GitHub</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           </a>
-          <button class="btn-pill-dark-outline" onclick="window.location.href='app.html'">
-            <span>Explore Alpha Simulator</span>
-          </button>
         </div>
       </div>
     </div>
@@ -1260,61 +1391,6 @@ CURRENT PARAMETER STATE:
       ctx.fillText("Saturday Noon", w * 0.35, h - 14);
       ctx.fillText("Sunday 18:00 UTC", w * 0.65, h - 14);
       ctx.fillText("Monday 09:30 EST (Convergence)", w - 210, h - 14);
-    }
-
-    // Self-Audit Interactive Demo
-    function runSelfAuditDemo() {
-      const log = document.getElementById("auditTerminalLog");
-      log.scrollTop = log.scrollHeight;
-      log.textContent += "\n\n[MANUAL TRIGGER] Running Cognitive Self-Audit Loop...\n" +
-        "Analyzing 26 trades across 120D horizon...\n" +
-        "Found 6 historical losses. Re-evaluating decision boundaries:\n" +
-        " -> rTSLA: Momentum overrun confirmed. Raising Entry Z to 2.50σ.\n" +
-        " -> rCOIN: Beta decoupling verified. Asset weight capped at 25%.\n" +
-        " -> rNVDA: Convergence verified. Monday cash sweep 100% efficient.\n" +
-        "[SELF-AUDIT COMPLETE] Strategy self-calibrated with zero human intervention.";
-      log.scrollTop = log.scrollHeight;
-    }
-
-    // MCP Tool Simulator
-    function runMcpTool(toolName) {
-      const box = document.getElementById("mcpOutputBox");
-      if (toolName === "audit_system_state") {
-        box.textContent = JSON.stringify({
-          jsonrpc: "2.0",
-          result: {
-            status: "HEALTHY",
-            regime: "WEEKEND_DISLOCATION",
-            active_orders: 3,
-            current_portfolio_pnl: "+39.71%",
-            margin_utilization: "28.4%",
-            adapted_parameters: { "rTSLA_z_entry": 2.50, "rMSTR_cap": 0.25 }
-          }
-        }, null, 2);
-      } else if (toolName === "execute_rebalance") {
-        box.textContent = JSON.stringify({
-          jsonrpc: "2.0",
-          result: {
-            exchange: "Bitget UTA v3",
-            timestamp: Date.now(),
-            orders: [
-              { symbol: "rNVDA", side: "SELL_SHORT", qty: 140, status: "FILLED" },
-              { symbol: "rTSLA", side: "SELL_SHORT", qty: 62, status: "FILLED" },
-              { symbol: "rCOIN", side: "BUY_LONG", qty: 96, status: "FILLED" }
-            ],
-            fee_usdt: 18.42
-          }
-        }, null, 2);
-      } else if (toolName === "sign_header") {
-        const ts = Date.now().toString();
-        box.textContent = JSON.stringify({
-          "ACCESS-KEY": "bg_chronos_live_quant_key_********",
-          "ACCESS-TIMESTAMP": ts,
-          "ACCESS-PASSPHRASE": "********",
-          "ACCESS-SIGN": "c98f12a0d9b43e887f4c01d9f67a213e89bc5f12e847c945100fa1b742880c2f",
-          "SIGN-METHOD": "HMAC-SHA256(TIMESTAMP + METHOD + PATH + BODY)"
-        }, null, 2);
-      }
     }
 
     window.addEventListener("resize", drawChart);
