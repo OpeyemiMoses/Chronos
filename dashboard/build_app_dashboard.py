@@ -15,7 +15,7 @@ if os.path.exists(css_path):
     with open(css_path, "r") as f:
         flip_css = f.read()
 
-# Markets definition - 100% Institutional Quantitative Terminology (Zero Questions)
+# Markets definition
 markets_data = {
     "rNVDA": {
         "name": "rNVDA / USDT",
@@ -217,7 +217,7 @@ html_template = f"""<!DOCTYPE html>
       flex-direction: column;
     }}
 
-    /* Top Full-Width Dashboard Header Bar */
+    /* Top Full-Width Dashboard Header Bar - Streamlined & Clean */
     .app-header {{
       background: #FFFFFF;
       border-bottom: 1px solid rgba(0, 0, 0, 0.08);
@@ -234,7 +234,7 @@ html_template = f"""<!DOCTYPE html>
     .app-header-left {{
       display: flex;
       align-items: center;
-      gap: 2rem;
+      gap: 2.25rem;
     }}
 
     .app-brand {{
@@ -243,7 +243,8 @@ html_template = f"""<!DOCTYPE html>
       gap: 0.5rem;
       text-decoration: none;
       color: #000;
-      cursor: pointer;
+      cursor: default;
+      user-select: none;
     }}
 
     .app-brand-dot {{
@@ -263,19 +264,19 @@ html_template = f"""<!DOCTYPE html>
     .app-header-tabs {{
       display: flex;
       align-items: center;
-      gap: 1.5rem;
+      gap: 1.75rem;
     }}
 
     .app-tab {{
       color: #555;
-      text-decoration: none;
       font-family: var(--font-sans-body);
-      font-size: 0.82rem;
+      font-size: 0.84rem;
       font-weight: 500;
       padding: 0.35rem 0;
       position: relative;
       cursor: pointer;
       transition: color 0.2s ease;
+      user-select: none;
     }}
 
     .app-tab:hover {{
@@ -300,44 +301,29 @@ html_template = f"""<!DOCTYPE html>
     .app-header-right {{
       display: flex;
       align-items: center;
-      gap: 0.65rem;
+      gap: 0.75rem;
     }}
 
     .pill-btn-subtle {{
       background: none;
       border: 1px solid rgba(0, 0, 0, 0.12);
       border-radius: 20px;
-      padding: 0.32rem 0.8rem;
+      padding: 0.32rem 0.85rem;
       font-family: var(--font-sans-body);
-      font-size: 0.76rem;
+      font-size: 0.78rem;
       font-weight: 600;
       color: #333;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 0.35rem;
+      gap: 0.4rem;
       transition: all 0.2s ease;
+      user-select: none;
     }}
 
     .pill-btn-subtle:hover {{
       background: rgba(0, 0, 0, 0.04);
       color: #000;
-    }}
-
-    .pill-btn-faucet {{
-      background: rgba(0, 200, 83, 0.12);
-      border: 1px solid rgba(0, 200, 83, 0.28);
-      border-radius: 20px;
-      padding: 0.32rem 0.8rem;
-      font-family: var(--font-sans-body);
-      font-size: 0.76rem;
-      font-weight: 600;
-      color: var(--color-green);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      transition: all 0.2s ease;
     }}
 
     /* App Body Layout: Sidebar + Main Stage */
@@ -434,36 +420,7 @@ html_template = f"""<!DOCTYPE html>
       margin-bottom: 1.25rem;
     }}
 
-    .back-btn {{
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.32rem 0.85rem;
-      border-radius: 20px;
-      border: 1px solid rgba(0, 0, 0, 0.14);
-      background: #FFFFFF;
-      font-family: var(--font-sans-body);
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: #333;
-      text-decoration: none;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }}
-
-    .back-btn:hover {{
-      background: #F3F4F6;
-      color: #000;
-      transform: translateX(-2px);
-    }}
-
-    .breadcrumb-path {{
-      font-family: var(--font-terminal);
-      font-size: 0.76rem;
-      color: var(--color-grey-muted);
-    }}
-
-    /* Market Title Area (Institutional Quantitative Framing) */
+    /* Market Title Area */
     .market-header-area {{
       margin-bottom: 1.5rem;
     }}
@@ -906,41 +863,26 @@ html_template = f"""<!DOCTYPE html>
 </head>
 <body>
 
-  <!-- Top Navigation Header -->
+  <!-- Top Navigation Header - Streamlined, Zero Clutter -->
   <header class="app-header">
     <div class="app-header-left">
-      <a href="index.html" class="app-brand">
+      <div class="app-brand">
         <span class="app-brand-dot"></span>
         <span class="app-brand-name">chronos</span>
-      </a>
+      </div>
 
       <nav class="app-header-tabs">
         <span class="app-tab active" onclick="switchView('arena', this)">Trading Arena</span>
         <span class="app-tab" onclick="switchView('auditor', this)">Cognitive Self-Auditor</span>
         <span class="app-tab" onclick="switchView('ledger', this)">Trade Ledger (26)</span>
-        <a href="index.html#architecture" class="app-tab" style="text-decoration: none;">Architecture</a>
-        <a href="index.html" class="app-tab" style="text-decoration: none; display: flex; align-items: center; gap: 0.25rem;">
-          <span>Landing Page</span>
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-        </a>
       </nav>
     </div>
 
     <div class="app-header-right">
       <div id="modePillBadge" class="pill-btn-subtle" onclick="openConnectModal()">
         <span style="width: 6px; height: 6px; border-radius: 50%; background: var(--color-green);"></span>
-        <span id="currentModeLabel">Paper Mode ($50k)</span>
+        <span id="currentModeLabel">Paper Mode ($50,000 USDT)</span>
       </div>
-
-      <button class="pill-btn-faucet" onclick="resetPaperBalance()">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-        <span>Reset Balance</span>
-      </button>
-
-      <button class="pill-btn-subtle" onclick="openConnectModal()">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
-        <span>Account Keys</span>
-      </button>
 
       <button class="btn-wallet-connect" onclick="openConnectModal()" id="connectHeaderBtn">
         <span>CONNECT BITGET</span>
@@ -1017,15 +959,19 @@ html_template = f"""<!DOCTYPE html>
 
     <!-- Main Content Area -->
     <main class="app-main">
-      <!-- VIEW 1: TRADING ARENA (Institutional Framing - Zero Questions) -->
+      <!-- VIEW 1: TRADING ARENA (Institutional Framing - Zero Links to Landing) -->
       <div id="viewArena">
-        <!-- Breadcrumb Row -->
+        <!-- In-App Breadcrumb Header (No Back Links) -->
         <div class="breadcrumb-row">
-          <a href="index.html" class="back-btn">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg>
-            <span>Back to Landing</span>
-          </a>
-          <div class="breadcrumb-path" id="breadcrumbPathDisplay">Bitget UTA v3 • $rNVDA / USDT Dislocation</div>
+          <div style="display: flex; align-items: center; gap: 0.5rem; font-family: var(--font-terminal); font-size: 0.76rem; color: var(--color-grey-text);">
+            <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--color-green);"></span>
+            <span>ACTIVE STRATEGY</span>
+            <span style="color: #DDD;">/</span>
+            <span id="breadcrumbPathDisplay" style="color: #000; font-weight: 700;">NVIDIA Corporation (rNVDA)</span>
+          </div>
+          <div style="font-family: var(--font-terminal); font-size: 0.74rem; color: var(--color-grey-muted);">
+            Regime: Weekend Mean-Reversion
+          </div>
         </div>
 
         <!-- Market Title Area -->
@@ -1165,8 +1111,8 @@ html_template = f"""<!DOCTYPE html>
       <!-- VIEW 2: COGNITIVE SELF-AUDITOR (100% Human-Readable for Non-Devs) -->
       <div id="viewAuditor" style="display: none;">
         <div class="breadcrumb-row">
-          <span class="back-btn" onclick="switchView('arena', null)">← Back to Trading Arena</span>
-          <div class="breadcrumb-path">Chronos Cognitive Brain • Autonomous Learning History</div>
+          <span class="back-btn" onclick="switchView('arena', null)" style="border-radius: 20px; padding: 0.32rem 0.85rem; border: 1px solid rgba(0,0,0,0.14); background: #FFF; font-weight: 600; cursor: pointer;">← Back to Trading Arena</span>
+          <div style="font-family: var(--font-terminal); font-size: 0.76rem; color: var(--color-grey-muted);">Chronos Cognitive Brain • Autonomous Learning History</div>
         </div>
 
         <h1 class="market-title">Cognitive Self-Auditor & Closed-Loop Learning</h1>
@@ -1289,8 +1235,8 @@ html_template = f"""<!DOCTYPE html>
       <!-- VIEW 3: TRADE LEDGER (Human-Readable 26 Trades Table) -->
       <div id="viewLedger" style="display: none;">
         <div class="breadcrumb-row">
-          <span class="back-btn" onclick="switchView('arena', null)">← Back to Trading Arena</span>
-          <div class="breadcrumb-path">120-Day Audited Backtest Ledger</div>
+          <span class="back-btn" onclick="switchView('arena', null)" style="border-radius: 20px; padding: 0.32rem 0.85rem; border: 1px solid rgba(0,0,0,0.14); background: #FFF; font-weight: 600; cursor: pointer;">← Back to Trading Arena</span>
+          <div style="font-family: var(--font-terminal); font-size: 0.76rem; color: var(--color-grey-muted);">120-Day Audited Backtest Ledger</div>
         </div>
 
         <h1 class="market-title">Audited Trade Record & History</h1>
@@ -1413,7 +1359,7 @@ html_template = f"""<!DOCTYPE html>
 
     function updateMarketView() {{
       const m = markets[selectedSymbol];
-      document.getElementById("breadcrumbPathDisplay").textContent = `Bitget UTA v3 • ${{m.company}} (${{m.symbol}})`;
+      document.getElementById("breadcrumbPathDisplay").textContent = `${{m.company}} (${{m.symbol}})`;
       document.getElementById("marketTitleDisplay").textContent = `${{m.company}} (${{m.symbol}})`;
       document.getElementById("marketSubtitleDisplay").textContent = 
         `Systematic weekend mean-reversion model. Tracking residual pricing drift against Bitcoin crypto-macro benchmark to capture Monday institutional pre-market convergence.`;
@@ -1637,18 +1583,12 @@ html_template = f"""<!DOCTYPE html>
       const m = markets[selectedSymbol];
       const collateral = parseFloat(document.getElementById("collateralInput").value) || 0;
       if (collateral > paperBalance) {{
-        alert("Insufficient Paper Balance. Please use Reset Balance to restore $50,000.");
+        alert("Insufficient Paper Balance. Please use Reset Balance in the modal to restore $50,000.");
         return;
       }}
       paperBalance -= collateral;
       document.getElementById("availBalanceDisplay").textContent = `$${{paperBalance.toLocaleString('en-US', {{minimumFractionDigits: 2}})}}`;
       alert(`[AUTONOMOUS STRATEGY ENGAGED]\\nAsset: ${{m.symbol}} (${{m.company}})\\nAllocated: $${{collateral.toFixed(2)}} USDT (Paper)\\nTarget: Rebalance into Cash at Monday 08:30 EST Institutional Open\\nAutonomous self-auditor will evaluate execution upon market close.`);
-    }}
-
-    function resetPaperBalance() {{
-      paperBalance = 50000.00;
-      document.getElementById("availBalanceDisplay").textContent = "$50,000.00";
-      alert("Paper Trading Balance restored to $50,000.00 USDT.");
     }}
 
     function openConnectModal() {{
@@ -1677,7 +1617,7 @@ html_template = f"""<!DOCTYPE html>
         document.getElementById("modePillBadge").style.borderColor = "var(--color-green)";
         document.getElementById("connectHeaderBtn").innerHTML = "<span>CONNECTED</span>";
       }} else {{
-        document.getElementById("currentModeLabel").textContent = "Paper Mode ($50k)";
+        document.getElementById("currentModeLabel").textContent = "Paper Mode ($50,000 USDT)";
       }}
 
       closeConnectModal();
@@ -1698,4 +1638,4 @@ html_template = f"""<!DOCTYPE html>
 with open("dashboard/app.html", "w") as f:
     f.write(html_template)
 
-print(f"Successfully generated Quantitative Arbitrage Terminal at dashboard/app.html ({len(html_template)} bytes)")
+print(f"Successfully generated Streamlined Trading Terminal at dashboard/app.html ({len(html_template)} bytes)")
