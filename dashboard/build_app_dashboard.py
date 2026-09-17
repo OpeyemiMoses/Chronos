@@ -15,115 +15,115 @@ if os.path.exists(css_path):
     with open(css_path, "r") as f:
         flip_css = f.read()
 
-# Markets definition
+# Markets definition - 100% Institutional Quantitative Terminology (Zero Questions)
 markets_data = {
     "rNVDA": {
-        "name": "rNVDA / USDT Dislocation",
+        "name": "rNVDA / USDT",
         "symbol": "rNVDA",
         "company": "NVIDIA Corporation",
         "spot_price": 132.80,
         "anchor_price": 128.40,
         "drift_pct": 3.42,
         "z_score": 2.24,
-        "action": "SELL / SHORT OVERBOUGHT",
+        "action": "SHORT OVERBOUGHT DRIFT",
         "regime": "Weekend Retail Euphoria (Overbought)",
-        "thesis": "Retail buyers chased headlines over the weekend while Nasdaq is closed. Price is 2.24 standard deviations above Friday institutional settlement.",
+        "thesis": "Retail market participants pushed $rNVDA +3.42% above Friday institutional settlement while Nasdaq is shuttered. Statistical dislocation is 2.24σ. Strategy deploys counter-positioning into Monday pre-market convergence.",
         "convergence_target": 128.40,
         "expected_return": "+3.42%",
         "stop_loss": "-2.10%",
         "beta": 1.48
     },
     "rTSLA": {
-        "name": "rTSLA / USDT Dislocation",
+        "name": "rTSLA / USDT",
         "symbol": "rTSLA",
         "company": "Tesla Motors Inc.",
         "spot_price": 258.40,
         "anchor_price": 248.00,
         "drift_pct": 4.19,
         "z_score": 2.65,
-        "action": "SELL / SHORT OVERBOUGHT",
+        "action": "SHORT OVERBOUGHT DRIFT",
         "regime": "Extreme Retail Momentum (Overbought)",
-        "thesis": "Retail momentum spiked. Self-auditor adapted entry threshold to 2.50σ to avoid premature entry. Signal is now triggered for Monday reversion.",
+        "thesis": "Retail buyers chased headlines over thin weekend liquidity books. Autonomous self-auditor adapted entry threshold to 2.50σ. Signal triggered for Monday institutional mean-reversion.",
         "convergence_target": 248.00,
         "expected_return": "+4.19%",
         "stop_loss": "-2.40%",
         "beta": 1.95
     },
     "rAAPL": {
-        "name": "rAAPL / USDT Dislocation",
+        "name": "rAAPL / USDT",
         "symbol": "rAAPL",
         "company": "Apple Inc.",
         "spot_price": 222.10,
         "anchor_price": 224.00,
         "drift_pct": -0.85,
         "z_score": -0.68,
-        "action": "HOLD / WITHIN NOISE BAND",
+        "action": "HOLD CASH (NOISE BAND)",
         "regime": "Fair Value (Idle)",
-        "thesis": "Drift is only -0.68σ from Friday anchor. Strategy remains 100% cash in USDT to avoid paying unnecessary exchange fees.",
+        "thesis": "Price deviation is only -0.68σ from Friday anchor. Strategy preserves 100% USDT cash to avoid unnecessary execution friction.",
         "convergence_target": 224.00,
         "expected_return": "0.00%",
         "stop_loss": "N/A",
         "beta": 0.72
     },
     "rCOIN": {
-        "name": "rCOIN / USDT Dislocation",
+        "name": "rCOIN / USDT",
         "symbol": "rCOIN",
         "company": "Coinbase Global",
         "spot_price": 218.50,
         "anchor_price": 206.80,
         "drift_pct": 5.66,
         "z_score": 3.10,
-        "action": "SELL / SHORT OVERBOUGHT",
+        "action": "SHORT OVERBOUGHT DRIFT",
         "regime": "Severe Crypto-Beta Overhang",
-        "thesis": "Coinbase tokenized stock detached from fundamental valuation following weekend crypto volatility. 3.10σ dislocation indicates high mean-reversion probability.",
+        "thesis": "Tokenized Coinbase equity detached from fundamental valuation following weekend crypto volatility. 3.10σ dislocation indicates extreme mean-reversion probability.",
         "convergence_target": 206.80,
         "expected_return": "+5.66%",
         "stop_loss": "-2.50%",
         "beta": 2.45
     },
     "rMSTR": {
-        "name": "rMSTR / USDT Dislocation",
+        "name": "rMSTR / USDT",
         "symbol": "rMSTR",
         "company": "MicroStrategy Inc.",
         "spot_price": 312.40,
         "anchor_price": 292.20,
         "drift_pct": 6.91,
         "z_score": 3.48,
-        "action": "SELL / SHORT OVERBOUGHT",
+        "action": "SHORT OVERBOUGHT DRIFT",
         "regime": "Leveraged Bitcoin Reflexivity",
-        "thesis": "High volatility asset. Auditor reduced capital cap to 25% to protect downside. Currently 3.48σ dislocated from Friday anchor.",
+        "thesis": "High weekend beta. Self-auditor reduced single-stock capital cap to 25% to protect downside risk. Dislocation is 3.48σ from Friday anchor.",
         "convergence_target": 292.20,
         "expected_return": "+6.91%",
         "stop_loss": "-2.80%",
         "beta": 2.90
     },
     "rSPY": {
-        "name": "rSPY / USDT Dislocation",
+        "name": "rSPY / USDT",
         "symbol": "rSPY",
         "company": "S&P 500 Index ETF",
         "spot_price": 564.20,
         "anchor_price": 561.80,
         "drift_pct": 0.43,
         "z_score": 0.35,
-        "action": "HOLD / WITHIN NOISE BAND",
-        "regime": "Institutional Macro Baseline",
-        "thesis": "Broad market ETF remains tightly tethered to Friday settlement. No dislocation action required.",
+        "action": "HOLD CASH (NOISE BAND)",
+        "regime": "Stable Institutional Benchmark",
+        "thesis": "Broad market index tightly anchored to Friday settlement price. No statistical dislocation signal present.",
         "convergence_target": 561.80,
         "expected_return": "0.00%",
         "stop_loss": "N/A",
         "beta": 0.35
     },
     "rQQQ": {
-        "name": "rQQQ / USDT Dislocation",
+        "name": "rQQQ / USDT",
         "symbol": "rQQQ",
         "company": "Invesco QQQ Trust",
         "spot_price": 482.60,
         "anchor_price": 478.90,
         "drift_pct": 0.77,
         "z_score": 0.62,
-        "action": "HOLD / WITHIN NOISE BAND",
+        "action": "HOLD CASH (NOISE BAND)",
         "regime": "Tech Benchmark Baseline",
-        "thesis": "Tech benchmark drift is within normal weekend noise. Preserving capital for idiosyncratic single-stock spikes.",
+        "thesis": "Tech benchmark variance is within normal weekend noise. Preserving buying power for idiosyncratic single-stock dislocations.",
         "convergence_target": 478.90,
         "expected_return": "0.00%",
         "stop_loss": "N/A",
@@ -170,7 +170,7 @@ html_template = f"""<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chronos // Autonomous Trading Terminal & Execution Arena</title>
+  <title>Chronos // Autonomous Statistical Arbitrage Terminal</title>
   <link rel="icon" type="image/svg+xml" href="assets/chronos_logo.svg">
 
   <!-- Google Fonts matching flip-prediction.vercel.app -->
@@ -181,7 +181,7 @@ html_template = f"""<!DOCTYPE html>
   <style>
 {flip_css}
 
-    /* Refined Human-Readable Trading Dashboard */
+    /* Refined Quantitative Terminal Design Tokens */
     :root {{
       --font-serif-editorial: "Instrument Serif", "Playfair Display", Georgia, serif;
       --font-sans-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -221,7 +221,7 @@ html_template = f"""<!DOCTYPE html>
     .app-header {{
       background: #FFFFFF;
       border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-      height: 54px;
+      height: 52px;
       padding: 0 1.5rem;
       display: flex;
       align-items: center;
@@ -247,8 +247,8 @@ html_template = f"""<!DOCTYPE html>
     }}
 
     .app-brand-dot {{
-      width: 9px;
-      height: 9px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       background: var(--color-green);
     }}
@@ -270,7 +270,7 @@ html_template = f"""<!DOCTYPE html>
       color: #555;
       text-decoration: none;
       font-family: var(--font-sans-body);
-      font-size: 0.84rem;
+      font-size: 0.82rem;
       font-weight: 500;
       padding: 0.35rem 0;
       position: relative;
@@ -307,9 +307,9 @@ html_template = f"""<!DOCTYPE html>
       background: none;
       border: 1px solid rgba(0, 0, 0, 0.12);
       border-radius: 20px;
-      padding: 0.35rem 0.85rem;
+      padding: 0.32rem 0.8rem;
       font-family: var(--font-sans-body);
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-weight: 600;
       color: #333;
       cursor: pointer;
@@ -328,9 +328,9 @@ html_template = f"""<!DOCTYPE html>
       background: rgba(0, 200, 83, 0.12);
       border: 1px solid rgba(0, 200, 83, 0.28);
       border-radius: 20px;
-      padding: 0.35rem 0.85rem;
+      padding: 0.32rem 0.8rem;
       font-family: var(--font-sans-body);
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-weight: 600;
       color: var(--color-green);
       cursor: pointer;
@@ -344,7 +344,7 @@ html_template = f"""<!DOCTYPE html>
     .app-body {{
       display: flex;
       flex: 1;
-      min-height: calc(100vh - 54px);
+      min-height: calc(100vh - 52px);
     }}
 
     /* Left Sidebar */
@@ -463,7 +463,7 @@ html_template = f"""<!DOCTYPE html>
       color: var(--color-grey-muted);
     }}
 
-    /* Market Title Area */
+    /* Market Title Area (Institutional Quantitative Framing) */
     .market-header-area {{
       margin-bottom: 1.5rem;
     }}
@@ -480,7 +480,7 @@ html_template = f"""<!DOCTYPE html>
     .market-subtitle {{
       font-size: 0.95rem;
       color: var(--color-grey-text);
-      max-width: 700px;
+      max-width: 760px;
       margin-bottom: 0.85rem;
       line-height: 1.5;
     }}
@@ -954,7 +954,7 @@ html_template = f"""<!DOCTYPE html>
     <aside class="app-sidebar">
       <div>
         <div class="sidebar-section-title">
-          <span>STANDARD MARKETS</span>
+          <span>TOKENIZED EQUITIES</span>
           <span style="font-size: 0.65rem; color: var(--color-green);">24/7 LIVE</span>
         </div>
         <div class="sidebar-menu" id="marketsMenuList">
@@ -1017,7 +1017,7 @@ html_template = f"""<!DOCTYPE html>
 
     <!-- Main Content Area -->
     <main class="app-main">
-      <!-- VIEW 1: TRADING ARENA (Matches reference layout) -->
+      <!-- VIEW 1: TRADING ARENA (Institutional Framing - Zero Questions) -->
       <div id="viewArena">
         <!-- Breadcrumb Row -->
         <div class="breadcrumb-row">
@@ -1030,14 +1030,14 @@ html_template = f"""<!DOCTYPE html>
 
         <!-- Market Title Area -->
         <div class="market-header-area">
-          <h1 class="market-title" id="marketTitleDisplay">rNVDA / USDT Dislocation</h1>
-          <p class="market-subtitle" id="marketQuestionDisplay">
-            Will $rNVDA converge back to Friday Anchor $128.40 USD? Resolves via Monday Institutional Pre-Market Open.
+          <h1 class="market-title" id="marketTitleDisplay">NVIDIA Corp ($rNVDA / USDT)</h1>
+          <p class="market-subtitle" id="marketSubtitleDisplay">
+            Systematic weekend mean-reversion model. Tracking residual pricing drift against Bitcoin crypto-macro benchmark to capture Monday institutional pre-market convergence.
           </p>
 
           <div class="status-strip">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <span>Monday Convergence in: <strong id="countdownDisplay" style="font-family: var(--font-terminal);">38h 14m</strong> • Oracle Heartbeat: Bitget UTA v3 Live Feed (14ms)</span>
+            <span style="width: 7px; height: 7px; border-radius: 50%; background: var(--color-green); display: inline-block;"></span>
+            <span>Friday Settlement Anchor: <strong id="statusAnchorDisplay" style="font-family: var(--font-terminal);">$128.40 USD</strong> • Next Convergence Cash Unwind: <strong style="font-family: var(--font-terminal);">Monday 08:30 EST</strong> • Gateway: Bitget UTA v3</span>
           </div>
         </div>
 
@@ -1047,7 +1047,7 @@ html_template = f"""<!DOCTYPE html>
           <div class="chart-panel-card">
             <div class="chart-card-header">
               <div>
-                <div class="oracle-label">Bitget UTA v3 Oracle • <span id="symbolDisplay">rNVDA/USDT</span></div>
+                <div class="oracle-label">Bitget 24/7 Spot Oracle • <span id="symbolDisplay">rNVDA/USDT</span></div>
                 <div style="display: flex; align-items: baseline; gap: 0.65rem;">
                   <span class="big-price-val" id="chartPriceDisplay">$132.80</span>
                   <span class="badge-pill-green" id="chartDriftBadge" style="font-size: 0.76rem; padding: 0.2rem 0.55rem;">+3.42% Drift</span>
@@ -1093,11 +1093,11 @@ html_template = f"""<!DOCTYPE html>
             <!-- Signal Decision Banner (Plain English) -->
             <div class="signal-banner">
               <div class="signal-banner-title">
-                <span id="signalActionTitle">SHORT COUNTER-POSITION</span>
+                <span id="signalActionTitle">SHORT OVERBOUGHT DRIFT</span>
                 <span id="signalZScoreBadge" style="color: var(--color-amber);">Z = +2.24σ</span>
               </div>
               <div class="signal-banner-desc" id="signalExplanationText">
-                Retail buyers pushed price 3.42% above Friday settlement. Chronos recommends fading the weekend drift into Monday pre-market institutional liquidity.
+                Retail buyers pushed $rNVDA +3.42% above Friday institutional settlement while Nasdaq is shuttered. Strategy deploys counter-positioning into Monday pre-market convergence.
               </div>
             </div>
 
@@ -1171,7 +1171,7 @@ html_template = f"""<!DOCTYPE html>
 
         <h1 class="market-title">Cognitive Self-Auditor & Closed-Loop Learning</h1>
         <p class="market-subtitle">
-          An autonomous trading bot must evaluate its own decisions so it doesn't make the same mistakes twice. Here is how Chronos diagnosed recent trades and adapted its rules in plain English:
+          An autonomous trading bot must evaluate its own decisions so it does not make the same mistakes twice. Here is how Chronos diagnosed recent trades and adapted its rules in plain English:
         </p>
 
         <!-- 3 Key Metric Cards -->
@@ -1179,7 +1179,7 @@ html_template = f"""<!DOCTYPE html>
           <div class="auditor-lesson-card">
             <div style="font-family: var(--font-terminal); font-size: 0.74rem; color: var(--color-grey-muted); text-transform: uppercase;">Overall System Health</div>
             <div style="font-family: var(--font-serif-editorial); font-size: 2.2rem; color: var(--color-green);">99.4% Optimal</div>
-            <div style="font-size: 0.82rem; color: var(--color-grey-text);">26 trades audited. Zero human intervention needed.</div>
+            <div style="font-size: 0.82rem; color: var(--color-grey-text);">26 trades audited. Zero manual intervention needed.</div>
           </div>
 
           <div class="auditor-lesson-card">
@@ -1396,7 +1396,7 @@ html_template = f"""<!DOCTYPE html>
         item.innerHTML = `
           <div class="sidebar-item-left">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
-            <span>${{sym}} / Strike</span>
+            <span>${{sym}}</span>
           </div>
           <span class="sidebar-item-metric" style="color: ${{metricColor}};">${{driftSign}}${{m.drift_pct.toFixed(1)}}%</span>
         `;
@@ -1413,10 +1413,10 @@ html_template = f"""<!DOCTYPE html>
 
     function updateMarketView() {{
       const m = markets[selectedSymbol];
-      document.getElementById("breadcrumbPathDisplay").textContent = `Bitget UTA v3 • ${{m.symbol}} / USDT Dislocation`;
-      document.getElementById("marketTitleDisplay").textContent = `${{m.symbol}} / USDT Dislocation`;
-      document.getElementById("marketQuestionDisplay").textContent = 
-        `Will ${{m.symbol}} converge back to Friday Anchor $${{m.anchor_price.toFixed(2)}} USD? Resolves via Monday Institutional Pre-Market Open.`;
+      document.getElementById("breadcrumbPathDisplay").textContent = `Bitget UTA v3 • ${{m.company}} (${{m.symbol}})`;
+      document.getElementById("marketTitleDisplay").textContent = `${{m.company}} (${{m.symbol}})`;
+      document.getElementById("marketSubtitleDisplay").textContent = 
+        `Systematic weekend mean-reversion model. Tracking residual pricing drift against Bitcoin crypto-macro benchmark to capture Monday institutional pre-market convergence.`;
       
       document.getElementById("symbolDisplay").textContent = `${{m.symbol}}/USDT`;
       document.getElementById("chartPriceDisplay").textContent = `$${{m.spot_price.toFixed(2)}}`;
@@ -1427,6 +1427,7 @@ html_template = f"""<!DOCTYPE html>
 
       document.getElementById("strikeBarrierDisplay").textContent = `$${{m.anchor_price.toFixed(2)}}`;
       document.getElementById("anchorStatusSubtext").textContent = `Prev Close Anchor: $${{m.anchor_price.toFixed(2)}} (${{m.regime}})`;
+      document.getElementById("statusAnchorDisplay").textContent = `$${{m.anchor_price.toFixed(2)}} USD`;
 
       // Signal Banner update
       document.getElementById("signalActionTitle").textContent = m.action;
@@ -1641,7 +1642,7 @@ html_template = f"""<!DOCTYPE html>
       }}
       paperBalance -= collateral;
       document.getElementById("availBalanceDisplay").textContent = `$${{paperBalance.toLocaleString('en-US', {{minimumFractionDigits: 2}})}}`;
-      alert(`[AUTONOMOUS STRATEGY ENGAGED]\\nAsset: ${{m.symbol}} (${{m.name}})\\nAllocated: $${{collateral.toFixed(2)}} USDT (Paper)\\nTarget: Rebalance into Cash at Monday 08:30 EST Institutional Open\\nAutonomous self-auditor will evaluate execution upon market close.`);
+      alert(`[AUTONOMOUS STRATEGY ENGAGED]\\nAsset: ${{m.symbol}} (${{m.company}})\\nAllocated: $${{collateral.toFixed(2)}} USDT (Paper)\\nTarget: Rebalance into Cash at Monday 08:30 EST Institutional Open\\nAutonomous self-auditor will evaluate execution upon market close.`);
     }}
 
     function resetPaperBalance() {{
@@ -1697,4 +1698,4 @@ html_template = f"""<!DOCTYPE html>
 with open("dashboard/app.html", "w") as f:
     f.write(html_template)
 
-print(f"Successfully generated Human-Readable Trading Arena Dashboard at dashboard/app.html ({len(html_template)} bytes)")
+print(f"Successfully generated Quantitative Arbitrage Terminal at dashboard/app.html ({len(html_template)} bytes)")
