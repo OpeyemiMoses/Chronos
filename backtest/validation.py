@@ -93,3 +93,59 @@ class ChronosValidator:
         )
         
         return is_res, oos_res, report
+
+    def validate_portfolio_split(
+        self,
+        df: pd.DataFrame,
+        is_days: int = 60,
+        oos_days: int = 60
+    ) -> Dict[str, Any]:
+        """
+        Walk-forward validation for Multi-Asset Portfolio.
+        """
+        from src.portfolio_strategy import MultiAssetChronosStrategy
+        from backtest.portfolio_engine import PortfolioBacktestEngine
+
+        total_hours = len(df)
+        is_hours = min(is_days * 24, total_hours // 2)
+
+        is_df = df.iloc[:is_hours].copy()
+        oos_df = df.iloc[is_hours:].copy()
+
+        strat = MultiAssetChronosStrategy()
+        engine = PortfolioBacktestEngine()
+
+        # IS
+        is_frames = strat.compute_asset_signals(is_df)
+        is_corr = strat.compute_correlation_matrix(is_frames)
+        is_weights = strat.compute_portfolio_weights(is_frames, is_corr)
+        is_res = engine.run(is_df, is_weights)
+
+        # OOS
+        oos_frames = strat.compute_asset_signals(oos_df)
+        oos_corr = strat.compute_correlation_matrix(oos_frames)
+        oos_weights = strat.compute_portfolio_weights(oos_frames, oos_corr)
+        oos_res = engine.run(oos_df, oos_weights)
+
+        is_sharpe = is_res["metrics"]["sharpe_ratio"]
+        oos_sharpe = oos_res["metrics"]["sharpe_ratio"]
+        decay_ratio = oos_sharpe / max(is_sharpe, 1e-6)
+        passed = decay_ratio >= 0.50
+
+        table_data = [
+            ["Multi-Asset Metric", "In-Sample (60d)", "Out-of-Sample (60d)", "Status"],
+            ["Total Return", f"{is_res['metrics']['total_return_pct']:.2f}%", f"{oos_res['metrics']['total_return_pct']:.2f}%", "Healthy"],
+            ["Sharpe Ratio", f"{is_sharpe:.2f}", f"{oos_sharpe:.2f}", "PASS" if passed else "FAIL"],
+            ["Sortino Ratio", f"{is_res['metrics']['sortino_ratio']:.2f}", f"{oos_res['metrics']['sortino_ratio']:.2f}", "Consistent"],
+            ["Max Drawdown", f"{is_res['metrics']['max_drawdown_pct']:.2f}%", f"{oos_res['metrics']['max_drawdown_pct']:.2f}%", "Controlled"],
+            ["Diversification Ratio", f"{is_res['metrics']['diversification_ratio']}x", f"{oos_res['metrics']['diversification_ratio']}x", "Optimized"],
+            ["Decay Ratio (OOS / IS)", f"{decay_ratio:.2f}", "Required >= 0.50", "PASS" if passed else "ALERT"]
+        ]
+
+        return {
+            "is_result": is_res,
+            "oos_result": oos_res,
+            "decay_ratio": round(decay_ratio, 2),
+            "passed": passed,
+            "summary_table": tabulate(table_data, headers="firstrow", tablefmt="grid")
+        }

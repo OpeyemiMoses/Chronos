@@ -1,0 +1,24 @@
+{
+  "mcpServers": {
+    "bitget-agent-hub": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@bitget-ai/bitget-agent-mcp@3.3.0"
+      ],
+      "env": {
+        "BITGET_API_KEY": "${BITGET_API_KEY}",
+        "BITGET_API_SECRET": "${BITGET_API_SECRET}",
+        "BITGET_PASSPHRASE": "${BITGET_PASSPHRASE}",
+        "BITGET_ENDPOINT": "https://agent.bitget.com/mcp"
+      }
+    }
+  },
+  "tools": [
+    "get_tokenized_ticker",
+    "get_company_fundamentals",
+    "get_market_depth",
+    "get_macro_benchmark",
+    "submit_basket_order"
+  ]
+}
