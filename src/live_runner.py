@@ -139,18 +139,64 @@ class ChronosLiveRunner:
         self.active_positions.clear()
 
     def run_cycle(self):
+        """Executes a single end-to-end cycle demonstration."""
         self.print_banner()
-        # Step 1: Anchor
         self.snapshot_friday_anchors()
-        # Step 2: Weekend Scan & Order Execution
         self.evaluate_weekend_dislocations()
-        # Step 3: Monday Convergence Demonstration
         self.trigger_monday_convergence_exit()
         print("\n" + "=" * 76)
         print("  LIVE EXECUTION CYCLE COMPLETED SUCCESSFULLY!")
         print("=" * 76)
 
+    def start_autonomous_daemon(self, poll_interval_seconds: int = 3600):
+        """
+        Runs the 100% autonomous 24/7 execution loop forever without human intervention.
+        Automatically checks the New York clock, executes anchors, trades weekend alpha,
+        cashes out on Monday morning, and sleeps during the trading week.
+        """
+        self.print_banner()
+        print(f"\n[AUTONOMOUS ENGINE ACTIVE] Polling market every {poll_interval_seconds}s (Press Ctrl+C to stop)...")
+
+        while True:
+            try:
+                now = self.get_current_ny_time()
+                weekday = now.weekday()  # 0=Mon, 4=Fri, 5=Sat, 6=Sun
+                hour = now.hour
+
+                # State A: Friday 16:00 EST -> Lock Anchors
+                if weekday == 4 and hour == 16 and not self.anchors:
+                    self.snapshot_friday_anchors()
+
+                # State B: Weekend Session (Fri 17:00 -> Mon 07:59 EST) -> Alpha Trading
+                elif (weekday == 4 and hour >= 17) or (weekday in (5, 6)) or (weekday == 0 and hour < 8):
+                    if not self.anchors:
+                        self.snapshot_friday_anchors()
+                    self.evaluate_weekend_dislocations()
+
+                # State C: Monday 08:00 - 09:30 EST -> Institutional Convergence Exit
+                elif weekday == 0 and (8 <= hour <= 9):
+                    if self.active_positions:
+                        self.trigger_monday_convergence_exit()
+                    self.anchors.clear()
+
+                # State D: Regular Trading Week (Mon 09:30 -> Fri 15:59 EST) -> 100% Cash Sleep
+                else:
+                    print(f"[{now.strftime('%Y-%m-%d %H:%M EST')}] US Cash Markets Open. Chronos in 100% Cash Sleep State (Zero Overnight Risk).")
+
+                time.sleep(poll_interval_seconds)
+
+            except KeyboardInterrupt:
+                print("\n[STOPPED] Autonomous Chronos daemon terminated cleanly by user.")
+                break
+            except Exception as e:
+                print(f"[DAEMON ERROR] {e}. Retrying in 60 seconds...")
+                time.sleep(60)
+
 
 if __name__ == "__main__":
-    runner = ChronosLiveRunner(mode="PAPER")
-    runner.run_cycle()
+    is_daemon = "--daemon" in sys.argv
+    runner = ChronosLiveRunner()
+    if is_daemon:
+        runner.start_autonomous_daemon(poll_interval_seconds=3600)
+    else:
+        runner.run_cycle()
