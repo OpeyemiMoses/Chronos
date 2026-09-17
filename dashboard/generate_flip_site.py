@@ -26,8 +26,8 @@ html_content = f"""<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chronos | Autonomous 24/7 Information Pricing & Multi-Asset Alpha Engine</title>
-  <meta name="description" content="Chronos systematically captures weekend retail price dislocations on tokenized U.S. equities against 24/7 global benchmarks, monetizing Monday morning pre-market price convergence." />
+  <title>Chronos | Autonomous 24/7 After-Hours Information Pricing & Convergence Engine</title>
+  <meta name="description" content="Chronos systematically monetizes weekend retail price dislocations on tokenized U.S. equities against 24/7 global crypto-macro benchmarks, unwinding into cash at Monday institutional open." />
   <link rel="icon" type="image/svg+xml" href="assets/chronos_logo.svg">
 
   <!-- Google Fonts: Instrument Serif, Playfair Display, Inter, Space Mono -->
@@ -38,7 +38,7 @@ html_content = f"""<!DOCTYPE html>
   <style>
 {flip_css}
 
-    /* Chronos Specific Enhancements matching flip-prediction aesthetic */
+    /* Chronos Design Tokens matching flip-prediction.vercel.app */
     :root {{
       --font-serif-editorial: "Instrument Serif", "Playfair Display", Georgia, serif;
       --font-sans-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -65,7 +65,11 @@ html_content = f"""<!DOCTYPE html>
       --color-amber: #F59E0B;
       --color-cyan: #00D2FF;
       --border-thin: 1px solid rgba(0, 0, 0, .08);
+      --border-dashed: 1px dashed rgba(0, 0, 0, 0.22);
+      --border-dashed-dark: 1px dashed rgba(255, 255, 255, 0.22);
     }}
+
+    * {{ box-sizing: border-box; margin: 0; padding: 0; }}
 
     body {{
       background-color: var(--color-canvas-light);
@@ -74,8 +78,6 @@ html_content = f"""<!DOCTYPE html>
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
-      margin: 0;
-      padding: 0;
     }}
 
     .container {{
@@ -101,11 +103,11 @@ html_content = f"""<!DOCTYPE html>
     .section-tag {{
       display: inline-flex;
       align-items: center;
-      gap: 0.45rem;
+      gap: 0.5rem;
       font-family: var(--font-terminal);
       font-size: 0.72rem;
       font-weight: 700;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--color-grey-text);
       margin-bottom: 0.75rem;
@@ -120,109 +122,99 @@ html_content = f"""<!DOCTYPE html>
 
     .section-title {{
       font-family: var(--font-serif-editorial);
-      font-size: 2.85rem;
+      font-size: 3.1rem;
       font-weight: 400;
-      line-height: 1.15;
+      line-height: 1.12;
       letter-spacing: -0.02em;
       color: var(--color-black);
-      margin-bottom: 1rem;
+      margin-bottom: 0.95rem;
+    }}
+
+    .section-title em {{
+      font-style: italic;
     }}
 
     .section-desc {{
-      font-size: 1.05rem;
+      font-size: 1.08rem;
       color: var(--color-grey-text);
-      max-width: 680px;
-      line-height: 1.6;
+      max-width: 720px;
+      line-height: 1.65;
     }}
 
-    /* Hero Styling */
+    /* Landing Hero */
     .landing-hero-container {{
-      padding-top: 7.5rem;
-      padding-bottom: 4rem;
+      padding-top: 8rem;
+      padding-bottom: 4.5rem;
     }}
 
     .hero-h1 {{
       font-family: var(--font-serif-editorial);
-      font-size: 3.6rem;
-      line-height: 1.1;
+      font-size: 3.8rem;
+      line-height: 1.08;
       font-weight: 400;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.025em;
       margin: 1.25rem 0;
       color: var(--color-black);
     }}
 
     .hero-h1 em {{
       font-style: italic;
-      color: #1a1a1a;
+      color: #111;
     }}
 
     .hero-subtext {{
-      font-size: 1.12rem;
+      font-size: 1.15rem;
       line-height: 1.65;
       color: var(--color-grey-text);
-      margin-bottom: 2rem;
-      max-width: 560px;
+      margin-bottom: 2.25rem;
+      max-width: 580px;
     }}
 
-    .hero-3d-wrap {{
+    /* 3D Hero Artwork without stickers */
+    .hero-3d-clean-wrap {{
       position: relative;
       width: 100%;
-      border-radius: 20px;
-      overflow: hidden;
-      background: radial-gradient(circle at 50% 50%, #ffffff 0%, #eceae4 100%);
-      border: 1px dashed rgba(0, 0, 0, 0.22);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
-      padding: 1.25rem;
       display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: center;
+      align-items: center;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }}
 
-    .hero-3d-img {{
+    .hero-3d-clean-img {{
       width: 100%;
-      max-width: 440px;
+      max-width: 480px;
       height: auto;
-      border-radius: 16px;
       display: block;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+      border-radius: 20px;
+      border: 1px dashed rgba(0, 0, 0, 0.18);
+      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.1);
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
       animation: floatHero 6s ease-in-out infinite;
     }}
 
     @keyframes floatHero {{
-      0%, 100% {{ transform: translateY(0px) rotate(0deg); }}
-      50% {{ transform: translateY(-10px) rotate(0.5deg); }}
+      0%, 100% {{ transform: translateY(0px); }}
+      50% {{ transform: translateY(-10px); }}
     }}
 
-    .hero-badge-overlay {{
-      position: absolute;
-      bottom: 1.5rem;
-      left: 1.5rem;
-      right: 1.5rem;
-      background: rgba(255, 255, 255, 0.94);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      border-radius: 12px;
-      padding: 0.75rem 1.25rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    .hero-3d-clean-wrap:hover .hero-3d-clean-img {{
+      transform: translateY(-14px) scale(1.02);
+      box-shadow: 0 28px 64px rgba(0, 0, 0, 0.16);
     }}
 
-    /* Stat Box Custom */
+    /* Stat Box Numbers */
     .stat-number {{
       font-family: var(--font-serif-editorial);
-      font-size: 2.75rem;
+      font-size: 2.85rem;
       line-height: 1;
       font-weight: 400;
       color: var(--color-black);
-      margin-bottom: 0.35rem;
+      margin-bottom: 0.4rem;
     }}
 
     .stat-label {{
       font-family: var(--font-terminal);
-      font-size: 0.76rem;
+      font-size: 0.74rem;
       font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
@@ -232,25 +224,40 @@ html_content = f"""<!DOCTYPE html>
     .stat-sub {{
       font-size: 0.82rem;
       color: var(--color-grey-muted);
-      margin-top: 0.35rem;
+      margin-top: 0.4rem;
+      line-height: 1.45;
     }}
 
-    /* Step Number */
-    .step-num {{
+    /* Step Indexes */
+    .step-index {{
       font-family: var(--font-serif-editorial);
-      font-size: 2.2rem;
+      font-size: 2.4rem;
       font-style: italic;
-      color: #999;
+      color: #A3A8B3;
       line-height: 1;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.4rem;
     }}
 
-    /* Chart Area */
+    /* Feature Icon Containers (Strictly Minimalist SVG) */
+    .feature-icon-box {{
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background-color: var(--color-canvas-subtle);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-black);
+      margin-bottom: 1.1rem;
+    }}
+
+    /* Interactive Chart Box */
     .chart-box {{
       background: #FFFFFF;
       border: 1px dashed rgba(0, 0, 0, 0.22);
       border-radius: 6px;
-      padding: 1.5rem;
+      padding: 1.75rem;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
       position: relative;
     }}
@@ -298,7 +305,7 @@ html_content = f"""<!DOCTYPE html>
       border-radius: 4px;
     }}
 
-    /* Terminal Window (Dark) */
+    /* Terminal Window (Dark Card) */
     .terminal-window {{
       background-color: var(--color-black-night);
       border: 1px dashed rgba(255, 255, 255, 0.24);
@@ -322,19 +329,20 @@ html_content = f"""<!DOCTYPE html>
     .terminal-title {{
       font-weight: 700;
       letter-spacing: 0.08em;
-      color: #AAA;
+      color: #BBB;
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      font-size: 0.78rem;
     }}
 
     .terminal-log {{
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.55);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 4px;
       padding: 1rem;
-      font-size: 0.78rem;
-      line-height: 1.6;
+      font-size: 0.76rem;
+      line-height: 1.65;
       color: #A3E635;
       max-height: 220px;
       overflow-y: auto;
@@ -455,21 +463,21 @@ html_content = f"""<!DOCTYPE html>
 
       <!-- Middle: Dynamic Nav links expanding on scroll -->
       <nav class="header-nav">
-        <a href="#overview">Overview</a>
+        <a href="#thesis">Thesis</a>
+        <a href="#metrics">Alpha Metrics</a>
         <a href="#architecture">Architecture</a>
-        <a href="#performance">Alpha Metrics</a>
-        <a href="#terminal">Live Arena</a>
-        <a href="#audit-brain">Self-Auditor</a>
+        <a href="#guardrails">Guardrails</a>
+        <a href="#terminal-preview">Terminal</a>
         <a href="#ledger">Trade Ledger</a>
       </nav>
 
-      <!-- Right: Action Badge & Launch Terminal Button -->
+      <!-- Right: Network Status & Launch Terminal Button -->
       <div style="display: flex; align-items: center; gap: 0.65rem;">
         <div class="badge-pill-green desktop-only">
-          <span style="width: 7px; height: 7px; border-radius: 50%; background: var(--color-green); display: inline-block;"></span>
-          <span>BITGET UTA v3 // ACTIVE</span>
+          <span style="width: 6px; height: 6px; border-radius: 50%; background: var(--color-green); display: inline-block;"></span>
+          <span>BITGET UTA v3 · ACTIVE</span>
         </div>
-        <button class="btn-launch-black" onclick="document.getElementById('terminal').scrollIntoView({{behavior: 'smooth'}})">
+        <button class="btn-launch-black" onclick="document.getElementById('terminal-preview').scrollIntoView({{behavior: 'smooth'}})">
           <span>Launch Terminal</span>
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </button>
@@ -483,7 +491,7 @@ html_content = f"""<!DOCTYPE html>
       <!-- Left Column: Editorial Pitch -->
       <div class="hero-pop">
         <div class="badge-pill-gold" style="margin-bottom: 1.25rem;">
-          <span style="font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em;">BITGET AI BASE CAMP S2 // TRACK 1: ALPHA FACTORY</span>
+          <span style="font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em;">BITGET AI BASE CAMP S2 · TRACK 1: ALPHA FACTORY</span>
         </div>
         <h1 class="hero-h1">
           Autonomous After-Hours<br>
@@ -491,69 +499,99 @@ html_content = f"""<!DOCTYPE html>
           Convergence Engine.
         </h1>
         <p class="hero-subtext">
-          Chronos exploits 24/7 weekend pricing dislocations on tokenized U.S. equities against global crypto-macro benchmarks, executing risk-parity counter-positions and unwinding into cash during Monday institutional pre-market convergence.
+          Chronos monetizes weekend retail price dislocations across tokenized U.S. equities against 24/7 global crypto-macro benchmarks, executing risk-parity counter-positions and unwinding into 100% cash during Monday institutional pre-market convergence.
         </p>
 
         <div style="display: flex; align-items: center; gap: 0.85rem; flex-wrap: wrap;">
-          <button class="btn-launch-black" onclick="document.getElementById('terminal').scrollIntoView({{behavior: 'smooth'}})">
+          <button class="btn-launch-black" onclick="document.getElementById('terminal-preview').scrollIntoView({{behavior: 'smooth'}})">
             <span>Launch Alpha Terminal</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </button>
           <a href="#architecture" class="btn-docs-grey">
             <span>Protocol Architecture</span>
           </a>
-          <button class="btn-pill-dark-outline" style="color: var(--color-black); border-color: rgba(0,0,0,0.2);" onclick="runSelfAuditDemo()">
+          <button class="btn-pill-dark-outline" style="color: var(--color-black); border-color: rgba(0,0,0,0.22);" onclick="runSelfAuditDemo()">
             <span>Trigger Self-Audit</span>
           </button>
         </div>
 
-        <div style="display: flex; align-items: center; gap: 1.75rem; margin-top: 2.25rem; font-size: 0.82rem; color: var(--color-grey-text); font-family: var(--font-terminal);">
-          <div><strong style="color: var(--color-black);">120D</strong> Net Backtest</div>
-          <div><strong style="color: var(--color-green);">4.44</strong> Full Sharpe</div>
-          <div><strong style="color: var(--color-black);">100%</strong> Weekday Cash</div>
+        <div style="display: flex; align-items: center; gap: 2rem; margin-top: 2.5rem; font-size: 0.82rem; color: var(--color-grey-text); font-family: var(--font-terminal);">
+          <div><strong style="color: var(--color-black); font-size: 0.95rem;">120D</strong> Net Backtest</div>
+          <div><strong style="color: var(--color-green); font-size: 0.95rem;">4.44</strong> Full Sharpe</div>
+          <div><strong style="color: var(--color-black); font-size: 0.95rem;">100%</strong> Weekday Cash</div>
         </div>
       </div>
 
-      <!-- Right Column: 3D Luxury Armillary Artwork & Floating Stats -->
-      <div class="hero-3d-wrap">
-        <img src="assets/chronos_3d_hero.png" alt="Chronos Quantum Spherical Alpha Engine" class="hero-3d-img">
-        <div class="hero-badge-overlay">
-          <div>
-            <div style="font-family: var(--font-terminal); font-size: 0.72rem; color: var(--color-grey-text); text-transform: uppercase;">Current Regime</div>
-            <div style="font-family: var(--font-serif-editorial); font-size: 1.35rem; font-weight: 700; color: var(--color-black);">Weekend Mean Reversion</div>
-          </div>
-          <div style="text-align: right;">
-            <div style="font-family: var(--font-terminal); font-size: 0.72rem; color: var(--color-grey-text); text-transform: uppercase;">Active Strategy</div>
-            <div class="badge-pill-green" style="padding: 0.2rem 0.55rem; font-size: 0.72rem;">BITGET MCP READY</div>
-          </div>
+      <!-- Right Column: Clean 3D Spherical Clockwork Render (Zero Stickers) -->
+      <div class="hero-3d-clean-wrap">
+        <img src="assets/chronos_3d_hero.png" alt="Chronos Spherical Alpha Engine" class="hero-3d-clean-img">
+      </div>
+    </div>
+  </section>
+
+  <!-- Alpha Thesis / Problem Statement -->
+  <section class="section-spacious" id="thesis">
+    <div class="container">
+      <div class="section-tag">
+        <span class="section-tag-dot"></span>
+        <span>THE QUANTITATIVE THESIS</span>
+      </div>
+      <h2 class="section-title">The Structural Asymmetry of Weekend Markets</h2>
+      <p class="section-desc">
+        Traditional equity exchanges close for 65 consecutive hours every weekend. Tokenized U.S. equities trade continuously without institutional market-makers, creating systematic, harvestable mean-reversion alpha.
+      </p>
+
+      <div class="landing-grid-3col" style="margin-top: 3rem;">
+        <div class="card-paper">
+          <div class="step-index">01 /</div>
+          <h3 style="font-family: var(--font-serif-editorial); font-size: 1.55rem; margin-bottom: 0.45rem;">The Shuttered Exchange</h3>
+          <p style="font-size: 0.9rem; color: var(--color-grey-text); line-height: 1.6;">
+            NYSE and NASDAQ cease trading at Friday 16:00 EST. Traditional price discovery vanishes, leaving tokenized synthetic stocks subject purely to retail crypto order flow.
+          </p>
+        </div>
+
+        <div class="card-paper">
+          <div class="step-index">02 /</div>
+          <h3 style="font-family: var(--font-serif-editorial); font-size: 1.55rem; margin-bottom: 0.45rem;">Retail Drift & Noise</h3>
+          <p style="font-size: 0.9rem; color: var(--color-grey-text); line-height: 1.6;">
+            Retail market participants over-extrapolate weekend news headlines over thin liquidity books, driving synthetic prices to extreme statistical dislocations (|Z| ≥ 2.0σ).
+          </p>
+        </div>
+
+        <div class="card-paper">
+          <div class="step-index">03 /</div>
+          <h3 style="font-family: var(--font-serif-editorial); font-size: 1.55rem; margin-bottom: 0.45rem;">Institutional Convergence</h3>
+          <p style="font-size: 0.9rem; color: var(--color-grey-text); line-height: 1.6;">
+            Monday 08:00–09:30 EST, institutional pre-market cash returns. Dislocated synthetic prices violently collapse back to fundamental values, monetizing the spread into cash.
+          </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 4-Column High-Level KPI Strip -->
-  <section class="section-spacious" id="overview">
+  <!-- 4-Column Audited Statistical KPI Strip -->
+  <section class="section-spacious" id="metrics" style="background-color: var(--color-canvas-subtle);">
     <div class="container">
       <div class="landing-grid-4col">
         <div class="card-paper stat-box-interactive">
           <div class="stat-number" style="color: var(--color-green);">+39.71%</div>
           <div class="stat-label">120-Day Cumulative Return</div>
-          <div class="stat-sub">Net of 0.10% taker friction on 2,881 hourly candles.</div>
+          <div class="stat-sub">Net of 0.10% taker fee and bid-ask spread on 2,881 hourly candles.</div>
         </div>
         <div class="card-paper stat-box-interactive">
           <div class="stat-number">4.44</div>
           <div class="stat-label">Full Horizon Sharpe Ratio</div>
-          <div class="stat-sub">5.07 Out-of-Sample Sharpe (1.26x Walk-Forward Stability).</div>
+          <div class="stat-sub">5.07 Out-of-Sample Sharpe (1.26x Walk-Forward Stability Ratio).</div>
         </div>
         <div class="card-paper stat-box-interactive">
-          <div class="stat-number" style="color: #333;">-4.69%</div>
+          <div class="stat-number" style="color: #222;">-4.69%</div>
           <div class="stat-label">Max Peak-to-Trough DD</div>
-          <div class="stat-sub">Protected by dynamic volatility stops and 3x leverage cap.</div>
+          <div class="stat-sub">Protected by dynamic volatility stops and 3.0x max leverage cap.</div>
         </div>
         <div class="card-paper stat-box-interactive">
           <div class="stat-number" style="color: var(--color-green);">100%</div>
           <div class="stat-label">Weekday Cash Sweep</div>
-          <div class="stat-sub">All positions unwind into USDT by Monday 09:30 EST.</div>
+          <div class="stat-sub">Zero overnight equity beta. 100% USDT cash held Monday afternoon through Friday.</div>
         </div>
       </div>
     </div>
@@ -564,26 +602,26 @@ html_content = f"""<!DOCTYPE html>
     <div class="container">
       <div class="section-tag">
         <span class="section-tag-dot"></span>
-        <span>SYSTEMATIC TRADING LIFECYCLE</span>
+        <span>EXECUTION LIFECYCLE</span>
       </div>
-      <h2 class="section-title">Institutional Mechanics of After-Hours Pricing</h2>
+      <h2 class="section-title">Deterministic 4-Stage Mathematical Loop</h2>
       <p class="section-desc">
-        Tokenized equities trade 24/7 on retail crypto exchanges while NYSE & NASDAQ remain shuttered over the weekend. Chronos systematically harvests retail over-reaction through a four-stage mathematical loop.
+        Chronos eliminates emotional discretionary trading through an autonomous four-stage state machine synchronized with global market clocks.
       </p>
 
       <div class="landing-arch-grid" style="margin-top: 3rem;">
         <!-- Left: Lifecycle Steps -->
         <div style="display: flex; flex-direction: column; gap: 1.5rem;">
           <div class="card-paper">
-            <div class="step-num">01 /</div>
+            <div class="step-index">01 /</div>
             <h3 style="font-family: var(--font-serif-editorial); font-size: 1.55rem; margin-bottom: 0.35rem;">Friday Anchor Price Lock</h3>
             <p style="font-size: 0.92rem; color: var(--color-grey-text);">
-              At Friday 20:00 UTC (16:00 EST), traditional cash equities close. Chronos cryptographically anchors the institutional settlement price across $rNVDA, $rTSLA, $rAAPL, $rCOIN, $rMSTR, $rSPY, $rQQQ alongside 24/7 global benchmarks ($BTC).
+              At Friday 20:00 UTC (16:00 EST), cash equities close. Chronos cryptographically anchors the institutional settlement price across $rNVDA, $rTSLA, $rAAPL, $rCOIN, $rMSTR, $rSPY, $rQQQ alongside 24/7 global benchmarks ($BTC).
             </p>
           </div>
 
           <div class="card-paper">
-            <div class="step-num">02 /</div>
+            <div class="step-index">02 /</div>
             <h3 style="font-family: var(--font-serif-editorial); font-size: 1.55rem; margin-bottom: 0.35rem;">Synthetic Drift & Kalman Z-Scores</h3>
             <p style="font-size: 0.92rem; color: var(--color-grey-text);">
               Over thin weekend liquidity, retail participants over-extrapolate news. Chronos decomposes drift into macro beta components versus asset-specific noise, generating normalized dislocation scores: |Z| = |Drift - β · Drift_BTC| / σ.
@@ -591,7 +629,7 @@ html_content = f"""<!DOCTYPE html>
           </div>
 
           <div class="card-paper">
-            <div class="step-num">03 /</div>
+            <div class="step-index">03 /</div>
             <h3 style="font-family: var(--font-serif-editorial); font-size: 1.55rem; margin-bottom: 0.35rem;">Risk-Parity Counter-Positioning</h3>
             <p style="font-size: 0.92rem; color: var(--color-grey-text);">
               When |Z| ≥ 2.0σ, Chronos initiates inverse statistical arbitrage baskets via Bitget UTA v3 REST / MCP endpoints. Weights are allocated inversely proportional to weekend volatility with strict 3.0x maximum aggregate leverage.
@@ -599,7 +637,7 @@ html_content = f"""<!DOCTYPE html>
           </div>
 
           <div class="card-paper">
-            <div class="step-num">04 /</div>
+            <div class="step-index">04 /</div>
             <h3 style="font-family: var(--font-serif-editorial); font-size: 1.55rem; margin-bottom: 0.35rem;">Monday Institutional Convergence & Cash Sweep</h3>
             <p style="font-size: 0.92rem; color: var(--color-grey-text);">
               Between 08:00 and 09:30 EST Monday morning, multi-billion-dollar institutional pre-market liquidity returns. Retail dislocation collapses back to fundamental value. Chronos closes all positions directly into 100% USDT cash.
@@ -640,65 +678,73 @@ html_content = f"""<!DOCTYPE html>
     </div>
   </section>
 
-  <!-- 4 Core Quantitative Pillars -->
-  <section class="section-spacious" id="performance">
+  <!-- 4 Core Quantitative Guardrails (Zero Stickers, Pure Precision SVG) -->
+  <section class="section-spacious" id="guardrails">
     <div class="container">
       <div class="section-tag">
         <span class="section-tag-dot"></span>
-        <span>QUANTITATIVE EDGE</span>
+        <span>INSTITUTIONAL GUARDRAILS</span>
       </div>
-      <h2 class="section-title">Institutional Features & Risk Guardrails</h2>
+      <h2 class="section-title">Engineered Defenses & Risk Control</h2>
       <p class="section-desc">
-        Engineered specifically for Track 1: Alpha Factory, Chronos introduces structural defenses against idiosyncratic retail spikes and black-swan gaps.
+        Engineered specifically for Track 1: Alpha Factory, Chronos introduces structural defenses against idiosyncratic retail spikes and weekend liquidity shocks.
       </p>
 
       <div class="landing-grid-4col" style="margin-top: 2.5rem;">
         <div class="card-paper">
-          <div style="font-size: 1.3rem; margin-bottom: 0.5rem;">⚡</div>
+          <div class="feature-icon-box">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg>
+          </div>
           <h4 style="font-family: var(--font-serif-editorial); font-size: 1.35rem; margin-bottom: 0.5rem;">Beta Decoupling</h4>
-          <p style="font-size: 0.86rem; color: var(--color-grey-text);">
-            Filters out broad crypto-market rallies from stock-specific drifts using rolling 60-day empirical beta estimation against BTC.
+          <p style="font-size: 0.86rem; color: var(--color-grey-text); line-height: 1.55;">
+            Filters broad crypto-market rallies from stock-specific drifts using rolling 60-day empirical beta estimation against Bitcoin.
           </p>
         </div>
 
         <div class="card-paper">
-          <div style="font-size: 1.3rem; margin-bottom: 0.5rem;">🧠</div>
+          <div class="feature-icon-box">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21h5v-5"/></svg>
+          </div>
           <h4 style="font-family: var(--font-serif-editorial); font-size: 1.35rem; margin-bottom: 0.5rem;">Closed-Loop Self-Auditor</h4>
-          <p style="font-size: 0.86rem; color: var(--color-grey-text);">
-            Diagnoses why losses occurred (Retail Momentum Overrun, Beta Decoupling, Latency) and automatically adapts entry Z-thresholds.
+          <p style="font-size: 0.86rem; color: var(--color-grey-text); line-height: 1.55;">
+            Diagnoses why losses occurred (Momentum Overrun, Decoupling, Latency) and automatically adapts entry Z-thresholds.
           </p>
         </div>
 
         <div class="card-paper">
-          <div style="font-size: 1.3rem; margin-bottom: 0.5rem;">🔐</div>
-          <h4 style="font-family: var(--font-serif-editorial); font-size: 1.35rem; margin-bottom: 0.5rem;">Bitget HMAC-SHA256 Gateway</h4>
-          <p style="font-size: 0.86rem; color: var(--color-grey-text);">
-            Cryptographically signed headers with ACCESS-KEY, ACCESS-SIGN, ACCESS-TIMESTAMP, and PASSPHRASE for Bitget UTA v3 REST and MCP.
+          <div class="feature-icon-box">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <h4 style="font-family: var(--font-serif-editorial); font-size: 1.35rem; margin-bottom: 0.5rem;">Bitget HMAC Gateway</h4>
+          <p style="font-size: 0.86rem; color: var(--color-grey-text); line-height: 1.55;">
+            Cryptographically signed headers with ACCESS-KEY, ACCESS-SIGN, and TIMESTAMP for Bitget UTA v3 REST and MCP endpoints.
           </p>
         </div>
 
         <div class="card-paper">
-          <div style="font-size: 1.3rem; margin-bottom: 0.5rem;">🛡️</div>
-          <h4 style="font-family: var(--font-serif-editorial); font-size: 1.35rem; margin-bottom: 0.5rem;">Deterministic Capital Shield</h4>
-          <p style="font-size: 0.86rem; color: var(--color-grey-text);">
-            Maximum 35% allocation per single tokenized stock, maximum 3.0x aggregate leverage, and dynamic volatility-scaled stops.
+          <div class="feature-icon-box">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h4 style="font-family: var(--font-serif-editorial); font-size: 1.35rem; margin-bottom: 0.5rem;">Capital Shield</h4>
+          <p style="font-size: 0.86rem; color: var(--color-grey-text); line-height: 1.55;">
+            Maximum 35% single-stock allocation, strict 3.0x aggregate leverage cap, and dynamic volatility-scaled stop losses.
           </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Interactive Live Trading Terminal / Arena -->
-  <section class="section-spacious" id="terminal" style="background-color: var(--color-canvas-subtle);">
+  <!-- Interactive Terminal & Live Chart Preview -->
+  <section class="section-spacious" id="terminal-preview" style="background-color: var(--color-canvas-subtle);">
     <div class="container">
       <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
         <div>
           <div class="section-tag">
             <span class="section-tag-dot"></span>
-            <span>INTERACTIVE ALPHA TERMINAL</span>
+            <span>STRATEGY SIMULATOR & TERMINAL</span>
           </div>
           <h2 class="section-title" style="margin-bottom: 0.35rem;">Real-Time Dislocation & Convergence Chart</h2>
-          <p class="section-desc">Inspect continuous hourly price curves, Friday anchors, weekend dislocation drift, and execution markers.</p>
+          <p class="section-desc">Interactive inspection of continuous hourly price curves, Friday anchors, weekend dislocation drift, and execution markers.</p>
         </div>
         <div class="badge-pill-green">
           <span>DATA SOURCE: 120D AUDITED BACKTEST</span>
@@ -721,7 +767,7 @@ html_content = f"""<!DOCTYPE html>
             </div>
           </div>
 
-          <!-- The Canvas Chart Element -->
+          <!-- Canvas Chart -->
           <div style="position: relative;">
             <canvas id="priceCanvas"></canvas>
             <div id="chartTooltip"></div>
@@ -740,10 +786,10 @@ html_content = f"""<!DOCTYPE html>
         <!-- Right: Cognitive Self-Auditor & Bitget Console -->
         <div style="display: flex; flex-direction: column; gap: 1.5rem;">
           <!-- Cognitive Brain Card -->
-          <div class="terminal-window" id="audit-brain">
+          <div class="terminal-window">
             <div class="terminal-header">
               <div class="terminal-title">
-                <span style="width: 8px; height: 8px; border-radius: 50%; background-color: var(--color-green); display: inline-block;"></span>
+                <span style="width: 7px; height: 7px; border-radius: 50%; background-color: var(--color-green); display: inline-block;"></span>
                 <span>COGNITIVE SELF-AUDITOR</span>
               </div>
               <span class="badge-pill-green" style="font-size: 0.68rem; padding: 0.15rem 0.5rem;">CLOSED-LOOP ACTIVE</span>
@@ -818,8 +864,8 @@ CURRENT PARAMETER STATE:
             <span class="section-tag-dot"></span>
             <span>TRANSPARENT EXECUTION AUDIT</span>
           </div>
-          <h2 class="section-title" style="margin-bottom: 0.25rem;">Institutional Trade Ledger (120-Day Horizon)</h2>
-          <p class="section-desc">Every trade executed by Chronos with exact entry, Monday convergence exit, net PnL, and self-audit status.</p>
+          <h2 class="section-title" style="margin-bottom: 0.25rem;">Audited Trade History (120-Day Horizon)</h2>
+          <p class="section-desc">Every trade executed by Chronos with exact entry, Monday convergence exit, net PnL, and self-audit post-mortem status.</p>
         </div>
 
         <!-- Filter Tabs -->
@@ -853,6 +899,32 @@ CURRENT PARAMETER STATE:
     </div>
   </section>
 
+  <!-- Call to Action (CTA) Section -->
+  <section class="section-spacious" style="background-color: var(--color-canvas-light);">
+    <div class="container">
+      <div class="card-dark" style="text-align: center; padding: 4rem 2rem;">
+        <div class="badge-pill-green" style="margin-bottom: 1.25rem;">
+          <span>BITGET AI BASE CAMP S2 · SUBMISSION READY</span>
+        </div>
+        <h2 style="font-family: var(--font-serif-editorial); font-size: 2.85rem; font-weight: 400; line-height: 1.15; margin-bottom: 1rem; color: #FFF;">
+          Deploy Institutional After-Hours Alpha
+        </h2>
+        <p style="font-size: 1.05rem; color: #9CA3AF; max-width: 600px; margin: 0 auto 2.25rem; line-height: 1.6;">
+          Chronos runs autonomously 24/7 on Python with zero human intervention required. Seamlessly connects to Bitget UTA v3 and Bitget MCP tools.
+        </p>
+        <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+          <a href="https://github.com/OpeyemiMoses/Chronos" target="_blank" class="btn-launch-white" style="text-decoration: none;">
+            <span>View Source on GitHub</span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+          <button class="btn-pill-dark-outline" onclick="document.getElementById('terminal-preview').scrollIntoView({{behavior: 'smooth'}})">
+            <span>Explore Alpha Simulator</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Footer (Matching flip-prediction.vercel.app) -->
   <footer style="background-color: #FFF; border-top: 1px dashed rgba(0, 0, 0, 0.22); padding: 4.5rem 0 3rem;">
     <div class="container">
@@ -870,10 +942,10 @@ CURRENT PARAMETER STATE:
         <div>
           <h5 style="font-family: var(--font-terminal); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1.1rem;">Strategy</h5>
           <ul style="list-style: none; font-size: 0.88rem; color: var(--color-grey-text); display: flex; flex-direction: column; gap: 0.6rem;">
-            <li><a href="#overview" style="color: inherit; text-decoration: none;">120D Performance</a></li>
+            <li><a href="#thesis" style="color: inherit; text-decoration: none;">Weekend Dislocation</a></li>
+            <li><a href="#metrics" style="color: inherit; text-decoration: none;">120D Alpha Audit</a></li>
             <li><a href="#architecture" style="color: inherit; text-decoration: none;">Friday Anchor Model</a></li>
-            <li><a href="#terminal" style="color: inherit; text-decoration: none;">Dynamic Kalman Z-Score</a></li>
-            <li><a href="#audit-brain" style="color: inherit; text-decoration: none;">Self-Auditing Brain</a></li>
+            <li><a href="#guardrails" style="color: inherit; text-decoration: none;">Beta Decoupling</a></li>
           </ul>
         </div>
 
@@ -891,7 +963,7 @@ CURRENT PARAMETER STATE:
           <h5 style="font-family: var(--font-terminal); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1.1rem;">System Status</h5>
           <div style="font-family: var(--font-terminal); font-size: 0.8rem; color: var(--color-grey-text); line-height: 1.8;">
             <div>All Systems Operational</div>
-            <div style="color: var(--color-green);">● API Gateway Connected</div>
+            <div style="color: var(--color-green);">API Gateway Connected</div>
             <div>Latency: 14ms (Direct UTA)</div>
             <div>Uptime: 99.98%</div>
           </div>
@@ -1010,13 +1082,13 @@ CURRENT PARAMETER STATE:
       const getX = (i) => 50 + (i / (prices.length - 1)) * (w - 70);
       const getY = (val) => h - 35 - ((val - minP) / (maxP - minP)) * (h - 70);
 
-      // Draw Weekend Shaded Area (e.g. index 24 to 96)
+      // Draw Weekend Shaded Area
       const wStart = getX(24);
       const wEnd = getX(96);
       ctx.fillStyle = "rgba(0, 0, 0, 0.025)";
       ctx.fillRect(wStart, 10, wEnd - wStart, h - 45);
 
-      ctx.fillStyle = "rgba(0, 0, 0, 0.4)";
+      ctx.fillStyle = "rgba(0, 0, 0, 0.35)";
       ctx.font = "10px 'Space Mono', monospace";
       ctx.fillText("WEEKEND TRADING ZONE (24/7 TOKENIZED LIQUIDITY)", wStart + 12, 26);
 
@@ -1157,4 +1229,4 @@ CURRENT PARAMETER STATE:
 with open("dashboard/index.html", "w") as f:
     f.write(html_content)
 
-print(f"Successfully generated Master Chronos Web Experience at dashboard/index.html ({len(html_content)} bytes)")
+print(f"Successfully generated Master Chronos Landing Page at dashboard/index.html ({len(html_content)} bytes)")
