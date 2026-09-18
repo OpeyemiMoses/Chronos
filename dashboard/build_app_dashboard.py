@@ -1,6 +1,10 @@
 import json
 import os
 import random
+import sys
+
+sys.path.append(os.path.join(os.path.dirname(__file__)))
+from rainbowkit_engine import RAINBOWKIT_CSS, RAINBOWKIT_HTML_MARKUP, get_rainbowkit_js
 
 # Load baseline real trades and audit memory
 with open("data/real_trades.json", "r") as f:
@@ -1131,6 +1135,8 @@ html_template = f"""<!DOCTYPE html>
         overflow-x: auto;
       }}
     }}
+
+    /* __RAINBOWKIT_CSS__ */
   </style>
   <script>
     window.selectedSymbol = "rNVDA";
@@ -1209,27 +1215,8 @@ html_template = f"""<!DOCTYPE html>
           <span>PAPER SIMULATION</span>
         </div>
       </div>
-      <!-- RainbowKit Connected Wallet Component -->
-      <div id="walletHeaderContainer">
-        <!-- Rendered dynamically by JS -->
-      </div>
-
-      <!-- Wallet Dropdown Menu -->
-      <div class="wallet-dropdown-menu" id="walletDropdownMenu">
-        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #EEE; padding-bottom: 0.5rem;">
-          <span style="font-size: 0.75rem; color: #888; font-family: var(--font-terminal);">ACTIVE WALLET</span>
-          <span style="font-size: 0.72rem; color: var(--color-green); font-weight: 700;">● CONNECTED</span>
-        </div>
-        <div>
-          <div style="font-family: var(--font-terminal); font-size: 0.82rem; font-weight: 700;" id="dropdownWalletAddr">0x71C...3a9F</div>
-          <div style="font-size: 0.75rem; color: #666; margin-top: 0.2rem;">Paper Balance: <strong id="dropdownPaperBalance" style="color: #000;">$50,000.00 USDT</strong></div>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 0.4rem; border-top: 1px solid #EEE; padding-top: 0.6rem;">
-          <button class="preset-chip" onclick="resetCurrentWalletBalance()" style="width: 100%; text-align: center; padding: 0.45rem;">Reset Balance to $50,000</button>
-          <button class="preset-chip" onclick="openRainbowModal()" style="width: 100%; text-align: center; padding: 0.45rem;">Switch Account</button>
-          <button class="preset-chip" onclick="disconnectCurrentWallet()" style="width: 100%; text-align: center; padding: 0.45rem; color: var(--color-red);">Disconnect</button>
-        </div>
-      </div>
+      <!-- Authentic RainbowKit Header Widget -->
+      <div id="rainbowkitHeaderContainer"></div>
     </div>
   </header>
 
@@ -1754,14 +1741,8 @@ html_template = f"""<!DOCTYPE html>
     </main>
   </div>
 
-  <!-- RainbowKit Wallet Connect Modal (Official Web3 Integration — No Mocked Wallets) -->
-  <div class="rainbow-modal-overlay" id="rainbowModalOverlay" onclick="closeRainbowModalOnBackdrop(event)">
-    <div class="rainbow-modal-card" id="rainbowModalCard">
-      <div id="rainbowModalContent">
-        <!-- Rendered dynamically by renderWalletOptionsModal() -->
-      </div>
-    </div>
-  </div>
+  <!-- Authentic RainbowKit Modals -->
+  <!-- __RAINBOWKIT_HTML__ -->
 
   <script>
     const markets = {markets_json};
@@ -1922,44 +1903,9 @@ html_template = f"""<!DOCTYPE html>
       }},
 
       renderHeaderWallet() {{
-        const container = document.getElementById("walletHeaderContainer");
-        if (!container) return;
-
-        if (!this.currentAddress) {{
-          container.innerHTML = `
-            <button class="rainbow-connect-btn" onclick="openRainbowModal()">
-              <div class="rainbow-connect-btn-inner">
-                <span class="rainbow-avatar-circle"></span>
-                <span>Connect Wallet</span>
-              </div>
-            </button>
-          `;
-          return;
+        if (typeof renderRainbowHeader === "function") {{
+          renderRainbowHeader();
         }}
-
-        const d = this.getCurrentData();
-        const shortAddr = this.currentAddress.slice(0, 6) + "..." + this.currentAddress.slice(-4);
-        container.innerHTML = `
-          <div class="rainbow-connected-pill" onclick="toggleWalletDropdown(event)">
-            <div class="rainbow-chain-chip">
-              <span class="rainbow-chain-dot"></span>
-              <span id="headerChainSpan">Ethereum</span>
-            </div>
-            <div class="rainbow-balance-chip">
-              <span id="headerBalanceChipSpan">$${{d.paperBalance.toLocaleString('en-US', {{minimumFractionDigits: 2, maximumFractionDigits: 2}})}}</span>
-            </div>
-            <div class="rainbow-account-chip">
-              <span class="rainbow-avatar-circle"></span>
-              <span id="headerAccountSpan">${{shortAddr}}</span>
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m6 9 6 6 6-6"/></svg>
-            </div>
-          </div>
-        `;
-
-        const dropAddr = document.getElementById("dropdownWalletAddr");
-        if (dropAddr) dropAddr.textContent = shortAddr;
-        const dropBal = document.getElementById("dropdownPaperBalance");
-        if (dropBal) dropBal.textContent = `$${{d.paperBalance.toLocaleString('en-US', {{minimumFractionDigits: 2}})}} USDT`;
       }},
 
       syncActiveView() {{
@@ -2480,271 +2426,10 @@ html_template = f"""<!DOCTYPE html>
 
     let activeTradingEnv = "paper"; // "paper" or "live"
 
-    // RainbowKit Modal Operations
-    function openRainbowModal() {{
-      closeWalletDropdown();
-      renderWalletOptionsModal();
-      document.getElementById("rainbowModalOverlay").classList.add("open");
-    }}
-
-    function closeRainbowModal() {{
-      document.getElementById("rainbowModalOverlay").classList.remove("open");
-    }}
-
-    function closeRainbowModalOnBackdrop(e) {{
-      if (e.target.id === "rainbowModalOverlay") closeRainbowModal();
-    }}
-
-    function renderWalletOptionsModal() {{
-      const container = document.getElementById("rainbowModalContent");
-      if (!container) return;
-
-      const hasMetaMask = !!(typeof window !== "undefined" && (window.ethereum?.isMetaMask || window.ethereum));
-      const hasRainbow = !!(typeof window !== "undefined" && (window.rainbow || window.ethereum?.isRainbow));
-      const hasCoinbase = !!(typeof window !== "undefined" && (window.coinbaseWalletExtension || window.ethereum?.isCoinbaseWallet));
-
-      container.innerHTML = `
-        <div class="rainbow-modal-header">
-          <h3>Connect a Wallet</h3>
-          <button onclick="closeRainbowModal()" style="background: none; border: none; font-size: 1.2rem; cursor: pointer; color: #666;">✕</button>
-        </div>
-
-        <div class="rainbow-wallet-list">
-          <!-- MetaMask -->
-          <div class="rainbow-wallet-option" onclick="selectWalletProvider('MetaMask')">
-            <div class="wallet-icon-title">
-              <div class="wallet-icon-img" style="background: #FFF0E5;">
-                <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#E2761B" d="M21.5 6.5l-8.5-4-1 2.5 7 3.5zm-19 0l8.5-4 1 2.5-7 3.5z"/><path fill="#E4761B" d="M19.5 15.5l-2.5 4.5-5-2.5 1-2.5 4 .5zm-15 0l2.5 4.5 5-2.5-1-2.5-4 .5z"/><path fill="#D7C1B3" d="M10 12l2-6 2 6-2 3z"/></svg>
-              </div>
-              <span>MetaMask</span>
-            </div>
-            <span style="font-size: 0.72rem; color: var(--color-green); font-weight: 700; font-family: var(--font-terminal);">${{hasMetaMask ? 'DETECTED' : 'POPULAR'}}</span>
-          </div>
-
-          <!-- Rainbow -->
-          <div class="rainbow-wallet-option" onclick="selectWalletProvider('Rainbow')">
-            <div class="wallet-icon-title">
-              <div class="wallet-icon-img" style="background: linear-gradient(135deg, #FF6B6B, #4ECDC4);">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFF"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/></svg>
-              </div>
-              <span>Rainbow</span>
-            </div>
-            <span style="font-size: 0.72rem; color: #666; font-family: var(--font-terminal);">${{hasRainbow ? 'DETECTED' : 'MOBILE'}}</span>
-          </div>
-
-          <!-- Coinbase Wallet -->
-          <div class="rainbow-wallet-option" onclick="selectWalletProvider('Coinbase')">
-            <div class="wallet-icon-title">
-              <div class="wallet-icon-img" style="background: #0052FF;">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFF"><rect x="4" y="4" width="16" height="16" rx="4"/></svg>
-              </div>
-              <span>Coinbase Wallet</span>
-            </div>
-            <span style="font-size: 0.72rem; color: #666; font-family: var(--font-terminal);">${{hasCoinbase ? 'DETECTED' : 'APP'}}</span>
-          </div>
-
-          <!-- WalletConnect -->
-          <div class="rainbow-wallet-option" onclick="selectWalletProvider('WalletConnect')">
-            <div class="wallet-icon-title">
-              <div class="wallet-icon-img" style="background: #3B99FC;">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFF"><path d="M6 9l6 6 6-6"/></svg>
-              </div>
-              <span>WalletConnect</span>
-            </div>
-            <span style="font-size: 0.72rem; color: #666; font-family: var(--font-terminal);">QR SCAN</span>
-          </div>
-
-          <!-- Browser Injected EVM -->
-          <div class="rainbow-wallet-option" onclick="selectWalletProvider('Injected')">
-            <div class="wallet-icon-title">
-              <div class="wallet-icon-img" style="background: #111;">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFF"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-              </div>
-              <span>Browser Injected (EIP-1193)</span>
-            </div>
-            <span style="font-size: 0.72rem; color: #666; font-family: var(--font-terminal);">EVM</span>
-          </div>
-        </div>
-
-        <div style="background: var(--color-canvas-subtle); padding: 0.9rem 1.25rem; border-top: 1px solid rgba(0,0,0,0.06); font-size: 0.75rem; color: #666; text-align: center;">
-          New to Ethereum wallets? <a href="https://ethereum.org/en/wallets/" target="_blank" style="color: #000; text-decoration: underline;">Learn about Web3</a>
-        </div>
-      `;
-    }}
-
-    async function selectWalletProvider(providerName) {{
-      const container = document.getElementById("rainbowModalContent");
-
-      if (providerName === "MetaMask") {{
-        let provider = null;
-        if (typeof window !== "undefined" && window.ethereum?.providers) {{
-          provider = window.ethereum.providers.find(p => p.isMetaMask) || window.ethereum;
-        }} else if (typeof window !== "undefined" && window.ethereum?.isMetaMask) {{
-          provider = window.ethereum;
-        }} else if (typeof window !== "undefined" && window.ethereum) {{
-          provider = window.ethereum;
-        }}
-
-        if (provider) {{
-          try {{
-            const accounts = await provider.request({{ method: "eth_requestAccounts" }});
-            if (accounts && accounts.length > 0) {{
-              closeRainbowModal();
-              ChronosWalletStore.connect(accounts[0]);
-              showRecalibrationToast("Connected via MetaMask", `Wallet ${{accounts[0].slice(0,6)}}...${{accounts[0].slice(-4)}} connected. Loaded isolated $50,000.00 paper trading balance.`);
-              return;
-            }}
-          }} catch(err) {{
-            alert("MetaMask connection rejected: " + (err.message || "User cancelled"));
-            return;
-          }}
-        }} else {{
-          showWalletInstallScreen("MetaMask", "https://metamask.io/download/", "MetaMask is not installed in your browser. Install the official browser extension to trade on Chronos.");
-          return;
-        }}
-      }}
-      else if (providerName === "Rainbow") {{
-        let provider = typeof window !== "undefined" ? (window.rainbow || (window.ethereum?.isRainbow ? window.ethereum : null)) : null;
-        if (provider) {{
-          try {{
-            const accounts = await provider.request({{ method: "eth_requestAccounts" }});
-            if (accounts && accounts.length > 0) {{
-              closeRainbowModal();
-              ChronosWalletStore.connect(accounts[0]);
-              showRecalibrationToast("Connected via Rainbow", `Wallet ${{accounts[0].slice(0,6)}}...${{accounts[0].slice(-4)}} connected.`);
-              return;
-            }}
-          }} catch(err) {{
-            alert("Rainbow connection rejected: " + (err.message || "User cancelled"));
-            return;
-          }}
-        }} else {{
-          showWalletInstallScreen("Rainbow", "https://rainbow.me/", "Rainbow is not installed. Download the extension or mobile app to connect to Chronos.");
-          return;
-        }}
-      }}
-      else if (providerName === "Coinbase") {{
-        let provider = typeof window !== "undefined" ? (window.coinbaseWalletExtension || (window.ethereum?.isCoinbaseWallet ? window.ethereum : null)) : null;
-        if (provider) {{
-          try {{
-            const accounts = await provider.request({{ method: "eth_requestAccounts" }});
-            if (accounts && accounts.length > 0) {{
-              closeRainbowModal();
-              ChronosWalletStore.connect(accounts[0]);
-              showRecalibrationToast("Connected via Coinbase Wallet", `Wallet ${{accounts[0].slice(0,6)}}...${{accounts[0].slice(-4)}} connected.`);
-              return;
-            }}
-          }} catch(err) {{
-            alert("Coinbase connection rejected: " + (err.message || "User cancelled"));
-            return;
-          }}
-        }} else {{
-          showWalletInstallScreen("Coinbase Wallet", "https://www.coinbase.com/wallet", "Coinbase Wallet extension not detected in this browser.");
-          return;
-        }}
-      }}
-      else if (providerName === "WalletConnect") {{
-        showWalletConnectQRScreen();
-        return;
-      }}
-      else if (providerName === "Injected") {{
-        if (typeof window !== "undefined" && window.ethereum) {{
-          try {{
-            const accounts = await provider.request({{ method: "eth_requestAccounts" }});
-            if (accounts && accounts.length > 0) {{
-              closeRainbowModal();
-              ChronosWalletStore.connect(accounts[0]);
-              showRecalibrationToast("Connected via Injected Web3", `Wallet ${{accounts[0].slice(0,6)}}...${{accounts[0].slice(-4)}} connected.`);
-              return;
-            }}
-          }} catch(err) {{
-            alert("Connection rejected: " + (err.message || "User cancelled"));
-            return;
-          }}
-        }} else {{
-          alert("No injected EVM wallet found in this browser. Please install MetaMask, Rainbow, or Coinbase Wallet.");
-          return;
-        }}
-      }}
-    }}
-
-    function showWalletInstallScreen(name, url, desc) {{
-      const container = document.getElementById("rainbowModalContent");
-      if (!container) return;
-      container.innerHTML = `
-        <div class="rainbow-modal-header">
-          <h3>Get ${{name}}</h3>
-          <button onclick="closeRainbowModal()" style="background: none; border: none; font-size: 1.2rem; cursor: pointer; color: #666;">✕</button>
-        </div>
-        <div style="padding: 1.75rem; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1.25rem;">
-          <div style="width: 56px; height: 56px; border-radius: 14px; background: var(--color-canvas-subtle); display: flex; align-items: center; justify-content: center; font-size: 1.75rem;">
-            🦊
-          </div>
-          <div>
-            <h4 style="font-family: var(--font-serif-editorial); font-size: 1.35rem; margin-bottom: 0.4rem;">${{name}} Not Detected</h4>
-            <p style="font-size: 0.84rem; color: #666; line-height: 1.5; max-width: 320px;">${{desc}}</p>
-          </div>
-          <a href="${{url}}" target="_blank" class="btn-launch-black" style="text-decoration: none; padding: 0.7rem 1.5rem; border-radius: 8px; font-weight: 600;">
-            <span>Install ${{name}} Extension ↗</span>
-          </a>
-          <button class="preset-chip" onclick="renderWalletOptionsModal()" style="padding: 0.4rem 1rem;">← Back to Wallets</button>
-        </div>
-      `;
-    }}
-
-    function showWalletConnectQRScreen() {{
-      const container = document.getElementById("rainbowModalContent");
-      if (!container) return;
-      container.innerHTML = `
-        <div class="rainbow-modal-header">
-          <h3>WalletConnect</h3>
-          <button onclick="closeRainbowModal()" style="background: none; border: none; font-size: 1.2rem; cursor: pointer; color: #666;">✕</button>
-        </div>
-        <div style="padding: 1.5rem; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1rem;">
-          <div style="background: #FFF; padding: 1rem; border: 2px dashed rgba(0,0,0,0.15); border-radius: 12px;">
-            <svg width="160" height="160" viewBox="0 0 100 100">
-              <rect width="100" height="100" fill="#FFF"/>
-              <rect x="10" y="10" width="25" height="25" fill="#000"/>
-              <rect x="65" y="10" width="25" height="25" fill="#000"/>
-              <rect x="10" y="65" width="25" height="25" fill="#000"/>
-              <rect x="15" y="15" width="15" height="15" fill="#FFF"/>
-              <rect x="70" y="15" width="15" height="15" fill="#FFF"/>
-              <rect x="15" y="70" width="15" height="15" fill="#FFF"/>
-              <rect x="45" y="15" width="10" height="10" fill="#000"/>
-              <rect x="45" y="45" width="10" height="10" fill="#000"/>
-              <rect x="45" y="75" width="10" height="10" fill="#000"/>
-              <rect x="75" y="45" width="10" height="10" fill="#000"/>
-              <rect x="15" y="45" width="10" height="10" fill="#000"/>
-            </svg>
-          </div>
-          <p style="font-size: 0.82rem; color: #666;">Scan QR with Rainbow, MetaMask Mobile, or 100+ mobile wallets.</p>
-          <button class="preset-chip" onclick="renderWalletOptionsModal()" style="padding: 0.4rem 1rem;">← Back to Wallets</button>
-        </div>
-      `;
-    }}
-
-    function toggleWalletDropdown(e) {{
-      e.stopPropagation();
-      document.getElementById("walletDropdownMenu").classList.toggle("open");
-    }}
-
-    function closeWalletDropdown() {{
-      document.getElementById("walletDropdownMenu").classList.remove("open");
-    }}
-
-    window.addEventListener("click", () => {{
-      closeWalletDropdown();
-    }});
-
-    function disconnectCurrentWallet() {{
-      closeWalletDropdown();
-      ChronosWalletStore.disconnect();
-      showRecalibrationToast("Wallet Disconnected", "Disconnected Web3 session. Reconnect anytime via RainbowKit.");
-    }}
+    /* __RAINBOWKIT_JS__ */
 
     // Paper Balance Controls
     function resetCurrentWalletBalance() {{
-      closeWalletDropdown();
       if (!ChronosWalletStore.currentAddress) return alert("Please connect a wallet first.");
       const d = ChronosWalletStore.getCurrentData();
       d.paperBalance = 50000.00;
@@ -2973,13 +2658,6 @@ html_template = f"""<!DOCTYPE html>
     window.selectMarket = selectMarket;
     window.updateMarketView = updateMarketView;
     window.recalcExecution = recalcExecution;
-    window.openRainbowModal = openRainbowModal;
-    window.closeRainbowModal = closeRainbowModal;
-    window.closeRainbowModalOnBackdrop = closeRainbowModalOnBackdrop;
-    window.selectWalletProvider = selectWalletProvider;
-    window.toggleWalletDropdown = toggleWalletDropdown;
-    window.closeWalletDropdown = closeWalletDropdown;
-    window.disconnectCurrentWallet = disconnectCurrentWallet;
     window.resetCurrentWalletBalance = resetCurrentWalletBalance;
     window.addPaperBalance = addPaperBalance;
     window.clearWalletHistory = clearWalletHistory;
@@ -3051,8 +2729,12 @@ html_template = f"""<!DOCTYPE html>
 </html>
 """
 
-# Compile to dashboard/app.html
-with open("dashboard/app.html", "w") as f:
-    f.write(html_template)
+# Compile to dashboard/app.html with authentic RainbowKit assets
+final_html = html_template.replace("/* __RAINBOWKIT_CSS__ */", RAINBOWKIT_CSS)
+final_html = final_html.replace("<!-- __RAINBOWKIT_HTML__ -->", RAINBOWKIT_HTML_MARKUP)
+final_html = final_html.replace("/* __RAINBOWKIT_JS__ */", get_rainbowkit_js())
 
-print(f"Successfully compiled Unified Trading Terminal to dashboard/app.html ({len(html_template)} bytes)")
+with open("dashboard/app.html", "w") as f:
+    f.write(final_html)
+
+print(f"Successfully compiled Unified Trading Terminal to dashboard/app.html ({len(final_html)} bytes)")

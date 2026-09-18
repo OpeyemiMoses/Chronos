@@ -1,5 +1,9 @@
 import json
 import os
+import sys
+
+sys.path.append(os.path.join(os.path.dirname(__file__)))
+from rainbowkit_engine import RAINBOWKIT_CSS, RAINBOWKIT_HTML_MARKUP, get_rainbowkit_js
 
 with open("data/real_trades.json", "r") as f:
     real_trades = json.load(f)
@@ -645,6 +649,8 @@ html_content = f"""<!DOCTYPE html>
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
       border: 1px solid rgba(255, 255, 255, 0.15);
     }}
+
+    /* __RAINBOWKIT_CSS__ */
   </style>
 </head>
 <body>
@@ -669,6 +675,7 @@ html_content = f"""<!DOCTYPE html>
 
       <!-- Right: Launch Terminal Button -->
       <div style="display: flex; align-items: center; gap: 0.65rem;">
+        <div id="rainbowkitHeaderContainer"></div>
         <button class="btn-launch-black" onclick="window.location.href='app.html'">
           <span>Launch Terminal</span>
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
@@ -1498,10 +1505,43 @@ html_content = f"""<!DOCTYPE html>
       ctx.fillText("Monday 09:30 EST (Convergence)", w - 210, h - 14);
     }}
 
+    // Chronos Wallet Store for Landing Page
+    const ChronosWalletStore = {{
+      currentAddress: localStorage.getItem("chronos_active_wallet") || null,
+      getCurrentData() {{
+        const a = this.currentAddress || "sandbox";
+        const raw = localStorage.getItem("chronos_wallet_" + a.toLowerCase());
+        if (raw) {{
+          try {{ return JSON.parse(raw); }} catch(e) {{}}
+        }}
+        return {{ paperBalance: 50000.00 }};
+      }},
+      connect(addr) {{
+        this.currentAddress = addr;
+        localStorage.setItem("chronos_active_wallet", addr);
+        if (typeof renderRainbowHeader === "function") renderRainbowHeader();
+      }},
+      disconnect() {{
+        this.currentAddress = null;
+        localStorage.removeItem("chronos_active_wallet");
+        if (typeof renderRainbowHeader === "function") renderRainbowHeader();
+      }},
+      init() {{
+        this.currentAddress = localStorage.getItem("chronos_active_wallet") || null;
+        if (typeof renderRainbowHeader === "function") renderRainbowHeader();
+      }}
+    }};
+    window.ChronosWalletStore = ChronosWalletStore;
+
+    /* __RAINBOWKIT_JS__ */
+
     window.addEventListener("resize", drawChart);
     function initIndexApp() {{
       try {{ renderLedger(realTrades); }} catch(e) {{ console.error("renderLedger error:", e); }}
       try {{ setTimeout(drawChart, 80); }} catch(e) {{}}
+      try {{
+        if (typeof ChronosWalletStore !== "undefined") ChronosWalletStore.init();
+      }} catch(e) {{}}
     }}
     if (document.readyState === "loading") {{
       document.addEventListener("DOMContentLoaded", initIndexApp);
@@ -1509,11 +1549,19 @@ html_content = f"""<!DOCTYPE html>
       initIndexApp();
     }}
   </script>
+
+  <!-- Authentic RainbowKit Modals -->
+  <!-- __RAINBOWKIT_HTML__ -->
 </body>
 </html>
 """
 
-with open("dashboard/index.html", "w") as f:
-    f.write(html_content)
+# Compile to dashboard/index.html with authentic RainbowKit assets
+final_html = html_content.replace("/* __RAINBOWKIT_CSS__ */", RAINBOWKIT_CSS)
+final_html = final_html.replace("<!-- __RAINBOWKIT_HTML__ -->", RAINBOWKIT_HTML_MARKUP)
+final_html = final_html.replace("/* __RAINBOWKIT_JS__ */", get_rainbowkit_js())
 
-print(f"Successfully generated Master Chronos Landing Page at dashboard/index.html ({len(html_content)} bytes)")
+with open("dashboard/index.html", "w") as f:
+    f.write(final_html)
+
+print(f"Successfully generated Master Chronos Landing Page at dashboard/index.html ({len(final_html)} bytes)")
