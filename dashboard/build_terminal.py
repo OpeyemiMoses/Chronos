@@ -2751,7 +2751,6 @@ html_template = f"""<!DOCTYPE html>
     window.testBitgetConnection = testBitgetConnection;
     window.refreshBitgetAccount = refreshBitgetAccount;
     window.jumpToAudit = jumpToAudit;
-    window.dismissRecalToast = dismissRecalToast;
     window.drawCandleChart = drawCandleChart;
     window.ChronosWalletStore = ChronosWalletStore;
     window.renderSidebar = renderSidebar;

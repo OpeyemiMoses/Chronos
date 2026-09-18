@@ -947,10 +947,11 @@ RAINBOWKIT_JS = '''
       ChronosWalletStore.connect(address);
       closeRainbowModal();
       renderRainbowHeader();
-      if (typeof showRecalibrationToast === "function") {
-        showRecalibrationToast(
+      if (typeof showToast === "function") {
+        showToast(
           "Wallet Connected via RainbowKit",
-          `Connected address: ${rkFormatAddress(address)}. Loaded isolated paper trading balance and settings.`
+          `Connected address: ${rkFormatAddress(address)}. Loaded isolated paper trading balance and settings.`,
+          "success"
         );
       }
     }
@@ -960,8 +961,8 @@ RAINBOWKIT_JS = '''
       closeRainbowAccountModal();
       ChronosWalletStore.disconnect();
       renderRainbowHeader();
-      if (typeof showRecalibrationToast === "function") {
-        showRecalibrationToast("Wallet Disconnected", "Restored isolated paper trading sandbox.");
+      if (typeof showToast === "function") {
+        showToast("Wallet Disconnected", "Restored isolated paper trading sandbox.", "info");
       }
     }
 
