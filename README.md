@@ -28,6 +28,29 @@ During weekends, breaking macroeconomic news, geopolitical developments, and soc
 
 ---
 
+## 🧭 The 4-Phase Operational Lifecycle
+
+Chronos operates on a strict 4-phase weekly lifecycle designed to exploit the weekend closure gap while completely eliminating normal weekday market exposure:
+
+```
+    FRIDAY 16:00 EST        WEEKEND (24/7)            MONDAY 08:00-09:30 EST    MON 09:30 - FRI 15:59
+ ┌──────────────────────┐  ┌───────────────────────┐  ┌──────────────────────┐  ┌───────────────────┐
+ │       PHASE 1        │  │        PHASE 2        │  │       PHASE 3        │  │      PHASE 4      │
+ │  Anchor Snapshot     │  │  Weekend Alpha Hunt   │  │  Pre-Market Harvest  │  │  Self-Audit &     │
+ │  Lock Cash Close &   │─>│  Scan Retail Drift &  │─>│  Unwind into deep    │─>│  100% Cash Sleep  │
+ │  BTC Macro Baseline  │  │  Enter |Z| >= 2.0σ    │  │  Institutional Books │  │  Tune Parameters  │
+ └──────────────────────┘  └───────────────────────┘  └──────────────────────┘  └───────────────────┘
+```
+
+1. **Phase 1: Friday 16:00 EST Anchor Snapshot:** Freezes consensus institutional closing prices for all 7 equities and Bitcoin macro baseline.
+2. **Phase 2: Weekend 24/7 Dislocation Alpha Hunt:** Scans continuous retail drift, separates macro drift via rolling beta, and enters risk-parity positions when $|Z| \ge 2.0\sigma$.
+3. **Phase 3: Monday 08:00–09:30 EST Institutional Pre-Market Harvest:** Closes all positions into deep institutional returning liquidity, returning **100% to cash** before 09:30 EST open.
+4. **Phase 4: Monday Post-Trade Cognitive Self-Audit & Sleep:** Evaluates outcomes, diagnoses root causes, adapts Z-thresholds into `data/audit_memory.json`, and sleeps in **100% Cash with zero weekday risk**.
+
+👉 **[Read the complete Operational Lifecycle Specification](docs/OPERATIONAL_LIFECYCLE.md)**
+
+---
+
 ## 📐 Mathematical Formulation
 
 ### 1. Friday Anchor Baseline

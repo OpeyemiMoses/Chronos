@@ -554,6 +554,116 @@ html_template = f"""<!DOCTYPE html>
       color: #374151;
     }}
 
+    /* Weekly 4-Phase Operational Lifecycle Stepper */
+    .lifecycle-stepper-container {{
+      background: #FFFFFF;
+      border: 1px dashed rgba(0, 0, 0, 0.22);
+      border-radius: 8px;
+      padding: 0.95rem 1.25rem;
+      margin-top: 1rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+    }}
+
+    .lifecycle-stepper-header {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.85rem;
+    }}
+
+    .lifecycle-stepper-title {{
+      font-family: var(--font-terminal);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-grey-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }}
+
+    .lifecycle-state-badge {{
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 12px;
+      font-size: 0.72rem;
+      font-family: var(--font-terminal);
+      font-weight: 700;
+      background: rgba(16, 185, 129, 0.1);
+      color: #059669;
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      transition: all 0.2s ease;
+    }}
+
+    .lifecycle-steps-grid {{
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+      align-items: center;
+      gap: 0.65rem;
+    }}
+
+    .lifecycle-step-card {{
+      background: #FAFAFA;
+      border: 1px solid #E5E7EB;
+      border-radius: 6px;
+      padding: 0.65rem 0.85rem;
+      transition: all 0.2s ease;
+      position: relative;
+    }}
+
+    .lifecycle-step-card.active {{
+      background: #F0FDF4;
+      border-color: #10B981;
+      box-shadow: 0 0 0 1px #10B981;
+    }}
+
+    .lifecycle-step-card.completed {{
+      background: #F9FAFB;
+      border-color: #D1D5DB;
+    }}
+
+    .step-tag {{
+      font-family: var(--font-terminal);
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: #6B7280;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }}
+
+    .lifecycle-step-card.active .step-tag {{
+      color: #059669;
+    }}
+
+    .step-name {{
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 0.15rem;
+    }}
+
+    .step-detail {{
+      font-size: 0.68rem;
+      color: #6B7280;
+      line-height: 1.3;
+      font-family: var(--font-terminal);
+    }}
+
+    .lifecycle-separator {{
+      color: #9CA3AF;
+      font-weight: 700;
+      font-size: 0.95rem;
+      user-select: none;
+    }}
+
     /* Arena Grid: Chart + Order Box */
     .arena-grid {{
       display: grid;
@@ -1438,6 +1548,64 @@ html_template = f"""<!DOCTYPE html>
           </div>
         </div>
 
+        <!-- 4-Phase Weekly Operational Lifecycle Stepper -->
+        <div class="lifecycle-stepper-container" id="lifecycleStepperContainer">
+          <div class="lifecycle-stepper-header">
+            <div class="lifecycle-stepper-title">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span>4-PHASE WEEKLY OPERATIONAL LIFECYCLE</span>
+            </div>
+            <div class="lifecycle-state-badge" id="lifecycleStateBadge">
+              <span class="auto-live-pulse" style="width: 6px; height: 6px;"></span>
+              <span id="lifecycleStateBadgeText">PHASE 2: 24/7 WEEKEND ALPHA HUNT</span>
+            </div>
+          </div>
+
+          <div class="lifecycle-steps-grid">
+            <div class="lifecycle-step-card completed" id="stepPhase1">
+              <div class="step-tag">
+                <span>Phase 1</span>
+                <span class="step-status-icon" id="step1Icon">✓</span>
+              </div>
+              <div class="step-name">Friday 16:00 EST</div>
+              <div class="step-detail">Anchor Baseline Locked</div>
+            </div>
+
+            <div class="lifecycle-separator">→</div>
+
+            <div class="lifecycle-step-card active" id="stepPhase2">
+              <div class="step-tag">
+                <span>Phase 2</span>
+                <span class="step-status-icon" id="step2Icon">●</span>
+              </div>
+              <div class="step-name">Weekend 24/7</div>
+              <div class="step-detail">Dislocation Hunt (|Z| ≥ 2.0σ)</div>
+            </div>
+
+            <div class="lifecycle-separator">→</div>
+
+            <div class="lifecycle-step-card" id="stepPhase3">
+              <div class="step-tag">
+                <span>Phase 3</span>
+                <span class="step-status-icon" id="step3Icon">○</span>
+              </div>
+              <div class="step-name">Monday 08:30 EST</div>
+              <div class="step-detail">Pre-Market Exit → 100% Cash</div>
+            </div>
+
+            <div class="lifecycle-separator">→</div>
+
+            <div class="lifecycle-step-card" id="stepPhase4">
+              <div class="step-tag">
+                <span>Phase 4</span>
+                <span class="step-status-icon" id="step4Icon">○</span>
+              </div>
+              <div class="step-name">Cognitive Self-Audit</div>
+              <div class="step-detail">Post-Mortem & Weekday Sleep</div>
+            </div>
+          </div>
+        </div>
+
         <!-- Autonomous Auto-Pilot Live Bar -->
         <div class="auto-live-status-bar" id="autoStatusBar">
           <div style="display: flex; align-items: center; gap: 0.75rem;">
@@ -2207,7 +2375,8 @@ html_template = f"""<!DOCTYPE html>
       recalcExecution();
       renderActivePositions();
 
-      showToast("Position Executed", `Opened ${{newPos.side}} ${{newPos.contracts}} ${{m.symbol}} @ $${{newPos.entry_price.toFixed(2)}}. Deducted $${{collateral.toLocaleString()}} USDT margin.`, "success");
+      showToast("Phase 1 & 2: Trade Dispatched", `Friday Anchor locked @ $${{m.anchor_price.toFixed(2)}}. Weekend dislocation detected (Z = ${{m.z_score >= 0 ? '+' : ''}}${{m.z_score.toFixed(2)}}σ). Opened ${{newPos.side}} ${{newPos.contracts}} ${{m.symbol}}. Deducted $${{collateral.toLocaleString()}} USDT margin.`, "success");
+      renderLifecycleState();
     }}
 
     // Settle / Close Active Trade: Returns collateral + realized PnL to balance
@@ -2289,13 +2458,83 @@ html_template = f"""<!DOCTYPE html>
       recalcExecution();
       renderActivePositions();
       updateMarketView();
+      renderLifecycleState();
 
       showToast(
-        "Position Settled",
-        `Closed ${{pos.side}} ${{pos.symbol}}. Realized PnL: ${{dollarPnl >= 0 ? '+' : ''}}$${{dollarPnl.toFixed(2)}} (${{returnPct.toFixed(2)}}%). Returned $${{returnedCapital.toFixed(2)}} USDT to balance.`,
+        "Phase 3 & 4: Monday Pre-Market Unwind & Self-Audit",
+        `Liquidated ${{pos.side}} ${{pos.symbol}} into institutional pre-market deep books. Realized PnL: ${{dollarPnl >= 0 ? '+' : ''}}$${{dollarPnl.toFixed(2)}} (${{returnPct.toFixed(2)}}%). Returned $${{returnedCapital.toFixed(2)}} USDT. Portfolio in 100% Cash. Cognitive Self-Auditor updated.`,
         dollarPnl >= 0 ? "success" : "warning"
       );
     }}
+
+    function renderLifecycleState() {{
+      const d = ChronosWalletStore.getCurrentData();
+      const openPositions = d.openPositions || [];
+      const hasOpenPos = openPositions.length > 0;
+
+      const badge = document.getElementById("lifecycleStateBadge");
+      const badgeText = document.getElementById("lifecycleStateBadgeText");
+      const s1 = document.getElementById("stepPhase1");
+      const s2 = document.getElementById("stepPhase2");
+      const s3 = document.getElementById("stepPhase3");
+      const s4 = document.getElementById("stepPhase4");
+      const s2Icon = document.getElementById("step2Icon");
+      const s3Icon = document.getElementById("step3Icon");
+      const s4Icon = document.getElementById("step4Icon");
+
+      const autoBtn = document.querySelector("#autoStatusBar button");
+
+      if (hasOpenPos) {{
+        if (s1) s1.className = "lifecycle-step-card completed";
+        if (s2) s2.className = "lifecycle-step-card active";
+        if (s2Icon) s2Icon.textContent = "●";
+        if (s3) s3.className = "lifecycle-step-card";
+        if (s3Icon) s3Icon.textContent = "○";
+        if (s4) s4.className = "lifecycle-step-card";
+        if (s4Icon) s4Icon.textContent = "○";
+
+        if (badge) {{
+          badge.style.background = "rgba(245, 158, 11, 0.12)";
+          badge.style.borderColor = "rgba(245, 158, 11, 0.35)";
+          badge.style.color = "#D97706";
+        }}
+        if (badgeText) badgeText.textContent = `PHASE 2: POSITION ACTIVE (${{openPositions[0].side}} ${{openPositions[0].symbol}})`;
+        if (autoBtn) autoBtn.innerHTML = `<span>Harvest Monday Convergence (Phase 3 & 4)</span>`;
+      }} else if (d.trades && d.trades.length > 0) {{
+        if (s1) s1.className = "lifecycle-step-card completed";
+        if (s2) s2.className = "lifecycle-step-card completed";
+        if (s2Icon) s2Icon.textContent = "✓";
+        if (s3) s3.className = "lifecycle-step-card completed";
+        if (s3Icon) s3Icon.textContent = "✓";
+        if (s4) s4.className = "lifecycle-step-card active";
+        if (s4Icon) s4Icon.textContent = "●";
+
+        if (badge) {{
+          badge.style.background = "rgba(16, 185, 129, 0.12)";
+          badge.style.borderColor = "rgba(16, 185, 129, 0.35)";
+          badge.style.color = "#059669";
+        }}
+        if (badgeText) badgeText.textContent = "PHASE 4: 100% CASH SLEEP (ZERO WEEKDAY RISK)";
+        if (autoBtn) autoBtn.innerHTML = `<span>Trigger Weekend Alpha Trade (Phase 1 & 2)</span>`;
+      }} else {{
+        if (s1) s1.className = "lifecycle-step-card completed";
+        if (s2) s2.className = "lifecycle-step-card active";
+        if (s2Icon) s2Icon.textContent = "●";
+        if (s3) s3.className = "lifecycle-step-card";
+        if (s3Icon) s3Icon.textContent = "○";
+        if (s4) s4.className = "lifecycle-step-card";
+        if (s4Icon) s4Icon.textContent = "○";
+
+        if (badge) {{
+          badge.style.background = "rgba(16, 185, 129, 0.12)";
+          badge.style.borderColor = "rgba(16, 185, 129, 0.35)";
+          badge.style.color = "#059669";
+        }}
+        if (badgeText) badgeText.textContent = "PHASE 2: 24/7 WEEKEND ALPHA HUNT";
+        if (autoBtn) autoBtn.innerHTML = `<span>Trigger Weekend Alpha Trade (Phase 1 & 2)</span>`;
+      }}
+    }}
+    window.renderLifecycleState = renderLifecycleState;
 
     // Trigger Autonomous Cycle: Settle open trade or take new trade
     function triggerAutonomousCycle() {{
@@ -2740,10 +2979,10 @@ html_template = f"""<!DOCTYPE html>
 
     function restorePaperTradingState() {{
       const cardTitle = document.getElementById("walletCardTitle");
-      if (cardTitle) cardTitle.textContent = "Wallet Paper Trading Balance";
+      if (cardTitle) cardTitle.textContent = "Wallet Trading Vault Balance";
 
       const balanceLabel = document.getElementById("settingsBalanceLabel");
-      if (balanceLabel) balanceLabel.textContent = "CURRENT PAPER BALANCE";
+      if (balanceLabel) balanceLabel.textContent = "CURRENT VAULT BALANCE";
 
       const d = ChronosWalletStore.getCurrentData();
       const balanceDisplay = document.getElementById("settingsPaperBalanceDisplay");
@@ -2850,6 +3089,12 @@ html_template = f"""<!DOCTYPE html>
       }}
 
       try {{
+        renderLifecycleState();
+      }} catch(e) {{
+        console.error("renderLifecycleState error:", e);
+      }}
+
+      try {{
         ChronosWalletStore.init();
       }} catch(e) {{
         console.error("ChronosWalletStore error:", e);
@@ -2884,7 +3129,7 @@ html_template = f"""<!DOCTYPE html>
                 showToast("Wallet Connected", `Connected via RainbowKit: ${{account.address.slice(0,6)}}...${{account.address.slice(-4)}}`, "success");
               }} else if (account && !account.isConnected) {{
                 ChronosWalletStore.disconnect();
-                showToast("Wallet Disconnected", "Restored isolated paper trading sandbox.", "info");
+                showToast("Wallet Disconnected", "Restored isolated internal vault execution.", "info");
               }}
             }}
           }});
