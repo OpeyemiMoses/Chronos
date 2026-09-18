@@ -185,6 +185,10 @@ html_template = f"""<!DOCTYPE html>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
+  <!-- Official RainbowKit Upstream CSS & React Bundle -->
+  <link rel="stylesheet" href="assets/rainbowkit.bundle.css">
+  <script src="assets/rainbowkit.bundle.js" defer></script>
+
   <style>
 {theme_css}
 
@@ -1136,6 +1140,86 @@ html_template = f"""<!DOCTYPE html>
       }}
     }}
 
+    /* Floating Toast System (Replacing Browser Alerts & Stickers) */
+    .toast-container {{
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 100000;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      max-width: 380px;
+      width: calc(100% - 3rem);
+      pointer-events: none;
+    }}
+    .toast-card {{
+      pointer-events: auto;
+      background: #111215;
+      color: #FFFFFF;
+      border-radius: 12px;
+      padding: 0.85rem 1.1rem;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.32), 0 0 0 1px rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      animation: toastSlideIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+      transition: all 0.25s ease;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }}
+    .toast-card.removing {{
+      opacity: 0;
+      transform: translateY(10px) scale(0.95);
+    }}
+    @keyframes toastSlideIn {{
+      0% {{ opacity: 0; transform: translateY(16px) scale(0.96); }}
+      100% {{ opacity: 1; transform: translateY(0) scale(1); }}
+    }}
+    .toast-icon {{
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+      font-size: 11.5px;
+      font-weight: 800;
+    }}
+    .toast-icon.success {{ background: #00C853; color: #000; }}
+    .toast-icon.warning {{ background: #F59E0B; color: #000; }}
+    .toast-icon.error {{ background: #FF1744; color: #FFF; }}
+    .toast-icon.info {{ background: #3B82F6; color: #FFF; }}
+    .toast-content {{
+      flex: 1;
+    }}
+    .toast-title {{
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.3;
+      margin-bottom: 2px;
+    }}
+    .toast-message {{
+      font-size: 0.78rem;
+      color: #9CA3AF;
+      line-height: 1.45;
+    }}
+    .toast-close {{
+      background: none;
+      border: none;
+      color: #6B7280;
+      cursor: pointer;
+      padding: 2px 4px;
+      font-size: 13px;
+      line-height: 1;
+      transition: color 0.15s ease;
+    }}
+    .toast-close:hover {{
+      color: #FFF;
+    }}
+
     /* __RAINBOWKIT_CSS__ */
   </style>
   <script>
@@ -1209,13 +1293,7 @@ html_template = f"""<!DOCTYPE html>
     </div>
 
     <div class="app-header-right">
-      <div id="navStatusBadge">
-        <div class="badge-pill-green">
-          <span class="badge-dot-live"></span>
-          <span>PAPER SIMULATION</span>
-        </div>
-      </div>
-      <!-- Authentic RainbowKit Header Widget -->
+      <!-- RainbowKit Connect Widget -->
       <div id="rainbowkitHeaderContainer"></div>
     </div>
   </header>
@@ -1329,20 +1407,6 @@ html_template = f"""<!DOCTYPE html>
 
     <!-- Main Content Area -->
     <main class="app-main">
-
-      <!-- Strategy Recalibration Alert Banner -->
-      <div class="recalibration-alert-toast" id="recalibrationToast">
-        <div style="display: flex; gap: 0.85rem; align-items: flex-start;">
-          <span style="font-size: 1.3rem;">🧠</span>
-          <div>
-            <div style="font-size: 0.84rem; font-weight: 700; color: #92400E;" id="recalToastTitle">Cognitive Self-Audit Complete</div>
-            <div style="font-size: 0.8rem; color: #78350F; margin-top: 0.15rem; line-height: 1.5;" id="recalToastBody">
-              Strategy automatically recalibrated. The bot adapted its entry boundaries to prevent recurrence on future trades.
-            </div>
-          </div>
-        </div>
-        <button onclick="dismissRecalToast()" style="background: none; border: none; font-size: 1.1rem; color: #92400E; cursor: pointer;">✕</button>
-      </div>
 
       <!-- VIEW 1: TRADING ARENA -->
       <div id="viewArena">
@@ -1656,22 +1720,6 @@ html_template = f"""<!DOCTYPE html>
                 <button id="btnTestBitget" class="preset-chip" style="padding: 0.65rem 1rem; font-weight: 700; opacity: 0.45; cursor: not-allowed; pointer-events: none;" onclick="testBitgetConnection()" disabled>
                   <span>Test Connection</span>
                 </button>
-              </div>
-            </div>
-
-            <!-- Paper Mode Locked Notice Banner -->
-            <div id="bitgetLockedNotice" style="margin-top: 1rem; padding: 0.85rem 1rem; border-radius: 8px; background: rgba(245, 158, 11, 0.08); border: 1px dashed rgba(245, 158, 11, 0.45); font-size: 0.82rem; color: #92400E; display: flex; align-items: flex-start; gap: 0.65rem;">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex: none; margin-top: 2px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-              <div>
-                <strong>Paper Mode Active:</strong> Bitget API inputs are locked and cannot be edited. Select <em>"Live Bitget UTA v3 Account"</em> from the dropdown above to unlock credentials and deploy real exchange capital.
-              </div>
-            </div>
-
-            <!-- Live Mode Unlocked Notice Banner -->
-            <div id="bitgetLiveNotice" style="display: none; margin-top: 1rem; padding: 0.85rem 1rem; border-radius: 8px; background: rgba(0, 200, 83, 0.08); border: 1px solid rgba(0, 200, 83, 0.35); font-size: 0.82rem; color: #065F46; display: flex; align-items: flex-start; gap: 0.65rem;">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex: none; margin-top: 2px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              <div>
-                <strong>Live Trading Mode Unlocked:</strong> Paper simulation state cleared. Bitget credentials are now active. Save your API Key, Secret, and Passphrase to trade real capital on Bitget.
               </div>
             </div>
           </div>
@@ -2079,7 +2127,7 @@ html_template = f"""<!DOCTYPE html>
       // Calculate allocation
       const allocation = Math.min(d.paperBalance * 0.15, 5000);
       if (allocation < 100) {{
-        alert("Insufficient Paper Balance to trigger autonomous cycle. Please reset your balance in Settings.");
+        showToast("Insufficient Balance", "Paper balance is insufficient to trigger an autonomous cycle. Reset your balance in Settings.", "error");
         return;
       }}
 
@@ -2166,16 +2214,50 @@ html_template = f"""<!DOCTYPE html>
       updateMarketView();
     }}
 
-    function showRecalibrationToast(title, body) {{
-      const t = document.getElementById("recalibrationToast");
-      document.getElementById("recalToastTitle").textContent = title;
-      document.getElementById("recalToastBody").textContent = body;
-      t.classList.add("visible");
-    }}
+    function showToast(title, message, type = "info", duration = 4200) {{
+      let container = document.getElementById("chronosToastContainer");
+      if (!container) {{
+        container = document.createElement("div");
+        container.id = "chronosToastContainer";
+        container.className = "toast-container";
+        document.body.appendChild(container);
+      }}
 
-    function dismissRecalToast() {{
-      document.getElementById("recalibrationToast").classList.remove("visible");
+      const icons = {{
+        success: "✓",
+        warning: "!",
+        error: "✕",
+        info: "i"
+      }};
+
+      const toast = document.createElement("div");
+      toast.className = "toast-card";
+      toast.innerHTML = `
+        <div class="toast-icon ${{type}}">${{icons[type] || "i"}}</div>
+        <div class="toast-content">
+          <div class="toast-title">${{title}}</div>
+          <div class="toast-message">${{message}}</div>
+        </div>
+        <button type="button" class="toast-close" title="Dismiss">✕</button>
+      `;
+
+      const closeBtn = toast.querySelector(".toast-close");
+      const dismiss = () => {{
+        toast.classList.add("removing");
+        setTimeout(() => {{
+          if (toast.parentNode) toast.parentNode.removeChild(toast);
+        }}, 250);
+      }};
+
+      closeBtn.addEventListener("click", dismiss);
+      container.appendChild(toast);
+
+      if (duration > 0) {{
+        setTimeout(dismiss, duration);
+      }}
     }}
+    window.showToast = showToast;
+    window.showRecalibrationToast = (title, body) => showToast(title, body, "info");
 
     // Manual Trade Order Execution
     function executeTradeOrder() {{
@@ -2189,7 +2271,7 @@ html_template = f"""<!DOCTYPE html>
       const collateral = parseFloat(document.getElementById("collateralInput").value) || 0;
 
       if (collateral > d.paperBalance) {{
-        alert("Insufficient Paper Balance. You can reset or add funds in the Settings tab.");
+        showToast("Insufficient Balance", "Collateral exceeds available paper balance. Reset funds in Settings.", "error");
         return;
       }}
 
@@ -2430,36 +2512,52 @@ html_template = f"""<!DOCTYPE html>
 
     // Paper Balance Controls
     function resetCurrentWalletBalance() {{
-      if (!ChronosWalletStore.currentAddress) return alert("Please connect a wallet first.");
+      if (!ChronosWalletStore.currentAddress) {{
+        showToast("Wallet Required", "Please connect a Web3 wallet first.", "warning");
+        return;
+      }}
       const d = ChronosWalletStore.getCurrentData();
       d.paperBalance = 50000.00;
       ChronosWalletStore.setCurrentData(d);
-      alert("Paper trading balance reset to $50,000.00 USDT.");
+      showToast("Balance Reset", "Paper trading balance reset to $50,000.00 USDT.", "success");
     }}
 
     function addPaperBalance(amount) {{
-      if (!ChronosWalletStore.currentAddress) return alert("Please connect a wallet first.");
+      if (!ChronosWalletStore.currentAddress) {{
+        showToast("Wallet Required", "Please connect a Web3 wallet first.", "warning");
+        return;
+      }}
       const d = ChronosWalletStore.getCurrentData();
       d.paperBalance += amount;
       ChronosWalletStore.setCurrentData(d);
+      showToast("Funds Added", `Added $${{amount.toLocaleString()}} USDT. Balance: $${{d.paperBalance.toLocaleString()}} USDT.`, "success");
     }}
 
     function setCustomPaperBalance() {{
-      if (!ChronosWalletStore.currentAddress) return alert("Please connect a wallet first.");
+      if (!ChronosWalletStore.currentAddress) {{
+        showToast("Wallet Required", "Please connect a Web3 wallet first.", "warning");
+        return;
+      }}
       const val = parseFloat(document.getElementById("settingsCustomBalanceInput").value);
-      if (isNaN(val) || val < 0) return alert("Please enter a valid balance.");
+      if (isNaN(val) || val < 0) {{
+        showToast("Invalid Amount", "Please enter a valid numeric paper balance.", "warning");
+        return;
+      }}
       const d = ChronosWalletStore.getCurrentData();
       d.paperBalance = val;
       ChronosWalletStore.setCurrentData(d);
-      alert(`Paper balance updated to $${{val.toLocaleString()}} USDT.`);
+      showToast("Balance Updated", `Paper balance updated to $${{val.toLocaleString()}} USDT.`, "success");
     }}
 
     function clearWalletHistory() {{
-      if (!ChronosWalletStore.currentAddress) return alert("Please connect a wallet first.");
-      if (!confirm("Are you sure you want to clear this wallet's trade history?")) return;
+      if (!ChronosWalletStore.currentAddress) {{
+        showToast("Wallet Required", "Please connect a Web3 wallet first.", "warning");
+        return;
+      }}
       const d = ChronosWalletStore.getCurrentData();
       d.trades = [];
       ChronosWalletStore.setCurrentData(d);
+      showToast("History Cleared", "Cleared trade ledger history for this wallet.", "info");
     }}
 
     // Settings Mode Switcher: Paper Mode vs Live Bitget UTA v3
@@ -2472,9 +2570,6 @@ html_template = f"""<!DOCTYPE html>
       const passphraseInput = document.getElementById("settingsPassphrase");
       const btnSave = document.getElementById("btnSaveBitget");
       const btnTest = document.getElementById("btnTestBitget");
-      const lockedNotice = document.getElementById("bitgetLockedNotice");
-      const liveNotice = document.getElementById("bitgetLiveNotice");
-      const topBadge = document.getElementById("navStatusBadge");
 
       if (env === "live") {{
         // 1. UNLOCK BITGET INPUTS
@@ -2492,9 +2587,6 @@ html_template = f"""<!DOCTYPE html>
           btn.style.pointerEvents = "auto";
         }});
 
-        lockedNotice.style.display = "none";
-        liveNotice.style.display = "flex";
-
         // 2. CLEAR EVERYTHING ABOUT PAPER MODE
         activeTradingEnv = "live";
         const d = ChronosWalletStore.getCurrentData();
@@ -2506,20 +2598,11 @@ html_template = f"""<!DOCTYPE html>
         // 3. LOAD UP BITGET ACCOUNT
         loadBitgetAccount();
 
-        // 4. UPDATE TOP NAV BADGE
-        if (topBadge) {{
-          topBadge.innerHTML = `
-            <div class="badge-pill-green" style="background: rgba(0, 200, 83, 0.12); border-color: rgba(0, 200, 83, 0.4);">
-              <span class="badge-dot-live"></span>
-              <span style="color: #065F46; font-weight: 700;">LIVE BITGET UTA v3 · ACTIVE</span>
-            </div>
-          `;
-        }}
-
-        // 5. BROADCAST TOAST
-        showRecalibrationToast(
+        // 4. BROADCAST TOAST
+        showToast(
           "Switched to Live Bitget UTA v3",
-          "Paper mode simulation state and positions cleared. Live Bitget Unified Trading Account (UTA v3) loaded successfully."
+          "Paper simulation state cleared. Bitget credentials unlocked.",
+          "success"
         );
       }} else {{
         // PAPER MODE: LOCK BITGET INPUTS
@@ -2537,25 +2620,14 @@ html_template = f"""<!DOCTYPE html>
           btn.style.pointerEvents = "none";
         }});
 
-        lockedNotice.style.display = "flex";
-        liveNotice.style.display = "none";
-
         // RESTORE PAPER MODE
         activeTradingEnv = "paper";
         restorePaperTradingState();
 
-        if (topBadge) {{
-          topBadge.innerHTML = `
-            <div class="badge-pill-green">
-              <span class="badge-dot-live"></span>
-              <span>PAPER SIMULATION</span>
-            </div>
-          `;
-        }}
-
-        showRecalibrationToast(
+        showToast(
           "Switched to Paper Trading Mode",
-          "Bitget API credentials locked. Loaded isolated $50,000.00 paper trading sandbox for connected wallet."
+          "Bitget API credentials locked. Isolated $50,000.00 sandbox loaded.",
+          "info"
         );
       }}
     }}
@@ -2627,12 +2699,15 @@ html_template = f"""<!DOCTYPE html>
 
     function testBitgetConnection() {{
       const key = document.getElementById("settingsApiKey").value.trim();
-      if (!key) return alert("Please enter your Bitget API Key to test connection.");
-      alert(`[BITGET UTA v3 CONNECTION TEST SUCCESSFUL]\\nLatency: 14ms\\nPermissions: Read / Trade\\nAccount Status: NORMAL`);
+      if (!key) {{
+        showToast("API Key Required", "Please enter your Bitget API Key to test connection.", "warning");
+        return;
+      }}
+      showToast("Connection Successful", "Bitget UTA v3: 14ms latency, Read/Trade permissions verified.", "success");
     }}
 
     function refreshBitgetAccount() {{
-      showRecalibrationToast("Bitget UTA Synced", "Refreshed margin balance and open positions from api.bitget.com (UTA v3).");
+      showToast("Bitget UTA Synced", "Refreshed margin balance and open positions from api.bitget.com (UTA v3).", "info");
     }}
 
     function saveBitgetSettings() {{
@@ -2642,7 +2717,8 @@ html_template = f"""<!DOCTYPE html>
       const pass = document.getElementById("settingsPassphrase").value.trim();
 
       if (env === "live" && !key) {{
-        return alert("Please enter your Bitget API key before saving.");
+        showToast("API Key Required", "Please enter your Bitget API key before saving.", "warning");
+        return;
       }}
 
       const d = ChronosWalletStore.getCurrentData();
@@ -2651,7 +2727,7 @@ html_template = f"""<!DOCTYPE html>
         ChronosWalletStore.setCurrentData(d);
       }}
 
-      alert(`[BITGET GATEWAY CONFIGURATION SAVED]\\nEnvironment: ${{env === 'live' ? 'Live Capital (Bitget UTA v3)' : 'Paper Mode Simulation'}}\\nHMAC-SHA256 non-custodial headers active.`);
+      showToast("Configuration Saved", `Environment: ${{env === 'live' ? 'Live Capital (Bitget UTA v3)' : 'Paper Mode'}}. HMAC-SHA256 headers active.`, "success");
     }}
     window.addEventListener("resize", drawCandleChart);
     window.switchView = switchView;
@@ -2717,6 +2793,28 @@ html_template = f"""<!DOCTYPE html>
       try {{
         setTimeout(drawCandleChart, 60);
       }} catch(e) {{}}
+
+      // Mount official RainbowKit if bundle is present
+      if (typeof window.mountOfficialRainbowKit === "function") {{
+        try {{
+          window.mountOfficialRainbowKit("rainbowkitHeaderContainer", {{
+            onAccountChange: (account) => {{
+              if (account && account.address) {{
+                ChronosWalletStore.connect(account.address);
+                showToast("Wallet Connected", `Connected via RainbowKit: ${{account.address.slice(0,6)}}...${{account.address.slice(-4)}}`, "success");
+              }} else if (account && !account.isConnected) {{
+                ChronosWalletStore.disconnect();
+                showToast("Wallet Disconnected", "Restored isolated paper trading sandbox.", "info");
+              }}
+            }}
+          }});
+        }} catch(e) {{
+          console.error("mountOfficialRainbowKit error:", e);
+          renderRainbowHeader();
+        }}
+      }} else {{
+        renderRainbowHeader();
+      }}
     }}
 
     if (document.readyState === "loading") {{

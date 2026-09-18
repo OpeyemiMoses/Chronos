@@ -924,7 +924,9 @@ RAINBOWKIT_JS = '''
             return;
           }
         } catch(err) {
-          alert(`${walletName} connection cancelled: ` + (err.message || "User rejected"));
+          if (typeof showToast === "function") {
+            showToast("Connection Cancelled", `${walletName} connection was cancelled: ` + (err.message || "User rejected"), "info");
+          }
           return;
         }
       }

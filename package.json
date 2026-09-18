@@ -1,0 +1,22 @@
+{
+  "name": "chronos-terminal",
+  "version": "1.0.0",
+  "description": "Chronos Autonomous After-Hours Information Pricing & Convergence Engine",
+  "scripts": {
+    "build:rainbowkit": "esbuild src/rainbowkit.jsx --bundle --minify --format=iife --outfile=dashboard/assets/rainbowkit.bundle.js",
+    "build:landing": "python3 dashboard/build_landing.py",
+    "build:terminal": "python3 dashboard/build_terminal.py",
+    "build": "npm run build:landing && npm run build:terminal"
+  },
+  "dependencies": {
+    "@rainbow-me/rainbowkit": "^2.2.11",
+    "@tanstack/react-query": "^5.103.1",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "viem": "^2.56.8",
+    "wagmi": "^2.19.5"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  }
+}
