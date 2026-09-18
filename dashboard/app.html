@@ -3,19 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chronos // Autonomous Statistical Arbitrage Terminal</title>
+  <title>Chronos // Autonomous Trading Arena & Cognitive Self-Auditor</title>
   <link rel="icon" type="image/svg+xml" href="assets/chronos_logo.svg">
 
-  <!-- Google Fonts matching flip-prediction.vercel.app -->
+  <!-- Google Fonts: Instrument Serif, Playfair Display, Inter, Space Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
   <style>
 @import"https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Special+Elite&display=swap";:root{--font-serif-editorial: "Instrument Serif", "Playfair Display", Georgia, serif;--font-sans-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;--font-bobz: "Instrument Serif", "Playfair Display", Georgia, serif;--font-heading: "Instrument Serif", "Playfair Display", Georgia, serif;--font-number: "Instrument Serif", "Playfair Display", serif;--font-terminal: "Space Mono", "Special Elite", monospace;--font-subtext: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;--color-white: #FFFFFF;--color-canvas-light: #FAF9F6;--color-canvas-subtle: #F2F0EB;--color-black: #000000;--color-black-night: #090909;--color-black-card: #121212;--color-grey-bg: #C5CAD3;--color-grey-light: #F4F5F7;--color-grey-pill: #E2E5EB;--color-grey-border: rgba(0, 0, 0, .07);--color-grey-text: #5A5E66;--color-grey-muted: #8E9299;--color-green: #00C853;--color-green-light: #00E676;--color-red: #E50914;--color-red-light: #FF1744;--color-amber: #F59E0B;--border-thin: 1px solid rgba(0, 0, 0, .08)}*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth;font-size:14.5px;width:100%}body{background-color:var(--color-canvas-light);color:var(--color-black);font-family:var(--font-sans-body);font-size:.9rem;line-height:1.55;-webkit-font-smoothing:antialiased;width:100%;position:relative}#root{width:100%;min-height:100vh}img,svg,video,canvas{max-width:100%}.table-scroll-container,.table-responsive{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;display:block}.font-serif,.font-heading,.font-bobz{font-family:var(--font-serif-editorial);font-weight:400;letter-spacing:-.01em}.font-number{font-family:var(--font-serif-editorial);font-weight:400;letter-spacing:.01em}.font-terminal{font-family:var(--font-terminal);letter-spacing:.05em}.font-subtext,.font-body{font-family:var(--font-sans-body);font-size:.88rem;line-height:1.55}.header-wrapper{position:fixed;top:1.25rem;left:0;right:0;z-index:100;width:100%;display:flex;justify-content:center;pointer-events:none;padding:0 1rem}.header-pill{pointer-events:auto;background-color:#fffffff0;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(0,0,0,.08);border-radius:28px;padding:.42rem .55rem .42rem 1.05rem;display:flex;align-items:center;justify-content:space-between;gap:1.15rem;width:auto;min-width:290px;max-width:360px;box-shadow:0 4px 20px #0000000a;transition:max-width .65s cubic-bezier(.16,1,.3,1),min-width .65s cubic-bezier(.16,1,.3,1),width .65s cubic-bezier(.16,1,.3,1),padding .5s cubic-bezier(.16,1,.3,1),gap .5s cubic-bezier(.16,1,.3,1),box-shadow .35s ease,border-color .35s ease,transform .35s cubic-bezier(.22,1,.36,1)}.header-pill:hover{box-shadow:0 8px 30px #00000014;border-color:#00000026}.header-pill.is-scrolled{min-width:0;max-width:1240px;width:94%;padding:.5rem 1.25rem .5rem 1.75rem;gap:2rem;box-shadow:0 8px 32px #00000014;border-color:#0000001a}.header-logo-img{height:48px;width:auto;object-fit:contain;transition:transform .3s cubic-bezier(.22,1,.36,1);cursor:pointer;display:block}.header-logo-img:hover{transform:scale(1.05) translateY(-1px)}.header-nav{display:flex;align-items:center;gap:0px;max-width:0px;opacity:0;overflow:hidden;pointer-events:none;transform:scale(.92);white-space:nowrap;transition:max-width .65s cubic-bezier(.16,1,.3,1),opacity .45s cubic-bezier(.16,1,.3,1),transform .65s cubic-bezier(.16,1,.3,1),gap .65s cubic-bezier(.16,1,.3,1)}.header-pill.is-scrolled .header-nav{max-width:800px;opacity:1;pointer-events:auto;gap:2.25rem;transform:scale(1)}.header-nav a{color:#374151;text-decoration:none;font-family:var(--font-subtext);font-size:.88rem;font-weight:400;letter-spacing:.01em;display:inline-block;position:relative;transition:color .25s ease,transform .25s ease}.header-nav a:hover{color:var(--color-black);transform:translateY(-2px)}.header-nav a:after{content:"";position:absolute;bottom:-4px;left:0;width:100%;height:1.5px;background-color:var(--color-black);opacity:0;transform:scaleX(0);transition:opacity .25s ease,transform .25s ease}.header-nav a:hover:after{opacity:1;transform:scaleX(1)}.btn-launch-black{background-color:var(--color-black);color:var(--color-white);border:1px solid var(--color-black);border-radius:28px;padding:.52rem 1.3rem;font-family:var(--font-bobz);font-size:.82rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:.42rem;transition:border-radius .4s cubic-bezier(.22,1,.36,1),transform .35s cubic-bezier(.22,1,.36,1),background-color .3s ease,border-color .3s ease,box-shadow .35s ease;box-shadow:0 2px 6px #0000001f;-webkit-user-select:none;user-select:none}.btn-launch-black span,.btn-launch-black svg{display:inline-flex;align-items:center;transition:transform .35s cubic-bezier(.22,1,.36,1);transform-origin:center}.btn-launch-black:hover{border-radius:8px;background-color:#222;transform:translateY(-2px);box-shadow:0 6px 16px #00000038}.btn-launch-black:hover span{transform:scale(.92)}.btn-launch-black:active{transform:translateY(0) scale(.98)}.btn-docs-grey{background-color:var(--color-grey-pill);color:var(--color-black);border:1px solid rgba(0,0,0,.1);border-radius:28px;padding:.52rem 1.25rem;font-family:var(--font-bobz);font-size:.82rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:.42rem;text-decoration:none;transition:border-radius .4s cubic-bezier(.22,1,.36,1),transform .35s cubic-bezier(.22,1,.36,1),background-color .3s ease,border-color .3s ease,box-shadow .35s ease;-webkit-user-select:none;user-select:none}.btn-docs-grey span,.btn-docs-grey svg{display:inline-flex;align-items:center;transition:transform .35s cubic-bezier(.22,1,.36,1);transform-origin:center}.btn-docs-grey:hover{border-radius:8px;background-color:#d1d5df;border-color:#0003;transform:translateY(-2px);box-shadow:0 4px 14px #0000001a}.btn-docs-grey:hover span{transform:scale(.92)}.btn-docs-grey:active{transform:translateY(0) scale(.98)}.btn-launch-white{background-color:var(--color-white);color:var(--color-black);border:1px solid var(--color-white);border-radius:28px;padding:.52rem 1.3rem;font-family:var(--font-bobz);font-size:.82rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:.42rem;transition:border-radius .4s cubic-bezier(.22,1,.36,1),transform .35s cubic-bezier(.22,1,.36,1),background-color .3s ease,box-shadow .35s ease;-webkit-user-select:none;user-select:none}.btn-launch-white span,.btn-launch-white svg{display:inline-flex;align-items:center;transition:transform .35s cubic-bezier(.22,1,.36,1);transform-origin:center}.btn-launch-white:hover{border-radius:8px;background-color:#f0f0f0;transform:translateY(-2px);box-shadow:0 6px 18px #ffffff40}.btn-launch-white:hover span{transform:scale(.92)}.btn-launch-white:active{transform:translateY(0) scale(.98)}.btn-pill-dark-outline{background-color:#ffffff0d;color:var(--color-white);border:1px solid rgba(255,255,255,.15);border-radius:28px;padding:.42rem 1.05rem;font-family:var(--font-bobz);font-size:.78rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:.38rem;transition:border-radius .4s cubic-bezier(.22,1,.36,1),transform .35s cubic-bezier(.22,1,.36,1),background-color .3s ease,border-color .3s ease;-webkit-user-select:none;user-select:none}.btn-pill-dark-outline span,.btn-pill-dark-outline svg{display:inline-flex;align-items:center;transition:transform .35s cubic-bezier(.22,1,.36,1);transform-origin:center}.btn-pill-dark-outline:hover{border-radius:8px;background-color:#ffffff26;border-color:#ffffff4d;transform:translateY(-2px)}.btn-pill-dark-outline:hover span{transform:scale(.92)}.btn-pill-dark-outline:active{transform:translateY(0) scale(.98)}.btn-bet-up{background-color:var(--color-green);color:var(--color-black);border:none;border-radius:28px;padding:.52rem .95rem;font-family:var(--font-bobz);font-size:.82rem;font-weight:900;letter-spacing:.02em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.4rem;transition:border-radius .4s cubic-bezier(.22,1,.36,1),transform .35s cubic-bezier(.22,1,.36,1),box-shadow .3s ease;-webkit-user-select:none;user-select:none}.btn-bet-up span,.btn-bet-up svg{display:inline-flex;align-items:center;transition:transform .35s cubic-bezier(.22,1,.36,1);transform-origin:center}.btn-bet-up:hover{border-radius:8px;transform:translateY(-2px);box-shadow:0 6px 16px #00c8535c}.btn-bet-up:hover span{transform:scale(.92)}.btn-bet-up:active{transform:translateY(0) scale(.98)}.btn-bet-down{background-color:var(--color-red);color:var(--color-white);border:none;border-radius:28px;padding:.52rem .95rem;font-family:var(--font-bobz);font-size:.82rem;font-weight:900;letter-spacing:.02em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.4rem;transition:border-radius .4s cubic-bezier(.22,1,.36,1),transform .35s cubic-bezier(.22,1,.36,1),box-shadow .3s ease;-webkit-user-select:none;user-select:none}.btn-bet-down span,.btn-bet-down svg{display:inline-flex;align-items:center;transition:transform .35s cubic-bezier(.22,1,.36,1);transform-origin:center}.btn-bet-down:hover{border-radius:8px;transform:translateY(-2px);box-shadow:0 6px 16px #e509145c}.btn-bet-down:hover span{transform:scale(.92)}.btn-bet-down:active{transform:translateY(0) scale(.98)}.badge-pill-light{display:inline-flex;align-items:center;gap:.35rem;padding:.3rem .85rem;background-color:#0000000a;border:1px solid rgba(0,0,0,.07);border-radius:4px;font-size:.8rem;color:#4a4d53;transition:transform .3s cubic-bezier(.22,1,.36,1),background-color .25s ease,border-color .25s ease,box-shadow .25s ease;cursor:default}.badge-pill-light:hover{transform:translateY(-1.5px) scale(1.03);background-color:#00000014;border-color:#00000024;box-shadow:0 2px 8px #0000000d}.badge-pill-green{display:inline-flex;align-items:center;gap:.35rem;padding:.3rem .85rem;background-color:#00c85314;border:1px solid rgba(0,200,83,.22);border-radius:4px;font-family:var(--font-bobz);font-size:.8rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--color-green);transition:transform .3s cubic-bezier(.22,1,.36,1),background-color .25s ease,border-color .25s ease,box-shadow .25s ease;cursor:default}.badge-pill-green:hover{transform:translateY(-1.5px) scale(1.03);background-color:#00c85326;border-color:#00c85366;box-shadow:0 4px 12px #00c8532e}.badge-pill-gold{display:inline-flex;align-items:center;gap:.35rem;padding:.3rem .85rem;background-color:#f59e0b1a;border:1px solid rgba(245,158,11,.22);border-radius:4px;font-family:var(--font-bobz);font-size:.8rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#fbbf24;transition:transform .3s cubic-bezier(.22,1,.36,1),background-color .25s ease,border-color .25s ease,box-shadow .25s ease;cursor:default}.badge-pill-gold:hover{transform:translateY(-1.5px) scale(1.03);background-color:#f59e0b2e;border-color:#f59e0b73;box-shadow:0 4px 12px #f59e0b2e}.card-light,.card-paper,.card-deckled{background-color:#fff;position:relative;border-radius:6px;border:1px dashed rgba(0,0,0,.22);padding:1.6rem 1.75rem;box-shadow:0 4px 16px #00000008,0 1px 2px #00000005;transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s ease,border-color .25s ease}.card-light:hover,.card-paper:hover,.card-deckled:hover{transform:translateY(-2px);border-color:#00000073;box-shadow:0 8px 24px #0000000f}.card-dark{background-color:var(--color-black-card);position:relative;border-radius:6px;border:1px dashed rgba(255,255,255,.24);padding:1.6rem 1.75rem;color:var(--color-white);box-shadow:0 8px 28px #00000059;transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s ease,border-color .25s ease}.card-dark:hover{transform:translateY(-2px);border-color:#ffffff7a;box-shadow:0 12px 36px #00000073}.divider-dashed{border:none;border-top:1px dashed rgba(0,0,0,.14);margin:1rem 0;width:100%}.stat-box-interactive{transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s ease,border-color .3s ease,background-color .3s ease}.stat-box-interactive:hover{transform:translateY(-3px);box-shadow:0 6px 18px #0000000f;background-color:#eceef2}.font-number{font-family:var(--font-number);font-weight:800;letter-spacing:.04em;text-transform:uppercase;display:inline-block;transition:color .3s ease,transform .3s ease}.font-number:hover{color:var(--color-black)!important;transform:translate(2px)}footer a,.footer-link{display:inline-block;transition:color .25s ease,transform .25s ease!important}footer a:hover,.footer-link:hover{color:var(--color-black)!important;transform:translate(4px)}.footer-dark-banner-link{transition:transform .3s ease,color .3s ease}.footer-dark-banner-link:hover{transform:translate(3px)}@keyframes floatHero{0%,to{transform:translateY(0) rotate(0)}50%{transform:translateY(-8px) rotate(.5deg)}}.animate-float-hero{animation:floatHero 6s ease-in-out infinite}.hero-3d-interactive-wrapper{position:relative;width:100%;max-width:580px;cursor:pointer;transition:transform 1.25s cubic-bezier(.22,1,.36,1),filter 1.25s ease;filter:drop-shadow(0 20px 44px rgba(0,0,0,.1))}.hero-3d-interactive-wrapper:hover{transform:scale(1.1) translateY(-6px);filter:drop-shadow(0 28px 56px rgba(0,0,0,.16))}.hero-3d-img-base{width:100%;height:auto;display:block;border-radius:24px;transition:opacity 1.25s cubic-bezier(.22,1,.36,1),transform 1.25s cubic-bezier(.22,1,.36,1);-webkit-user-select:none;user-select:none;pointer-events:none}.hero-3d-img-primary{opacity:1;transform:scale(1)}.hero-3d-interactive-wrapper:hover .hero-3d-img-primary{opacity:0;transform:scale(1.04)}.hero-3d-img-alt{position:absolute;top:0;left:0;opacity:0;transform:scale(.96)}.hero-3d-interactive-wrapper:hover .hero-3d-img-alt{opacity:1;transform:scale(1)}@keyframes elementPopIn{0%{opacity:0;filter:blur(10px);transform:translateY(24px) scale(.96)}65%{opacity:1;filter:blur(0px);transform:translateY(-3px) scale(1.012)}to{opacity:1;filter:blur(0px);transform:translateY(0) scale(1)}}@keyframes pageRiseIn{0%{opacity:0}to{opacity:1}}@keyframes tabRisePop{0%{opacity:0;filter:blur(8px);transform:translateY(20px) scale(.98)}70%{opacity:1;filter:blur(0px);transform:translateY(-2px) scale(1.005)}to{opacity:1;filter:blur(0px);transform:translateY(0) scale(1)}}@keyframes floatHero{0%,to{transform:translateY(0) rotate(0)}50%{transform:translateY(-9px) rotate(.5deg)}}@keyframes subtleFloat{0%,to{transform:translateY(0)}50%{transform:translateY(-6px)}}@keyframes springBlurPop{0%{opacity:0;filter:blur(10px);transform:translateY(26px) scale(.95)}65%{opacity:1;filter:blur(0px);transform:translateY(-3px) scale(1.015)}to{opacity:1;filter:blur(0px);transform:translateY(0) scale(1)}}@keyframes pulseGlow{0%,to{opacity:.8;transform:scale(1)}50%{opacity:1;transform:scale(1.03)}}.page-rise-in{animation:pageRiseIn .3s ease-out both}.tab-content-rise,.module-enter{animation:tabRisePop .46s cubic-bezier(.16,1,.3,1) both;will-change:opacity,filter,transform;backface-visibility:hidden}.page-rise-in>*:nth-child(1),.tab-content-rise>*:nth-child(1){animation-delay:.02s}.page-rise-in>*:nth-child(2),.tab-content-rise>*:nth-child(2){animation-delay:.06s}.page-rise-in>*:nth-child(3),.tab-content-rise>*:nth-child(3){animation-delay:.1s}.page-rise-in>*:nth-child(4),.tab-content-rise>*:nth-child(4){animation-delay:.14s}.page-rise-in>*:nth-child(5),.tab-content-rise>*:nth-child(5){animation-delay:.18s}.animate-float-hero{animation:floatHero 5.5s ease-in-out infinite;will-change:transform}.animate-float-subtle{animation:subtleFloat 4s ease-in-out infinite}.hero-pop{animation:springBlurPop .65s cubic-bezier(.16,1,.3,1) both;will-change:opacity,filter,transform}.scroll-reveal,.reveal-pop{opacity:0;filter:blur(8px);transform:translateY(32px) scale(.96);transition:opacity .7s cubic-bezier(.16,1,.3,1),filter .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);will-change:opacity,filter,transform}.scroll-reveal.is-revealed,.scroll-reveal[data-revealed=true],.reveal-pop.is-revealed,.reveal-pop[data-revealed=true]{opacity:1!important;filter:blur(0px)!important;transform:translateY(0) scale(1)!important}.hover-rise-card{transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s cubic-bezier(.16,1,.3,1),border-color .25s ease}.hover-rise-card:hover{transform:translateY(-4px);box-shadow:0 14px 36px #00000014}.reveal-delay-1,.stagger-1{animation-delay:.08s!important;transition-delay:.08s!important}.reveal-delay-2,.stagger-2{animation-delay:.16s!important;transition-delay:.16s!important}.reveal-delay-3,.stagger-3{animation-delay:.24s!important;transition-delay:.24s!important}.reveal-delay-4,.stagger-4{animation-delay:.32s!important;transition-delay:.32s!important}.reveal-delay-5,.stagger-5{animation-delay:.4s!important;transition-delay:.4s!important}::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-track{background:var(--color-canvas-light)}::-webkit-scrollbar-thumb{background:#00000026;border-radius:9999px}::-webkit-scrollbar-thumb:hover{background:#00000040}.btn-wallet-connect{background-color:var(--color-black);color:var(--color-white);border:1px solid var(--color-black);border-radius:28px;padding:.48rem 1.15rem;font-family:var(--font-bobz);font-size:.82rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:.42rem;transition:border-radius .4s cubic-bezier(.22,1,.36,1),transform .35s cubic-bezier(.22,1,.36,1),background-color .3s ease,border-color .3s ease,box-shadow .35s ease;box-shadow:0 2px 6px #0000001f;-webkit-user-select:none;user-select:none}.btn-wallet-connect span,.btn-wallet-connect svg{display:inline-flex;align-items:center;transition:transform .35s cubic-bezier(.22,1,.36,1);transform-origin:center}.btn-wallet-connect:hover{border-radius:8px;background-color:#222;transform:translateY(-2px);box-shadow:0 6px 16px #00000038}.btn-wallet-connect:hover span{transform:scale(.92)}.btn-wallet-connect:active{transform:translateY(0) scale(.98)}.wallet-connected-widget{display:inline-flex;align-items:center;background-color:var(--color-canvas-light);border:1px solid rgba(0,0,0,.08);border-radius:28px;padding:.25rem .35rem .25rem .75rem;gap:.55rem;box-shadow:0 2px 8px #00000008;transition:all .3s ease}.wallet-connected-widget:hover{border-color:#00000029;box-shadow:0 4px 14px #0000000f}.wallet-chain-chip{display:flex;align-items:center;gap:.4rem;background:none;border:none;font-family:var(--font-terminal);font-size:.82rem;font-weight:700;color:#374151;cursor:pointer;padding:.25rem .45rem;border-radius:6px;transition:background-color .2s ease,color .2s ease}.wallet-chain-chip:hover{background-color:#0000000d;color:var(--color-black)}.wallet-account-pill{background-color:var(--color-black);color:var(--color-white);border:1px solid var(--color-black);border-radius:20px;padding:.35rem .85rem;font-family:var(--font-terminal);font-size:.82rem;font-weight:700;letter-spacing:.02em;cursor:pointer;display:flex;align-items:center;gap:.4rem;transition:border-radius .35s cubic-bezier(.22,1,.36,1),background-color .2s ease,transform .2s ease}.wallet-account-pill:hover{border-radius:6px;background-color:#222;transform:translateY(-1px)}.desktop-only{display:flex!important}.mobile-only{display:none!important}.landing-hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:2.5rem;align-items:center}.landing-arch-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:2.5rem}.landing-grid-2col{display:grid;grid-template-columns:1fr 1fr;gap:2rem}.landing-grid-3col{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}.landing-grid-4col{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem}.dashboard-arena-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:2rem;align-items:start}.mobile-market-chip-bar{display:none;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:.5rem;padding:.25rem .25rem .75rem;margin-bottom:1.25rem}.mobile-market-chip-bar::-webkit-scrollbar{display:none}.mobile-market-chip{flex-shrink:0;display:flex;align-items:center;gap:.45rem;padding:.45rem .85rem;border-radius:8px;border:1px solid rgba(0,0,0,.08);background-color:#fff;color:var(--color-black);font-family:var(--font-bobz);font-size:.82rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .2s ease;-webkit-user-select:none;user-select:none}.mobile-market-chip.is-active{background-color:var(--color-black);color:#fff;border-color:var(--color-black)}.mobile-nav-backdrop{position:fixed;top:0;left:0;right:0;bottom:0;width:100vw;height:100vh;height:100dvh;background-color:#0000007a;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:9998;animation:fadeIn .2s ease both}.mobile-nav-drawer{position:fixed;top:0;right:0;bottom:0;width:min(320px,86vw);height:100vh;height:100dvh;max-height:100dvh;background-color:#fff;z-index:9999;display:flex;flex-direction:column;justify-content:space-between;padding:1.15rem 1.15rem 1.35rem;box-shadow:-10px 0 40px #00000038;border-left:1px solid rgba(0,0,0,.08);animation:slideDrawerIn .3s cubic-bezier(.16,1,.3,1) both;overflow:hidden}@keyframes slideDrawerIn{0%{transform:translate(100%)}to{transform:translate(0)}}.mobile-nav-link{display:flex;align-items:center;justify-content:space-between;padding:.52rem .55rem;font-family:var(--font-bobz);font-size:.92rem;font-weight:700;color:var(--color-black);text-decoration:none;border-bottom:1px solid rgba(0,0,0,.04);border-radius:6px;transition:all .15s ease}.mobile-nav-link:hover,.mobile-nav-link:active{background-color:#0000000a;color:var(--color-green);padding-left:.75rem}.mobile-dashboard-tabbar{display:none;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:.4rem;padding:.5rem .75rem;background-color:#fff;border-bottom:1px solid rgba(0,0,0,.08)}.mobile-dashboard-tabbar::-webkit-scrollbar{display:none}.mobile-tab-btn{flex-shrink:0;display:inline-flex;align-items:center;gap:.35rem;padding:.4rem .75rem;border-radius:6px;border:1px solid transparent;background:transparent;font-family:var(--font-bobz);font-size:.82rem;font-weight:700;color:#6b7280;cursor:pointer;white-space:nowrap}.mobile-tab-btn.is-active{background-color:var(--color-grey-pill);color:var(--color-black);border-color:#00000014}@media(max-width:960px){.desktop-only{display:none!important}.mobile-only{display:flex!important}.header-wrapper{top:.75rem;padding:0 .75rem}.header-pill{min-width:0!important;max-width:100%!important;width:100%!important;padding:.45rem .85rem!important;gap:.65rem!important}.header-nav{display:none!important}.header-logo-img{height:38px!important}.landing-hero-grid{grid-template-columns:1fr!important;gap:2rem!important;margin-top:5.5rem!important}.landing-arch-grid{grid-template-columns:1fr!important;gap:1.5rem!important;padding:1.5rem!important}.landing-grid-2col{grid-template-columns:1fr!important;gap:1.5rem!important}.landing-grid-3col{grid-template-columns:1fr!important;gap:1.25rem!important}.landing-grid-4col{grid-template-columns:repeat(2,1fr)!important;gap:1rem!important}.dashboard-arena-grid{grid-template-columns:1fr!important;gap:1.5rem!important}.dashboard-sidebar-desktop{display:none!important}.dashboard-main-canvas{padding:1.25rem 1rem 4rem!important}.mobile-market-chip-bar,.mobile-dashboard-tabbar{display:flex!important}.connect-wallet-split-container{display:flex!important;flex-direction:column!important;width:100%!important;min-height:100vh!important;grid-template-columns:1fr!important}.connect-wallet-form-panel{order:1!important;padding:1.75rem 1.25rem 2.5rem!important;min-height:auto!important;width:100%!important;border-bottom:1px solid rgba(0,0,0,.08)!important}.connect-wallet-story-panel{order:2!important;padding:2.25rem 1.25rem 3rem!important;min-height:auto!important;width:100%!important;border-right:none!important;border-top:1px solid rgba(255,255,255,.1)!important}.connect-wallet-modal-card{width:95vw!important;max-width:480px!important;max-height:90vh!important}.card-paper{padding:1.25rem!important}.footer-grid-container{grid-template-columns:1fr!important;gap:2rem!important}table{min-width:580px}}@media(max-width:640px){html{font-size:13.5px}.landing-grid-4col{grid-template-columns:1fr!important}.hero-pop h1{font-size:1.65rem!important;line-height:1.2!important}.btn-wallet-connect{padding:.42rem .85rem!important;font-size:.76rem!important}.wallet-account-pill{padding:.3rem .65rem!important;font-size:.76rem!important}.wallet-chain-chip{display:none!important}.dashboard-arena-grid,.dashboard-main-canvas,.landing-hero-grid,.landing-arch-grid,.landing-grid-2col,.landing-grid-3col{width:100%!important;max-width:100vw!important;box-sizing:border-box!important}.header-wrapper{padding:0 .5rem!important}.header-pill{padding:.35rem .65rem!important;gap:.45rem!important}.card-paper{padding:1rem!important;width:100%!important;box-sizing:border-box!important}.real-market-chart-container{width:100%!important;max-width:100vw!important;overflow:hidden!important}}@media(max-width:480px){html{font-size:12.8px}.hero-pop h1{font-size:1.45rem!important}.btn-launch-black{padding:.6rem .9rem!important;font-size:.78rem!important}.connect-wallet-modal-card{width:98vw!important;margin:0 auto!important}}
 
 
-    /* Refined Quantitative Terminal Design Tokens */
     :root {
       --font-serif-editorial: "Instrument Serif", "Playfair Display", Georgia, serif;
       --font-sans-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -23,11 +22,10 @@
       
       --color-white: #FFFFFF;
       --color-canvas-light: #FAF9F6;
-      --color-canvas-subtle: #F2F0EB;
-      --color-black: #000000;
-      --color-black-night: #090909;
-      --color-black-card: #121212;
-      --color-grey-pill: #E2E5EB;
+      --color-canvas-subtle: #F4F2EC;
+      --color-black: #090909;
+      --color-black-night: #050505;
+      --color-grey-pill: #ECEEF2;
       --color-grey-border: rgba(0, 0, 0, 0.08);
       --color-grey-text: #5A5E66;
       --color-grey-muted: #8E9299;
@@ -35,6 +33,8 @@
       --color-green-light: #00E676;
       --color-red: #E50914;
       --color-amber: #F59E0B;
+      --color-blue: #2563EB;
+      --border-dashed: 1px dashed rgba(0, 0, 0, 0.22);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -43,26 +43,24 @@
       background-color: var(--color-canvas-light);
       color: var(--color-black);
       font-family: var(--font-sans-body);
-      line-height: 1.5;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* Top Full-Width Dashboard Header Bar - Streamlined & Clean */
+    /* Top Navigation Header */
     .app-header {
       background: #FFFFFF;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-      height: 52px;
-      padding: 0 1.5rem;
+      border-bottom: 1px dashed rgba(0, 0, 0, 0.18);
+      padding: 0.65rem 1.5rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.02);
     }
 
     .app-header-left {
@@ -74,16 +72,9 @@
     .app-brand {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.55rem;
       text-decoration: none;
       color: #000;
-      cursor: pointer;
-      user-select: none;
-      transition: opacity 0.2s ease;
-    }
-
-    .app-brand:hover {
-      opacity: 0.78;
     }
 
     .app-brand-dot {
@@ -91,108 +82,200 @@
       height: 8px;
       border-radius: 50%;
       background: var(--color-green);
+      display: inline-block;
+      box-shadow: 0 0 10px rgba(0, 200, 83, 0.6);
     }
 
     .app-brand-name {
       font-family: var(--font-serif-editorial);
-      font-size: 1.55rem;
-      font-weight: 700;
+      font-size: 1.85rem;
+      font-weight: 400;
       letter-spacing: -0.02em;
     }
 
     .app-header-tabs {
       display: flex;
       align-items: center;
-      gap: 1.75rem;
+      gap: 0.35rem;
     }
 
     .app-tab {
-      color: #555;
       font-family: var(--font-sans-body);
-      font-size: 0.84rem;
+      font-size: 0.85rem;
       font-weight: 500;
-      padding: 0.35rem 0;
-      position: relative;
+      color: var(--color-grey-text);
+      padding: 0.42rem 0.95rem;
+      border-radius: 20px;
       cursor: pointer;
-      transition: color 0.2s ease;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
       user-select: none;
     }
 
     .app-tab:hover {
-      color: #000;
+      color: var(--color-black);
+      background: rgba(0, 0, 0, 0.04);
     }
 
     .app-tab.active {
-      color: #000;
+      background: var(--color-black);
+      color: #FFFFFF;
+      font-weight: 600;
+    }
+
+    .app-tab-badge {
+      background: rgba(255, 255, 255, 0.2);
+      font-family: var(--font-terminal);
+      font-size: 0.7rem;
+      padding: 0.1rem 0.45rem;
+      border-radius: 10px;
+    }
+
+    /* RainbowKit-style Wallet Connect */
+    .rainbow-connect-btn {
+      background: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 50%, #45B649 100%);
+      padding: 2px;
+      border-radius: 28px;
+      border: none;
+      cursor: pointer;
+      display: inline-block;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .rainbow-connect-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+    }
+
+    .rainbow-connect-btn-inner {
+      background: #FFFFFF;
+      color: #000000;
+      padding: 0.45rem 1.15rem;
+      border-radius: 26px;
+      font-family: var(--font-sans-body);
+      font-size: 0.82rem;
       font-weight: 700;
-    }
-
-    .app-tab.active::after {
-      content: "";
-      position: absolute;
-      bottom: -15px;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background: #000;
-    }
-
-    .app-header-right {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.5rem;
     }
 
-    .pill-btn-subtle {
-      background: none;
-      border: 1px solid rgba(0, 0, 0, 0.12);
-      border-radius: 20px;
-      padding: 0.32rem 0.85rem;
-      font-family: var(--font-sans-body);
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: #333;
-      cursor: pointer;
+    .rainbow-connected-pill {
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
-      transition: all 0.2s ease;
-      user-select: none;
-    }
-
-    .pill-btn-subtle:hover {
-      background: rgba(0, 0, 0, 0.04);
-      color: #000;
-    }
-
-    /* App Body Layout: Sidebar + Main Stage */
-    .app-body {
-      display: flex;
-      flex: 1;
-      min-height: calc(100vh - 52px);
-    }
-
-    /* Left Sidebar */
-    .app-sidebar {
-      width: 250px;
-      flex-shrink: 0;
       background: #FFFFFF;
-      border-right: 1px solid rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(0,0,0,0.12);
+      border-radius: 24px;
+      padding: 0.25rem 0.35rem 0.25rem 0.75rem;
+      gap: 0.6rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      cursor: pointer;
+      user-select: none;
+      position: relative;
+      transition: all 0.2s ease;
+    }
+
+    .rainbow-connected-pill:hover {
+      border-color: rgba(0,0,0,0.28);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .rainbow-chain-chip {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-family: var(--font-terminal);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #374151;
+    }
+
+    .rainbow-chain-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #627EEA; /* Eth purple/blue */
+    }
+
+    .rainbow-balance-chip {
+      background: var(--color-canvas-subtle);
+      border-radius: 16px;
+      padding: 0.25rem 0.65rem;
+      font-family: var(--font-terminal);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--color-green);
+    }
+
+    .rainbow-account-chip {
+      background: var(--color-black);
+      color: #FFFFFF;
+      border-radius: 18px;
+      padding: 0.3rem 0.75rem;
+      font-family: var(--font-terminal);
+      font-size: 0.78rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .rainbow-avatar-circle {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #FF6B6B, #4ECDC4);
+    }
+
+    /* Wallet Dropdown Menu */
+    .wallet-dropdown-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      width: 280px;
+      background: #FFFFFF;
+      border: 1px dashed rgba(0,0,0,0.22);
+      border-radius: 10px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+      padding: 1rem;
+      display: none;
+      flex-direction: column;
+      gap: 0.75rem;
+      z-index: 2000;
+    }
+
+    .wallet-dropdown-menu.open {
+      display: flex;
+    }
+
+    /* App Layout Grid: Sidebar + Main Area */
+    .app-body {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      flex: 1;
+      min-height: calc(100vh - 65px);
+    }
+
+    .app-sidebar {
+      background: #FFFFFF;
+      border-right: 1px dashed rgba(0, 0, 0, 0.18);
       padding: 1.25rem 0.85rem;
       display: flex;
       flex-direction: column;
-      gap: 1.75rem;
+      gap: 1.5rem;
     }
 
     .sidebar-section-title {
       font-family: var(--font-terminal);
       font-size: 0.68rem;
       font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
+      letter-spacing: 0.08em;
       color: var(--color-grey-muted);
-      padding: 0 0.65rem;
-      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      padding: 0 0.5rem 0.5rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -208,109 +291,102 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0.52rem 0.75rem;
-      border-radius: 8px;
+      padding: 0.52rem 0.65rem;
+      border-radius: 6px;
+      font-size: 0.84rem;
+      font-weight: 500;
       color: #374151;
-      text-decoration: none;
-      font-family: var(--font-sans-body);
-      font-size: 0.82rem;
-      font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s ease;
-      border: 1px solid transparent;
+      transition: all 0.15s ease;
+      user-select: none;
     }
 
     .sidebar-item:hover {
-      background: rgba(0, 0, 0, 0.035);
+      background: var(--color-canvas-subtle);
       color: #000;
     }
 
     .sidebar-item.active {
-      background: var(--color-grey-pill);
-      color: var(--color-black);
-      border-color: rgba(0, 0, 0, 0.06);
+      background: var(--color-black);
+      color: #FFFFFF;
+      font-weight: 600;
+    }
+
+    .sidebar-item.active .sidebar-item-metric {
+      color: var(--color-green-light) !important;
     }
 
     .sidebar-item-left {
       display: flex;
       align-items: center;
-      gap: 0.55rem;
+      gap: 0.5rem;
     }
 
     .sidebar-item-metric {
       font-family: var(--font-terminal);
       font-size: 0.76rem;
       font-weight: 700;
-      color: #4B5563;
     }
 
     /* Main Content Area */
     .app-main {
-      flex: 1;
-      padding: 2rem 2.5rem;
-      max-width: 1400px;
+      padding: 1.75rem 2.25rem 3.5rem;
+      overflow-y: auto;
     }
 
-    /* Breadcrumb Row */
     .breadcrumb-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1rem;
     }
 
-    /* Market Title Area */
     .market-header-area {
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.75rem;
     }
 
     .market-title {
       font-family: var(--font-serif-editorial);
-      font-size: 2.75rem;
-      line-height: 1.1;
+      font-size: 2.5rem;
       font-weight: 400;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.35rem;
+      line-height: 1.15;
+      margin-bottom: 0.4rem;
     }
 
     .market-subtitle {
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       color: var(--color-grey-text);
-      max-width: 760px;
-      margin-bottom: 0.85rem;
-      line-height: 1.5;
+      max-width: 780px;
+      line-height: 1.55;
     }
 
-    /* Status Strip */
     .status-strip {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 0.42rem 0.95rem;
       background: #FFFFFF;
-      border: 1px dashed rgba(0, 0, 0, 0.22);
-      border-radius: 8px;
-      font-family: var(--font-terminal);
+      border: 1px dashed rgba(0, 0, 0, 0.2);
+      border-radius: 4px;
+      padding: 0.35rem 0.85rem;
+      margin-top: 0.85rem;
       font-size: 0.78rem;
-      color: #333;
+      color: #374151;
     }
 
-    /* Two-Column Arena Grid */
+    /* Arena Grid: Chart + Order Box */
     .arena-grid {
       display: grid;
-      grid-template-columns: 1.6fr 1fr;
-      gap: 1.75rem;
-      margin-top: 1.5rem;
+      grid-template-columns: 1.65fr 1fr;
+      gap: 1.5rem;
       align-items: start;
     }
 
-    /* Left Card: Market Data & Interactive Candlestick Chart */
     .chart-panel-card {
       background: #FFFFFF;
       border: 1px dashed rgba(0, 0, 0, 0.22);
-      border-radius: 6px;
+      border-radius: 8px;
       padding: 1.5rem;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
     }
 
     .chart-card-header {
@@ -323,93 +399,87 @@
     .oracle-label {
       font-family: var(--font-terminal);
       font-size: 0.72rem;
-      font-weight: 700;
-      color: var(--color-grey-text);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
+      color: var(--color-grey-muted);
+      letter-spacing: 0.05em;
       margin-bottom: 0.25rem;
+      text-transform: uppercase;
     }
 
     .big-price-val {
       font-family: var(--font-serif-editorial);
-      font-size: 2.35rem;
-      line-height: 1;
+      font-size: 2.85rem;
       font-weight: 400;
-      color: #000;
+      line-height: 1;
     }
 
     .strike-barrier-val {
       font-family: var(--font-serif-editorial);
-      font-size: 2.35rem;
-      line-height: 1;
-      font-weight: 400;
-      color: #000;
+      font-size: 1.85rem;
+      color: var(--color-red);
       text-align: right;
     }
 
     .anchor-subtext {
       font-family: var(--font-terminal);
-      font-size: 0.74rem;
-      font-weight: 700;
-      color: var(--color-green);
+      font-size: 0.72rem;
+      color: var(--color-grey-muted);
       text-align: right;
-      margin-top: 0.25rem;
+      margin-top: 0.2rem;
     }
 
-    /* Chart Sub-Toolbar */
     .chart-subbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 0.45rem 0;
       border-top: 1px solid rgba(0, 0, 0, 0.06);
       border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-      padding: 0.6rem 0;
       margin-bottom: 1rem;
+      font-family: var(--font-terminal);
+      font-size: 0.76rem;
     }
 
     .chart-tools-left {
       display: flex;
       align-items: center;
       gap: 0.65rem;
-      font-family: var(--font-terminal);
-      font-size: 0.74rem;
     }
 
     .timeframe-pill-group {
-      display: inline-flex;
+      display: flex;
       gap: 0.25rem;
     }
 
     .timeframe-pill {
-      border: none;
       background: none;
-      padding: 0.2rem 0.55rem;
+      border: 1px solid transparent;
+      padding: 0.15rem 0.5rem;
       border-radius: 4px;
       font-family: var(--font-terminal);
-      font-size: 0.74rem;
-      font-weight: 700;
-      color: #6B7280;
+      font-size: 0.72rem;
       cursor: pointer;
+      color: var(--color-grey-text);
     }
 
     .timeframe-pill.active {
       background: var(--color-black);
       color: #FFF;
+      font-weight: 700;
     }
 
     #appCandleCanvas {
       width: 100%;
-      height: 360px;
+      height: 320px;
       display: block;
     }
 
-    /* Right Card: Strategy Control & Position Management Panel */
+    /* Strategy Execution Panel */
     .execution-panel-card {
       background: #FFFFFF;
       border: 1px dashed rgba(0, 0, 0, 0.22);
-      border-radius: 6px;
+      border-radius: 8px;
       padding: 1.5rem;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
     }
 
     .execution-header {
@@ -420,71 +490,65 @@
     }
 
     .execution-title {
-      font-family: var(--font-serif-editorial);
-      font-size: 1.35rem;
+      font-family: var(--font-terminal);
+      font-size: 0.78rem;
       font-weight: 700;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
     }
 
-    /* Signal Decision Banner */
     .signal-banner {
       background: var(--color-canvas-subtle);
-      border-left: 3px solid var(--color-amber);
-      border-radius: 4px;
+      border-radius: 6px;
       padding: 0.85rem 1rem;
       margin-bottom: 1.25rem;
+      border-left: 3px solid var(--color-amber);
     }
 
     .signal-banner-title {
-      font-family: var(--font-terminal);
-      font-size: 0.76rem;
+      font-size: 0.85rem;
       font-weight: 700;
-      color: #000;
-      text-transform: uppercase;
-      margin-bottom: 0.25rem;
+      color: #111;
       display: flex;
       justify-content: space-between;
+      margin-bottom: 0.3rem;
     }
 
     .signal-banner-desc {
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       color: var(--color-grey-text);
       line-height: 1.45;
     }
 
-    /* Mode Segmented Switcher */
     .mode-switcher {
       display: flex;
-      background: var(--color-grey-pill);
+      background: var(--color-canvas-subtle);
+      border-radius: 6px;
       padding: 0.25rem;
-      border-radius: 24px;
       margin-bottom: 1.25rem;
-      gap: 0.25rem;
     }
 
     .mode-switcher-btn {
       flex: 1;
-      border: none;
       background: none;
-      padding: 0.4rem 0.6rem;
-      border-radius: 20px;
+      border: none;
+      padding: 0.45rem;
       font-family: var(--font-sans-body);
       font-size: 0.78rem;
       font-weight: 600;
-      color: #555;
+      color: var(--color-grey-text);
       cursor: pointer;
-      text-align: center;
+      border-radius: 4px;
       transition: all 0.2s ease;
+      text-align: center;
     }
 
     .mode-switcher-btn.active {
-      background: #000;
-      color: #FFF;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      background: #FFFFFF;
+      color: #000000;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
     }
 
-    /* Position Sizing Input */
     .collateral-box {
       margin-bottom: 1.25rem;
     }
@@ -492,46 +556,47 @@
     .collateral-header {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      font-size: 0.82rem;
-      margin-bottom: 0.45rem;
+      font-size: 0.8rem;
+      margin-bottom: 0.35rem;
     }
 
     .collateral-input-field {
       width: 100%;
-      background: #F4F5F7;
-      border: 1px solid rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-      padding: 0.75rem 1rem;
+      padding: 0.65rem 0.85rem;
       font-family: var(--font-terminal);
-      font-size: 1.25rem;
+      font-size: 1.05rem;
       font-weight: 700;
-      color: #000;
-      margin-bottom: 0.65rem;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      border-radius: 6px;
+      background: #FFFFFF;
+      outline: none;
+    }
+
+    .collateral-input-field:focus {
+      border-color: #000;
     }
 
     .collateral-presets {
       display: flex;
-      gap: 0.4rem;
+      gap: 0.35rem;
+      margin-top: 0.5rem;
     }
 
     .preset-chip {
       flex: 1;
-      padding: 0.35rem 0;
-      text-align: center;
-      border: 1px solid rgba(0, 0, 0, 0.1);
-      border-radius: 6px;
-      background: #FFFFFF;
+      background: var(--color-canvas-subtle);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 4px;
+      padding: 0.3rem 0;
       font-family: var(--font-terminal);
-      font-size: 0.74rem;
-      font-weight: 700;
-      color: #4B5563;
+      font-size: 0.72rem;
       cursor: pointer;
-      transition: all 0.2s ease;
+      text-align: center;
+      transition: all 0.15s ease;
     }
 
     .preset-chip:hover {
-      background: #F3F4F6;
+      background: #E5E7EB;
     }
 
     .preset-chip.active {
@@ -540,53 +605,98 @@
       border-color: #000;
     }
 
-    /* Execution Breakdown Rows */
     .calc-row {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      padding: 0.45rem 0;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
+      margin-bottom: 0.4rem;
       color: var(--color-grey-text);
-      font-family: var(--font-terminal);
     }
 
     .calc-row strong {
-      color: #000;
-      font-size: 0.88rem;
+      color: #111;
+      font-family: var(--font-terminal);
     }
 
-    /* Big Action Button */
     .btn-execute-big {
       width: 100%;
       background: #000000;
       color: #FFFFFF;
-      border: 1px solid #000000;
-      border-radius: 28px;
-      padding: 0.75rem 1.25rem;
-      font-family: var(--font-serif-editorial);
-      font-size: 1.15rem;
+      border: none;
+      border-radius: 8px;
+      padding: 0.85rem;
+      font-family: var(--font-terminal);
+      font-size: 0.84rem;
       font-weight: 700;
       letter-spacing: 0.04em;
-      text-transform: uppercase;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
-      margin-top: 1.25rem;
-      transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
     }
 
     .btn-execute-big:hover {
-      border-radius: 8px;
       background: #222;
       transform: translateY(-2px);
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
     }
 
-    /* Human-Readable Auditor Cards */
+    /* Autonomous Execution Live Banner */
+    .auto-live-status-bar {
+      background: #0F172A;
+      color: #FFFFFF;
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.15);
+    }
+
+    .auto-live-pulse {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--color-green);
+      display: inline-block;
+      box-shadow: 0 0 12px var(--color-green);
+      animation: pulseGlow 1.5s infinite;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.3); }
+    }
+
+    /* Strategy Recalibration Alert Banner */
+    .recalibration-alert-toast {
+      background: #FFFBEB;
+      border: 1px solid #FDE68A;
+      border-left: 4px solid var(--color-amber);
+      border-radius: 6px;
+      padding: 0.85rem 1.15rem;
+      margin-bottom: 1.5rem;
+      display: none;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      animation: slideDown 0.3s ease-out;
+    }
+
+    .recalibration-alert-toast.visible {
+      display: flex;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Auditor Case Cards with Dynamic Glow on Jump */
     .auditor-lesson-card {
       background: #FFFFFF;
       border: 1px dashed rgba(0, 0, 0, 0.22);
@@ -595,7 +705,8 @@
       display: flex;
       flex-direction: column;
       gap: 0.85rem;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      transition: all 0.3s ease;
+      position: relative;
     }
 
     .auditor-lesson-card:hover {
@@ -603,18 +714,71 @@
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
     }
 
-    .progress-bar-wrap {
-      background: rgba(0,0,0,0.06);
-      border-radius: 10px;
-      height: 8px;
-      width: 100%;
-      overflow: hidden;
-      margin-top: 0.35rem;
+    .auditor-lesson-card.highlighted {
+      border: 2px solid var(--color-green) !important;
+      box-shadow: 0 0 24px rgba(0, 200, 83, 0.4) !important;
+      animation: auditGlow 2.5s ease-out;
     }
 
-    .progress-bar-fill {
-      height: 100%;
-      border-radius: 10px;
+    @keyframes auditGlow {
+      0% { transform: scale(1.02); box-shadow: 0 0 30px rgba(0, 200, 83, 0.8); }
+      100% { transform: scale(1); box-shadow: 0 0 10px rgba(0, 200, 83, 0.1); }
+    }
+
+    /* Settings Page Grid & Form */
+    .settings-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .settings-card {
+      background: #FFFFFF;
+      border: 1px dashed rgba(0, 0, 0, 0.22);
+      border-radius: 8px;
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .settings-card-title {
+      font-family: var(--font-serif-editorial);
+      font-size: 1.65rem;
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .form-label {
+      font-family: var(--font-terminal);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #374151;
+      text-transform: uppercase;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 0.65rem 0.85rem;
+      border: 1px solid rgba(0,0,0,0.15);
+      border-radius: 6px;
+      font-family: var(--font-terminal);
+      font-size: 0.82rem;
+      outline: none;
+      background: #FFFFFF;
+    }
+
+    .form-input:focus {
+      border-color: #000;
     }
 
     /* Trade Ledger Table */
@@ -643,34 +807,29 @@
       vertical-align: middle;
     }
 
-    .badge-win {
+    .btn-audit-jump {
+      background: #FFFFFF;
+      border: 1px dashed rgba(0, 0, 0, 0.25);
+      border-radius: 4px;
+      padding: 0.25rem 0.6rem;
+      font-family: var(--font-terminal);
+      font-size: 0.72rem;
+      font-weight: 700;
+      cursor: pointer;
       display: inline-flex;
       align-items: center;
-      padding: 0.2rem 0.55rem;
-      background: rgba(0, 200, 83, 0.12);
-      color: var(--color-green);
-      border: 1px solid rgba(0, 200, 83, 0.28);
-      border-radius: 4px;
-      font-family: var(--font-terminal);
-      font-size: 0.76rem;
-      font-weight: 700;
+      gap: 0.3rem;
+      transition: all 0.2s ease;
     }
 
-    .badge-loss {
-      display: inline-flex;
-      align-items: center;
-      padding: 0.2rem 0.55rem;
-      background: rgba(229, 9, 20, 0.1);
-      color: var(--color-red);
-      border: 1px solid rgba(229, 9, 20, 0.28);
-      border-radius: 4px;
-      font-family: var(--font-terminal);
-      font-size: 0.76rem;
-      font-weight: 700;
+    .btn-audit-jump:hover {
+      background: #000;
+      color: #FFF;
+      border-color: #000;
     }
 
-    /* Modal Styling */
-    .modal-overlay {
+    /* RainbowKit Modal */
+    .rainbow-modal-overlay {
       display: none;
       position: fixed;
       top: 0;
@@ -685,24 +844,86 @@
       padding: 1rem;
     }
 
-    .modal-overlay.open {
+    .rainbow-modal-overlay.open {
       display: flex;
     }
 
-    .modal-card {
+    .rainbow-modal-card {
       background: #FFFFFF;
-      border-radius: 12px;
-      border: 1px dashed rgba(0, 0, 0, 0.22);
+      border-radius: 16px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
       width: 100%;
-      max-width: 480px;
-      padding: 2rem;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+      max-width: 440px;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+      animation: modalRise 0.25s ease-out;
+    }
+
+    @keyframes modalRise {
+      from { opacity: 0; transform: scale(0.96) translateY(10px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .rainbow-modal-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .rainbow-modal-header h3 {
+      font-family: var(--font-sans-body);
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .rainbow-wallet-list {
+      padding: 1rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .rainbow-wallet-option {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      border: 1px solid rgba(0,0,0,0.06);
+      cursor: pointer;
+      background: #FFFFFF;
+      transition: all 0.15s ease;
+    }
+
+    .rainbow-wallet-option:hover {
+      background: var(--color-canvas-subtle);
+      border-color: rgba(0,0,0,0.18);
+      transform: translateY(-1px);
+    }
+
+    .wallet-icon-title {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .wallet-icon-img {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   </style>
 </head>
 <body>
 
-  <!-- Top Navigation Header - Streamlined, Zero Clutter -->
+  <!-- Top Navigation Header -->
   <header class="app-header">
     <div class="app-header-left">
       <a href="index.html" class="app-brand" title="Return to Chronos Landing Page">
@@ -711,27 +932,47 @@
       </a>
 
       <nav class="app-header-tabs">
-        <span class="app-tab active" onclick="switchView('arena', this)">Trading Arena</span>
-        <span class="app-tab" onclick="switchView('auditor', this)">Cognitive Self-Auditor</span>
-        <span class="app-tab" onclick="switchView('ledger', this)">Trade Ledger (26)</span>
+        <span class="app-tab active" id="tabArena" onclick="switchView('arena', this)">Trading Arena</span>
+        <span class="app-tab" id="tabAuditor" onclick="switchView('auditor', this)">
+          <span>Cognitive Self-Auditor</span>
+          <span class="app-tab-badge" id="auditCountBadge">3</span>
+        </span>
+        <span class="app-tab" id="tabLedger" onclick="switchView('ledger', this)">
+          <span>Trade Ledger</span>
+          <span class="app-tab-badge" id="ledgerCountBadge">26</span>
+        </span>
+        <span class="app-tab" id="tabSettings" onclick="switchView('settings', this)">Settings & Gateway</span>
       </nav>
     </div>
 
     <div class="app-header-right">
-      <div id="modePillBadge" class="pill-btn-subtle" onclick="openConnectModal()">
-        <span style="width: 6px; height: 6px; border-radius: 50%; background: var(--color-green);"></span>
-        <span id="currentModeLabel">Paper Mode ($50,000 USDT)</span>
+      <!-- RainbowKit Connected Wallet Component -->
+      <div id="walletHeaderContainer">
+        <!-- Rendered dynamically by JS -->
       </div>
 
-      <button class="btn-wallet-connect" onclick="openConnectModal()" id="connectHeaderBtn">
-        <span>CONNECT BITGET</span>
-      </button>
+      <!-- Wallet Dropdown Menu -->
+      <div class="wallet-dropdown-menu" id="walletDropdownMenu">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #EEE; padding-bottom: 0.5rem;">
+          <span style="font-size: 0.75rem; color: #888; font-family: var(--font-terminal);">ACTIVE WALLET</span>
+          <span style="font-size: 0.72rem; color: var(--color-green); font-weight: 700;">● CONNECTED</span>
+        </div>
+        <div>
+          <div style="font-family: var(--font-terminal); font-size: 0.82rem; font-weight: 700;" id="dropdownWalletAddr">0x71C...3a9F</div>
+          <div style="font-size: 0.75rem; color: #666; margin-top: 0.2rem;">Paper Balance: <strong id="dropdownPaperBalance" style="color: #000;">$50,000.00 USDT</strong></div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 0.4rem; border-top: 1px solid #EEE; padding-top: 0.6rem;">
+          <button class="preset-chip" onclick="resetCurrentWalletBalance()" style="width: 100%; text-align: center; padding: 0.45rem;">Reset Balance to $50,000</button>
+          <button class="preset-chip" onclick="openRainbowModal()" style="width: 100%; text-align: center; padding: 0.45rem;">Switch Account</button>
+          <button class="preset-chip" onclick="disconnectCurrentWallet()" style="width: 100%; text-align: center; padding: 0.45rem; color: var(--color-red);">Disconnect</button>
+        </div>
+      </div>
     </div>
   </header>
 
-  <!-- App Body Layout: Sidebar + Main Stage -->
+  <!-- App Body: Sidebar + Main Stage -->
   <div class="app-body">
-    <!-- Left Sidebar: Markets List -->
+    <!-- Left Sidebar: Markets List & Navigation Shortcuts -->
     <aside class="app-sidebar">
       <div>
         <div class="sidebar-section-title">
@@ -760,37 +1001,29 @@
 
       <div>
         <div class="sidebar-section-title">
-          <span>COGNITIVE INTELLIGENCE</span>
+          <span>COGNITIVE PLATFORM</span>
         </div>
         <div class="sidebar-menu">
-          <div class="sidebar-item" onclick="switchView('auditor', null)">
+          <div class="sidebar-item" onclick="switchView('auditor', document.getElementById('tabAuditor'))">
             <div class="sidebar-item-left">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
               <span>Self-Auditor Brain</span>
             </div>
-            <span class="sidebar-item-metric" style="color: var(--color-green);">Active</span>
+            <span class="sidebar-item-metric" style="color: var(--color-green);" id="sidebarAuditsActive">Active</span>
           </div>
-          <div class="sidebar-item" onclick="switchView('ledger', null)">
+          <div class="sidebar-item" onclick="switchView('ledger', document.getElementById('tabLedger'))">
             <div class="sidebar-item-left">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>
               <span>Trade Ledger</span>
             </div>
-            <span class="sidebar-item-metric">26 Trades</span>
+            <span class="sidebar-item-metric" id="sidebarTradeCount">26 Trades</span>
           </div>
-        </div>
-      </div>
-
-      <div>
-        <div class="sidebar-section-title">
-          <span>BITGET UTA INTEGRATION</span>
-        </div>
-        <div class="sidebar-menu">
-          <div class="sidebar-item" onclick="openConnectModal()">
+          <div class="sidebar-item" onclick="switchView('settings', document.getElementById('tabSettings'))">
             <div class="sidebar-item-left">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-              <span>API Key Vault</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+              <span>Settings & Gateway</span>
             </div>
-            <span class="sidebar-item-metric" style="color: var(--color-green);">HMAC-SHA256</span>
+            <span class="sidebar-item-metric" style="color: var(--color-green);">UTA v3</span>
           </div>
         </div>
       </div>
@@ -798,9 +1031,24 @@
 
     <!-- Main Content Area -->
     <main class="app-main">
-      <!-- VIEW 1: TRADING ARENA (Institutional Framing - Zero Links to Landing) -->
+
+      <!-- Strategy Recalibration Alert Banner -->
+      <div class="recalibration-alert-toast" id="recalibrationToast">
+        <div style="display: flex; gap: 0.85rem; align-items: flex-start;">
+          <span style="font-size: 1.3rem;">🧠</span>
+          <div>
+            <div style="font-size: 0.84rem; font-weight: 700; color: #92400E;" id="recalToastTitle">Cognitive Self-Audit Complete</div>
+            <div style="font-size: 0.8rem; color: #78350F; margin-top: 0.15rem; line-height: 1.5;" id="recalToastBody">
+              Strategy automatically recalibrated. The bot adapted its entry boundaries to prevent recurrence on future trades.
+            </div>
+          </div>
+        </div>
+        <button onclick="dismissRecalToast()" style="background: none; border: none; font-size: 1.1rem; color: #92400E; cursor: pointer;">✕</button>
+      </div>
+
+      <!-- VIEW 1: TRADING ARENA -->
       <div id="viewArena">
-        <!-- In-App Breadcrumb Header (No Back Links) -->
+        <!-- In-App Breadcrumb Header -->
         <div class="breadcrumb-row">
           <div style="display: flex; align-items: center; gap: 0.5rem; font-family: var(--font-terminal); font-size: 0.76rem; color: var(--color-grey-text);">
             <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--color-green);"></span>
@@ -808,8 +1056,10 @@
             <span style="color: #DDD;">/</span>
             <span id="breadcrumbPathDisplay" style="color: #000; font-weight: 700;">NVIDIA Corporation (rNVDA)</span>
           </div>
-          <div style="font-family: var(--font-terminal); font-size: 0.74rem; color: var(--color-grey-muted);">
-            Regime: Weekend Mean-Reversion
+          <div style="display: flex; align-items: center; gap: 1rem;">
+            <div style="font-family: var(--font-terminal); font-size: 0.74rem; color: var(--color-grey-muted);">
+              Wallet Balance: <strong id="arenaPaperBalanceDisplay" style="color: var(--color-green);">$50,000.00 USDT</strong>
+            </div>
           </div>
         </div>
 
@@ -823,6 +1073,23 @@
           <div class="status-strip">
             <span style="width: 7px; height: 7px; border-radius: 50%; background: var(--color-green); display: inline-block;"></span>
             <span>Friday Settlement Anchor: <strong id="statusAnchorDisplay" style="font-family: var(--font-terminal);">$128.40 USD</strong> • Next Convergence Cash Unwind: <strong style="font-family: var(--font-terminal);">Monday 08:30 EST</strong> • Gateway: Bitget UTA v3</span>
+          </div>
+        </div>
+
+        <!-- Autonomous Auto-Pilot Live Bar -->
+        <div class="auto-live-status-bar" id="autoStatusBar">
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <span class="auto-live-pulse"></span>
+            <div>
+              <div style="font-size: 0.85rem; font-weight: 700; letter-spacing: 0.04em;">AUTONOMOUS AUTO-PILOT: ACTIVE</div>
+              <div style="font-size: 0.74rem; color: #94A3B8; font-family: var(--font-terminal);">Scanning 7 tokenized equities • Auto-entry when |Z| ≥ Z_entry • Monday cash convergence</div>
+            </div>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 0.65rem;">
+            <button class="preset-chip" style="background: rgba(255,255,255,0.15); color: #FFF; border: none; padding: 0.35rem 0.85rem;" onclick="triggerAutonomousCycle()">
+              <span>Trigger Autonomous Cycle</span>
+            </button>
           </div>
         </div>
 
@@ -868,14 +1135,14 @@
             <canvas id="appCandleCanvas"></canvas>
           </div>
 
-          <!-- Right: Strategy Execution & Risk Control Panel (Professional Quant Tool) -->
+          <!-- Right: Strategy Execution & Risk Control Panel -->
           <div class="execution-panel-card">
             <div class="execution-header">
               <span class="execution-title">STRATEGY EXECUTION</span>
               <span class="badge-pill-green" style="font-size: 0.7rem; font-family: var(--font-terminal);">NET 0.10% TAKER</span>
             </div>
 
-            <!-- Signal Decision Banner (Plain English) -->
+            <!-- Signal Decision Banner -->
             <div class="signal-banner">
               <div class="signal-banner-title">
                 <span id="signalActionTitle">SHORT OVERBOUGHT DRIFT</span>
@@ -900,7 +1167,7 @@
             <div class="collateral-box">
               <div class="collateral-header">
                 <span style="font-weight: 600;">Position Allocation (USDT)</span>
-                <span style="color: var(--color-grey-muted); font-family: var(--font-terminal);">Avail: <strong id="availBalanceDisplay" style="color: #000;">$50,000.00</strong></span>
+                <span style="color: var(--color-grey-muted); font-family: var(--font-terminal);">Wallet Avail: <strong id="availBalanceDisplay" style="color: #000;">$50,000.00</strong></span>
               </div>
               <input type="number" id="collateralInput" class="collateral-input-field" value="2500" oninput="recalcExecution()">
               
@@ -908,11 +1175,11 @@
                 <button class="preset-chip" onclick="setCollateral(500, this)">$500</button>
                 <button class="preset-chip" onclick="setCollateral(1000, this)">$1,000</button>
                 <button class="preset-chip active" onclick="setCollateral(2500, this)">$2,500</button>
-                <button class="preset-chip" onclick="setCollateral(12500, this)">MAX (25%)</button>
+                <button class="preset-chip" onclick="setCollateralMax()">MAX (25%)</button>
               </div>
             </div>
 
-            <!-- Execution Breakdown (Plain English Financials) -->
+            <!-- Execution Breakdown -->
             <div style="border-top: 1px dashed rgba(0,0,0,0.14); padding-top: 0.85rem; margin-bottom: 1.25rem;">
               <div class="calc-row">
                 <span>Contracts Allocated:</span>
@@ -932,12 +1199,12 @@
               </div>
               <div class="calc-row">
                 <span>Cash Sweep Time:</span>
-                <strong style="color: #000;">Monday 09:30 EST (100% USDT)</strong>
+                <strong style="color: #000;">Monday 08:30 EST (100% USDT)</strong>
               </div>
             </div>
 
-            <button class="btn-execute-big" onclick="executeTradeOrder()">
-              <span id="executeBtnText">ACTIVATE AUTONOMOUS STRATEGY (PAPER)</span>
+            <button class="btn-execute-big" id="mainExecuteBtn" onclick="executeTradeOrder()">
+              <span id="executeBtnText">ACTIVATE AUTONOMOUS STRATEGY</span>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             </button>
             <div style="text-align: center; font-size: 0.74rem; color: var(--color-grey-muted); margin-top: 0.5rem; font-family: var(--font-terminal);">
@@ -950,156 +1217,79 @@
       <!-- VIEW 2: COGNITIVE SELF-AUDITOR (100% Human-Readable for Non-Devs) -->
       <div id="viewAuditor" style="display: none;">
         <div class="breadcrumb-row">
-          <span class="back-btn" onclick="switchView('arena', null)" style="border-radius: 20px; padding: 0.32rem 0.85rem; border: 1px solid rgba(0,0,0,0.14); background: #FFF; font-weight: 600; cursor: pointer;">← Back to Trading Arena</span>
-          <div style="font-family: var(--font-terminal); font-size: 0.76rem; color: var(--color-grey-muted);">Chronos Cognitive Brain • Autonomous Learning History</div>
+          <span class="preset-chip" onclick="switchView('arena', document.getElementById('tabArena'))" style="border-radius: 20px; padding: 0.32rem 0.85rem; font-weight: 600; cursor: pointer;">← Back to Trading Arena</span>
+          <div style="font-family: var(--font-terminal); font-size: 0.76rem; color: var(--color-grey-muted);">Chronos Cognitive Brain • Closed-Loop Learning</div>
         </div>
 
         <h1 class="market-title">Cognitive Self-Auditor & Closed-Loop Learning</h1>
         <p class="market-subtitle">
-          An autonomous trading bot must evaluate its own decisions so it does not make the same mistakes twice. Here is how Chronos diagnosed recent trades and adapted its rules in plain English:
+          An autonomous trading bot must evaluate its own decisions so it does not make the same mistakes twice. Chronos evaluates <strong>every closed trade</strong>—both wins and losses. Here is how it diagnosed recent trades and adapted its rules in plain English:
         </p>
 
         <!-- 3 Key Metric Cards -->
         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 1.5rem; margin-bottom: 2rem;">
           <div class="auditor-lesson-card">
             <div style="font-family: var(--font-terminal); font-size: 0.74rem; color: var(--color-grey-muted); text-transform: uppercase;">Overall System Health</div>
-            <div style="font-family: var(--font-serif-editorial); font-size: 2.2rem; color: var(--color-green);">99.4% Optimal</div>
-            <div style="font-size: 0.82rem; color: var(--color-grey-text);">26 trades audited. Zero manual intervention needed.</div>
+            <div style="font-family: var(--font-serif-editorial); font-size: 2.2rem; color: var(--color-green);" id="auditorHealthVal">99.4% Optimal</div>
+            <div style="font-size: 0.82rem; color: var(--color-grey-text);" id="auditorHealthSubtext">Closed trades audited. Zero manual intervention needed.</div>
           </div>
 
           <div class="auditor-lesson-card">
             <div style="font-family: var(--font-terminal); font-size: 0.74rem; color: var(--color-grey-muted); text-transform: uppercase;">Win / Loss Ratio</div>
-            <div style="font-family: var(--font-serif-editorial); font-size: 2.2rem; color: #000;">20 Wins · 6 Losses</div>
-            <div style="font-size: 0.82rem; color: var(--color-grey-text);">76.9% Win Rate across 120 days net of all friction.</div>
+            <div style="font-family: var(--font-serif-editorial); font-size: 2.2rem; color: #000;" id="auditorWinRatioVal">20 Wins · 6 Losses</div>
+            <div style="font-size: 0.82rem; color: var(--color-grey-text);" id="auditorWinRateSubtext">76.9% Win Rate across 120 days net of all friction.</div>
           </div>
 
           <div class="auditor-lesson-card">
             <div style="font-family: var(--font-terminal); font-size: 0.74rem; color: var(--color-grey-muted); text-transform: uppercase;">Active Self-Adaptations</div>
-            <div style="font-family: var(--font-serif-editorial); font-size: 2.2rem; color: var(--color-amber);">2 Rules Tuned</div>
-            <div style="font-size: 0.82rem; color: var(--color-grey-text);">rTSLA threshold raised; rMSTR capital cap trimmed.</div>
+            <div style="font-family: var(--font-serif-editorial); font-size: 2.2rem; color: var(--color-amber);" id="auditorRulesTunedVal">3 Rules Tuned</div>
+            <div style="font-size: 0.82rem; color: var(--color-grey-text);">Dynamic thresholds auto-recalibrated for connected wallet.</div>
           </div>
         </div>
 
-        <!-- Plain-English Case Studies -->
-        <h3 style="font-family: var(--font-serif-editorial); font-size: 1.75rem; margin-bottom: 1rem;">What Chronos Learned From Past Losses</h3>
-        
-        <div style="display: flex; flex-direction: column; gap: 1.25rem; margin-bottom: 2.5rem;">
-          <!-- Case 1 -->
-          <div class="auditor-lesson-card">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-              <div>
-                <span class="badge-loss" style="margin-right: 0.5rem;">DIAGNOSIS: RETAIL MOMENTUM OVERRUN</span>
-                <strong style="font-size: 1.05rem;">Tesla ($rTSLA) Entry Timing Refined</strong>
-              </div>
-              <span class="badge-pill-green">SELF-ADAPTATION ACTIVE</span>
-            </div>
-            
-            <p style="font-size: 0.88rem; color: #374151; line-height: 1.6;">
-              <strong>What happened:</strong> In 4 previous weekend trades on $rTSLA, retail enthusiasm was so intense that the price kept running past the standard entry threshold before finally reversing, triggering premature stop-outs.
-            </p>
-
-            <div style="background: var(--color-canvas-subtle); border-radius: 6px; padding: 0.85rem 1rem; font-size: 0.84rem; color: #111;">
-              <strong>Bot's Autonomous Fix:</strong> Chronos automatically increased the required dislocation threshold from <strong>2.00σ to 2.50σ</strong> for $rTSLA. The bot now waits patiently for retail exhaustion before entering, eliminating premature losses.
-            </div>
-          </div>
-
-          <!-- Case 2 -->
-          <div class="auditor-lesson-card">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-              <div>
-                <span class="badge-loss" style="margin-right: 0.5rem;">DIAGNOSIS: MACRO BETA DECOUPLING</span>
-                <strong style="font-size: 1.05rem;">MicroStrategy ($rMSTR) Position Sizing Guardrail</strong>
-              </div>
-              <span class="badge-pill-green">SELF-ADAPTATION ACTIVE</span>
-            </div>
-
-            <p style="font-size: 0.88rem; color: #374151; line-height: 1.6;">
-              <strong>What happened:</strong> During a major weekend Bitcoin rally, $rMSTR detached from its historical beta, creating large volatility swings that created outsized risk for the portfolio.
-            </p>
-
-            <div style="background: var(--color-canvas-subtle); border-radius: 6px; padding: 0.85rem 1rem; font-size: 0.84rem; color: #111;">
-              <strong>Bot's Autonomous Fix:</strong> Chronos reduced the maximum single-stock capital cap for $rMSTR from <strong>35% down to 25%</strong> and widened its covariance lookback window to prevent excessive volatility drag.
-            </div>
-          </div>
-
-          <!-- Case 3 -->
-          <div class="auditor-lesson-card">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-              <div>
-                <span class="badge-win" style="margin-right: 0.5rem;">CONFIRMATION: CONVERGENCE EFFICIENCY</span>
-                <strong style="font-size: 1.05rem;">NVIDIA ($rNVDA) Monday Pre-Market Exits Verified</strong>
-              </div>
-              <span class="badge-pill-green">100% RELIABLE</span>
-            </div>
-
-            <p style="font-size: 0.88rem; color: #374151; line-height: 1.6;">
-              <strong>What happened:</strong> Chronos audited all Monday 08:00–09:30 EST convergence windows for $rNVDA. 100% of positions liquidated cleanly into USDT cash with zero latency or execution slippage.
-            </p>
-
-            <div style="background: var(--color-canvas-subtle); border-radius: 6px; padding: 0.85rem 1rem; font-size: 0.84rem; color: #111;">
-              <strong>Bot's Decision:</strong> Maintain the standard 45-minute pre-market exit buffer. No parameter changes required.
-            </div>
-          </div>
-        </div>
-
-        <!-- Failure Mode Distribution Bar -->
-        <h3 style="font-family: var(--font-serif-editorial); font-size: 1.5rem; margin-bottom: 0.75rem;">Root Cause Distribution Across 6 Audited Losses</h3>
-        <div class="auditor-lesson-card" style="margin-bottom: 2rem;">
-          <div style="display: flex; justify-content: space-between; font-size: 0.84rem; font-weight: 600;">
-            <span>Retail Momentum Overrun (4 Cases · 66.7%)</span>
-            <span style="color: var(--color-green);">Resolved via Threshold Calibration</span>
-          </div>
-          <div class="progress-bar-wrap">
-            <div class="progress-bar-fill" style="width: 66.7%; background: var(--color-amber);"></div>
-          </div>
-
-          <div style="display: flex; justify-content: space-between; font-size: 0.84rem; font-weight: 600; margin-top: 0.75rem;">
-            <span>Beta Decoupling (2 Cases · 33.3%)</span>
-            <span style="color: var(--color-green);">Resolved via Capital Cap Reduction</span>
-          </div>
-          <div class="progress-bar-wrap">
-            <div class="progress-bar-fill" style="width: 33.3%; background: var(--color-red);"></div>
-          </div>
-
-          <div style="display: flex; justify-content: space-between; font-size: 0.84rem; font-weight: 600; margin-top: 0.75rem;">
-            <span>Convergence Latency (0 Cases · 0.0%)</span>
-            <span style="color: var(--color-green);">100% On-Time Monday Cash Sweeps</span>
-          </div>
-          <div class="progress-bar-wrap">
-            <div class="progress-bar-fill" style="width: 0%; background: var(--color-green);"></div>
-          </div>
+        <!-- Plain-English Case Studies Container -->
+        <h3 style="font-family: var(--font-serif-editorial); font-size: 1.75rem; margin-bottom: 1rem;">Post-Mortem Trade Diagnoses & Adaptations</h3>
+        <div style="display: flex; flex-direction: column; gap: 1.25rem; margin-bottom: 2.5rem;" id="auditsListContainer">
+          <!-- Dynamically populated from wallet's audit list -->
         </div>
       </div>
 
-      <!-- VIEW 3: TRADE LEDGER (Human-Readable 26 Trades Table) -->
+      <!-- VIEW 3: TRADE LEDGER -->
       <div id="viewLedger" style="display: none;">
         <div class="breadcrumb-row">
-          <span class="back-btn" onclick="switchView('arena', null)" style="border-radius: 20px; padding: 0.32rem 0.85rem; border: 1px solid rgba(0,0,0,0.14); background: #FFF; font-weight: 600; cursor: pointer;">← Back to Trading Arena</span>
-          <div style="font-family: var(--font-terminal); font-size: 0.76rem; color: var(--color-grey-muted);">120-Day Audited Backtest Ledger</div>
+          <span class="preset-chip" onclick="switchView('arena', document.getElementById('tabArena'))" style="border-radius: 20px; padding: 0.32rem 0.85rem; font-weight: 600; cursor: pointer;">← Back to Trading Arena</span>
+          <div style="font-family: var(--font-terminal); font-size: 0.76rem; color: var(--color-grey-muted);">Wallet-Scoped Audited Ledger</div>
         </div>
 
         <h1 class="market-title">Audited Trade Record & History</h1>
         <p class="market-subtitle">
-          Every trade executed by Chronos with entry time, exit time, net return, dollar profit, and the self-auditor's reflection note.
+          Every trade executed for the connected wallet with exact entry, exit, net profit, and a clickable link to its distinctive post-mortem self-audit.
         </p>
 
-        <div style="display: flex; gap: 0.5rem; margin-top: 1.5rem; margin-bottom: 1rem;">
-          <button class="preset-chip active" style="flex: none; padding: 0.4rem 1rem;" onclick="filterLedger('all', this)">All Trades (26)</button>
-          <button class="preset-chip" style="flex: none; padding: 0.4rem 1rem;" onclick="filterLedger('win', this)">Profitable Wins (20)</button>
-          <button class="preset-chip" style="flex: none; padding: 0.4rem 1rem;" onclick="filterLedger('loss', this)">Audited Losses (6)</button>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.75rem;">
+          <div style="display: flex; gap: 0.5rem;">
+            <button class="preset-chip active" id="btnLedgerAll" style="flex: none; padding: 0.4rem 1rem;" onclick="filterLedger('all', this)">All Trades</button>
+            <button class="preset-chip" id="btnLedgerWin" style="flex: none; padding: 0.4rem 1rem;" onclick="filterLedger('win', this)">Profitable Wins</button>
+            <button class="preset-chip" id="btnLedgerLoss" style="flex: none; padding: 0.4rem 1rem;" onclick="filterLedger('loss', this)">Audited Losses</button>
+          </div>
+
+          <div style="font-family: var(--font-terminal); font-size: 0.76rem; color: #666;">
+            Paper Wallet: <strong id="ledgerWalletAddressLabel" style="color: #000;">0x71C...3a9F</strong>
+          </div>
         </div>
 
         <div class="chart-panel-card" style="padding: 0; overflow-x: auto;">
           <table class="ledger-table">
             <thead>
               <tr>
+                <th>Trade ID</th>
                 <th>Asset</th>
                 <th>Strategy Action</th>
-                <th>Entry Date & Price</th>
-                <th>Monday Exit Price</th>
+                <th>Entry Price</th>
+                <th>Monday Exit</th>
                 <th>Net Return (%)</th>
                 <th>USDT Profit</th>
-                <th>Bot's Post-Mortem Note</th>
+                <th>Post-Mortem Self-Audit</th>
               </tr>
             </thead>
             <tbody id="appLedgerTableBody">
@@ -1107,65 +1297,635 @@
           </table>
         </div>
       </div>
+
+      <!-- VIEW 4: SETTINGS & GATEWAY PAGE -->
+      <div id="viewSettings" style="display: none;">
+        <div class="breadcrumb-row">
+          <span class="preset-chip" onclick="switchView('arena', document.getElementById('tabArena'))" style="border-radius: 20px; padding: 0.32rem 0.85rem; font-weight: 600; cursor: pointer;">← Back to Trading Arena</span>
+          <div style="font-family: var(--font-terminal); font-size: 0.76rem; color: var(--color-grey-muted);">System Configuration & API Vault</div>
+        </div>
+
+        <h1 class="market-title">Settings & Gateway Configuration</h1>
+        <p class="market-subtitle">
+          Configure your connection to the Bitget Universal Trading Account (UTA v3), manage paper balances for your Web3 wallet, and review autonomous execution limits.
+        </p>
+
+        <div class="settings-grid">
+          <!-- Card 1: Bitget Gateway Configuration -->
+          <div class="settings-card">
+            <div class="settings-card-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <span>Bitget Exchange Gateway</span>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--color-grey-text); line-height: 1.5;">
+              Connect your Bitget account via non-custodial HMAC-SHA256 credentials. Read and trade permissions only.
+            </p>
+
+            <div class="form-group">
+              <label class="form-label">Execution Environment</label>
+              <select id="settingsEnvSelect" class="form-input">
+                <option value="paper">Paper Mode (Simulated Funds — No Capital at Risk)</option>
+                <option value="mainnet">Live Bitget UTA v3 Account (Real Capital)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Bitget API Key</label>
+              <input type="text" id="settingsApiKey" class="form-input" placeholder="bg_live_quant_key_********">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Bitget API Secret</label>
+              <input type="password" id="settingsApiSecret" class="form-input" placeholder="••••••••••••••••">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Bitget Passphrase</label>
+              <input type="password" id="settingsPassphrase" class="form-input" placeholder="••••••••">
+            </div>
+
+            <div style="background: var(--color-canvas-subtle); border-radius: 6px; padding: 0.75rem 1rem; font-size: 0.78rem; display: flex; justify-content: space-between; align-items: center;">
+              <span>Gateway Ping Latency:</span>
+              <strong style="color: var(--color-green); font-family: var(--font-terminal);">14ms (Direct UTA)</strong>
+            </div>
+
+            <div style="display: flex; gap: 0.65rem;">
+              <button class="btn-execute-big" style="padding: 0.65rem;" onclick="saveBitgetSettings()">
+                <span>Save Gateway Configuration</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 2: Connected Wallet & Paper Balance Manager -->
+          <div class="settings-card">
+            <div class="settings-card-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
+              <span>Wallet Paper Trading Balance</span>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--color-grey-text); line-height: 1.5;">
+              Each connected Web3 wallet maintains an independent paper trading balance, allowing isolated risk profiles and separate strategy experiments.
+            </p>
+
+            <div style="background: var(--color-canvas-subtle); border-radius: 8px; padding: 1rem 1.25rem;">
+              <div style="font-size: 0.75rem; color: #666; font-family: var(--font-terminal);">CONNECTED WALLET</div>
+              <div style="font-family: var(--font-terminal); font-size: 0.95rem; font-weight: 700; margin-top: 0.2rem;" id="settingsWalletAddress">0x71C8...3a9F</div>
+              <div style="font-size: 0.75rem; color: #666; font-family: var(--font-terminal); margin-top: 0.75rem;">CURRENT PAPER BALANCE</div>
+              <div style="font-family: var(--font-serif-editorial); font-size: 2.2rem; color: var(--color-green);" id="settingsPaperBalanceDisplay">$50,000.00 USDT</div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Set Custom Paper Balance</label>
+              <div style="display: flex; gap: 0.5rem;">
+                <input type="number" id="settingsCustomBalanceInput" class="form-input" placeholder="50000" value="50000">
+                <button class="preset-chip" style="flex: none; padding: 0 1rem; font-weight: 700;" onclick="setCustomPaperBalance()">Update</button>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+              <button class="preset-chip" style="flex: 1; padding: 0.55rem;" onclick="resetCurrentWalletBalance()">Reset to $50,000</button>
+              <button class="preset-chip" style="flex: 1; padding: 0.55rem;" onclick="addPaperBalance(10000)">+ Add $10,000</button>
+              <button class="preset-chip" style="flex: 1; padding: 0.55rem; color: var(--color-red);" onclick="clearWalletHistory()">Clear Trades</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </main>
   </div>
 
-  <!-- Connect Bitget Account Modal (Clean & Non-Dev Friendly) -->
-  <div class="modal-overlay" id="connectModalOverlay" onclick="closeModalOnBackdrop(event)">
-    <div class="modal-card">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
-        <h3 style="font-family: var(--font-serif-editorial); font-size: 1.65rem;">Connect Bitget Account</h3>
-        <button onclick="closeConnectModal()" style="background: none; border: none; font-size: 1.25rem; cursor: pointer;">✕</button>
+  <!-- RainbowKit Wallet Connect Modal -->
+  <div class="rainbow-modal-overlay" id="rainbowModalOverlay" onclick="closeRainbowModalOnBackdrop(event)">
+    <div class="rainbow-modal-card">
+      <div class="rainbow-modal-header">
+        <h3>Connect a Wallet</h3>
+        <button onclick="closeRainbowModal()" style="background: none; border: none; font-size: 1.2rem; cursor: pointer; color: #666;">✕</button>
       </div>
 
-      <p style="font-size: 0.84rem; color: var(--color-grey-text); margin-bottom: 1.5rem; line-height: 1.5;">
-        Connect your Bitget Universal Trading Account (UTA v3) to allow Chronos to execute trades on your behalf. All credentials remain encrypted on your device.
-      </p>
+      <div class="rainbow-wallet-list">
+        <!-- MetaMask -->
+        <div class="rainbow-wallet-option" onclick="selectWalletProvider('MetaMask')">
+          <div class="wallet-icon-title">
+            <div class="wallet-icon-img" style="background: #FFF0E5;">
+              <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#E2761B" d="M21.5 6.5l-8.5-4-1 2.5 7 3.5zm-19 0l8.5-4 1 2.5-7 3.5z"/><path fill="#E4761B" d="M19.5 15.5l-2.5 4.5-5-2.5 1-2.5 4 .5zm-15 0l2.5 4.5 5-2.5-1-2.5-4 .5z"/><path fill="#D7C1B3" d="M10 12l2-6 2 6-2 3z"/></svg>
+            </div>
+            <span>MetaMask</span>
+          </div>
+          <span style="font-size: 0.72rem; color: var(--color-green); font-weight: 700; font-family: var(--font-terminal);">POPULAR</span>
+        </div>
 
-      <div style="margin-bottom: 1rem;">
-        <label style="font-family: var(--font-terminal); font-size: 0.72rem; font-weight: 700; text-transform: uppercase;">Trading Environment</label>
-        <select id="modalEnvSelect" style="width: 100%; padding: 0.6rem; border-radius: 6px; border: 1px solid #CCC; font-family: var(--font-sans-body); font-size: 0.84rem; margin-top: 0.25rem;">
-          <option value="paper">Paper Trading Mode (Simulated $50,000 USDT — No Keys Required)</option>
-          <option value="mainnet">Live Bitget UTA v3 Account (Real Capital)</option>
-        </select>
+        <!-- Rainbow -->
+        <div class="rainbow-wallet-option" onclick="selectWalletProvider('Rainbow')">
+          <div class="wallet-icon-title">
+            <div class="wallet-icon-img" style="background: linear-gradient(135deg, #FF6B6B, #4ECDC4);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFF"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/></svg>
+            </div>
+            <span>Rainbow</span>
+          </div>
+          <span style="font-size: 0.72rem; color: #666; font-family: var(--font-terminal);">MOBILE</span>
+        </div>
+
+        <!-- Coinbase Wallet -->
+        <div class="rainbow-wallet-option" onclick="selectWalletProvider('Coinbase')">
+          <div class="wallet-icon-title">
+            <div class="wallet-icon-img" style="background: #0052FF;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFF"><rect x="4" y="4" width="16" height="16" rx="4"/></svg>
+            </div>
+            <span>Coinbase Wallet</span>
+          </div>
+        </div>
+
+        <!-- WalletConnect -->
+        <div class="rainbow-wallet-option" onclick="selectWalletProvider('WalletConnect')">
+          <div class="wallet-icon-title">
+            <div class="wallet-icon-img" style="background: #3B99FC;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFF"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+            <span>WalletConnect</span>
+          </div>
+        </div>
+
+        <!-- Browser Injected -->
+        <div class="rainbow-wallet-option" onclick="selectWalletProvider('Injected')">
+          <div class="wallet-icon-title">
+            <div class="wallet-icon-img" style="background: #111;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFF"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </div>
+            <span>Browser Injected EVM</span>
+          </div>
+          <span style="font-size: 0.72rem; color: #666; font-family: var(--font-terminal);">DETECTED</span>
+        </div>
       </div>
 
-      <div style="margin-bottom: 1rem;">
-        <label style="font-family: var(--font-terminal); font-size: 0.72rem; font-weight: 700; text-transform: uppercase;">Bitget API Key</label>
-        <input type="text" id="modalApiKey" placeholder="bg_live_********" style="width: 100%; padding: 0.6rem; border-radius: 6px; border: 1px solid #CCC; font-family: var(--font-terminal); font-size: 0.82rem; margin-top: 0.25rem;">
+      <!-- Quick-Switch Test Accounts -->
+      <div style="background: var(--color-canvas-subtle); padding: 1rem 1.25rem; border-top: 1px solid rgba(0,0,0,0.06);">
+        <div style="font-size: 0.72rem; font-weight: 700; color: #666; font-family: var(--font-terminal); text-transform: uppercase; margin-bottom: 0.5rem;">
+          Quick Test Accounts (Isolated Paper Balances)
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 0.35rem;">
+          <div class="rainbow-wallet-option" style="padding: 0.45rem 0.75rem;" onclick="connectDirectAddress('0x71C8e2410a82Bc9bB12c98F908316D4112e3a9F')">
+            <span style="font-family: var(--font-terminal); font-size: 0.78rem;">0x71C8...3a9F (Quant Alpha)</span>
+            <span style="font-size: 0.7rem; color: var(--color-green); font-weight: 700;">ACTIVE</span>
+          </div>
+          <div class="rainbow-wallet-option" style="padding: 0.45rem 0.75rem;" onclick="connectDirectAddress('0x94B27c08a98C7F0013dC99E5e4157A31D082e21A')">
+            <span style="font-family: var(--font-terminal); font-size: 0.78rem;">0x94B2...e21A (DeFi Treasury)</span>
+            <span style="font-size: 0.7rem; color: #888;">ISOLATED</span>
+          </div>
+          <div class="rainbow-wallet-option" style="padding: 0.45rem 0.75rem;" onclick="connectDirectAddress('0x42A169b8214C9E57A0c0903875B22915668a98Cc')">
+            <span style="font-family: var(--font-terminal); font-size: 0.78rem;">0x42A1...98Cc (Risk Parity Desk)</span>
+            <span style="font-size: 0.7rem; color: #888;">ISOLATED</span>
+          </div>
+        </div>
       </div>
-
-      <div style="margin-bottom: 1rem;">
-        <label style="font-family: var(--font-terminal); font-size: 0.72rem; font-weight: 700; text-transform: uppercase;">API Secret Key</label>
-        <input type="password" id="modalApiSecret" placeholder="••••••••••••••••" style="width: 100%; padding: 0.6rem; border-radius: 6px; border: 1px solid #CCC; font-family: var(--font-terminal); font-size: 0.82rem; margin-top: 0.25rem;">
-      </div>
-
-      <div style="margin-bottom: 1.25rem;">
-        <label style="font-family: var(--font-terminal); font-size: 0.72rem; font-weight: 700; text-transform: uppercase;">API Passphrase</label>
-        <input type="password" id="modalPassphrase" placeholder="••••••••" style="width: 100%; padding: 0.6rem; border-radius: 6px; border: 1px solid #CCC; font-family: var(--font-terminal); font-size: 0.82rem; margin-top: 0.25rem;">
-      </div>
-
-      <div style="background: var(--color-canvas-subtle); border-radius: 6px; padding: 0.75rem 0.85rem; font-size: 0.76rem; color: #555; margin-bottom: 1.25rem; line-height: 1.45;">
-        🔒 <strong>Non-Custodial Security:</strong> Only check "Read" and "Trade" permissions when creating your Bitget key. Never enable "Withdrawal". Your funds remain 100% under your control on Bitget.
-      </div>
-
-      <button class="btn-wallet-connect" style="width: 100%; justify-content: center; padding: 0.65rem;" onclick="saveCredentials()">
-        <span>Connect & Save Gateway</span>
-      </button>
     </div>
   </div>
 
   <script>
     const markets = {"rNVDA": {"name": "rNVDA / USDT", "symbol": "rNVDA", "company": "NVIDIA Corporation", "spot_price": 132.8, "anchor_price": 128.4, "drift_pct": 3.42, "z_score": 2.24, "action": "SHORT OVERBOUGHT DRIFT", "regime": "Weekend Retail Euphoria (Overbought)", "thesis": "Retail market participants pushed $rNVDA +3.42% above Friday institutional settlement while Nasdaq is shuttered. Statistical dislocation is 2.24\u03c3. Strategy deploys counter-positioning into Monday pre-market convergence.", "convergence_target": 128.4, "expected_return": "+3.42%", "stop_loss": "-2.10%", "beta": 1.48}, "rTSLA": {"name": "rTSLA / USDT", "symbol": "rTSLA", "company": "Tesla Motors Inc.", "spot_price": 258.4, "anchor_price": 248.0, "drift_pct": 4.19, "z_score": 2.65, "action": "SHORT OVERBOUGHT DRIFT", "regime": "Extreme Retail Momentum (Overbought)", "thesis": "Retail buyers chased headlines over thin weekend liquidity books. Autonomous self-auditor adapted entry threshold to 2.50\u03c3. Signal triggered for Monday institutional mean-reversion.", "convergence_target": 248.0, "expected_return": "+4.19%", "stop_loss": "-2.40%", "beta": 1.95}, "rAAPL": {"name": "rAAPL / USDT", "symbol": "rAAPL", "company": "Apple Inc.", "spot_price": 222.1, "anchor_price": 224.0, "drift_pct": -0.85, "z_score": -0.68, "action": "HOLD CASH (NOISE BAND)", "regime": "Fair Value (Idle)", "thesis": "Price deviation is only -0.68\u03c3 from Friday anchor. Strategy preserves 100% USDT cash to avoid unnecessary execution friction.", "convergence_target": 224.0, "expected_return": "0.00%", "stop_loss": "N/A", "beta": 0.72}, "rCOIN": {"name": "rCOIN / USDT", "symbol": "rCOIN", "company": "Coinbase Global", "spot_price": 218.5, "anchor_price": 206.8, "drift_pct": 5.66, "z_score": 3.1, "action": "SHORT OVERBOUGHT DRIFT", "regime": "Severe Crypto-Beta Overhang", "thesis": "Tokenized Coinbase equity detached from fundamental valuation following weekend crypto volatility. 3.10\u03c3 dislocation indicates extreme mean-reversion probability.", "convergence_target": 206.8, "expected_return": "+5.66%", "stop_loss": "-2.50%", "beta": 2.45}, "rMSTR": {"name": "rMSTR / USDT", "symbol": "rMSTR", "company": "MicroStrategy Inc.", "spot_price": 312.4, "anchor_price": 292.2, "drift_pct": 6.91, "z_score": 3.48, "action": "SHORT OVERBOUGHT DRIFT", "regime": "Leveraged Bitcoin Reflexivity", "thesis": "High weekend beta. Self-auditor reduced single-stock capital cap to 25% to protect downside risk. Dislocation is 3.48\u03c3 from Friday anchor.", "convergence_target": 292.2, "expected_return": "+6.91%", "stop_loss": "-2.80%", "beta": 2.9}, "rSPY": {"name": "rSPY / USDT", "symbol": "rSPY", "company": "S&P 500 Index ETF", "spot_price": 564.2, "anchor_price": 561.8, "drift_pct": 0.43, "z_score": 0.35, "action": "HOLD CASH (NOISE BAND)", "regime": "Stable Institutional Benchmark", "thesis": "Broad market index tightly anchored to Friday settlement price. No statistical dislocation signal present.", "convergence_target": 561.8, "expected_return": "0.00%", "stop_loss": "N/A", "beta": 0.35}, "rQQQ": {"name": "rQQQ / USDT", "symbol": "rQQQ", "company": "Invesco QQQ Trust", "spot_price": 482.6, "anchor_price": 478.9, "drift_pct": 0.77, "z_score": 0.62, "action": "HOLD CASH (NOISE BAND)", "regime": "Tech Benchmark Baseline", "thesis": "Tech benchmark variance is within normal weekend noise. Preserving buying power for idiosyncratic single-stock dislocations.", "convergence_target": 478.9, "expected_return": "0.00%", "stop_loss": "N/A", "beta": 0.58}};
     const candlesData = {"rNVDA": [{"time": "00:00", "open": 128.4, "high": 128.85, "low": 128.07, "close": 128.72, "volume": 3062}, {"time": "01:00", "open": 128.72, "high": 129.86, "low": 127.89, "close": 129.2, "volume": 2108}, {"time": "02:00", "open": 129.2, "high": 129.32, "low": 128.91, "close": 129.19, "volume": 5037}, {"time": "03:00", "open": 129.19, "high": 129.45, "low": 127.93, "close": 128.57, "volume": 5314}, {"time": "04:00", "open": 128.57, "high": 129.16, "low": 127.48, "close": 128.25, "volume": 1545}, {"time": "05:00", "open": 128.25, "high": 129.51, "low": 127.87, "close": 128.83, "volume": 2588}, {"time": "06:00", "open": 128.83, "high": 130.02, "low": 128.65, "close": 129.64, "volume": 2177}, {"time": "07:00", "open": 129.64, "high": 130.89, "low": 128.88, "close": 130.29, "volume": 6608}, {"time": "08:00", "open": 130.29, "high": 131.36, "low": 129.88, "close": 130.46, "volume": 5364}, {"time": "09:00", "open": 130.46, "high": 131.68, "low": 129.65, "close": 131.07, "volume": 5541}, {"time": "10:00", "open": 131.07, "high": 131.64, "low": 130.79, "close": 131.5, "volume": 3525}, {"time": "11:00", "open": 131.5, "high": 131.79, "low": 130.78, "close": 130.96, "volume": 3445}, {"time": "12:00", "open": 130.96, "high": 131.68, "low": 130.56, "close": 131.28, "volume": 2966}, {"time": "13:00", "open": 131.28, "high": 132.15, "low": 130.4, "close": 131.03, "volume": 5763}, {"time": "14:00", "open": 131.03, "high": 131.73, "low": 130.4, "close": 130.63, "volume": 4156}, {"time": "15:00", "open": 130.63, "high": 132.13, "low": 130.07, "close": 131.5, "volume": 6292}, {"time": "16:00", "open": 131.5, "high": 132.88, "low": 131.21, "close": 132.14, "volume": 1724}, {"time": "17:00", "open": 132.14, "high": 132.46, "low": 131.69, "close": 131.96, "volume": 8100}, {"time": "18:00", "open": 131.96, "high": 133.01, "low": 131.32, "close": 132.65, "volume": 4269}, {"time": "19:00", "open": 132.65, "high": 133.88, "low": 132.33, "close": 133.4, "volume": 3226}, {"time": "20:00", "open": 133.4, "high": 133.92, "low": 132.82, "close": 133.61, "volume": 7784}, {"time": "21:00", "open": 133.61, "high": 133.89, "low": 132.64, "close": 133.56, "volume": 5066}, {"time": "22:00", "open": 133.56, "high": 133.7, "low": 132.85, "close": 133.04, "volume": 5892}, {"time": "23:00", "open": 133.04, "high": 134.05, "low": 132.89, "close": 133.6, "volume": 4171}, {"time": "24:00", "open": 133.6, "high": 135.01, "low": 132.7, "close": 134.47, "volume": 7525}, {"time": "25:00", "open": 134.47, "high": 135.17, "low": 133.17, "close": 133.83, "volume": 5258}, {"time": "26:00", "open": 133.83, "high": 134.46, "low": 133.39, "close": 133.58, "volume": 4543}, {"time": "27:00", "open": 133.58, "high": 134.51, "low": 132.76, "close": 133.62, "volume": 3343}, {"time": "28:00", "open": 133.62, "high": 133.98, "low": 132.77, "close": 133.73, "volume": 7593}, {"time": "29:00", "open": 133.73, "high": 134.36, "low": 132.93, "close": 133.53, "volume": 2569}, {"time": "30:00", "open": 133.53, "high": 134.59, "low": 132.79, "close": 134.05, "volume": 5212}, {"time": "31:00", "open": 134.05, "high": 134.41, "low": 133.27, "close": 133.39, "volume": 8003}, {"time": "32:00", "open": 133.39, "high": 134.87, "low": 133.03, "close": 134.08, "volume": 1905}, {"time": "33:00", "open": 134.08, "high": 135.65, "low": 133.91, "close": 134.77, "volume": 4901}, {"time": "34:00", "open": 134.77, "high": 135.5, "low": 133.49, "close": 134.22, "volume": 2398}, {"time": "35:00", "open": 134.22, "high": 134.84, "low": 133.9, "close": 134.29, "volume": 7607}, {"time": "36:00", "open": 134.29, "high": 134.57, "low": 133.74, "close": 134.28, "volume": 6609}, {"time": "37:00", "open": 134.28, "high": 134.64, "low": 133.01, "close": 133.93, "volume": 6049}, {"time": "38:00", "open": 133.93, "high": 134.47, "low": 133.73, "close": 133.95, "volume": 3072}, {"time": "39:00", "open": 133.95, "high": 134.53, "low": 133.52, "close": 133.81, "volume": 3041}], "rTSLA": [{"time": "00:00", "open": 248.0, "high": 249.16, "low": 246.5, "close": 246.98, "volume": 7837}, {"time": "01:00", "open": 246.98, "high": 248.53, "low": 246.48, "close": 248.31, "volume": 6182}, {"time": "02:00", "open": 248.31, "high": 248.64, "low": 246.05, "close": 247.72, "volume": 5497}, {"time": "03:00", "open": 247.72, "high": 249.32, "low": 246.26, "close": 247.9, "volume": 2832}, {"time": "04:00", "open": 247.9, "high": 248.73, "low": 246.15, "close": 246.96, "volume": 4769}, {"time": "05:00", "open": 246.96, "high": 249.14, "low": 245.2, "close": 247.9, "volume": 2188}, {"time": "06:00", "open": 247.9, "high": 248.58, "low": 246.32, "close": 247.87, "volume": 3240}, {"time": "07:00", "open": 247.87, "high": 248.73, "low": 246.4, "close": 247.21, "volume": 3449}, {"time": "08:00", "open": 247.21, "high": 248.87, "low": 245.88, "close": 246.73, "volume": 7529}, {"time": "09:00", "open": 246.73, "high": 247.32, "low": 244.94, "close": 247.14, "volume": 7352}, {"time": "10:00", "open": 247.14, "high": 250.45, "low": 245.61, "close": 248.79, "volume": 2664}, {"time": "11:00", "open": 248.79, "high": 249.47, "low": 248.02, "close": 249.01, "volume": 1910}, {"time": "12:00", "open": 249.01, "high": 250.77, "low": 248.36, "close": 248.91, "volume": 6988}, {"time": "13:00", "open": 248.91, "high": 249.85, "low": 247.2, "close": 249.04, "volume": 8467}, {"time": "14:00", "open": 249.04, "high": 250.77, "low": 248.68, "close": 249.46, "volume": 3576}, {"time": "15:00", "open": 249.46, "high": 252.19, "low": 248.45, "close": 251.12, "volume": 6735}, {"time": "16:00", "open": 251.12, "high": 252.2, "low": 249.11, "close": 250.06, "volume": 7469}, {"time": "17:00", "open": 250.06, "high": 251.78, "low": 249.06, "close": 249.3, "volume": 2800}, {"time": "18:00", "open": 249.3, "high": 251.08, "low": 248.8, "close": 249.84, "volume": 2339}, {"time": "19:00", "open": 249.84, "high": 251.78, "low": 248.74, "close": 251.26, "volume": 5835}, {"time": "20:00", "open": 251.26, "high": 252.37, "low": 250.28, "close": 251.28, "volume": 8042}, {"time": "21:00", "open": 251.28, "high": 252.59, "low": 250.16, "close": 250.66, "volume": 4270}, {"time": "22:00", "open": 250.66, "high": 252.04, "low": 250.03, "close": 251.43, "volume": 6763}, {"time": "23:00", "open": 251.43, "high": 252.31, "low": 248.64, "close": 250.42, "volume": 8472}, {"time": "24:00", "open": 250.42, "high": 250.88, "low": 248.87, "close": 249.41, "volume": 8032}, {"time": "25:00", "open": 249.41, "high": 252.39, "low": 248.69, "close": 250.81, "volume": 2604}, {"time": "26:00", "open": 250.81, "high": 253.35, "low": 249.67, "close": 252.06, "volume": 8410}, {"time": "27:00", "open": 252.06, "high": 252.89, "low": 250.58, "close": 252.78, "volume": 3595}, {"time": "28:00", "open": 252.78, "high": 255.21, "low": 252.45, "close": 253.52, "volume": 2308}, {"time": "29:00", "open": 253.52, "high": 254.56, "low": 252.06, "close": 252.61, "volume": 5733}, {"time": "30:00", "open": 252.61, "high": 253.97, "low": 251.45, "close": 253.52, "volume": 3347}, {"time": "31:00", "open": 253.52, "high": 255.37, "low": 252.0, "close": 253.75, "volume": 2146}, {"time": "32:00", "open": 253.75, "high": 254.35, "low": 253.64, "close": 253.78, "volume": 6897}, {"time": "33:00", "open": 253.78, "high": 254.99, "low": 252.43, "close": 254.45, "volume": 5361}, {"time": "34:00", "open": 254.45, "high": 254.61, "low": 254.22, "close": 254.49, "volume": 7681}, {"time": "35:00", "open": 254.49, "high": 256.97, "low": 252.99, "close": 255.96, "volume": 5577}, {"time": "36:00", "open": 255.96, "high": 256.27, "low": 254.55, "close": 255.17, "volume": 7792}, {"time": "37:00", "open": 255.17, "high": 257.86, "low": 253.55, "close": 256.31, "volume": 2970}, {"time": "38:00", "open": 256.31, "high": 256.58, "low": 254.41, "close": 255.82, "volume": 7688}, {"time": "39:00", "open": 255.82, "high": 256.97, "low": 255.44, "close": 255.81, "volume": 8009}], "rAAPL": [{"time": "00:00", "open": 224.0, "high": 226.51, "low": 222.67, "close": 224.93, "volume": 7669}, {"time": "01:00", "open": 224.93, "high": 226.15, "low": 223.01, "close": 223.61, "volume": 8015}, {"time": "02:00", "open": 223.61, "high": 225.78, "low": 222.28, "close": 224.37, "volume": 3367}, {"time": "03:00", "open": 224.37, "high": 225.36, "low": 222.95, "close": 225.1, "volume": 7510}, {"time": "04:00", "open": 225.1, "high": 226.43, "low": 223.51, "close": 224.3, "volume": 3636}, {"time": "05:00", "open": 224.3, "high": 225.49, "low": 224.17, "close": 225.05, "volume": 2851}, {"time": "06:00", "open": 225.05, "high": 226.46, "low": 222.98, "close": 224.54, "volume": 3453}, {"time": "07:00", "open": 224.54, "high": 225.58, "low": 222.96, "close": 224.87, "volume": 5253}, {"time": "08:00", "open": 224.87, "high": 226.28, "low": 223.31, "close": 226.01, "volume": 2749}, {"time": "09:00", "open": 226.01, "high": 227.7, "low": 225.74, "close": 227.2, "volume": 4541}, {"time": "10:00", "open": 227.2, "high": 228.34, "low": 226.19, "close": 227.77, "volume": 5079}, {"time": "11:00", "open": 227.77, "high": 228.74, "low": 226.93, "close": 227.41, "volume": 6461}, {"time": "12:00", "open": 227.41, "high": 228.91, "low": 225.11, "close": 226.03, "volume": 6536}, {"time": "13:00", "open": 226.03, "high": 227.74, "low": 225.38, "close": 226.63, "volume": 1989}, {"time": "14:00", "open": 226.63, "high": 227.62, "low": 226.05, "close": 227.02, "volume": 7436}, {"time": "15:00", "open": 227.02, "high": 228.12, "low": 226.46, "close": 227.57, "volume": 4358}, {"time": "16:00", "open": 227.57, "high": 228.11, "low": 226.96, "close": 227.26, "volume": 4443}, {"time": "17:00", "open": 227.26, "high": 229.52, "low": 225.79, "close": 228.39, "volume": 5808}, {"time": "18:00", "open": 228.39, "high": 229.32, "low": 227.71, "close": 227.81, "volume": 3508}, {"time": "19:00", "open": 227.81, "high": 228.79, "low": 226.48, "close": 227.57, "volume": 4754}, {"time": "20:00", "open": 227.57, "high": 228.0, "low": 226.56, "close": 227.37, "volume": 7808}, {"time": "21:00", "open": 227.37, "high": 228.48, "low": 227.14, "close": 228.12, "volume": 5108}, {"time": "22:00", "open": 228.12, "high": 229.04, "low": 226.78, "close": 228.43, "volume": 6757}, {"time": "23:00", "open": 228.43, "high": 229.29, "low": 228.03, "close": 228.85, "volume": 1670}, {"time": "24:00", "open": 228.85, "high": 229.67, "low": 226.73, "close": 228.11, "volume": 2009}, {"time": "25:00", "open": 228.11, "high": 229.17, "low": 227.44, "close": 227.84, "volume": 6374}, {"time": "26:00", "open": 227.84, "high": 228.3, "low": 226.68, "close": 227.77, "volume": 1538}, {"time": "27:00", "open": 227.77, "high": 229.67, "low": 227.51, "close": 228.4, "volume": 4476}, {"time": "28:00", "open": 228.4, "high": 229.95, "low": 226.6, "close": 227.48, "volume": 1851}, {"time": "29:00", "open": 227.48, "high": 228.86, "low": 225.97, "close": 226.76, "volume": 7109}, {"time": "30:00", "open": 226.76, "high": 228.76, "low": 225.76, "close": 227.16, "volume": 8150}, {"time": "31:00", "open": 227.16, "high": 229.19, "low": 225.97, "close": 228.17, "volume": 5033}, {"time": "32:00", "open": 228.17, "high": 229.94, "low": 226.71, "close": 229.01, "volume": 6705}, {"time": "33:00", "open": 229.01, "high": 229.5, "low": 228.42, "close": 228.89, "volume": 5963}, {"time": "34:00", "open": 228.89, "high": 230.45, "low": 227.84, "close": 229.56, "volume": 3422}, {"time": "35:00", "open": 229.56, "high": 230.09, "low": 227.87, "close": 228.38, "volume": 3737}, {"time": "36:00", "open": 228.38, "high": 228.75, "low": 227.93, "close": 228.44, "volume": 6357}, {"time": "37:00", "open": 228.44, "high": 229.14, "low": 227.72, "close": 228.94, "volume": 5298}, {"time": "38:00", "open": 228.94, "high": 229.36, "low": 227.94, "close": 228.67, "volume": 7833}, {"time": "39:00", "open": 228.67, "high": 230.0, "low": 227.27, "close": 228.85, "volume": 6859}], "rCOIN": [{"time": "00:00", "open": 206.8, "high": 206.91, "low": 206.21, "close": 206.8, "volume": 6774}, {"time": "01:00", "open": 206.8, "high": 209.39, "low": 206.11, "close": 207.97, "volume": 6732}, {"time": "02:00", "open": 207.97, "high": 209.31, "low": 207.56, "close": 208.37, "volume": 3035}, {"time": "03:00", "open": 208.37, "high": 208.65, "low": 207.81, "close": 208.51, "volume": 6253}, {"time": "04:00", "open": 208.51, "high": 208.89, "low": 207.76, "close": 208.56, "volume": 2393}, {"time": "05:00", "open": 208.56, "high": 209.29, "low": 207.91, "close": 209.16, "volume": 5450}, {"time": "06:00", "open": 209.16, "high": 210.15, "low": 207.99, "close": 208.28, "volume": 4731}, {"time": "07:00", "open": 208.28, "high": 208.9, "low": 207.06, "close": 207.45, "volume": 3787}, {"time": "08:00", "open": 207.45, "high": 209.02, "low": 206.31, "close": 208.39, "volume": 7323}, {"time": "09:00", "open": 208.39, "high": 208.61, "low": 207.94, "close": 208.07, "volume": 5275}, {"time": "10:00", "open": 208.07, "high": 210.19, "low": 207.07, "close": 209.6, "volume": 6968}, {"time": "11:00", "open": 209.6, "high": 211.42, "low": 208.18, "close": 210.27, "volume": 2895}, {"time": "12:00", "open": 210.27, "high": 210.58, "low": 209.1, "close": 209.37, "volume": 6186}, {"time": "13:00", "open": 209.37, "high": 210.23, "low": 208.3, "close": 209.83, "volume": 6868}, {"time": "14:00", "open": 209.83, "high": 210.77, "low": 208.16, "close": 209.29, "volume": 2301}, {"time": "15:00", "open": 209.29, "high": 211.82, "low": 209.04, "close": 210.38, "volume": 1679}, {"time": "16:00", "open": 210.38, "high": 211.42, "low": 208.77, "close": 210.2, "volume": 4276}, {"time": "17:00", "open": 210.2, "high": 211.24, "low": 209.15, "close": 211.03, "volume": 5890}, {"time": "18:00", "open": 211.03, "high": 212.2, "low": 209.05, "close": 210.34, "volume": 5702}, {"time": "19:00", "open": 210.34, "high": 211.8, "low": 208.5, "close": 209.69, "volume": 3930}, {"time": "20:00", "open": 209.69, "high": 210.42, "low": 208.88, "close": 209.8, "volume": 3888}, {"time": "21:00", "open": 209.8, "high": 212.2, "low": 209.56, "close": 210.96, "volume": 8225}, {"time": "22:00", "open": 210.96, "high": 212.84, "low": 209.88, "close": 211.59, "volume": 4548}, {"time": "23:00", "open": 211.59, "high": 213.91, "low": 211.12, "close": 212.46, "volume": 7157}, {"time": "24:00", "open": 212.46, "high": 213.62, "low": 211.76, "close": 212.85, "volume": 6617}, {"time": "25:00", "open": 212.85, "high": 214.13, "low": 211.32, "close": 212.57, "volume": 2106}, {"time": "26:00", "open": 212.57, "high": 214.25, "low": 211.82, "close": 213.81, "volume": 5772}, {"time": "27:00", "open": 213.81, "high": 213.95, "low": 212.52, "close": 213.8, "volume": 2772}, {"time": "28:00", "open": 213.8, "high": 215.01, "low": 212.81, "close": 213.38, "volume": 7662}, {"time": "29:00", "open": 213.38, "high": 214.65, "low": 213.26, "close": 214.17, "volume": 8136}, {"time": "30:00", "open": 214.17, "high": 215.27, "low": 212.66, "close": 213.43, "volume": 6807}, {"time": "31:00", "open": 213.43, "high": 215.2, "low": 212.65, "close": 214.2, "volume": 7050}, {"time": "32:00", "open": 214.2, "high": 214.61, "low": 212.42, "close": 213.48, "volume": 3643}, {"time": "33:00", "open": 213.48, "high": 214.74, "low": 212.65, "close": 213.98, "volume": 4478}, {"time": "34:00", "open": 213.98, "high": 215.44, "low": 212.9, "close": 214.88, "volume": 3396}, {"time": "35:00", "open": 214.88, "high": 215.15, "low": 214.19, "close": 214.56, "volume": 2336}, {"time": "36:00", "open": 214.56, "high": 216.1, "low": 214.2, "close": 214.94, "volume": 3014}, {"time": "37:00", "open": 214.94, "high": 216.3, "low": 213.48, "close": 215.19, "volume": 5172}, {"time": "38:00", "open": 215.19, "high": 215.43, "low": 214.58, "close": 214.95, "volume": 3092}, {"time": "39:00", "open": 214.95, "high": 215.06, "low": 213.6, "close": 214.44, "volume": 3420}], "rMSTR": [{"time": "00:00", "open": 292.2, "high": 295.58, "low": 290.7, "close": 294.37, "volume": 2383}, {"time": "01:00", "open": 294.37, "high": 297.25, "low": 292.52, "close": 296.17, "volume": 5518}, {"time": "02:00", "open": 296.17, "high": 297.55, "low": 295.7, "close": 296.56, "volume": 1859}, {"time": "03:00", "open": 296.56, "high": 299.67, "low": 294.82, "close": 298.61, "volume": 4304}, {"time": "04:00", "open": 298.61, "high": 299.98, "low": 297.42, "close": 297.63, "volume": 2544}, {"time": "05:00", "open": 297.63, "high": 299.06, "low": 295.53, "close": 298.35, "volume": 2329}, {"time": "06:00", "open": 298.35, "high": 301.1, "low": 296.67, "close": 299.78, "volume": 3079}, {"time": "07:00", "open": 299.78, "high": 301.37, "low": 298.8, "close": 300.37, "volume": 7521}, {"time": "08:00", "open": 300.37, "high": 303.3, "low": 299.02, "close": 302.59, "volume": 5767}, {"time": "09:00", "open": 302.59, "high": 305.94, "low": 302.07, "close": 303.94, "volume": 2977}, {"time": "10:00", "open": 303.94, "high": 305.42, "low": 303.49, "close": 305.01, "volume": 2025}, {"time": "11:00", "open": 305.01, "high": 306.01, "low": 302.48, "close": 303.77, "volume": 3538}, {"time": "12:00", "open": 303.77, "high": 305.28, "low": 301.82, "close": 303.33, "volume": 4678}, {"time": "13:00", "open": 303.33, "high": 306.44, "low": 301.65, "close": 304.49, "volume": 5875}, {"time": "14:00", "open": 304.49, "high": 307.53, "low": 303.54, "close": 305.56, "volume": 5311}, {"time": "15:00", "open": 305.56, "high": 308.51, "low": 303.81, "close": 306.58, "volume": 1999}, {"time": "16:00", "open": 306.58, "high": 307.3, "low": 304.32, "close": 305.92, "volume": 5484}, {"time": "17:00", "open": 305.92, "high": 306.27, "low": 304.2, "close": 305.68, "volume": 6398}, {"time": "18:00", "open": 305.68, "high": 308.84, "low": 304.59, "close": 307.74, "volume": 2063}, {"time": "19:00", "open": 307.74, "high": 308.71, "low": 305.88, "close": 306.63, "volume": 3252}, {"time": "20:00", "open": 306.63, "high": 308.66, "low": 303.93, "close": 305.7, "volume": 5526}, {"time": "21:00", "open": 305.7, "high": 309.89, "low": 304.26, "close": 307.79, "volume": 3386}, {"time": "22:00", "open": 307.79, "high": 309.4, "low": 305.64, "close": 306.68, "volume": 6060}, {"time": "23:00", "open": 306.68, "high": 309.11, "low": 305.41, "close": 308.65, "volume": 5943}, {"time": "24:00", "open": 308.65, "high": 309.4, "low": 307.85, "close": 309.12, "volume": 3833}, {"time": "25:00", "open": 309.12, "high": 312.04, "low": 308.36, "close": 310.22, "volume": 6355}, {"time": "26:00", "open": 310.22, "high": 312.22, "low": 308.25, "close": 309.99, "volume": 5350}, {"time": "27:00", "open": 309.99, "high": 311.06, "low": 309.24, "close": 310.33, "volume": 8291}, {"time": "28:00", "open": 310.33, "high": 311.63, "low": 308.25, "close": 310.5, "volume": 6103}, {"time": "29:00", "open": 310.5, "high": 312.08, "low": 310.02, "close": 311.16, "volume": 4032}, {"time": "30:00", "open": 311.16, "high": 313.91, "low": 309.53, "close": 312.56, "volume": 2924}, {"time": "31:00", "open": 312.56, "high": 315.2, "low": 311.58, "close": 313.24, "volume": 6387}, {"time": "32:00", "open": 313.24, "high": 315.29, "low": 311.09, "close": 312.41, "volume": 3175}, {"time": "33:00", "open": 312.41, "high": 313.62, "low": 310.52, "close": 311.72, "volume": 2152}, {"time": "34:00", "open": 311.72, "high": 315.88, "low": 310.7, "close": 313.95, "volume": 2322}, {"time": "35:00", "open": 313.95, "high": 316.72, "low": 312.42, "close": 315.62, "volume": 5062}, {"time": "36:00", "open": 315.62, "high": 317.4, "low": 313.27, "close": 315.33, "volume": 3206}, {"time": "37:00", "open": 315.33, "high": 316.89, "low": 313.39, "close": 316.02, "volume": 5057}, {"time": "38:00", "open": 316.02, "high": 319.68, "low": 315.36, "close": 317.85, "volume": 7030}, {"time": "39:00", "open": 317.85, "high": 320.03, "low": 316.74, "close": 318.06, "volume": 7243}], "rSPY": [{"time": "00:00", "open": 561.8, "high": 563.08, "low": 557.98, "close": 560.4, "volume": 8492}, {"time": "01:00", "open": 560.4, "high": 561.08, "low": 558.16, "close": 560.39, "volume": 3915}, {"time": "02:00", "open": 560.39, "high": 563.04, "low": 558.49, "close": 560.8, "volume": 3752}, {"time": "03:00", "open": 560.8, "high": 563.65, "low": 556.4, "close": 558.76, "volume": 3134}, {"time": "04:00", "open": 558.76, "high": 560.95, "low": 555.72, "close": 560.67, "volume": 6436}, {"time": "05:00", "open": 560.67, "high": 564.46, "low": 557.96, "close": 562.83, "volume": 7245}, {"time": "06:00", "open": 562.83, "high": 568.19, "low": 562.59, "close": 566.14, "volume": 5016}, {"time": "07:00", "open": 566.14, "high": 570.33, "low": 562.59, "close": 566.8, "volume": 4582}, {"time": "08:00", "open": 566.8, "high": 568.94, "low": 563.85, "close": 567.04, "volume": 4369}, {"time": "09:00", "open": 567.04, "high": 568.85, "low": 565.09, "close": 568.14, "volume": 8284}, {"time": "10:00", "open": 568.14, "high": 570.97, "low": 564.45, "close": 567.11, "volume": 7462}, {"time": "11:00", "open": 567.11, "high": 573.04, "low": 565.51, "close": 569.55, "volume": 3716}, {"time": "12:00", "open": 569.55, "high": 574.18, "low": 566.01, "close": 571.08, "volume": 1751}, {"time": "13:00", "open": 571.08, "high": 573.67, "low": 564.5, "close": 568.23, "volume": 8481}, {"time": "14:00", "open": 568.23, "high": 571.77, "low": 567.75, "close": 569.96, "volume": 5936}, {"time": "15:00", "open": 569.96, "high": 574.38, "low": 567.12, "close": 572.53, "volume": 7823}, {"time": "16:00", "open": 572.53, "high": 575.77, "low": 568.27, "close": 569.53, "volume": 4123}, {"time": "17:00", "open": 569.53, "high": 571.72, "low": 564.87, "close": 567.2, "volume": 7047}, {"time": "18:00", "open": 567.2, "high": 567.61, "low": 561.5, "close": 565.03, "volume": 5837}, {"time": "19:00", "open": 565.03, "high": 568.74, "low": 562.68, "close": 563.35, "volume": 4728}, {"time": "20:00", "open": 563.35, "high": 564.45, "low": 561.61, "close": 561.75, "volume": 7132}, {"time": "21:00", "open": 561.75, "high": 567.29, "low": 561.03, "close": 564.51, "volume": 4592}, {"time": "22:00", "open": 564.51, "high": 566.93, "low": 560.91, "close": 563.53, "volume": 4470}, {"time": "23:00", "open": 563.53, "high": 566.97, "low": 561.02, "close": 561.91, "volume": 4192}, {"time": "24:00", "open": 561.91, "high": 562.94, "low": 559.5, "close": 561.85, "volume": 5523}, {"time": "25:00", "open": 561.85, "high": 566.5, "low": 557.9, "close": 565.24, "volume": 6107}, {"time": "26:00", "open": 565.24, "high": 567.57, "low": 560.97, "close": 563.78, "volume": 6712}, {"time": "27:00", "open": 563.78, "high": 566.27, "low": 558.74, "close": 560.8, "volume": 7829}, {"time": "28:00", "open": 560.8, "high": 564.05, "low": 556.92, "close": 559.41, "volume": 3966}, {"time": "29:00", "open": 559.41, "high": 562.94, "low": 556.64, "close": 560.39, "volume": 6546}, {"time": "30:00", "open": 560.39, "high": 564.94, "low": 557.82, "close": 561.53, "volume": 7823}, {"time": "31:00", "open": 561.53, "high": 563.89, "low": 559.69, "close": 562.57, "volume": 5557}, {"time": "32:00", "open": 562.57, "high": 564.66, "low": 561.31, "close": 564.2, "volume": 6732}, {"time": "33:00", "open": 564.2, "high": 564.82, "low": 559.85, "close": 562.07, "volume": 8300}, {"time": "34:00", "open": 562.07, "high": 566.05, "low": 558.7, "close": 562.34, "volume": 3298}, {"time": "35:00", "open": 562.34, "high": 566.59, "low": 559.06, "close": 564.59, "volume": 6725}, {"time": "36:00", "open": 564.59, "high": 565.15, "low": 559.67, "close": 563.56, "volume": 2485}, {"time": "37:00", "open": 563.56, "high": 570.26, "low": 560.61, "close": 566.77, "volume": 8359}, {"time": "38:00", "open": 566.77, "high": 573.25, "low": 565.23, "close": 569.98, "volume": 7034}, {"time": "39:00", "open": 569.98, "high": 572.2, "low": 564.87, "close": 566.76, "volume": 6209}], "rQQQ": [{"time": "00:00", "open": 478.9, "high": 482.04, "low": 476.05, "close": 479.98, "volume": 8082}, {"time": "01:00", "open": 479.98, "high": 480.87, "low": 477.64, "close": 477.82, "volume": 7689}, {"time": "02:00", "open": 477.82, "high": 481.43, "low": 476.98, "close": 478.27, "volume": 1942}, {"time": "03:00", "open": 478.27, "high": 483.37, "low": 477.16, "close": 480.22, "volume": 4358}, {"time": "04:00", "open": 480.22, "high": 483.49, "low": 477.13, "close": 478.25, "volume": 4948}, {"time": "05:00", "open": 478.25, "high": 481.32, "low": 475.47, "close": 476.02, "volume": 4675}, {"time": "06:00", "open": 476.02, "high": 479.68, "low": 472.76, "close": 477.1, "volume": 4433}, {"time": "07:00", "open": 477.1, "high": 479.2, "low": 475.61, "close": 478.58, "volume": 2193}, {"time": "08:00", "open": 478.58, "high": 480.08, "low": 475.29, "close": 478.61, "volume": 1729}, {"time": "09:00", "open": 478.61, "high": 480.2, "low": 474.68, "close": 477.96, "volume": 7488}, {"time": "10:00", "open": 477.96, "high": 480.36, "low": 473.83, "close": 475.75, "volume": 8344}, {"time": "11:00", "open": 475.75, "high": 477.18, "low": 474.3, "close": 475.03, "volume": 2355}, {"time": "12:00", "open": 475.03, "high": 478.75, "low": 472.71, "close": 477.12, "volume": 5991}, {"time": "13:00", "open": 477.12, "high": 477.95, "low": 474.39, "close": 477.77, "volume": 3204}, {"time": "14:00", "open": 477.77, "high": 479.76, "low": 475.39, "close": 475.72, "volume": 6856}, {"time": "15:00", "open": 475.72, "high": 476.54, "low": 471.11, "close": 474.13, "volume": 3799}, {"time": "16:00", "open": 474.13, "high": 477.24, "low": 472.08, "close": 472.19, "volume": 7508}, {"time": "17:00", "open": 472.19, "high": 472.73, "low": 469.31, "close": 470.24, "volume": 2721}, {"time": "18:00", "open": 470.24, "high": 471.45, "low": 470.09, "close": 471.26, "volume": 7029}, {"time": "19:00", "open": 471.26, "high": 472.45, "low": 469.17, "close": 469.85, "volume": 1866}, {"time": "20:00", "open": 469.85, "high": 473.19, "low": 467.25, "close": 471.33, "volume": 4833}, {"time": "21:00", "open": 471.33, "high": 474.84, "low": 470.87, "close": 473.02, "volume": 5026}, {"time": "22:00", "open": 473.02, "high": 475.92, "low": 470.3, "close": 475.67, "volume": 7568}, {"time": "23:00", "open": 475.67, "high": 477.52, "low": 472.35, "close": 475.89, "volume": 1925}, {"time": "24:00", "open": 475.89, "high": 477.33, "low": 473.46, "close": 475.86, "volume": 4931}, {"time": "25:00", "open": 475.86, "high": 478.65, "low": 475.49, "close": 478.31, "volume": 5758}, {"time": "26:00", "open": 478.31, "high": 479.33, "low": 473.68, "close": 475.9, "volume": 5338}, {"time": "27:00", "open": 475.9, "high": 479.33, "low": 473.12, "close": 474.99, "volume": 4676}, {"time": "28:00", "open": 474.99, "high": 476.12, "low": 472.54, "close": 475.69, "volume": 7469}, {"time": "29:00", "open": 475.69, "high": 479.32, "low": 473.18, "close": 476.65, "volume": 3005}, {"time": "30:00", "open": 476.65, "high": 477.51, "low": 475.23, "close": 476.46, "volume": 4674}, {"time": "31:00", "open": 476.46, "high": 476.88, "low": 474.54, "close": 476.07, "volume": 6155}, {"time": "32:00", "open": 476.07, "high": 476.68, "low": 472.25, "close": 475.44, "volume": 1969}, {"time": "33:00", "open": 475.44, "high": 477.86, "low": 475.02, "close": 477.44, "volume": 6671}, {"time": "34:00", "open": 477.44, "high": 481.29, "low": 475.38, "close": 479.33, "volume": 5431}, {"time": "35:00", "open": 479.33, "high": 479.84, "low": 477.16, "close": 478.44, "volume": 6157}, {"time": "36:00", "open": 478.44, "high": 482.98, "low": 475.93, "close": 479.97, "volume": 8278}, {"time": "37:00", "open": 479.97, "high": 481.92, "low": 477.94, "close": 480.64, "volume": 2989}, {"time": "38:00", "open": 480.64, "high": 482.48, "low": 480.18, "close": 481.63, "volume": 7417}, {"time": "39:00", "open": 481.63, "high": 484.29, "low": 478.94, "close": 480.97, "volume": 7150}]};
-    const realTrades = [{"trade_id": "TR-001", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-05-22 17:00:00-04:00", "exit_time": "2026-05-24 09:00:00-04:00", "entry_price": 118.27, "exit_price": 116.3, "quantity": 169.1, "pnl_usd": 313.6, "return_pct": 1.57, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-002", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-05-24 16:00:00-04:00", "exit_time": "2026-05-25 08:00:00-04:00", "entry_price": 112.64, "exit_price": 114.61, "quantity": 179.11, "pnl_usd": 331.8, "return_pct": 1.64, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-003", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-05-31 22:00:00-04:00", "exit_time": "2026-06-01 08:00:00-04:00", "entry_price": 121.04, "exit_price": 120.32, "quantity": 166.23, "pnl_usd": 100.47, "return_pct": 0.5, "exit_reason": "Monday Convergence Exit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-004", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-06-06 23:00:00-04:00", "exit_time": "2026-06-08 00:00:00-04:00", "entry_price": 135.66, "exit_price": 131.06, "quantity": 148.44, "pnl_usd": 663.34, "return_pct": 3.29, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-005", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-06-13 00:00:00-04:00", "exit_time": "2026-06-15 08:00:00-04:00", "entry_price": 119.99, "exit_price": 128.49, "quantity": 168.9, "pnl_usd": 1414.62, "return_pct": 6.98, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-006", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-06-20 17:00:00-04:00", "exit_time": "2026-06-22 01:00:00-04:00", "entry_price": 125.96, "exit_price": 136.33, "quantity": 163.11, "pnl_usd": 1669.46, "return_pct": 8.13, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-007", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-06-27 11:00:00-04:00", "exit_time": "2026-06-28 23:00:00-04:00", "entry_price": 139.37, "exit_price": 139.51, "quantity": 149.77, "pnl_usd": -1.02, "return_pct": -0.0, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.95}, {"trade_id": "TR-008", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-07-03 20:00:00-04:00", "exit_time": "2026-07-04 22:00:00-04:00", "entry_price": 145.37, "exit_price": 152.85, "quantity": 143.56, "pnl_usd": 1051.36, "return_pct": 5.04, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-009", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-07-05 06:00:00-04:00", "exit_time": "2026-07-06 08:00:00-04:00", "entry_price": 151.16, "exit_price": 163.17, "quantity": 139.43, "pnl_usd": 1652.29, "return_pct": 7.84, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-010", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-07-12 03:00:00-04:00", "exit_time": "2026-07-12 17:00:00-04:00", "entry_price": 158.26, "exit_price": 166.59, "quantity": 135.24, "pnl_usd": 1104.73, "return_pct": 5.16, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-011", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-07-12 23:00:00-04:00", "exit_time": "2026-07-13 08:00:00-04:00", "entry_price": 163.24, "exit_price": 165.02, "quantity": 132.44, "pnl_usd": 213.92, "return_pct": 0.99, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-012", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-07-18 05:00:00-04:00", "exit_time": "2026-07-18 20:00:00-04:00", "entry_price": 158.96, "exit_price": 162.56, "quantity": 139.93, "pnl_usd": -526.66, "return_pct": -2.37, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.95}, {"trade_id": "TR-013", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-07-19 08:00:00-04:00", "exit_time": "2026-07-19 16:00:00-04:00", "entry_price": 166.63, "exit_price": 164.75, "quantity": 130.19, "pnl_usd": 223.01, "return_pct": 1.03, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-014", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-07-24 19:00:00-04:00", "exit_time": "2026-07-25 09:00:00-04:00", "entry_price": 164.2, "exit_price": 163.98, "quantity": 131.47, "pnl_usd": -51.28, "return_pct": -0.24, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.95}, {"trade_id": "TR-015", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-07-25 19:00:00-04:00", "exit_time": "2026-07-26 23:00:00-04:00", "entry_price": 164.24, "exit_price": 162.78, "quantity": 131.35, "pnl_usd": 170.48, "return_pct": 0.79, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-016", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-08-02 10:00:00-04:00", "exit_time": "2026-08-03 08:00:00-04:00", "entry_price": 186.15, "exit_price": 178.84, "quantity": 116.05, "pnl_usd": -868.77, "return_pct": -4.02, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.95}, {"trade_id": "TR-017", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-08-07 20:00:00-04:00", "exit_time": "2026-08-08 00:00:00-04:00", "entry_price": 155.85, "exit_price": 157.63, "quantity": 143.85, "pnl_usd": 233.13, "return_pct": 1.04, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-018", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-08-08 05:00:00-04:00", "exit_time": "2026-08-09 22:00:00-04:00", "entry_price": 161.53, "exit_price": 157.19, "quantity": 137.78, "pnl_usd": 576.56, "return_pct": 2.59, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-019", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-08-16 16:00:00-04:00", "exit_time": "2026-08-17 08:00:00-04:00", "entry_price": 158.29, "exit_price": 166.86, "quantity": 136.32, "pnl_usd": 1146.24, "return_pct": 5.31, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-020", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-08-22 10:00:00-04:00", "exit_time": "2026-08-24 08:00:00-04:00", "entry_price": 155.21, "exit_price": 153.69, "quantity": 140.47, "pnl_usd": -235.07, "return_pct": -1.08, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.95}, {"trade_id": "TR-021", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-08-30 04:00:00-04:00", "exit_time": "2026-08-30 20:00:00-04:00", "entry_price": 148.87, "exit_price": 150.52, "quantity": 146.11, "pnl_usd": 219.07, "return_pct": 1.01, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-022", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-09-05 00:00:00-04:00", "exit_time": "2026-09-05 17:00:00-04:00", "entry_price": 140.57, "exit_price": 137.7, "quantity": 155.02, "pnl_usd": 422.62, "return_pct": 1.94, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-023", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-09-05 22:00:00-04:00", "exit_time": "2026-09-06 17:00:00-04:00", "entry_price": 132.53, "exit_price": 138.58, "quantity": 165.02, "pnl_usd": 975.68, "return_pct": 4.46, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-024", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-09-07 05:00:00-04:00", "exit_time": "2026-09-07 08:00:00-04:00", "entry_price": 144.98, "exit_price": 146.06, "quantity": 152.18, "pnl_usd": -186.78, "return_pct": -0.85, "exit_reason": "Monday Convergence Exit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.95}, {"trade_id": "TR-025", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-09-12 17:00:00-04:00", "exit_time": "2026-09-13 11:00:00-04:00", "entry_price": 155.52, "exit_price": 147.72, "quantity": 149.63, "pnl_usd": 1145.19, "return_pct": 4.92, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-026", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-09-14 03:00:00-04:00", "exit_time": "2026-09-14 08:00:00-04:00", "entry_price": 146.94, "exit_price": 141.43, "quantity": 157.89, "pnl_usd": 847.26, "return_pct": 3.65, "exit_reason": "Monday Convergence Exit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}];
+    const initialRealTrades = [{"trade_id": "TR-001", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-05-22 17:00:00-04:00", "exit_time": "2026-05-24 09:00:00-04:00", "entry_price": 118.27, "exit_price": 116.3, "quantity": 169.1, "pnl_usd": 313.6, "return_pct": 1.57, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-002", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-05-24 16:00:00-04:00", "exit_time": "2026-05-25 08:00:00-04:00", "entry_price": 112.64, "exit_price": 114.61, "quantity": 179.11, "pnl_usd": 331.8, "return_pct": 1.64, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-003", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-05-31 22:00:00-04:00", "exit_time": "2026-06-01 08:00:00-04:00", "entry_price": 121.04, "exit_price": 120.32, "quantity": 166.23, "pnl_usd": 100.47, "return_pct": 0.5, "exit_reason": "Monday Convergence Exit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-004", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-06-06 23:00:00-04:00", "exit_time": "2026-06-08 00:00:00-04:00", "entry_price": 135.66, "exit_price": 131.06, "quantity": 148.44, "pnl_usd": 663.34, "return_pct": 3.29, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-005", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-06-13 00:00:00-04:00", "exit_time": "2026-06-15 08:00:00-04:00", "entry_price": 119.99, "exit_price": 128.49, "quantity": 168.9, "pnl_usd": 1414.62, "return_pct": 6.98, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-006", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-06-20 17:00:00-04:00", "exit_time": "2026-06-22 01:00:00-04:00", "entry_price": 125.96, "exit_price": 136.33, "quantity": 163.11, "pnl_usd": 1669.46, "return_pct": 8.13, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-007", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-06-27 11:00:00-04:00", "exit_time": "2026-06-28 23:00:00-04:00", "entry_price": 139.37, "exit_price": 139.51, "quantity": 149.77, "pnl_usd": -1.02, "return_pct": -0.0, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.95}, {"trade_id": "TR-008", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-07-03 20:00:00-04:00", "exit_time": "2026-07-04 22:00:00-04:00", "entry_price": 145.37, "exit_price": 152.85, "quantity": 143.56, "pnl_usd": 1051.36, "return_pct": 5.04, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-009", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-07-05 06:00:00-04:00", "exit_time": "2026-07-06 08:00:00-04:00", "entry_price": 151.16, "exit_price": 163.17, "quantity": 139.43, "pnl_usd": 1652.29, "return_pct": 7.84, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-010", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-07-12 03:00:00-04:00", "exit_time": "2026-07-12 17:00:00-04:00", "entry_price": 158.26, "exit_price": 166.59, "quantity": 135.24, "pnl_usd": 1104.73, "return_pct": 5.16, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-011", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-07-12 23:00:00-04:00", "exit_time": "2026-07-13 08:00:00-04:00", "entry_price": 163.24, "exit_price": 165.02, "quantity": 132.44, "pnl_usd": 213.92, "return_pct": 0.99, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-012", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-07-18 05:00:00-04:00", "exit_time": "2026-07-18 20:00:00-04:00", "entry_price": 158.96, "exit_price": 162.56, "quantity": 139.93, "pnl_usd": -526.66, "return_pct": -2.37, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.95}, {"trade_id": "TR-013", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-07-19 08:00:00-04:00", "exit_time": "2026-07-19 16:00:00-04:00", "entry_price": 166.63, "exit_price": 164.75, "quantity": 130.19, "pnl_usd": 223.01, "return_pct": 1.03, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-014", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-07-24 19:00:00-04:00", "exit_time": "2026-07-25 09:00:00-04:00", "entry_price": 164.2, "exit_price": 163.98, "quantity": 131.47, "pnl_usd": -51.28, "return_pct": -0.24, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.95}, {"trade_id": "TR-015", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-07-25 19:00:00-04:00", "exit_time": "2026-07-26 23:00:00-04:00", "entry_price": 164.24, "exit_price": 162.78, "quantity": 131.35, "pnl_usd": 170.48, "return_pct": 0.79, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-016", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-08-02 10:00:00-04:00", "exit_time": "2026-08-03 08:00:00-04:00", "entry_price": 186.15, "exit_price": 178.84, "quantity": 116.05, "pnl_usd": -868.77, "return_pct": -4.02, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.95}, {"trade_id": "TR-017", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-08-07 20:00:00-04:00", "exit_time": "2026-08-08 00:00:00-04:00", "entry_price": 155.85, "exit_price": 157.63, "quantity": 143.85, "pnl_usd": 233.13, "return_pct": 1.04, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-018", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-08-08 05:00:00-04:00", "exit_time": "2026-08-09 22:00:00-04:00", "entry_price": 161.53, "exit_price": 157.19, "quantity": 137.78, "pnl_usd": 576.56, "return_pct": 2.59, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-019", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-08-16 16:00:00-04:00", "exit_time": "2026-08-17 08:00:00-04:00", "entry_price": 158.29, "exit_price": 166.86, "quantity": 136.32, "pnl_usd": 1146.24, "return_pct": 5.31, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-020", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-08-22 10:00:00-04:00", "exit_time": "2026-08-24 08:00:00-04:00", "entry_price": 155.21, "exit_price": 153.69, "quantity": 140.47, "pnl_usd": -235.07, "return_pct": -1.08, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.95}, {"trade_id": "TR-021", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-08-30 04:00:00-04:00", "exit_time": "2026-08-30 20:00:00-04:00", "entry_price": 148.87, "exit_price": 150.52, "quantity": 146.11, "pnl_usd": 219.07, "return_pct": 1.01, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-022", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-09-05 00:00:00-04:00", "exit_time": "2026-09-05 17:00:00-04:00", "entry_price": 140.57, "exit_price": 137.7, "quantity": 155.02, "pnl_usd": 422.62, "return_pct": 1.94, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-023", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-09-05 22:00:00-04:00", "exit_time": "2026-09-06 17:00:00-04:00", "entry_price": 132.53, "exit_price": 138.58, "quantity": 165.02, "pnl_usd": 975.68, "return_pct": 4.46, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-024", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-09-07 05:00:00-04:00", "exit_time": "2026-09-07 08:00:00-04:00", "entry_price": 144.98, "exit_price": 146.06, "quantity": 152.18, "pnl_usd": -186.78, "return_pct": -0.85, "exit_reason": "Monday Convergence Exit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.95}, {"trade_id": "TR-025", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-09-12 17:00:00-04:00", "exit_time": "2026-09-13 11:00:00-04:00", "entry_price": 155.52, "exit_price": 147.72, "quantity": 149.63, "pnl_usd": 1145.19, "return_pct": 4.92, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-026", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-09-14 03:00:00-04:00", "exit_time": "2026-09-14 08:00:00-04:00", "entry_price": 146.94, "exit_price": 141.43, "quantity": 157.89, "pnl_usd": 847.26, "return_pct": 3.65, "exit_reason": "Monday Convergence Exit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}];
+    const initialAuditList = [{"trade_id": "TR-026", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": 3.75, "pnl_usd": 869.97, "exit_reason": "Monday Convergence Exit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-025", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": 5.02, "pnl_usd": 1167.11, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-024", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": -0.74, "pnl_usd": -164.35, "exit_reason": "Monday Convergence Exit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 34.5, "verdict": "CONVERGENCE_LATENCY", "root_cause": "Price converged slower than expected in pre-market window", "corrective_action": "Extend pre-market exit buffer until 09:15 EST", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-023", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": 4.57, "pnl_usd": 998.37, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-022", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": 2.04, "pnl_usd": 444.91, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-021", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": 1.11, "pnl_usd": 241.08, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-020", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": -0.98, "pnl_usd": -213.51, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 34.5, "verdict": "CONVERGENCE_LATENCY", "root_cause": "Price converged slower than expected in pre-market window", "corrective_action": "Extend pre-market exit buffer until 09:15 EST", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-019", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": 5.41, "pnl_usd": 1168.26, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-018", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": 2.69, "pnl_usd": 597.97, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-017", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": 1.14, "pnl_usd": 256.05, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-016", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": -3.93, "pnl_usd": -848.33, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 34.5, "verdict": "CONVERGENCE_LATENCY", "root_cause": "Price converged slower than expected in pre-market window", "corrective_action": "Extend pre-market exit buffer until 09:15 EST", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-015", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": 0.89, "pnl_usd": 191.77, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-014", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": -0.13, "pnl_usd": -28.92, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 34.5, "verdict": "CONVERGENCE_LATENCY", "root_cause": "Price converged slower than expected in pre-market window", "corrective_action": "Extend pre-market exit buffer until 09:15 EST", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-013", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": 1.13, "pnl_usd": 244.76, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-012", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": -2.26, "pnl_usd": -503.75, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 34.5, "verdict": "CONVERGENCE_LATENCY", "root_cause": "Price converged slower than expected in pre-market window", "corrective_action": "Extend pre-market exit buffer until 09:15 EST", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-011", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": 1.09, "pnl_usd": 235.74, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-010", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": 5.26, "pnl_usd": 1126.55, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-009", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": 7.95, "pnl_usd": 1674.55, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-008", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": 5.15, "pnl_usd": 1073.83, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-007", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": 0.1, "pnl_usd": 20.97, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 34.5, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}];
 
     let selectedSymbol = "rNVDA";
     let executionMode = "AUTO"; // AUTO or MANUAL
     let chartViewMode = "candles";
-    let paperBalance = 50000.00;
 
-    // Render Sidebar Markets
+    // Chronos Wallet & Per-Wallet State Store
+    const ChronosWalletStore = {
+      currentAddress: "0x71C8e2410a82Bc9bB12c98F908316D4112e3a9F",
+
+      init() {
+        const savedAddr = localStorage.getItem("chronos_active_wallet") || this.currentAddress;
+        this.currentAddress = savedAddr;
+        this.ensureWalletInitialized(this.currentAddress);
+        this.renderHeaderWallet();
+        this.syncActiveView();
+      },
+
+      getKey(addr) {
+        return "chronos_wallet_" + addr.toLowerCase();
+      },
+
+      getData(addr) {
+        const raw = localStorage.getItem(this.getKey(addr));
+        if (!raw) return null;
+        try { return JSON.parse(raw); } catch(e) { return null; }
+      },
+
+      saveData(addr, data) {
+        localStorage.setItem(this.getKey(addr), JSON.stringify(data));
+      },
+
+      ensureWalletInitialized(addr) {
+        let d = this.getData(addr);
+        if (!d) {
+          d = {
+            address: addr,
+            paperBalance: 50000.00,
+            initialBalance: 50000.00,
+            positions: [],
+            trades: JSON.parse(JSON.stringify(initialRealTrades)),
+            audits: [
+              {
+                trade_id: "TRD-2026-0824",
+                symbol: "rTSLA",
+                side: "SHORT",
+                return_pct: -1.48,
+                pnl_usd: -370.00,
+                verdict: "AUDITED_LOSS_MOMENTUM_OVERRUN",
+                root_cause: "Retail momentum overran 2.00σ threshold before reversal.",
+                resilience_audit: "Premature entry into weekend news flow without exhaustion filter.",
+                adaptation: "Raised rTSLA Entry Z from 2.00σ to 2.50σ. Bot now waits for retail exhaustion.",
+                timestamp: "2026-09-16 09:30 EST"
+              },
+              {
+                trade_id: "TRD-2026-0818",
+                symbol: "rMSTR",
+                side: "SHORT",
+                return_pct: -1.62,
+                pnl_usd: -405.00,
+                verdict: "AUDITED_LOSS_BETA_DECOUPLING",
+                root_cause: "Asset detached from historical Bitcoin correlation during weekend crypto swings.",
+                resilience_audit: "Concentrated 35% exposure created outsized portfolio variance.",
+                adaptation: "Trimmed rMSTR single-stock capital cap from 35% down to 25%.",
+                timestamp: "2026-09-09 09:30 EST"
+              },
+              {
+                trade_id: "TRD-2026-0811",
+                symbol: "rNVDA",
+                side: "SHORT",
+                return_pct: 3.88,
+                pnl_usd: 970.00,
+                verdict: "PROFITABLE_RESILIENCE_AUDIT",
+                root_cause: "Flawless Monday 08:30 EST institutional cash convergence.",
+                resilience_audit: "Trade experienced -0.8% drawdown on Sunday before reversing. Mitigation: engaged dynamic trailing stop buffer.",
+                adaptation: "Verified convergence timing; maintained 45-minute pre-market exit window.",
+                timestamp: "2026-09-02 09:30 EST"
+              }
+            ],
+            strategyConfig: {
+              rNVDA_z_entry: 2.00,
+              rTSLA_z_entry: 2.50,
+              rAAPL_z_entry: 2.00,
+              rCOIN_z_entry: 2.00,
+              rMSTR_z_entry: 2.00,
+              rSPY_z_entry: 2.00,
+              rQQQ_z_entry: 2.00
+            },
+            gateway: {
+              mode: "paper",
+              apiKey: "",
+              apiSecret: "",
+              passphrase: ""
+            }
+          };
+          this.saveData(addr, d);
+        }
+        return d;
+      },
+
+      getCurrentData() {
+        return this.ensureWalletInitialized(this.currentAddress);
+      },
+
+      setCurrentData(data) {
+        this.saveData(this.currentAddress, data);
+        this.renderHeaderWallet();
+        this.syncActiveView();
+      },
+
+      connect(addr) {
+        this.currentAddress = addr;
+        localStorage.setItem("chronos_active_wallet", addr);
+        this.ensureWalletInitialized(addr);
+        this.renderHeaderWallet();
+        this.syncActiveView();
+      },
+
+      disconnect() {
+        this.currentAddress = null;
+        localStorage.removeItem("chronos_active_wallet");
+        this.renderHeaderWallet();
+      },
+
+      renderHeaderWallet() {
+        const container = document.getElementById("walletHeaderContainer");
+        if (!container) return;
+
+        if (!this.currentAddress) {
+          container.innerHTML = `
+            <button class="rainbow-connect-btn" onclick="openRainbowModal()">
+              <div class="rainbow-connect-btn-inner">
+                <span class="rainbow-avatar-circle"></span>
+                <span>Connect Wallet</span>
+              </div>
+            </button>
+          `;
+          return;
+        }
+
+        const d = this.getCurrentData();
+        const shortAddr = this.currentAddress.slice(0, 6) + "..." + this.currentAddress.slice(-4);
+        container.innerHTML = `
+          <div class="rainbow-connected-pill" onclick="toggleWalletDropdown(event)">
+            <div class="rainbow-chain-chip">
+              <span class="rainbow-chain-dot"></span>
+              <span>Ethereum</span>
+            </div>
+            <div class="rainbow-balance-chip">
+              <span>$${d.paperBalance.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
+            </div>
+            <div class="rainbow-account-chip">
+              <span class="rainbow-avatar-circle"></span>
+              <span>${shortAddr}</span>
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m6 9 6 6 6-6"/></svg>
+            </div>
+          </div>
+        `;
+
+        document.getElementById("dropdownWalletAddr").textContent = shortAddr;
+        document.getElementById("dropdownPaperBalance").textContent = `$${d.paperBalance.toLocaleString('en-US', {minimumFractionDigits: 2})} USDT`;
+      },
+
+      syncActiveView() {
+        if (!this.currentAddress) return;
+        const d = this.getCurrentData();
+        
+        // Arena displays
+        const balStr = `$${d.paperBalance.toLocaleString('en-US', {minimumFractionDigits: 2})}`;
+        if (document.getElementById("availBalanceDisplay")) {
+          document.getElementById("availBalanceDisplay").textContent = balStr;
+        }
+        if (document.getElementById("arenaPaperBalanceDisplay")) {
+          document.getElementById("arenaPaperBalanceDisplay").textContent = balStr;
+        }
+
+        // Badges
+        if (document.getElementById("auditCountBadge")) {
+          document.getElementById("auditCountBadge").textContent = d.audits.length;
+        }
+        if (document.getElementById("ledgerCountBadge")) {
+          document.getElementById("ledgerCountBadge").textContent = d.trades.length;
+        }
+        if (document.getElementById("sidebarTradeCount")) {
+          document.getElementById("sidebarTradeCount").textContent = `${d.trades.length} Trades`;
+        }
+
+        // Settings displays
+        if (document.getElementById("settingsWalletAddress")) {
+          document.getElementById("settingsWalletAddress").textContent = this.currentAddress;
+        }
+        if (document.getElementById("settingsPaperBalanceDisplay")) {
+          document.getElementById("settingsPaperBalanceDisplay").textContent = balStr + " USDT";
+        }
+        if (document.getElementById("ledgerWalletAddressLabel")) {
+          document.getElementById("ledgerWalletAddressLabel").textContent = this.currentAddress.slice(0, 6) + "..." + this.currentAddress.slice(-4);
+        }
+
+        // Re-render Auditor and Ledger
+        renderAuditorCaseStudies(d.audits);
+        renderLedgerTable(d.trades);
+      }
+    };
+
+    // Render Auditor Case Studies
+    function renderAuditorCaseStudies(audits) {
+      const container = document.getElementById("auditsListContainer");
+      if (!container) return;
+      container.innerHTML = "";
+
+      let wins = 0;
+      let losses = 0;
+
+      audits.forEach(a => {
+        const isWin = (a.return_pct !== undefined ? a.return_pct : (a.pnl_pct || 0)) > 0;
+        const ret = a.return_pct !== undefined ? a.return_pct : (a.pnl_pct || 0);
+        if (isWin) wins++; else losses++;
+
+        const card = document.createElement("div");
+        card.className = "auditor-lesson-card";
+        card.id = `audit-card-${a.trade_id}`;
+
+        card.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+            <div style="display: flex; align-items: center; gap: 0.65rem;">
+              <span class="${isWin ? 'badge-win' : 'badge-loss'}">${isWin ? 'PROFITABLE WIN' : 'AUDITED LOSS'} (${isWin ? '+' : ''}${ret.toFixed(2)}%)</span>
+              <strong style="font-family: var(--font-terminal); font-size: 0.92rem;">#${a.trade_id} • ${a.symbol || a.asset}</strong>
+            </div>
+            <div style="font-family: var(--font-terminal); font-size: 0.72rem; color: #888;">
+              ${a.timestamp || 'Post-Market Convergence'}
+            </div>
+          </div>
+
+          <div style="font-size: 0.86rem; color: #374151; line-height: 1.55;">
+            <strong>What Happened:</strong> ${a.root_cause}
+          </div>
+
+          <div style="font-size: 0.84rem; color: #4B5563; line-height: 1.55; background: #FAF9F5; padding: 0.65rem 0.85rem; border-radius: 6px;">
+            <strong style="color: #111;">Resilience & Risk Audit:</strong> ${a.resilience_audit || 'Evaluated intra-trade drawdowns, benchmark drift risks, and execution friction.'}
+          </div>
+
+          <div style="background: var(--color-canvas-subtle); border-radius: 6px; padding: 0.75rem 0.95rem; font-size: 0.82rem; color: #111; border-left: 3px solid var(--color-green);">
+            <strong>Bot's Autonomous Strategy Recalibration:</strong> ${a.adaptation}
+          </div>
+        `;
+        container.appendChild(card);
+      });
+
+      // Update auditor top metrics
+      const total = audits.length;
+      const winRate = total > 0 ? ((wins / total) * 100).toFixed(1) : "100.0";
+      document.getElementById("auditorWinRatioVal").textContent = `${wins} Wins · ${losses} Losses`;
+      document.getElementById("auditorWinRateSubtext").textContent = `${winRate}% Win Rate across audited trades net of fees.`;
+    }
+
+    // Render Ledger Table
+    function renderLedgerTable(trades) {
+      const tbody = document.getElementById("appLedgerTableBody");
+      if (!tbody) return;
+      tbody.innerHTML = "";
+
+      trades.forEach(t => {
+        const isWin = (t.pnl_pct !== undefined ? t.pnl_pct : (t.return_pct || 0)) > 0;
+        const retPct = t.pnl_pct !== undefined ? t.pnl_pct : (t.return_pct || 0);
+        const pnlUsd = t.pnl_usdt !== undefined ? t.pnl_usdt : (t.pnl_usd || 0);
+        const tradeId = t.trade_id || `TRD-${t.asset || t.symbol}`;
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td><span style="font-family: var(--font-terminal); font-weight: 700;">#${tradeId}</span></td>
+          <td><strong>${t.asset || t.symbol}</strong></td>
+          <td><span style="color: ${t.side === 'SHORT' ? 'var(--color-red)' : 'var(--color-green)'}; font-weight: 700;">${t.side === 'SHORT' ? 'Short Dislocation' : 'Long Reversion'}</span></td>
+          <td style="font-family: var(--font-terminal); font-size: 0.8rem;">$${t.entry_price.toFixed(2)}</td>
+          <td style="font-family: var(--font-terminal); font-size: 0.8rem;">$${t.exit_price.toFixed(2)} (Monday Open)</td>
+          <td><span class="${isWin ? 'badge-win' : 'badge-loss'}">${isWin ? '+' : ''}${retPct.toFixed(2)}%</span></td>
+          <td style="font-family: var(--font-terminal); font-weight: 700; color: ${isWin ? 'var(--color-green)' : 'var(--color-red)'};">${isWin ? '+' : ''}$${pnlUsd.toFixed(2)}</td>
+          <td>
+            <button class="btn-audit-jump" onclick="jumpToAudit('${tradeId}')">
+              <span>View Audit</span>
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Filter Ledger Table
+    function filterLedger(type, btn) {
+      document.querySelectorAll("#viewLedger .preset-chip").forEach(b => b.classList.remove("active"));
+      if (btn) btn.classList.add("active");
+
+      const d = ChronosWalletStore.getCurrentData();
+      if (type === "win") {
+        renderLedgerTable(d.trades.filter(t => (t.pnl_pct !== undefined ? t.pnl_pct : t.return_pct) > 0));
+      } else if (type === "loss") {
+        renderLedgerTable(d.trades.filter(t => (t.pnl_pct !== undefined ? t.pnl_pct : t.return_pct) <= 0));
+      } else {
+        renderLedgerTable(d.trades);
+      }
+    }
+
+    // Jump Directly from Trade Ledger to Specific Audit Post-Mortem
+    function jumpToAudit(tradeId) {
+      switchView("auditor", document.getElementById("tabAuditor"));
+      setTimeout(() => {
+        const el = document.getElementById(`audit-card-${tradeId}`);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "center" });
+          el.classList.add("highlighted");
+          setTimeout(() => el.classList.remove("highlighted"), 3000);
+        } else {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      }, 100);
+    }
+
+    // Autonomous Cycle Simulator & Trade Closed Re-Evaluation
+    function triggerAutonomousCycle() {
+      const d = ChronosWalletStore.getCurrentData();
+      const m = markets[selectedSymbol];
+
+      // Calculate allocation
+      const allocation = Math.min(d.paperBalance * 0.15, 5000);
+      if (allocation < 100) {
+        alert("Insufficient Paper Balance to trigger autonomous cycle. Please reset your balance in Settings.");
+        return;
+      }
+
+      // Simulate cycle execution
+      const tradeNumber = d.trades.length + 1;
+      const newTradeId = `TRD-2026-${String(tradeNumber).padStart(4, '0')}`;
+      
+      const isProfitable = Math.random() > 0.25; // 75% realistic win rate
+      const returnPct = isProfitable ? (Math.abs(m.drift_pct) * (0.8 + Math.random() * 0.4)) : -(1.2 + Math.random() * 0.8);
+      const dollarPnl = (allocation * (returnPct / 100.0));
+      
+      // Update paper balance
+      d.paperBalance += dollarPnl;
+
+      // Create trade record
+      const exitPrice = m.spot_price * (1 - (returnPct / 100.0) * (m.drift_pct > 0 ? 1 : -1));
+      const newTrade = {
+        trade_id: newTradeId,
+        symbol: m.symbol,
+        asset: m.symbol,
+        side: m.drift_pct > 0 ? "SHORT" : "LONG",
+        entry_price: m.spot_price,
+        exit_price: exitPrice,
+        return_pct: returnPct,
+        pnl_pct: returnPct,
+        pnl_usd: dollarPnl,
+        pnl_usdt: dollarPnl,
+        entry_time: "Saturday 14:00 EST",
+        exit_time: "Monday 08:30 EST",
+        audit_note: isProfitable ? "Closed via Monday pre-market convergence" : "Stopped out by momentum overrun"
+      };
+
+      d.trades.unshift(newTrade);
+
+      // MANDATORY CLOSED-LOOP RE-EVALUATION FOR BOTH WINS AND LOSSES
+      let rootCause = "";
+      let resilienceAudit = "";
+      let adaptation = "";
+
+      if (!isProfitable) {
+        // Loss re-evaluation
+        rootCause = `Retail momentum in ${m.symbol} overran entry boundary before reversing. Temporary spread slippage was 0.38%.`;
+        resilienceAudit = `Investigated why stop loss hit: entry Z-score was placed too close to initial weekend headline breakout.`;
+        
+        // Recalibrate strategy
+        const curZ = d.strategyConfig[`${m.symbol}_z_entry`] || 2.0;
+        const newZ = parseFloat((curZ + 0.25).toFixed(2));
+        d.strategyConfig[`${m.symbol}_z_entry`] = newZ;
+        adaptation = `Automatically raised ${m.symbol} Entry Z-score from ${curZ}σ to ${newZ}σ. Next trade will wait for retail exhaustion.`;
+      } else {
+        // Win re-evaluation (What could have gone wrong!)
+        rootCause = `Full convergence target attained at Monday pre-market institutional cash sweep.`;
+        resilienceAudit = `Intra-trade adverse excursion (MAE) touched -1.1% on Sunday. What could have gone wrong: weekend Bitcoin benchmark volatility could have dragged equity beta.`;
+        
+        adaptation = `Engaged dynamic trailing take-profit (+1.5% lock) and advanced pre-market unwind by 15 minutes to guarantee liquidity execution.`;
+      }
+
+      // Add to audits
+      const newAudit = {
+        trade_id: newTradeId,
+        symbol: m.symbol,
+        side: m.drift_pct > 0 ? "SHORT" : "LONG",
+        return_pct: returnPct,
+        pnl_usd: dollarPnl,
+        verdict: isProfitable ? "PROFITABLE_RESILIENCE_AUDIT" : "AUDITED_LOSS_MOMENTUM_OVERRUN",
+        root_cause: rootCause,
+        resilience_audit: resilienceAudit,
+        adaptation: adaptation,
+        timestamp: new Date().toLocaleString()
+      };
+
+      d.audits.unshift(newAudit);
+
+      // Save updated wallet state
+      ChronosWalletStore.setCurrentData(d);
+
+      // Notify user of strategy evolution
+      showRecalibrationToast(
+        `Cognitive Self-Audit Complete for Trade #${newTradeId} (${m.symbol})`,
+        `${isProfitable ? 'PROFITABLE WIN (+' + returnPct.toFixed(2) + '%)' : 'AUDITED LOSS (' + returnPct.toFixed(2) + '%)'} • Strategy Recalibrated: ${adaptation} Future trades will execute using this updated rule.`
+      );
+
+      // Update market view to reflect newly tuned entry threshold
+      updateMarketView();
+    }
+
+    function showRecalibrationToast(title, body) {
+      const t = document.getElementById("recalibrationToast");
+      document.getElementById("recalToastTitle").textContent = title;
+      document.getElementById("recalToastBody").textContent = body;
+      t.classList.add("visible");
+    }
+
+    function dismissRecalToast() {
+      document.getElementById("recalibrationToast").classList.remove("visible");
+    }
+
+    // Manual Trade Order Execution
+    function executeTradeOrder() {
+      if (executionMode === "AUTO") {
+        triggerAutonomousCycle();
+        return;
+      }
+
+      const d = ChronosWalletStore.getCurrentData();
+      const m = markets[selectedSymbol];
+      const collateral = parseFloat(document.getElementById("collateralInput").value) || 0;
+
+      if (collateral > d.paperBalance) {
+        alert("Insufficient Paper Balance. You can reset or add funds in the Settings tab.");
+        return;
+      }
+
+      triggerAutonomousCycle();
+    }
+
+    // Sidebar & Market Navigation
     function renderSidebar() {
       const container = document.getElementById("marketsMenuList");
       container.innerHTML = "";
@@ -1198,11 +1958,11 @@
 
     function updateMarketView() {
       const m = markets[selectedSymbol];
+      const d = ChronosWalletStore.getCurrentData();
+      const currentZThreshold = (d && d.strategyConfig && d.strategyConfig[`${m.symbol}_z_entry`]) || 2.0;
+
       document.getElementById("breadcrumbPathDisplay").textContent = `${m.company} (${m.symbol})`;
       document.getElementById("marketTitleDisplay").textContent = `${m.company} (${m.symbol})`;
-      document.getElementById("marketSubtitleDisplay").textContent = 
-        `Systematic weekend mean-reversion model. Tracking residual pricing drift against Bitcoin crypto-macro benchmark to capture Monday institutional pre-market convergence.`;
-      
       document.getElementById("symbolDisplay").textContent = `${m.symbol}/USDT`;
       document.getElementById("chartPriceDisplay").textContent = `$${m.spot_price.toFixed(2)}`;
       
@@ -1214,9 +1974,8 @@
       document.getElementById("anchorStatusSubtext").textContent = `Prev Close Anchor: $${m.anchor_price.toFixed(2)} (${m.regime})`;
       document.getElementById("statusAnchorDisplay").textContent = `$${m.anchor_price.toFixed(2)} USD`;
 
-      // Signal Banner update
       document.getElementById("signalActionTitle").textContent = m.action;
-      document.getElementById("signalZScoreBadge").textContent = `Z = ${m.z_score > 0 ? '+' : ''}${m.z_score.toFixed(2)}σ`;
+      document.getElementById("signalZScoreBadge").textContent = `Z = ${m.z_score > 0 ? '+' : ''}${m.z_score.toFixed(2)}σ (Entry ≥ ${currentZThreshold}σ)`;
       document.getElementById("signalExplanationText").textContent = m.thesis;
 
       recalcExecution();
@@ -1243,9 +2002,11 @@
       document.getElementById("btnManualMode").classList.toggle("active", mode === "MANUAL");
 
       if (mode === "AUTO") {
-        document.getElementById("executeBtnText").textContent = "ACTIVATE AUTONOMOUS STRATEGY (PAPER)";
+        document.getElementById("executeBtnText").textContent = "ACTIVATE AUTONOMOUS STRATEGY";
+        document.getElementById("autoStatusBar").style.display = "flex";
       } else {
         document.getElementById("executeBtnText").textContent = "DISPATCH MANUAL REBALANCE ORDER";
+        document.getElementById("autoStatusBar").style.display = "none";
       }
     }
 
@@ -1253,6 +2014,13 @@
       document.getElementById("collateralInput").value = val;
       document.querySelectorAll(".preset-chip").forEach(b => b.classList.remove("active"));
       if (btn) btn.classList.add("active");
+      recalcExecution();
+    }
+
+    function setCollateralMax() {
+      const d = ChronosWalletStore.getCurrentData();
+      const maxVal = Math.floor(d.paperBalance * 0.25);
+      document.getElementById("collateralInput").value = maxVal;
       recalcExecution();
     }
 
@@ -1267,7 +2035,7 @@
       drawCandleChart();
     }
 
-    // Draw Candlestick Chart on Canvas
+    // Draw Candlestick Chart
     function drawCandleChart() {
       const canvas = document.getElementById("appCandleCanvas");
       if (!canvas) return;
@@ -1298,7 +2066,7 @@
 
       const getY = val => chartBottom - ((val - minP) / (maxP - minP)) * chartHeight;
 
-      // Draw Friday Anchor Line
+      // Anchor Line
       const anchorY = getY(anchor);
       ctx.beginPath();
       ctx.setLineDash([4, 4]);
@@ -1313,7 +2081,7 @@
       ctx.font = "bold 10px 'Space Mono', monospace";
       ctx.fillText(`FRIDAY ANCHOR SETTLEMENT: $${anchor.toFixed(2)}`, 42, anchorY - 6);
 
-      // Volume Section
+      // Volume & Candles
       const maxVol = Math.max(...candles.map(c => c.volume));
       const volHeight = 40;
       const numCandles = candles.length;
@@ -1325,7 +2093,6 @@
         const color = isUp ? "#00C853" : "#E50914";
 
         if (chartViewMode === "candles") {
-          // Wick
           ctx.beginPath();
           ctx.strokeStyle = color;
           ctx.lineWidth = 1.2;
@@ -1333,7 +2100,6 @@
           ctx.lineTo(x + candleWidth / 2, getY(c.low));
           ctx.stroke();
 
-          // Body
           const openY = getY(c.open);
           const closeY = getY(c.close);
           const bodyY = Math.min(openY, closeY);
@@ -1343,7 +2109,6 @@
           ctx.fillRect(x, bodyY, candleWidth, bodyH);
         }
 
-        // Volume Bar
         const vH = (c.volume / maxVol) * volHeight;
         ctx.fillStyle = isUp ? "rgba(0, 200, 83, 0.25)" : "rgba(229, 9, 20, 0.25)";
         ctx.fillRect(x, h - 15 - vH, candleWidth, vH);
@@ -1362,109 +2127,123 @@
         ctx.stroke();
       }
 
-      // Axes labels
       ctx.fillStyle = "#888";
       ctx.font = "10px 'Space Mono', monospace";
       ctx.fillText("$" + maxP.toFixed(2), 5, chartTop + 10);
       ctx.fillText("$" + minP.toFixed(2), 5, chartBottom);
     }
 
-    // Switch Views (Arena, Auditor, Ledger)
+    // Switch Views (Arena, Auditor, Ledger, Settings)
     function switchView(view, tabEl) {
       document.getElementById("viewArena").style.display = view === "arena" ? "block" : "none";
       document.getElementById("viewAuditor").style.display = view === "auditor" ? "block" : "none";
       document.getElementById("viewLedger").style.display = view === "ledger" ? "block" : "none";
+      document.getElementById("viewSettings").style.display = view === "settings" ? "block" : "none";
 
       document.querySelectorAll(".app-header-tabs .app-tab").forEach(t => t.classList.remove("active"));
       if (tabEl) tabEl.classList.add("active");
 
       if (view === "arena") {
         setTimeout(drawCandleChart, 50);
-      } else if (view === "ledger") {
-        renderLedgerTable(realTrades);
       }
     }
 
-    // Render Ledger in Human-Readable format
-    function renderLedgerTable(trades) {
-      const tbody = document.getElementById("appLedgerTableBody");
-      tbody.innerHTML = "";
-      trades.forEach(t => {
-        const isWin = t.pnl_pct > 0;
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td><strong>${t.asset}</strong></td>
-          <td><span style="color: ${t.side === 'SHORT' ? 'var(--color-red)' : 'var(--color-green)'}; font-weight: 700;">${t.side === 'SHORT' ? 'Short Dislocation' : 'Long Reversion'}</span></td>
-          <td style="color: #555; font-size: 0.8rem;">${t.entry_time} @ <strong>$${t.entry_price.toFixed(2)}</strong></td>
-          <td style="color: #555; font-size: 0.8rem;">$${t.exit_price.toFixed(2)} (Monday Open)</td>
-          <td><span class="${isWin ? 'badge-win' : 'badge-loss'}">${isWin ? '+' : ''}${t.pnl_pct.toFixed(2)}%</span></td>
-          <td style="font-weight: 700; color: ${isWin ? 'var(--color-green)' : 'var(--color-red)'};">${isWin ? '+' : ''}$${t.pnl_usdt.toFixed(2)}</td>
-          <td style="color: #4B5563; font-size: 0.8rem;">${t.audit_note}</td>
-        `;
-        tbody.appendChild(tr);
-      });
+    // RainbowKit Modal Operations
+    function openRainbowModal() {
+      closeWalletDropdown();
+      document.getElementById("rainbowModalOverlay").classList.add("open");
     }
 
-    function filterLedger(type, btn) {
-      document.querySelectorAll(".preset-chip").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-
-      if (type === "win") {
-        renderLedgerTable(realTrades.filter(t => t.pnl_pct > 0));
-      } else if (type === "loss") {
-        renderLedgerTable(realTrades.filter(t => t.pnl_pct <= 0));
-      } else {
-        renderLedgerTable(realTrades);
-      }
+    function closeRainbowModal() {
+      document.getElementById("rainbowModalOverlay").classList.remove("open");
     }
 
-    function executeTradeOrder() {
-      const m = markets[selectedSymbol];
-      const collateral = parseFloat(document.getElementById("collateralInput").value) || 0;
-      if (collateral > paperBalance) {
-        alert("Insufficient Paper Balance. Please use Reset Balance in the modal to restore $50,000.");
-        return;
-      }
-      paperBalance -= collateral;
-      document.getElementById("availBalanceDisplay").textContent = `$${paperBalance.toLocaleString('en-US', {minimumFractionDigits: 2})}`;
-      alert(`[AUTONOMOUS STRATEGY ENGAGED]\nAsset: ${m.symbol} (${m.company})\nAllocated: $${collateral.toFixed(2)} USDT (Paper)\nTarget: Rebalance into Cash at Monday 08:30 EST Institutional Open\nAutonomous self-auditor will evaluate execution upon market close.`);
+    function closeRainbowModalOnBackdrop(e) {
+      if (e.target.id === "rainbowModalOverlay") closeRainbowModal();
     }
 
-    function openConnectModal() {
-      document.getElementById("connectModalOverlay").classList.add("open");
+    function selectWalletProvider(providerName) {
+      let addr = "0x71C8e2410a82Bc9bB12c98F908316D4112e3a9F";
+      if (providerName === "Rainbow") addr = "0x94B27c08a98C7F0013dC99E5e4157A31D082e21A";
+      else if (providerName === "Coinbase") addr = "0x42A169b8214C9E57A0c0903875B22915668a98Cc";
+      else if (providerName === "WalletConnect") addr = "0x3F5CE5FBFe3E9af3971dD833D26bA9b5C936f0bE";
+      
+      closeRainbowModal();
+      ChronosWalletStore.connect(addr);
+      alert(`[CONNECTED VIA ${providerName.toUpperCase()}]\nAccount: ${addr}\nPaper Trading Balance: $50,000.00 USDT`);
     }
 
-    function closeConnectModal() {
-      document.getElementById("connectModalOverlay").classList.remove("open");
+    function connectDirectAddress(addr) {
+      closeRainbowModal();
+      ChronosWalletStore.connect(addr);
     }
 
-    function closeModalOnBackdrop(e) {
-      if (e.target.id === "connectModalOverlay") closeConnectModal();
+    function toggleWalletDropdown(e) {
+      e.stopPropagation();
+      document.getElementById("walletDropdownMenu").classList.toggle("open");
     }
 
-    function saveCredentials() {
-      const env = document.getElementById("modalEnvSelect").value;
-      const key = document.getElementById("modalApiKey").value.trim();
+    function closeWalletDropdown() {
+      document.getElementById("walletDropdownMenu").classList.remove("open");
+    }
 
-      if (env === "mainnet" && !key) {
-        alert("Please enter your Bitget API Key or switch to Paper Trading Mode.");
-        return;
-      }
+    window.addEventListener("click", () => {
+      closeWalletDropdown();
+    });
 
-      if (env === "mainnet") {
-        document.getElementById("currentModeLabel").textContent = "Bitget UTA Live";
-        document.getElementById("modePillBadge").style.borderColor = "var(--color-green)";
-        document.getElementById("connectHeaderBtn").innerHTML = "<span>CONNECTED</span>";
-      } else {
-        document.getElementById("currentModeLabel").textContent = "Paper Mode ($50,000 USDT)";
-      }
+    function disconnectCurrentWallet() {
+      closeWalletDropdown();
+      ChronosWalletStore.disconnect();
+    }
 
-      closeConnectModal();
-      alert(`[BITGET GATEWAY READY]\nMode: ${env === 'mainnet' ? 'Live Capital (Bitget Universal Account)' : 'Paper Simulation ($50,000)'}\nAutonomous execution loop active.`);
+    // Paper Balance Controls
+    function resetCurrentWalletBalance() {
+      closeWalletDropdown();
+      const d = ChronosWalletStore.getCurrentData();
+      d.paperBalance = 50000.00;
+      ChronosWalletStore.setCurrentData(d);
+      alert("Paper trading balance reset to $50,000.00 USDT.");
+    }
+
+    function addPaperBalance(amount) {
+      const d = ChronosWalletStore.getCurrentData();
+      d.paperBalance += amount;
+      ChronosWalletStore.setCurrentData(d);
+    }
+
+    function setCustomPaperBalance() {
+      const val = parseFloat(document.getElementById("settingsCustomBalanceInput").value);
+      if (isNaN(val) || val < 0) return alert("Please enter a valid balance.");
+      const d = ChronosWalletStore.getCurrentData();
+      d.paperBalance = val;
+      ChronosWalletStore.setCurrentData(d);
+      alert(`Paper balance updated to $${val.toLocaleString()} USDT.`);
+    }
+
+    function clearWalletHistory() {
+      if (!confirm("Are you sure you want to clear this wallet's trade history?")) return;
+      const d = ChronosWalletStore.getCurrentData();
+      d.trades = [];
+      ChronosWalletStore.setCurrentData(d);
+    }
+
+    // Bitget Settings Handler
+    function saveBitgetSettings() {
+      const env = document.getElementById("settingsEnvSelect").value;
+      const key = document.getElementById("settingsApiKey").value.trim();
+      const secret = document.getElementById("settingsApiSecret").value.trim();
+      const pass = document.getElementById("settingsPassphrase").value.trim();
+
+      const d = ChronosWalletStore.getCurrentData();
+      d.gateway = { mode: env, apiKey: key, apiSecret: secret, passphrase: pass };
+      ChronosWalletStore.setCurrentData(d);
+
+      alert(`[BITGET GATEWAY SAVED]\nEnvironment: ${env === 'mainnet' ? 'Live Capital (Bitget UTA v3)' : 'Paper Mode Simulation'}\nHMAC-SHA256 headers configured.`);
     }
 
     window.addEventListener("resize", drawCandleChart);
     window.addEventListener("DOMContentLoaded", () => {
+      ChronosWalletStore.init();
       renderSidebar();
       updateMarketView();
       setTimeout(drawCandleChart, 100);

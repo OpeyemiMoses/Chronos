@@ -947,34 +947,34 @@ html_content = f"""<!DOCTYPE html>
           </button>
         </div>
 
-        <!-- Card 3: Dual Execution Engine -->
+        <!-- Card 3: Dual Execution Engine & Web3 Wallets -->
         <div class="card-paper" style="display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
           <div>
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
               <span class="badge-pill-light" style="font-size: 0.72rem; font-weight: 700;">MODULE 03</span>
-              <span class="badge-pill-light" style="font-size: 0.7rem; font-weight: 700;">NON-CUSTODIAL</span>
+              <span class="badge-pill-light" style="font-size: 0.7rem; font-weight: 700;">RAINBOWKIT WEB3</span>
             </div>
-            <h3 style="font-family: var(--font-serif-editorial); font-size: 1.65rem; margin-bottom: 0.6rem;">Dual Execution Engine</h3>
+            <h3 style="font-family: var(--font-serif-editorial); font-size: 1.65rem; margin-bottom: 0.6rem;">Web3 Wallet & Autonomous Bot</h3>
             <p style="font-size: 0.88rem; color: var(--color-grey-text); line-height: 1.6; margin-bottom: 1.25rem;">
-              Onboard risk-free with $50,000 simulated USDT without needing API keys or signups. When ready to trade real capital, connect Bitget UTA v3 credentials securely stored in your local browser session.
+              Connect via RainbowKit modal. Each connected wallet maintains its own isolated $50,000 paper trading balance, ledger, and cognitive memory. Configure real Bitget UTA v3 keys in Terminal Settings when ready to deploy live capital.
             </p>
             <ul style="list-style: none; font-size: 0.82rem; color: #4B5563; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; font-family: var(--font-terminal);">
               <li style="display: flex; align-items: center; gap: 0.45rem;">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>$50k Risk-Free Paper Balance Pre-loaded</span>
+                <span>RainbowKit Web3 Connect (MetaMask, Rainbow, Injected)</span>
               </li>
               <li style="display: flex; align-items: center; gap: 0.45rem;">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>Bitget UTA v3 REST / MCP Gateway</span>
+                <span>Isolated Per-Wallet $50,000 Paper Balance & State</span>
               </li>
               <li style="display: flex; align-items: center; gap: 0.45rem;">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>HMAC-SHA256 Non-Custodial Security</span>
+                <span>Bitget UTA v3 Gateway in Settings (HMAC-SHA256)</span>
               </li>
             </ul>
           </div>
           <button class="btn-docs-grey" style="width: 100%; justify-content: center;" onclick="window.location.href='app.html'">
-            <span>Start Paper Trading ($50k) →</span>
+            <span>Connect Wallet & Trade ($50k) →</span>
           </button>
         </div>
       </div>
