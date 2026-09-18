@@ -252,9 +252,18 @@ class ChronosLiveRunner:
 if __name__ == "__main__":
     is_daemon = "--daemon" in sys.argv
     is_demo = "--demo" in sys.argv or "--demo-cycle" in sys.argv
+    
+    poll_sec = int(os.getenv("POLL_INTERVAL_SECONDS", "60"))
+    if "--interval" in sys.argv:
+        try:
+            poll_sec = int(sys.argv[sys.argv.index("--interval") + 1])
+        except Exception:
+            pass
+
     runner = ChronosLiveRunner()
     if is_daemon:
-        runner.start_autonomous_daemon(poll_interval_seconds=3600)
+        runner.start_autonomous_daemon(poll_interval_seconds=poll_sec)
     else:
         runner.run_cycle(simulate_dislocation=is_demo)
+
 
