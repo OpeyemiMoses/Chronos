@@ -4,7 +4,7 @@ import random
 import sys
 
 sys.path.append(os.path.join(os.path.dirname(__file__)))
-from rainbowkit_engine import RAINBOWKIT_CSS, RAINBOWKIT_HTML_MARKUP, get_rainbowkit_js
+from rainbowkit import RAINBOWKIT_CSS, RAINBOWKIT_HTML_MARKUP, get_rainbowkit_js
 
 # Load baseline real trades and audit memory
 with open("data/real_trades.json", "r") as f:
@@ -13,12 +13,12 @@ with open("data/real_trades.json", "r") as f:
 with open("data/audit_memory.json", "r") as f:
     audit_memory = json.load(f)
 
-# Read flip_reference.css
-css_path = "dashboard/flip_reference.css"
-flip_css = ""
+# Read theme.css
+css_path = "dashboard/theme.css"
+theme_css = ""
 if os.path.exists(css_path):
     with open(css_path, "r") as f:
-        flip_css = f.read()
+        theme_css = f.read()
 
 # Markets definition (7 tokenized US equities)
 markets_data = {
@@ -186,7 +186,7 @@ html_template = f"""<!DOCTYPE html>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
   <style>
-{flip_css}
+{theme_css}
 
     :root {{
       --font-serif-editorial: "Instrument Serif", "Playfair Display", Georgia, serif;

@@ -1,9 +1,5 @@
 import json
 import os
-import sys
-
-sys.path.append(os.path.join(os.path.dirname(__file__)))
-from rainbowkit_engine import RAINBOWKIT_CSS, RAINBOWKIT_HTML_MARKUP, get_rainbowkit_js
 
 with open("data/real_trades.json", "r") as f:
     real_trades = json.load(f)
@@ -14,12 +10,12 @@ with open("data/audit_memory.json", "r") as f:
 with open("data/chart_data.json", "r") as f:
     chart_data = json.load(f)
 
-# Read flip_reference.css
-css_path = "dashboard/flip_reference.css"
-flip_css = ""
+# Read theme.css
+css_path = "dashboard/theme.css"
+theme_css = ""
 if os.path.exists(css_path):
     with open(css_path, "r") as f:
-        flip_css = f.read()
+        theme_css = f.read()
 
 trades_json_str = json.dumps(real_trades)
 audit_json_str = json.dumps(audit_memory)
@@ -109,9 +105,9 @@ html_content = f"""<!DOCTYPE html>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Special+Elite&display=swap" rel="stylesheet">
 
   <style>
-{flip_css}
+{theme_css}
 
-    /* Chronos Design Tokens matching flip-prediction.vercel.app */
+    /* Chronos Design Tokens & Theme Typography */
     :root {{
       --font-serif-editorial: "Instrument Serif", "Playfair Display", Georgia, serif;
       --font-sans-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -649,13 +645,11 @@ html_content = f"""<!DOCTYPE html>
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
       border: 1px solid rgba(255, 255, 255, 0.15);
     }}
-
-    /* __RAINBOWKIT_CSS__ */
   </style>
 </head>
 <body>
 
-  <!-- Floating Island Header Navbar (Matching flip-prediction.vercel.app) -->
+  <!-- Floating Island Header Navbar -->
   <div class="header-wrapper">
     <header class="header-pill" id="mainHeaderPill">
       <!-- Left: Brand Logo -->
@@ -675,7 +669,6 @@ html_content = f"""<!DOCTYPE html>
 
       <!-- Right: Launch Terminal Button -->
       <div style="display: flex; align-items: center; gap: 0.65rem;">
-        <div id="rainbowkitHeaderContainer"></div>
         <button class="btn-launch-black" onclick="window.location.href='app.html'">
           <span>Launch Terminal</span>
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
@@ -1050,7 +1043,7 @@ html_content = f"""<!DOCTYPE html>
             </ul>
           </div>
           <button class="btn-docs-grey" style="width: 100%; justify-content: center;" onclick="window.location.href='app.html'">
-            <span>Connect Wallet & Trade ($50k) →</span>
+            <span>Launch Terminal & Trade ($50k) →</span>
           </button>
         </div>
       </div>
@@ -1259,7 +1252,7 @@ html_content = f"""<!DOCTYPE html>
     </div>
   </section>
 
-  <!-- Footer (Matching flip-prediction.vercel.app) -->
+  <!-- Editorial Footer -->
   <footer style="background-color: #FFF; border-top: 1px dashed rgba(0, 0, 0, 0.22); padding: 4.5rem 0 3rem;">
     <div class="container">
       <div class="footer-grid-container" style="display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 2.5rem; margin-bottom: 3.5rem;">
@@ -1319,7 +1312,7 @@ html_content = f"""<!DOCTYPE html>
 
     let activeSymbol = "rNVDA";
 
-    // Header Scroll Expansion Animation (Matching flip-prediction.vercel.app)
+    // Header Scroll Expansion Dynamic Transition
     window.addEventListener("scroll", () => {{
       const headerPill = document.getElementById("mainHeaderPill");
       if (window.scrollY > 40) {{
@@ -1505,43 +1498,10 @@ html_content = f"""<!DOCTYPE html>
       ctx.fillText("Monday 09:30 EST (Convergence)", w - 210, h - 14);
     }}
 
-    // Chronos Wallet Store for Landing Page
-    const ChronosWalletStore = {{
-      currentAddress: localStorage.getItem("chronos_active_wallet") || null,
-      getCurrentData() {{
-        const a = this.currentAddress || "sandbox";
-        const raw = localStorage.getItem("chronos_wallet_" + a.toLowerCase());
-        if (raw) {{
-          try {{ return JSON.parse(raw); }} catch(e) {{}}
-        }}
-        return {{ paperBalance: 50000.00 }};
-      }},
-      connect(addr) {{
-        this.currentAddress = addr;
-        localStorage.setItem("chronos_active_wallet", addr);
-        if (typeof renderRainbowHeader === "function") renderRainbowHeader();
-      }},
-      disconnect() {{
-        this.currentAddress = null;
-        localStorage.removeItem("chronos_active_wallet");
-        if (typeof renderRainbowHeader === "function") renderRainbowHeader();
-      }},
-      init() {{
-        this.currentAddress = localStorage.getItem("chronos_active_wallet") || null;
-        if (typeof renderRainbowHeader === "function") renderRainbowHeader();
-      }}
-    }};
-    window.ChronosWalletStore = ChronosWalletStore;
-
-    /* __RAINBOWKIT_JS__ */
-
     window.addEventListener("resize", drawChart);
     function initIndexApp() {{
       try {{ renderLedger(realTrades); }} catch(e) {{ console.error("renderLedger error:", e); }}
       try {{ setTimeout(drawChart, 80); }} catch(e) {{}}
-      try {{
-        if (typeof ChronosWalletStore !== "undefined") ChronosWalletStore.init();
-      }} catch(e) {{}}
     }}
     if (document.readyState === "loading") {{
       document.addEventListener("DOMContentLoaded", initIndexApp);
@@ -1549,19 +1509,12 @@ html_content = f"""<!DOCTYPE html>
       initIndexApp();
     }}
   </script>
-
-  <!-- Authentic RainbowKit Modals -->
-  <!-- __RAINBOWKIT_HTML__ -->
 </body>
 </html>
 """
 
-# Compile to dashboard/index.html with authentic RainbowKit assets
-final_html = html_content.replace("/* __RAINBOWKIT_CSS__ */", RAINBOWKIT_CSS)
-final_html = final_html.replace("<!-- __RAINBOWKIT_HTML__ -->", RAINBOWKIT_HTML_MARKUP)
-final_html = final_html.replace("/* __RAINBOWKIT_JS__ */", get_rainbowkit_js())
-
+# Compile clean Master Chronos Landing Page
 with open("dashboard/index.html", "w") as f:
-    f.write(final_html)
+    f.write(html_content)
 
-print(f"Successfully generated Master Chronos Landing Page at dashboard/index.html ({len(final_html)} bytes)")
+print(f"Successfully generated Master Chronos Landing Page at dashboard/index.html ({len(html_content)} bytes)")
