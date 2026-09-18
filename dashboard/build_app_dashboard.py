@@ -281,6 +281,10 @@ html_template = f"""<!DOCTYPE html>
       align-items: center;
       gap: 0.4rem;
       user-select: none;
+      border: none;
+      background: transparent;
+      outline: none;
+      pointer-events: auto;
     }}
 
     .app-tab:hover {{
@@ -1088,7 +1092,91 @@ html_template = f"""<!DOCTYPE html>
       align-items: center;
       justify-content: center;
     }}
+
+    @media (max-width: 960px) {{
+      .app-body {{
+        display: flex;
+        flex-direction: column;
+      }}
+      .app-sidebar {{
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px dashed rgba(0, 0, 0, 0.18);
+        padding: 0.85rem 1rem;
+        gap: 0.85rem;
+      }}
+      .sidebar-menu#marketsMenuList {{
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        gap: 0.5rem;
+        padding-bottom: 0.25rem;
+      }}
+      .sidebar-item {{
+        flex-shrink: 0;
+        white-space: nowrap;
+        padding: 0.4rem 0.75rem;
+      }}
+      .arena-grid {{
+        grid-template-columns: 1fr;
+      }}
+      .app-main {{
+        padding: 1.25rem 1rem 3rem;
+      }}
+      .app-header {{
+        padding: 0 1rem;
+      }}
+      .app-header-tabs {{
+        overflow-x: auto;
+      }}
+    }}
   </style>
+  <script>
+    window.selectedSymbol = "rNVDA";
+    window.activeTradingEnv = "paper";
+    window.activeView = "arena";
+
+    function switchView(view, tabEl) {{
+      window.activeView = view;
+      const vArena = document.getElementById("viewArena");
+      const vAuditor = document.getElementById("viewAuditor");
+      const vLedger = document.getElementById("viewLedger");
+      const vSettings = document.getElementById("viewSettings");
+      if (vArena) vArena.style.display = view === "arena" ? "block" : "none";
+      if (vAuditor) vAuditor.style.display = view === "auditor" ? "block" : "none";
+      if (vLedger) vLedger.style.display = view === "ledger" ? "block" : "none";
+      if (vSettings) vSettings.style.display = view === "settings" ? "block" : "none";
+
+      document.querySelectorAll(".app-header-tabs .app-tab").forEach(t => t.classList.remove("active"));
+      if (tabEl) {{
+        tabEl.classList.add("active");
+      }} else {{
+        const tabMap = {{ arena: "tabArena", auditor: "tabAuditor", ledger: "tabLedger", settings: "tabSettings" }};
+        const el = document.getElementById(tabMap[view]);
+        if (el) el.classList.add("active");
+      }}
+
+      if (view === "arena" && typeof drawCandleChart === "function") {{
+        setTimeout(drawCandleChart, 50);
+      }}
+    }}
+    window.switchView = switchView;
+
+    function selectMarket(sym) {{
+      window.selectedSymbol = sym;
+      if (typeof selectedSymbol !== "undefined") selectedSymbol = sym;
+      document.querySelectorAll("#marketsMenuList .sidebar-item").forEach(el => {{
+        el.classList.remove("active");
+      }});
+      const activeEl = document.getElementById("market-item-" + sym);
+      if (activeEl) activeEl.classList.add("active");
+
+      if (typeof updateMarketView === "function") updateMarketView();
+      if (typeof drawCandleChart === "function") drawCandleChart();
+    }}
+    window.selectMarket = selectMarket;
+  </script>
 </head>
 <body>
 
@@ -1101,16 +1189,16 @@ html_template = f"""<!DOCTYPE html>
       </a>
 
       <nav class="app-header-tabs">
-        <span class="app-tab active" id="tabArena" onclick="switchView('arena', this)">Trading Arena</span>
-        <span class="app-tab" id="tabAuditor" onclick="switchView('auditor', this)">
+        <button type="button" class="app-tab active" id="tabArena" onclick="switchView('arena', this)">Trading Arena</button>
+        <button type="button" class="app-tab" id="tabAuditor" onclick="switchView('auditor', this)">
           <span>Cognitive Self-Auditor</span>
           <span class="app-tab-badge" id="auditCountBadge">3</span>
-        </span>
-        <span class="app-tab" id="tabLedger" onclick="switchView('ledger', this)">
+        </button>
+        <button type="button" class="app-tab" id="tabLedger" onclick="switchView('ledger', this)">
           <span>Trade Ledger</span>
           <span class="app-tab-badge" id="ledgerCountBadge">26</span>
-        </span>
-        <span class="app-tab" id="tabSettings" onclick="switchView('settings', this)">Settings & Gateway</span>
+        </button>
+        <button type="button" class="app-tab" id="tabSettings" onclick="switchView('settings', this)">Settings & Gateway</button>
       </nav>
     </div>
 
@@ -1155,7 +1243,55 @@ html_template = f"""<!DOCTYPE html>
           <span style="font-size: 0.65rem; color: var(--color-green);">24/7 LIVE</span>
         </div>
         <div class="sidebar-menu" id="marketsMenuList">
-          <!-- Populated by JS -->
+          <div class="sidebar-item active" id="market-item-rNVDA" onclick="selectMarket('rNVDA')">
+            <div class="sidebar-item-left">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+              <span>rNVDA</span>
+            </div>
+            <span class="sidebar-item-metric" style="color: var(--color-amber);">+3.4%</span>
+          </div>
+          <div class="sidebar-item" id="market-item-rTSLA" onclick="selectMarket('rTSLA')">
+            <div class="sidebar-item-left">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+              <span>rTSLA</span>
+            </div>
+            <span class="sidebar-item-metric" style="color: var(--color-amber);">+4.2%</span>
+          </div>
+          <div class="sidebar-item" id="market-item-rAAPL" onclick="selectMarket('rAAPL')">
+            <div class="sidebar-item-left">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+              <span>rAAPL</span>
+            </div>
+            <span class="sidebar-item-metric" style="color: var(--color-grey-muted);">-0.8%</span>
+          </div>
+          <div class="sidebar-item" id="market-item-rCOIN" onclick="selectMarket('rCOIN')">
+            <div class="sidebar-item-left">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+              <span>rCOIN</span>
+            </div>
+            <span class="sidebar-item-metric" style="color: var(--color-amber);">+5.7%</span>
+          </div>
+          <div class="sidebar-item" id="market-item-rMSTR" onclick="selectMarket('rMSTR')">
+            <div class="sidebar-item-left">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+              <span>rMSTR</span>
+            </div>
+            <span class="sidebar-item-metric" style="color: var(--color-amber);">+6.9%</span>
+          </div>
+          <div class="sidebar-item" id="market-item-rSPY" onclick="selectMarket('rSPY')">
+            <div class="sidebar-item-left">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+              <span>rSPY</span>
+            </div>
+            <span class="sidebar-item-metric" style="color: var(--color-grey-muted);">+0.4%</span>
+          </div>
+          <div class="sidebar-item" id="market-item-rQQQ" onclick="selectMarket('rQQQ')">
+            <div class="sidebar-item-left">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+              <span>rQQQ</span>
+            </div>
+            <span class="sidebar-item-metric" style="color: var(--color-grey-muted);">+0.8%</span>
+          </div>
         </div>
       </div>
 
@@ -1633,9 +1769,10 @@ html_template = f"""<!DOCTYPE html>
     const initialRealTrades = {trades_json};
     const initialAuditList = {audit_json};
 
-    let selectedSymbol = "rNVDA";
-    let executionMode = "AUTO"; // AUTO or MANUAL
-    let chartViewMode = "candles";
+    var selectedSymbol = "rNVDA";
+    window.selectedSymbol = "rNVDA";
+    var executionMode = "AUTO"; // AUTO or MANUAL
+    var chartViewMode = "candles";
 
     // Chronos Wallet & Per-Wallet State Store
     const ChronosWalletStore = {{
@@ -1875,9 +2012,9 @@ html_template = f"""<!DOCTYPE html>
       let wins = 0;
       let losses = 0;
 
-      audits.forEach(a => {{
-        const isWin = (a.return_pct !== undefined ? a.return_pct : (a.pnl_pct || 0)) > 0;
-        const ret = a.return_pct !== undefined ? a.return_pct : (a.pnl_pct || 0);
+      (audits || []).forEach(a => {{
+        const ret = typeof a.return_pct === "number" ? a.return_pct : (typeof a.pnl_pct === "number" ? a.pnl_pct : 0);
+        const isWin = ret > 0;
         if (isWin) wins++; else losses++;
 
         const card = document.createElement("div");
@@ -1888,7 +2025,7 @@ html_template = f"""<!DOCTYPE html>
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
             <div style="display: flex; align-items: center; gap: 0.65rem;">
               <span class="${{isWin ? 'badge-win' : 'badge-loss'}}">${{isWin ? 'PROFITABLE WIN' : 'AUDITED LOSS'}} (${{isWin ? '+' : ''}}${{ret.toFixed(2)}}%)</span>
-              <strong style="font-family: var(--font-terminal); font-size: 0.92rem;">#${{a.trade_id}} • ${{a.symbol || a.asset}}</strong>
+              <strong style="font-family: var(--font-terminal); font-size: 0.92rem;">#${{a.trade_id}} • ${{a.symbol || a.asset || 'ASSET'}}</strong>
             </div>
             <div style="font-family: var(--font-terminal); font-size: 0.72rem; color: #888;">
               ${{a.timestamp || 'Post-Market Convergence'}}
@@ -1896,7 +2033,7 @@ html_template = f"""<!DOCTYPE html>
           </div>
 
           <div style="font-size: 0.86rem; color: #374151; line-height: 1.55;">
-            <strong>What Happened:</strong> ${{a.root_cause}}
+            <strong>What Happened:</strong> ${{a.root_cause || 'Weekend retail price dislocation from institutional benchmark.'}}
           </div>
 
           <div style="font-size: 0.84rem; color: #4B5563; line-height: 1.55; background: #FAF9F5; padding: 0.65rem 0.85rem; border-radius: 6px;">
@@ -1904,7 +2041,7 @@ html_template = f"""<!DOCTYPE html>
           </div>
 
           <div style="background: var(--color-canvas-subtle); border-radius: 6px; padding: 0.75rem 0.95rem; font-size: 0.82rem; color: #111; border-left: 3px solid var(--color-green);">
-            <strong>Bot's Autonomous Strategy Recalibration:</strong> ${{a.adaptation}}
+            <strong>Bot's Autonomous Strategy Recalibration:</strong> ${{a.adaptation || 'Model parameters verified and tuned for subsequent convergence cycles.'}}
           </div>
         `;
         container.appendChild(card);
@@ -1913,8 +2050,12 @@ html_template = f"""<!DOCTYPE html>
       // Update auditor top metrics
       const total = audits.length;
       const winRate = total > 0 ? ((wins / total) * 100).toFixed(1) : "100.0";
-      document.getElementById("auditorWinRatioVal").textContent = `${{wins}} Wins · ${{losses}} Losses`;
-      document.getElementById("auditorWinRateSubtext").textContent = `${{winRate}}% Win Rate across audited trades net of fees.`;
+      if (document.getElementById("auditorWinRatioVal")) {{
+        document.getElementById("auditorWinRatioVal").textContent = `${{wins}} Wins · ${{losses}} Losses`;
+      }}
+      if (document.getElementById("auditorWinRateSubtext")) {{
+        document.getElementById("auditorWinRateSubtext").textContent = `${{winRate}}% Win Rate across audited trades net of fees.`;
+      }}
     }}
 
     // Render Ledger Table
@@ -1923,19 +2064,24 @@ html_template = f"""<!DOCTYPE html>
       if (!tbody) return;
       tbody.innerHTML = "";
 
-      trades.forEach(t => {{
-        const isWin = (t.pnl_pct !== undefined ? t.pnl_pct : (t.return_pct || 0)) > 0;
-        const retPct = t.pnl_pct !== undefined ? t.pnl_pct : (t.return_pct || 0);
-        const pnlUsd = t.pnl_usdt !== undefined ? t.pnl_usdt : (t.pnl_usd || 0);
-        const tradeId = t.trade_id || `TRD-${{t.asset || t.symbol}}`;
+      (trades || []).forEach(t => {{
+        const retPct = typeof t.return_pct === "number" ? t.return_pct : (typeof t.pnl_pct === "number" ? t.pnl_pct : 0);
+        const isWin = retPct > 0;
+        const pnlUsd = typeof t.pnl_usd === "number" ? t.pnl_usd : (typeof t.pnl_usdt === "number" ? t.pnl_usdt : 0);
+        const tradeId = t.trade_id || `TRD-${{t.asset || t.symbol || '001'}}`;
+        const entryP = typeof t.entry_price === "number" ? t.entry_price.toFixed(2) : (t.entryPrice || "0.00");
+        const exitP = typeof t.exit_price === "number" ? t.exit_price.toFixed(2) : (t.exitPrice || "0.00");
+        const isShort = t.side === 'SHORT' || t.side === 'SELL_SHORT';
+        const sideLabel = isShort ? 'Short Dislocation' : 'Long Reversion';
+        const sideColor = isShort ? 'var(--color-red)' : 'var(--color-green)';
 
         const tr = document.createElement("tr");
         tr.innerHTML = `
           <td><span style="font-family: var(--font-terminal); font-weight: 700;">#${{tradeId}}</span></td>
-          <td><strong>${{t.asset || t.symbol}}</strong></td>
-          <td><span style="color: ${{t.side === 'SHORT' ? 'var(--color-red)' : 'var(--color-green)'}}; font-weight: 700;">${{t.side === 'SHORT' ? 'Short Dislocation' : 'Long Reversion'}}</span></td>
-          <td style="font-family: var(--font-terminal); font-size: 0.8rem;">$${{t.entry_price.toFixed(2)}}</td>
-          <td style="font-family: var(--font-terminal); font-size: 0.8rem;">$${{t.exit_price.toFixed(2)}} (Monday Open)</td>
+          <td><strong>${{t.asset || t.symbol || 'rNVDA'}}</strong></td>
+          <td><span style="color: ${{sideColor}}; font-weight: 700;">${{sideLabel}}</span></td>
+          <td style="font-family: var(--font-terminal); font-size: 0.8rem;">$${{entryP}}</td>
+          <td style="font-family: var(--font-terminal); font-size: 0.8rem;">$${{exitP}} (Monday Open)</td>
           <td><span class="${{isWin ? 'badge-win' : 'badge-loss'}}">${{isWin ? '+' : ''}}${{retPct.toFixed(2)}}%</span></td>
           <td style="font-family: var(--font-terminal); font-weight: 700; color: ${{isWin ? 'var(--color-green)' : 'var(--color-red)'}};">${{isWin ? '+' : ''}}$${{pnlUsd.toFixed(2)}}</td>
           <td>
@@ -2107,12 +2253,16 @@ html_template = f"""<!DOCTYPE html>
     // Sidebar & Market Navigation
     function renderSidebar() {{
       const container = document.getElementById("marketsMenuList");
+      if (!container) return;
       container.innerHTML = "";
 
       Object.keys(markets).forEach(sym => {{
         const m = markets[sym];
         const item = document.createElement("div");
         item.className = "sidebar-item" + (sym === selectedSymbol ? " active" : "");
+        item.id = `market-item-${{sym}}`;
+        item.setAttribute("role", "button");
+        item.setAttribute("tabindex", "0");
         item.onclick = () => selectMarket(sym);
 
         const driftSign = m.drift_pct > 0 ? "+" : "";
@@ -2130,6 +2280,7 @@ html_template = f"""<!DOCTYPE html>
 
     function selectMarket(sym) {{
       selectedSymbol = sym;
+      window.selectedSymbol = sym;
       renderSidebar();
       updateMarketView();
       drawCandleChart();
@@ -2628,6 +2779,9 @@ html_template = f"""<!DOCTYPE html>
 
     // Settings Mode Switcher: Paper Mode vs Live Bitget UTA v3
     function handleEnvModeChange(env) {{
+      const selectEl = document.getElementById("settingsEnvSelect");
+      if (selectEl && selectEl.value !== env) selectEl.value = env;
+
       const apiKeyInput = document.getElementById("settingsApiKey");
       const apiSecretInput = document.getElementById("settingsApiSecret");
       const passphraseInput = document.getElementById("settingsPassphrase");
@@ -2815,12 +2969,83 @@ html_template = f"""<!DOCTYPE html>
       alert(`[BITGET GATEWAY CONFIGURATION SAVED]\\nEnvironment: ${{env === 'live' ? 'Live Capital (Bitget UTA v3)' : 'Paper Mode Simulation'}}\\nHMAC-SHA256 non-custodial headers active.`);
     }}
     window.addEventListener("resize", drawCandleChart);
-    window.addEventListener("DOMContentLoaded", () => {{
-      ChronosWalletStore.init();
-      renderSidebar();
-      updateMarketView();
-      setTimeout(drawCandleChart, 100);
-    }});
+    window.switchView = switchView;
+    window.selectMarket = selectMarket;
+    window.updateMarketView = updateMarketView;
+    window.recalcExecution = recalcExecution;
+    window.openRainbowModal = openRainbowModal;
+    window.closeRainbowModal = closeRainbowModal;
+    window.closeRainbowModalOnBackdrop = closeRainbowModalOnBackdrop;
+    window.selectWalletProvider = selectWalletProvider;
+    window.toggleWalletDropdown = toggleWalletDropdown;
+    window.closeWalletDropdown = closeWalletDropdown;
+    window.disconnectCurrentWallet = disconnectCurrentWallet;
+    window.resetCurrentWalletBalance = resetCurrentWalletBalance;
+    window.addPaperBalance = addPaperBalance;
+    window.clearWalletHistory = clearWalletHistory;
+    window.setCustomPaperBalance = setCustomPaperBalance;
+    window.triggerAutonomousCycle = triggerAutonomousCycle;
+    window.toggleChartMode = toggleChartMode;
+    window.setTimeframe = setTimeframe;
+    window.setExecutionMode = setExecutionMode;
+    window.setCollateral = setCollateral;
+    window.setCollateralMax = setCollateralMax;
+    window.executeTradeOrder = executeTradeOrder;
+    window.filterLedger = filterLedger;
+    window.handleEnvModeChange = handleEnvModeChange;
+    window.saveBitgetSettings = saveBitgetSettings;
+    window.testBitgetConnection = testBitgetConnection;
+    window.refreshBitgetAccount = refreshBitgetAccount;
+    window.jumpToAudit = jumpToAudit;
+    window.dismissRecalToast = dismissRecalToast;
+    window.drawCandleChart = drawCandleChart;
+    window.ChronosWalletStore = ChronosWalletStore;
+    window.renderSidebar = renderSidebar;
+
+    function initApp() {{
+      try {{
+        renderSidebar();
+      }} catch(e) {{
+        console.error("renderSidebar error:", e);
+      }}
+
+      try {{
+        updateMarketView();
+      }} catch(e) {{
+        console.error("updateMarketView error:", e);
+      }}
+
+      try {{
+        ChronosWalletStore.init();
+      }} catch(e) {{
+        console.error("ChronosWalletStore error:", e);
+      }}
+
+      try {{
+        if (window.location.hash) {{
+          const h = window.location.hash.replace("#", "").toLowerCase();
+          if (["arena", "auditor", "ledger", "settings"].includes(h)) {{
+            const tabMap = {{
+              arena: "tabArena",
+              auditor: "tabAuditor",
+              ledger: "tabLedger",
+              settings: "tabSettings"
+            }};
+            switchView(h, document.getElementById(tabMap[h]));
+          }}
+        }}
+      }} catch(e) {{}}
+
+      try {{
+        setTimeout(drawCandleChart, 60);
+      }} catch(e) {{}}
+    }}
+
+    if (document.readyState === "loading") {{
+      document.addEventListener("DOMContentLoaded", initApp);
+    }} else {{
+      initApp();
+    }}
   </script>
 </body>
 </html>

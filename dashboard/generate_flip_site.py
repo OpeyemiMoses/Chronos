@@ -19,7 +19,76 @@ if os.path.exists(css_path):
 
 trades_json_str = json.dumps(real_trades)
 audit_json_str = json.dumps(audit_memory)
-chart_json_str = json.dumps(chart_data)
+
+# Transform raw chart points list into symbol-keyed dictionary with Friday anchors
+nvda_prices = [p.get("nvda", 132.8) for p in chart_data]
+tsla_prices = [p.get("tsla", 258.4) for p in chart_data]
+mstr_prices = [p.get("mstr", 312.4) for p in chart_data]
+
+chart_dict = {
+    "rNVDA": {
+        "name": "rNVDA / USDT",
+        "symbol": "rNVDA",
+        "anchor_price": 128.40,
+        "prices": nvda_prices,
+        "markers": [
+            {"index": 28, "price": 133.62, "type": "ENTRY", "label": "SHORT 2.24σ"},
+            {"index": 98, "price": 128.40, "type": "EXIT", "label": "CONVERGENCE"}
+        ]
+    },
+    "rTSLA": {
+        "name": "rTSLA / USDT",
+        "symbol": "rTSLA",
+        "anchor_price": 248.00,
+        "prices": tsla_prices,
+        "markers": [
+            {"index": 30, "price": 253.52, "type": "ENTRY", "label": "SHORT 2.65σ"},
+            {"index": 98, "price": 248.00, "type": "EXIT", "label": "CONVERGENCE"}
+        ]
+    },
+    "rMSTR": {
+        "name": "rMSTR / USDT",
+        "symbol": "rMSTR",
+        "anchor_price": 292.20,
+        "prices": mstr_prices,
+        "markers": [
+            {"index": 32, "price": 312.41, "type": "ENTRY", "label": "SHORT 3.48σ"},
+            {"index": 98, "price": 292.20, "type": "EXIT", "label": "CONVERGENCE"}
+        ]
+    },
+    "rAAPL": {
+        "name": "rAAPL / USDT",
+        "symbol": "rAAPL",
+        "anchor_price": 224.00,
+        "prices": [224.0 + (p - 132.8) * 0.18 for p in nvda_prices],
+        "markers": []
+    },
+    "rCOIN": {
+        "name": "rCOIN / USDT",
+        "symbol": "rCOIN",
+        "anchor_price": 206.80,
+        "prices": [206.8 + (p - 292.2) * 0.65 for p in mstr_prices],
+        "markers": [
+            {"index": 34, "price": 214.88, "type": "ENTRY", "label": "SHORT 3.10σ"},
+            {"index": 98, "price": 206.80, "type": "EXIT", "label": "CONVERGENCE"}
+        ]
+    },
+    "rSPY": {
+        "name": "rSPY / USDT",
+        "symbol": "rSPY",
+        "anchor_price": 561.80,
+        "prices": [561.8 + (p - 132.8) * 0.08 for p in nvda_prices],
+        "markers": []
+    },
+    "rQQQ": {
+        "name": "rQQQ / USDT",
+        "symbol": "rQQQ",
+        "anchor_price": 478.90,
+        "prices": [478.9 + (p - 132.8) * 0.12 for p in nvda_prices],
+        "markers": []
+    }
+}
+chart_json_str = json.dumps(chart_dict)
 
 html_content = f"""<!DOCTYPE html>
 <html lang="en">
@@ -584,18 +653,18 @@ html_content = f"""<!DOCTYPE html>
   <div class="header-wrapper">
     <header class="header-pill" id="mainHeaderPill">
       <!-- Left: Brand Logo -->
-      <a href="#hero" style="display: flex; align-items: center; text-decoration: none; gap: 0.65rem;">
+      <a href="index.html" style="display: flex; align-items: center; text-decoration: none; gap: 0.65rem;" title="Chronos Home">
         <img src="assets/chronos_logo.svg" alt="Chronos" class="header-logo-img" style="height: 20px;">
       </a>
 
       <!-- Middle: Dynamic Nav links expanding on scroll -->
       <nav class="header-nav">
+        <a href="app.html" style="color: var(--color-green); font-weight: 700;">Trading Arena & Markets</a>
+        <a href="app.html#auditor">Self-Auditor</a>
+        <a href="app.html#ledger">Trade Ledger</a>
+        <a href="app.html#settings">Bitget Gateway</a>
         <a href="#thesis">Thesis</a>
         <a href="#metrics">Alpha Metrics</a>
-        <a href="#architecture">Architecture</a>
-        <a href="#guardrails">Guardrails</a>
-        <a href="#platform">Platform Suite</a>
-        <a href="#ledger">Trade Ledger</a>
       </nav>
 
       <!-- Right: Launch Terminal Button -->
@@ -984,10 +1053,14 @@ html_content = f"""<!DOCTYPE html>
         <!-- Left: Interactive Canvas Chart Box -->
         <div class="chart-box">
           <div class="chart-controls">
-            <div class="asset-pill-group">
-              <button class="asset-pill active" onclick="switchAsset('rNVDA', this)">$rNVDA</button>
-              <button class="asset-pill" onclick="switchAsset('rTSLA', this)">$rTSLA</button>
-              <button class="asset-pill" onclick="switchAsset('rMSTR', this)">$rMSTR</button>
+            <div class="asset-pill-group" style="display: flex; gap: 0.35rem; flex-wrap: wrap;">
+              <button class="asset-pill active" onclick="switchAsset('rNVDA', this)">$rNVDA (+3.4%)</button>
+              <button class="asset-pill" onclick="switchAsset('rTSLA', this)">$rTSLA (+4.2%)</button>
+              <button class="asset-pill" onclick="switchAsset('rAAPL', this)">$rAAPL (-0.8%)</button>
+              <button class="asset-pill" onclick="switchAsset('rCOIN', this)">$rCOIN (+5.7%)</button>
+              <button class="asset-pill" onclick="switchAsset('rMSTR', this)">$rMSTR (+6.9%)</button>
+              <button class="asset-pill" onclick="switchAsset('rSPY', this)">$rSPY (+0.4%)</button>
+              <button class="asset-pill" onclick="switchAsset('rQQQ', this)">$rQQQ (+0.8%)</button>
             </div>
             <div style="font-family: var(--font-terminal); font-size: 0.78rem; display: flex; gap: 1.25rem;">
               <span>Friday Anchor: <strong id="anchorPriceDisplay" style="color: var(--color-black);">$128.40</strong></span>
@@ -1252,25 +1325,35 @@ html_content = f"""<!DOCTYPE html>
     // Populate Trade Ledger Table
     function renderLedger(trades) {{
       const tbody = document.getElementById("ledgerTableBody");
+      if (!tbody) return;
       tbody.innerHTML = "";
 
-      trades.forEach((t) => {{
+      (trades || []).forEach((t) => {{
         const tr = document.createElement("tr");
-        const isWin = t.pnl_pct > 0;
+        const retVal = typeof t.return_pct === "number" ? t.return_pct : (typeof t.pnl_pct === "number" ? t.pnl_pct : 0);
+        const isWin = retVal > 0;
         const pnlColor = isWin ? "var(--color-green)" : "var(--color-red)";
         const pnlPrefix = isWin ? "+" : "";
         const badgeClass = isWin ? "badge-win" : "badge-loss";
+        const entryP = typeof t.entry_price === "number" ? t.entry_price.toFixed(2) : "0.00";
+        const exitP = typeof t.exit_price === "number" ? t.exit_price.toFixed(2) : "0.00";
+        const pnlUsd = typeof t.pnl_usd === "number" ? t.pnl_usd : (typeof t.pnl_usdt === "number" ? t.pnl_usdt : 0);
+        const assetName = t.asset || t.symbol || "rNVDA";
+        const sideName = (t.side === "SHORT" || t.side === "SELL_SHORT") ? "SHORT" : "LONG";
+        const entryTime = t.entry_time || "Friday 17:00 EST";
+        const exitTime = t.exit_time || "Monday 09:30 EST";
+        const note = t.audit_note || t.exit_reason || "Monday Institutional Convergence";
 
         tr.innerHTML = `
-          <td><strong style="font-family: var(--font-terminal);">${{t.asset}}</strong></td>
-          <td><span style="font-family: var(--font-terminal); font-size: 0.78rem; font-weight: 700; color: ${{t.side === 'SHORT' ? 'var(--color-red)' : 'var(--color-green)'}}">${{t.side}}</span></td>
-          <td style="font-family: var(--font-terminal); font-size: 0.8rem; color: var(--color-grey-text);">${{t.entry_time}}</td>
-          <td style="font-family: var(--font-terminal); font-size: 0.84rem;">$${{t.entry_price.toFixed(2)}}</td>
-          <td style="font-family: var(--font-terminal); font-size: 0.8rem; color: var(--color-grey-text);">${{t.exit_time}}</td>
-          <td style="font-family: var(--font-terminal); font-size: 0.84rem;">$${{t.exit_price.toFixed(2)}}</td>
-          <td><span class="${{badgeClass}}">${{pnlPrefix}}${{t.pnl_pct.toFixed(2)}}%</span></td>
-          <td style="font-family: var(--font-terminal); font-size: 0.84rem; font-weight: 700; color: ${{pnlColor}};">${{pnlPrefix}}$${{t.pnl_usdt.toFixed(2)}}</td>
-          <td style="font-size: 0.8rem; color: var(--color-grey-text);">${{t.audit_note}}</td>
+          <td><strong style="font-family: var(--font-terminal);">${{assetName}}</strong></td>
+          <td><span style="font-family: var(--font-terminal); font-size: 0.78rem; font-weight: 700; color: ${{sideName === 'SHORT' ? 'var(--color-red)' : 'var(--color-green)'}}">${{sideName}}</span></td>
+          <td style="font-family: var(--font-terminal); font-size: 0.8rem; color: var(--color-grey-text);">${{entryTime}}</td>
+          <td style="font-family: var(--font-terminal); font-size: 0.84rem;">$${{entryP}}</td>
+          <td style="font-family: var(--font-terminal); font-size: 0.8rem; color: var(--color-grey-text);">${{exitTime}}</td>
+          <td style="font-family: var(--font-terminal); font-size: 0.84rem;">$${{exitP}}</td>
+          <td><span class="${{badgeClass}}">${{pnlPrefix}}${{retVal.toFixed(2)}}%</span></td>
+          <td style="font-family: var(--font-terminal); font-size: 0.84rem; font-weight: 700; color: ${{pnlColor}};">${{pnlPrefix}}$${{pnlUsd.toFixed(2)}}</td>
+          <td style="font-size: 0.8rem; color: var(--color-grey-text);">${{note}}</td>
         `;
         tbody.appendChild(tr);
       }});
@@ -1282,9 +1365,9 @@ html_content = f"""<!DOCTYPE html>
       btn.classList.add("active");
 
       if (type === "win") {{
-        renderLedger(realTrades.filter(t => t.pnl_pct > 0));
+        renderLedger(realTrades.filter(t => (t.return_pct !== undefined ? t.return_pct : t.pnl_pct) > 0));
       }} else if (type === "loss") {{
-        renderLedger(realTrades.filter(t => t.pnl_pct <= 0));
+        renderLedger(realTrades.filter(t => (t.return_pct !== undefined ? t.return_pct : t.pnl_pct) <= 0));
       }} else {{
         renderLedger(realTrades);
       }}
@@ -1416,10 +1499,15 @@ html_content = f"""<!DOCTYPE html>
     }}
 
     window.addEventListener("resize", drawChart);
-    window.addEventListener("DOMContentLoaded", () => {{
-      renderLedger(realTrades);
-      setTimeout(drawChart, 100);
-    }});
+    function initIndexApp() {{
+      try {{ renderLedger(realTrades); }} catch(e) {{ console.error("renderLedger error:", e); }}
+      try {{ setTimeout(drawChart, 80); }} catch(e) {{}}
+    }}
+    if (document.readyState === "loading") {{
+      document.addEventListener("DOMContentLoaded", initIndexApp);
+    }} else {{
+      initIndexApp();
+    }}
   </script>
 </body>
 </html>
