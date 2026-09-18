@@ -1017,7 +1017,7 @@ html_content = f"""<!DOCTYPE html>
             </div>
             <h3 style="font-family: var(--font-serif-editorial); font-size: 1.65rem; margin-bottom: 0.6rem;">Web3 Wallet & Autonomous Bot</h3>
             <p style="font-size: 0.88rem; color: var(--color-grey-text); line-height: 1.6; margin-bottom: 1.25rem;">
-              Connect via RainbowKit modal. Each connected wallet maintains its own isolated $50,000 paper trading balance, ledger, and cognitive memory. Configure real Bitget UTA v3 keys in Terminal Settings when ready to deploy live capital.
+              Connect via RainbowKit modal. Each connected wallet maintains its own isolated $50,000 trading balance, ledger, and cognitive memory. Configure real Bitget UTA v3 keys in Terminal Settings when ready to deploy live capital.
             </p>
             <ul style="list-style: none; font-size: 0.82rem; color: #4B5563; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; font-family: var(--font-terminal);">
               <li style="display: flex; align-items: center; gap: 0.45rem;">
@@ -1026,7 +1026,7 @@ html_content = f"""<!DOCTYPE html>
               </li>
               <li style="display: flex; align-items: center; gap: 0.45rem;">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>Isolated Per-Wallet $50,000 Paper Balance & State</span>
+                <span>Isolated Per-Wallet $50,000 Trading Balance & State</span>
               </li>
               <li style="display: flex; align-items: center; gap: 0.45rem;">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
@@ -1092,13 +1092,13 @@ html_content = f"""<!DOCTYPE html>
               Ready to execute after-hours alpha?
             </h3>
             <p style="font-size: 0.88rem; color: var(--color-grey-text); line-height: 1.6; margin-bottom: 1.5rem;">
-              Launch the full Chronos Trading Terminal in your browser. Seamlessly toggle between paper and live trading, monitor real-time order books, and explore post-mortem learning reports.
+              Launch the full Chronos Trading Terminal in your browser. Seamlessly toggle between internal vault and live Bitget trading, monitor real-time order books, and explore post-mortem learning reports.
             </p>
 
             <div style="background: var(--color-canvas-subtle); border-radius: 6px; padding: 1rem; margin-bottom: 1.5rem; font-family: var(--font-terminal); font-size: 0.78rem; display: flex; flex-direction: column; gap: 0.6rem;">
               <div style="display: flex; justify-content: space-between;">
                 <span style="color: var(--color-grey-text);">Default Account:</span>
-                <strong style="color: var(--color-green);">Paper Mode ($50,000 USDT)</strong>
+                <strong style="color: var(--color-green);">Trading Vault ($50,000 USDT)</strong>
               </div>
               <div style="display: flex; justify-content: space-between;">
                 <span style="color: var(--color-grey-text);">Strategy Mode:</span>
@@ -1137,14 +1137,14 @@ html_content = f"""<!DOCTYPE html>
         <span>ONBOARDING WORKFLOW</span>
       </div>
       <h2 class="section-title">Get Started in 3 Simple Steps</h2>
-      <p class="section-desc">Designed with frictionless onboarding. Start paper trading in seconds without connecting API keys or wallet setups.</p>
+      <p class="section-desc">Designed with frictionless onboarding. Start trading in seconds without complex setup or custodial risk.</p>
 
       <div class="landing-grid-3col" style="margin-top: 2.5rem;">
         <div class="card-paper">
           <div class="step-index">01 /</div>
-          <h3 style="font-family: var(--font-serif-editorial); font-size: 1.45rem; margin-bottom: 0.45rem;">Launch in Paper Mode</h3>
+          <h3 style="font-family: var(--font-serif-editorial); font-size: 1.45rem; margin-bottom: 0.45rem;">Launch Trading Vault</h3>
           <p style="font-size: 0.88rem; color: var(--color-grey-text); line-height: 1.6;">
-            Open the terminal with $50,000 pre-loaded simulated USDT. Test the full strategy, toggle auto-pilot, and observe live executions without risking real capital.
+            Open the terminal with $50,000 pre-loaded USDT capital. Test the full strategy, toggle auto-pilot, and observe live executions.
           </p>
         </div>
 

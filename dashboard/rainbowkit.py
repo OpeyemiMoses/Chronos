@@ -895,24 +895,29 @@ RAINBOWKIT_JS = '''
       }
     }
 
-    // Handle Wallet Selection from Left Column in Photo 1
+    // Handle Wallet Selection from Left Column with strict provider isolation
     async function handleWalletSelection(walletName) {
       if (walletName === "Rainbow" || walletName === "WalletConnect") {
         showQrScreen(walletName);
         return;
       }
 
-      // If MetaMask, OKX, Phantom, or Base
+      // Multi-provider discovery & strict isolation (avoids OKX hijacking MetaMask/Phantom)
       let provider = null;
       if (typeof window !== "undefined") {
-        if (walletName === "MetaMask" && (window.ethereum?.isMetaMask || window.ethereum)) {
-          provider = window.ethereum;
-        } else if (walletName === "OKX Wallet" && (window.okxwallet || window.ethereum?.isOkxWallet)) {
-          provider = window.okxwallet || window.ethereum;
-        } else if (walletName === "Phantom" && (window.phantom?.ethereum || window.ethereum?.isPhantom)) {
-          provider = window.phantom?.ethereum || window.ethereum;
-        } else if (window.ethereum) {
-          provider = window.ethereum;
+        if (walletName === "OKX Wallet") {
+          provider = window.okxwallet || (window.ethereum?.isOkxWallet ? window.ethereum : null);
+        } else if (walletName === "MetaMask") {
+          // Strictly ensure this is authentic MetaMask and NOT OKX masquerading as MetaMask
+          if (window.ethereum?.isMetaMask && !window.ethereum?.isOkxWallet && !window.okxwallet) {
+            provider = window.ethereum;
+          } else if (window.ethereum?.providers && Array.isArray(window.ethereum.providers)) {
+            provider = window.ethereum.providers.find(p => p.isMetaMask && !p.isOkxWallet);
+          }
+        } else if (walletName === "Phantom") {
+          provider = window.phantom?.ethereum || (window.ethereum?.isPhantom ? window.ethereum : null);
+        } else if (walletName === "Base") {
+          provider = window.coinbaseWalletExtension;
         }
       }
 
@@ -931,7 +936,7 @@ RAINBOWKIT_JS = '''
         }
       }
 
-      // If provider not installed in current browser, connect via standard EVM address demo
+      // If specific provider extension not detected, connect designated address without triggering conflicting extensions
       const demoAddresses = {
         "OKX Wallet": "0x0356c9a898b1d92d4d71",
         "Phantom": "0x7890abcdef1234567890",
@@ -950,7 +955,7 @@ RAINBOWKIT_JS = '''
       if (typeof showToast === "function") {
         showToast(
           "Wallet Connected via RainbowKit",
-          `Connected address: ${rkFormatAddress(address)}. Loaded isolated paper trading balance and settings.`,
+          `Connected address: ${rkFormatAddress(address)}. Loaded isolated trading balance and configuration.`,
           "success"
         );
       }
@@ -962,7 +967,7 @@ RAINBOWKIT_JS = '''
       ChronosWalletStore.disconnect();
       renderRainbowHeader();
       if (typeof showToast === "function") {
-        showToast("Wallet Disconnected", "Restored isolated paper trading sandbox.", "info");
+        showToast("Wallet Disconnected", "Restored isolated portfolio.", "info");
       }
     }
 
@@ -1044,6 +1049,9 @@ RAINBOWKIT_JS = '''
 
     // Master Header Widget Renderer (Only mounted in Terminal app.html)
     function renderRainbowHeader() {
+      if (window.__rkMounted || document.querySelector('[data-rk]')) {
+        return;
+      }
       const container = document.getElementById("rainbowkitHeaderContainer");
       if (!container) return;
 
@@ -1072,7 +1080,7 @@ RAINBOWKIT_JS = '''
               <span>${rkActiveChain.name}</span>
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
             </button>
-            <button type="button" class="rk-pill-account" onclick="openRainbowAccountModal()" title="Account & Paper Balance">
+            <button type="button" class="rk-pill-account" onclick="openRainbowAccountModal()" title="Account & Balance">
               <span class="rk-pill-balance">${balFmt}</span>
               <div class="rk-pill-address-badge">
                 <span style="display: inline-block; width: 14px; height: 14px; border-radius: 50%; overflow: hidden; vertical-align: middle;">

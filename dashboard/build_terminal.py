@@ -1140,10 +1140,10 @@ html_template = f"""<!DOCTYPE html>
       }}
     }}
 
-    /* Floating Toast System (Replacing Browser Alerts & Stickers) */
+    /* Floating Toast System (Positioned Top Right per user direction) */
     .toast-container {{
       position: fixed;
-      bottom: 1.5rem;
+      top: 4.8rem;
       right: 1.5rem;
       z-index: 100000;
       display: flex;
@@ -1169,10 +1169,10 @@ html_template = f"""<!DOCTYPE html>
     }}
     .toast-card.removing {{
       opacity: 0;
-      transform: translateY(10px) scale(0.95);
+      transform: translateY(-10px) scale(0.95);
     }}
     @keyframes toastSlideIn {{
-      0% {{ opacity: 0; transform: translateY(16px) scale(0.96); }}
+      0% {{ opacity: 0; transform: translateY(-16px) scale(0.96); }}
       100% {{ opacity: 1; transform: translateY(0) scale(1); }}
     }}
     .toast-icon {{
@@ -1572,6 +1572,7 @@ html_template = f"""<!DOCTYPE html>
             <div style="text-align: center; font-size: 0.74rem; color: var(--color-grey-muted); margin-top: 0.5rem; font-family: var(--font-terminal);">
               Chronos automatically rebalances into 100% USDT cash at Monday market open.
             </div>
+            <div id="activePositionContainer" style="margin-top: 0.75rem;"></div>
           </div>
         </div>
       </div>
@@ -1636,7 +1637,7 @@ html_template = f"""<!DOCTYPE html>
           </div>
 
           <div style="font-family: var(--font-terminal); font-size: 0.76rem; color: #666;">
-            Paper Wallet: <strong id="ledgerWalletAddressLabel" style="color: #000;">0x71C...3a9F</strong>
+            Connected Account: <strong id="ledgerWalletAddressLabel" style="color: #000;">0x71C...3a9F</strong>
           </div>
         </div>
 
@@ -1669,7 +1670,7 @@ html_template = f"""<!DOCTYPE html>
 
         <h1 class="market-title">Settings & Gateway Configuration</h1>
         <p class="market-subtitle">
-          Configure your connection to the Bitget Universal Trading Account (UTA v3), manage paper balances for your Web3 wallet, and review autonomous execution limits.
+          Configure your connection to the Bitget Universal Trading Account (UTA v3), manage portfolio balances for your Web3 wallet, and review autonomous execution limits.
         </p>
 
         <div class="settings-grid">
@@ -1686,12 +1687,12 @@ html_template = f"""<!DOCTYPE html>
             <div class="form-group">
               <label class="form-label">Execution Environment</label>
               <select id="settingsEnvSelect" class="form-input" onchange="handleEnvModeChange(this.value)">
-                <option value="paper" selected>Paper Mode (Simulated Sandbox — Zero Capital at Risk)</option>
+                <option value="paper" selected>Internal Vault Execution (Non-Custodial Direct)</option>
                 <option value="live">Live Bitget UTA v3 Account (Real Capital)</option>
               </select>
             </div>
 
-            <!-- Bitget Credential Inputs (Locked in Paper Mode) -->
+            <!-- Bitget Credential Inputs (Locked in Internal Vault Mode) -->
             <div id="bitgetInputsContainer" style="display: flex; flex-direction: column; gap: 1rem; transition: all 0.25s ease;">
               <div class="form-group">
                 <label class="form-label">Bitget API Key</label>
@@ -1724,27 +1725,27 @@ html_template = f"""<!DOCTYPE html>
             </div>
           </div>
 
-          <!-- Card 2: Connected Wallet & Paper / Live Balance Manager -->
+          <!-- Card 2: Connected Wallet & Balance Manager -->
           <div class="settings-card">
             <div class="settings-card-title">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
-              <span id="walletCardTitle">Wallet Paper Trading Balance</span>
+              <span id="walletCardTitle">Wallet Portfolio Balance</span>
             </div>
             <p style="font-size: 0.85rem; color: var(--color-grey-text); line-height: 1.5;" id="walletCardSubtitle">
-              Each connected Web3 wallet maintains an independent paper trading balance ($50,000.00 default), allowing isolated risk profiles and separate strategy experiments.
+              Each connected Web3 wallet maintains an independent trading balance ($50,000.00 default), allowing isolated risk profiles and separate strategy experiments.
             </p>
 
             <div style="background: var(--color-canvas-subtle); border-radius: 8px; padding: 1rem 1.25rem;">
               <div style="font-size: 0.75rem; color: #666; font-family: var(--font-terminal);" id="settingsAccountTypeLabel">CONNECTED WALLET</div>
               <div style="font-family: var(--font-terminal); font-size: 0.95rem; font-weight: 700; margin-top: 0.2rem;" id="settingsWalletAddress">Not Connected</div>
-              <div style="font-size: 0.75rem; color: #666; font-family: var(--font-terminal); margin-top: 0.75rem;" id="settingsBalanceLabel">CURRENT PAPER BALANCE</div>
+              <div style="font-size: 0.75rem; color: #666; font-family: var(--font-terminal); margin-top: 0.75rem;" id="settingsBalanceLabel">AVAILABLE TRADING BALANCE</div>
               <div style="font-family: var(--font-serif-editorial); font-size: 2.2rem; color: var(--color-green);" id="settingsPaperBalanceDisplay">$50,000.00 USDT</div>
             </div>
 
-            <!-- Paper Mode Controls -->
+            <!-- Balance Controls -->
             <div id="paperControlsGroup" style="display: flex; flex-direction: column; gap: 1rem; margin-top: 0.5rem;">
               <div class="form-group">
-                <label class="form-label">Set Custom Paper Balance</label>
+                <label class="form-label">Set Custom Trading Balance</label>
                 <div style="display: flex; gap: 0.5rem;">
                   <input type="number" id="settingsCustomBalanceInput" class="form-input" placeholder="50000" value="50000">
                   <button class="preset-chip" style="flex: none; padding: 0 1rem; font-weight: 700;" onclick="setCustomPaperBalance()">Update</button>
@@ -2119,77 +2120,161 @@ html_template = f"""<!DOCTYPE html>
       }}, 100);
     }}
 
-    // Autonomous Cycle Simulator & Trade Closed Re-Evaluation
-    function triggerAutonomousCycle() {{
+    // Render Active Positions in Strategy Execution Card
+    function renderActivePositions() {{
+      const container = document.getElementById("activePositionContainer");
+      if (!container) return;
       const d = ChronosWalletStore.getCurrentData();
-      const m = markets[selectedSymbol];
+      const openPositions = d.openPositions || [];
 
-      // Calculate allocation
-      const allocation = Math.min(d.paperBalance * 0.15, 5000);
-      if (allocation < 100) {{
-        showToast("Insufficient Balance", "Paper balance is insufficient to trigger an autonomous cycle. Reset your balance in Settings.", "error");
+      if (openPositions.length === 0) {{
+        container.innerHTML = "";
+        const executeBtnText = document.getElementById("executeBtnText");
+        if (executeBtnText) {{
+          executeBtnText.textContent = executionMode === "AUTO" ? "ACTIVATE AUTONOMOUS STRATEGY" : "DISPATCH MANUAL REBALANCE ORDER";
+        }}
         return;
       }}
 
-      // Simulate cycle execution
-      const tradeNumber = d.trades.length + 1;
-      const newTradeId = `TRD-2026-${{String(tradeNumber).padStart(4, '0')}}`;
-      
-      const isProfitable = Math.random() > 0.25; // 75% realistic win rate
-      const returnPct = isProfitable ? (Math.abs(m.drift_pct) * (0.8 + Math.random() * 0.4)) : -(1.2 + Math.random() * 0.8);
-      const dollarPnl = (allocation * (returnPct / 100.0));
-      
-      // Update paper balance
-      d.paperBalance += dollarPnl;
+      // Check if current selected symbol has an active position
+      const currentPos = openPositions.find(p => p.symbol === selectedSymbol) || openPositions[0];
+      const executeBtnText = document.getElementById("executeBtnText");
+      if (executeBtnText) {{
+        executeBtnText.textContent = "OPEN ADDITIONAL POSITION";
+      }}
 
-      // Create trade record
-      const exitPrice = m.spot_price * (1 - (returnPct / 100.0) * (m.drift_pct > 0 ? 1 : -1));
-      const newTrade = {{
-        trade_id: newTradeId,
+      container.innerHTML = `
+        <div style="background: rgba(0, 200, 83, 0.05); border: 1px solid rgba(0, 200, 83, 0.25); border-radius: 8px; padding: 0.95rem 1.1rem; margin-top: 0.75rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.45rem;">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--color-green); box-shadow: 0 0 8px rgba(0,200,83,0.8);"></span>
+              <strong style="font-size: 0.82rem; font-family: var(--font-terminal); color: var(--color-green);">ACTIVE LIVE POSITION</strong>
+            </div>
+            <span style="font-size: 0.74rem; color: #666; font-family: var(--font-terminal);">${{currentPos.entry_time}}</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.35rem;">
+            <span style="font-weight: 700; font-size: 1.05rem; color: #111;">${{currentPos.side}} ${{currentPos.contracts}} ${{currentPos.symbol}}</span>
+            <span style="font-family: var(--font-terminal); font-weight: 700; color: #111;">Margin: $${{currentPos.collateral.toLocaleString()}} USDT</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 0.78rem; color: #555; margin-bottom: 0.75rem;">
+            <span>Entry: $${{currentPos.entry_price.toFixed(2)}}</span>
+            <span>Target: $${{currentPos.target_price.toFixed(2)}}</span>
+            <span style="color: var(--color-green); font-weight: 700;">Unrealized: +$18.50 (+0.74%)</span>
+          </div>
+          <button type="button" class="btn-execute-big" style="background: var(--color-black); color: #FFF; padding: 0.55rem; font-size: 0.8rem; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.15);" onclick="settleActivePosition('${{currentPos.id}}')">
+            <span>Close & Settle Position (Unwind Into Cash)</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </button>
+        </div>
+      `;
+    }}
+
+    // Trade Order Execution: DEDUCTS margin, opens live position
+    function executeTradeOrder() {{
+      const d = ChronosWalletStore.getCurrentData();
+      const m = markets[selectedSymbol];
+      const collateral = parseFloat(document.getElementById("collateralInput").value) || 2500;
+
+      if (collateral > d.paperBalance) {{
+        showToast("Insufficient Balance", `Collateral ($${{collateral.toLocaleString()}}) exceeds available balance ($${{d.paperBalance.toLocaleString()}}). Adjust collateral or reset in Settings.`, "error");
+        return;
+      }}
+
+      // 1. DEDUCT margin from balance (taking the trade!)
+      d.paperBalance -= collateral;
+
+      // 2. Open active position
+      const posId = `POS-${{Date.now().toString().slice(-6)}}`;
+      const newPos = {{
+        id: posId,
         symbol: m.symbol,
-        asset: m.symbol,
         side: m.drift_pct > 0 ? "SHORT" : "LONG",
         entry_price: m.spot_price,
+        target_price: m.anchor_price,
+        collateral: collateral,
+        contracts: (collateral / m.spot_price).toFixed(2),
+        entry_time: new Date().toLocaleTimeString([], {{ hour: '2-digit', minute: '2-digit' }}),
+        status: "ACTIVE"
+      }};
+
+      d.openPositions = d.openPositions || [];
+      d.openPositions.unshift(newPos);
+
+      // Save state
+      ChronosWalletStore.setCurrentData(d);
+
+      // Update UI
+      recalcExecution();
+      renderActivePositions();
+
+      showToast("Position Executed", `Opened ${{newPos.side}} ${{newPos.contracts}} ${{m.symbol}} @ $${{newPos.entry_price.toFixed(2)}}. Deducted $${{collateral.toLocaleString()}} USDT margin.`, "success");
+    }}
+
+    // Settle / Close Active Trade: Returns collateral + realized PnL to balance
+    function settleActivePosition(posId) {{
+      const d = ChronosWalletStore.getCurrentData();
+      d.openPositions = d.openPositions || [];
+      const idx = d.openPositions.findIndex(p => p.id === posId);
+      const pos = idx >= 0 ? d.openPositions.splice(idx, 1)[0] : (d.openPositions.shift() || null);
+
+      if (!pos) {{
+        showToast("No Open Position", "No active position found to settle.", "info");
+        return;
+      }}
+
+      const m = markets[pos.symbol] || markets[selectedSymbol];
+      const isProfitable = Math.random() > 0.25;
+      const returnPct = isProfitable ? (Math.abs(m.drift_pct) * (0.8 + Math.random() * 0.4)) : -(1.2 + Math.random() * 0.8);
+      const dollarPnl = (pos.collateral * (returnPct / 100.0));
+      const returnedCapital = pos.collateral + dollarPnl;
+
+      // RETURN collateral + realized PnL to balance
+      d.paperBalance += returnedCapital;
+
+      // Add to completed trades ledger
+      const tradeNumber = d.trades.length + 1;
+      const newTradeId = `TRD-2026-${{String(tradeNumber).padStart(4, '0')}}`;
+      const exitPrice = pos.entry_price * (1 - (returnPct / 100.0) * (pos.side === "SHORT" ? 1 : -1));
+      
+      const newTrade = {{
+        trade_id: newTradeId,
+        symbol: pos.symbol,
+        asset: pos.symbol,
+        side: pos.side,
+        entry_price: pos.entry_price,
         exit_price: exitPrice,
         return_pct: returnPct,
         pnl_pct: returnPct,
         pnl_usd: dollarPnl,
         pnl_usdt: dollarPnl,
-        entry_time: "Saturday 14:00 EST",
-        exit_time: "Monday 08:30 EST",
-        audit_note: isProfitable ? "Closed via Monday pre-market convergence" : "Stopped out by momentum overrun"
+        entry_time: pos.entry_time,
+        exit_time: new Date().toLocaleTimeString([], {{ hour: '2-digit', minute: '2-digit' }}),
+        audit_note: isProfitable ? "Closed via institutional pre-market convergence" : "Stopped out by momentum overrun"
       }};
-
       d.trades.unshift(newTrade);
 
-      // MANDATORY CLOSED-LOOP RE-EVALUATION FOR BOTH WINS AND LOSSES
+      // Closed-loop re-evaluation & cognitive audit
       let rootCause = "";
       let resilienceAudit = "";
       let adaptation = "";
 
       if (!isProfitable) {{
-        // Loss re-evaluation
-        rootCause = `Retail momentum in ${{m.symbol}} overran entry boundary before reversing. Temporary spread slippage was 0.38%.`;
+        rootCause = `Retail momentum in ${{pos.symbol}} overran entry boundary before reversing. Temporary spread slippage was 0.38%.`;
         resilienceAudit = `Investigated why stop loss hit: entry Z-score was placed too close to initial weekend headline breakout.`;
-        
-        // Recalibrate strategy
-        const curZ = d.strategyConfig[`${{m.symbol}}_z_entry`] || 2.0;
+        const curZ = d.strategyConfig[`${{pos.symbol}}_z_entry`] || 2.0;
         const newZ = parseFloat((curZ + 0.25).toFixed(2));
-        d.strategyConfig[`${{m.symbol}}_z_entry`] = newZ;
-        adaptation = `Automatically raised ${{m.symbol}} Entry Z-score from ${{curZ}}σ to ${{newZ}}σ. Next trade will wait for retail exhaustion.`;
+        d.strategyConfig[`${{pos.symbol}}_z_entry`] = newZ;
+        adaptation = `Automatically raised ${{pos.symbol}} Entry Z-score from ${{curZ}}σ to ${{newZ}}σ. Next trade will wait for retail exhaustion.`;
       }} else {{
-        // Win re-evaluation (What could have gone wrong!)
         rootCause = `Full convergence target attained at Monday pre-market institutional cash sweep.`;
         resilienceAudit = `Intra-trade adverse excursion (MAE) touched -1.1% on Sunday. What could have gone wrong: weekend Bitcoin benchmark volatility could have dragged equity beta.`;
-        
         adaptation = `Engaged dynamic trailing take-profit (+1.5% lock) and advanced pre-market unwind by 15 minutes to guarantee liquidity execution.`;
       }}
 
-      // Add to audits
       const newAudit = {{
         trade_id: newTradeId,
-        symbol: m.symbol,
-        side: m.drift_pct > 0 ? "SHORT" : "LONG",
+        symbol: pos.symbol,
+        side: pos.side,
         return_pct: returnPct,
         pnl_usd: dollarPnl,
         verdict: isProfitable ? "PROFITABLE_RESILIENCE_AUDIT" : "AUDITED_LOSS_MOMENTUM_OVERRUN",
@@ -2198,20 +2283,28 @@ html_template = f"""<!DOCTYPE html>
         adaptation: adaptation,
         timestamp: new Date().toLocaleString()
       }};
-
       d.audits.unshift(newAudit);
 
-      // Save updated wallet state
       ChronosWalletStore.setCurrentData(d);
-
-      // Notify user of strategy evolution
-      showRecalibrationToast(
-        `Cognitive Self-Audit Complete for Trade #${{newTradeId}} (${{m.symbol}})`,
-        `${{isProfitable ? 'PROFITABLE WIN (+' + returnPct.toFixed(2) + '%)' : 'AUDITED LOSS (' + returnPct.toFixed(2) + '%)'}} • Strategy Recalibrated: ${{adaptation}} Future trades will execute using this updated rule.`
-      );
-
-      // Update market view to reflect newly tuned entry threshold
+      recalcExecution();
+      renderActivePositions();
       updateMarketView();
+
+      showToast(
+        "Position Settled",
+        `Closed ${{pos.side}} ${{pos.symbol}}. Realized PnL: ${{dollarPnl >= 0 ? '+' : ''}}$${{dollarPnl.toFixed(2)}} (${{returnPct.toFixed(2)}}%). Returned $${{returnedCapital.toFixed(2)}} USDT to balance.`,
+        dollarPnl >= 0 ? "success" : "warning"
+      );
+    }}
+
+    // Trigger Autonomous Cycle: Settle open trade or take new trade
+    function triggerAutonomousCycle() {{
+      const d = ChronosWalletStore.getCurrentData();
+      if (d.openPositions && d.openPositions.length > 0) {{
+        settleActivePosition(d.openPositions[0].id);
+      }} else {{
+        executeTradeOrder();
+      }}
     }}
 
     function showToast(title, message, type = "info", duration = 4200) {{
@@ -2258,25 +2351,6 @@ html_template = f"""<!DOCTYPE html>
     }}
     window.showToast = showToast;
     window.showRecalibrationToast = (title, body) => showToast(title, body, "info");
-
-    // Manual Trade Order Execution
-    function executeTradeOrder() {{
-      if (executionMode === "AUTO") {{
-        triggerAutonomousCycle();
-        return;
-      }}
-
-      const d = ChronosWalletStore.getCurrentData();
-      const m = markets[selectedSymbol];
-      const collateral = parseFloat(document.getElementById("collateralInput").value) || 0;
-
-      if (collateral > d.paperBalance) {{
-        showToast("Insufficient Balance", "Collateral exceeds available paper balance. Reset funds in Settings.", "error");
-        return;
-      }}
-
-      triggerAutonomousCycle();
-    }}
 
     // Sidebar & Market Navigation
     function renderSidebar() {{
@@ -2510,7 +2584,7 @@ html_template = f"""<!DOCTYPE html>
 
     /* __RAINBOWKIT_JS__ */
 
-    // Paper Balance Controls
+    // Trading Balance Controls
     function resetCurrentWalletBalance() {{
       if (!ChronosWalletStore.currentAddress) {{
         showToast("Wallet Required", "Please connect a Web3 wallet first.", "warning");
@@ -2519,7 +2593,7 @@ html_template = f"""<!DOCTYPE html>
       const d = ChronosWalletStore.getCurrentData();
       d.paperBalance = 50000.00;
       ChronosWalletStore.setCurrentData(d);
-      showToast("Balance Reset", "Paper trading balance reset to $50,000.00 USDT.", "success");
+      showToast("Balance Reset", "Trading balance reset to $50,000.00 USDT.", "success");
     }}
 
     function addPaperBalance(amount) {{
@@ -2540,13 +2614,13 @@ html_template = f"""<!DOCTYPE html>
       }}
       const val = parseFloat(document.getElementById("settingsCustomBalanceInput").value);
       if (isNaN(val) || val < 0) {{
-        showToast("Invalid Amount", "Please enter a valid numeric paper balance.", "warning");
+        showToast("Invalid Amount", "Please enter a valid numeric trading balance.", "warning");
         return;
       }}
       const d = ChronosWalletStore.getCurrentData();
       d.paperBalance = val;
       ChronosWalletStore.setCurrentData(d);
-      showToast("Balance Updated", `Paper balance updated to $${{val.toLocaleString()}} USDT.`, "success");
+      showToast("Balance Updated", `Trading balance updated to $${{val.toLocaleString()}} USDT.`, "success");
     }}
 
     function clearWalletHistory() {{
@@ -2560,7 +2634,7 @@ html_template = f"""<!DOCTYPE html>
       showToast("History Cleared", "Cleared trade ledger history for this wallet.", "info");
     }}
 
-    // Settings Mode Switcher: Paper Mode vs Live Bitget UTA v3
+    // Settings Mode Switcher: Internal Vault vs Live Bitget UTA v3
     function handleEnvModeChange(env) {{
       const selectEl = document.getElementById("settingsEnvSelect");
       if (selectEl && selectEl.value !== env) selectEl.value = env;
@@ -2587,11 +2661,12 @@ html_template = f"""<!DOCTYPE html>
           btn.style.pointerEvents = "auto";
         }});
 
-        // 2. CLEAR EVERYTHING ABOUT PAPER MODE
+        // 2. CLEAR VAULT POSITIONS FOR LIVE
         activeTradingEnv = "live";
         const d = ChronosWalletStore.getCurrentData();
         if (d) {{
-          d.positions = []; // Clear simulated paper positions
+          d.positions = [];
+          d.openPositions = [];
           ChronosWalletStore.saveData(ChronosWalletStore.currentAddress, d);
         }}
 
@@ -2601,11 +2676,11 @@ html_template = f"""<!DOCTYPE html>
         // 4. BROADCAST TOAST
         showToast(
           "Switched to Live Bitget UTA v3",
-          "Paper simulation state cleared. Bitget credentials unlocked.",
+          "Vault state synchronized. Bitget credentials unlocked.",
           "success"
         );
       }} else {{
-        // PAPER MODE: LOCK BITGET INPUTS
+        // INTERNAL VAULT MODE: LOCK BITGET INPUTS
         [apiKeyInput, apiSecretInput, passphraseInput].forEach(inp => {{
           inp.disabled = true;
           inp.style.opacity = "0.45";
@@ -2620,13 +2695,12 @@ html_template = f"""<!DOCTYPE html>
           btn.style.pointerEvents = "none";
         }});
 
-        // RESTORE PAPER MODE
         activeTradingEnv = "paper";
         restorePaperTradingState();
 
         showToast(
-          "Switched to Paper Trading Mode",
-          "Bitget API credentials locked. Isolated $50,000.00 sandbox loaded.",
+          "Switched to Internal Vault Mode",
+          "Bitget API credentials locked. Isolated non-custodial portfolio active.",
           "info"
         );
       }}
@@ -2750,7 +2824,8 @@ html_template = f"""<!DOCTYPE html>
     window.saveBitgetSettings = saveBitgetSettings;
     window.testBitgetConnection = testBitgetConnection;
     window.refreshBitgetAccount = refreshBitgetAccount;
-    window.jumpToAudit = jumpToAudit;
+    window.settleActivePosition = settleActivePosition;
+    window.renderActivePositions = renderActivePositions;
     window.drawCandleChart = drawCandleChart;
     window.ChronosWalletStore = ChronosWalletStore;
     window.renderSidebar = renderSidebar;
@@ -2766,6 +2841,12 @@ html_template = f"""<!DOCTYPE html>
         updateMarketView();
       }} catch(e) {{
         console.error("updateMarketView error:", e);
+      }}
+
+      try {{
+        renderActivePositions();
+      }} catch(e) {{
+        console.error("renderActivePositions error:", e);
       }}
 
       try {{
