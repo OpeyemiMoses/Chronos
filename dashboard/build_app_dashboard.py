@@ -1677,7 +1677,8 @@ html_template = f"""<!DOCTYPE html>
       }},
 
       getKey(addr) {{
-        return "chronos_wallet_" + addr.toLowerCase();
+        const a = addr || "sandbox";
+        return "chronos_wallet_" + a.toLowerCase();
       }},
 
       getData(addr) {{
@@ -1691,10 +1692,11 @@ html_template = f"""<!DOCTYPE html>
       }},
 
       ensureWalletInitialized(addr) {{
-        let d = this.getData(addr);
+        const target = addr || "sandbox";
+        let d = this.getData(target);
         if (!d) {{
           d = {{
-            address: addr,
+            address: target,
             paperBalance: 50000.00,
             initialBalance: 50000.00,
             positions: [],
@@ -1804,27 +1806,29 @@ html_template = f"""<!DOCTYPE html>
           <div class="rainbow-connected-pill" onclick="toggleWalletDropdown(event)">
             <div class="rainbow-chain-chip">
               <span class="rainbow-chain-dot"></span>
-              <span>Ethereum</span>
+              <span id="headerChainSpan">Ethereum</span>
             </div>
             <div class="rainbow-balance-chip">
-              <span>$${{d.paperBalance.toLocaleString('en-US', {{minimumFractionDigits: 2, maximumFractionDigits: 2}})}}</span>
+              <span id="headerBalanceChipSpan">$${{d.paperBalance.toLocaleString('en-US', {{minimumFractionDigits: 2, maximumFractionDigits: 2}})}}</span>
             </div>
             <div class="rainbow-account-chip">
               <span class="rainbow-avatar-circle"></span>
-              <span>${{shortAddr}}</span>
+              <span id="headerAccountSpan">${{shortAddr}}</span>
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m6 9 6 6 6-6"/></svg>
             </div>
           </div>
         `;
 
-        document.getElementById("dropdownWalletAddr").textContent = shortAddr;
-        document.getElementById("dropdownPaperBalance").textContent = `$${{d.paperBalance.toLocaleString('en-US', {{minimumFractionDigits: 2}})}} USDT`;
+        const dropAddr = document.getElementById("dropdownWalletAddr");
+        if (dropAddr) dropAddr.textContent = shortAddr;
+        const dropBal = document.getElementById("dropdownPaperBalance");
+        if (dropBal) dropBal.textContent = `$${{d.paperBalance.toLocaleString('en-US', {{minimumFractionDigits: 2}})}} USDT`;
       }},
 
       syncActiveView() {{
-        if (!this.currentAddress) return;
         const d = this.getCurrentData();
-        
+        if (!d) return;
+
         // Arena displays
         const balStr = `$${{d.paperBalance.toLocaleString('en-US', {{minimumFractionDigits: 2}})}}`;
         if (document.getElementById("availBalanceDisplay")) {{
@@ -1847,13 +1851,13 @@ html_template = f"""<!DOCTYPE html>
 
         // Settings displays
         if (document.getElementById("settingsWalletAddress")) {{
-          document.getElementById("settingsWalletAddress").textContent = this.currentAddress;
+          document.getElementById("settingsWalletAddress").textContent = this.currentAddress ? this.currentAddress : "Sandbox Mode (Connect Wallet)";
         }}
         if (document.getElementById("settingsPaperBalanceDisplay")) {{
           document.getElementById("settingsPaperBalanceDisplay").textContent = balStr + " USDT";
         }}
         if (document.getElementById("ledgerWalletAddressLabel")) {{
-          document.getElementById("ledgerWalletAddressLabel").textContent = this.currentAddress.slice(0, 6) + "..." + this.currentAddress.slice(-4);
+          document.getElementById("ledgerWalletAddressLabel").textContent = this.currentAddress ? (this.currentAddress.slice(0, 6) + "..." + this.currentAddress.slice(-4)) : "Sandbox Mode";
         }}
 
         // Re-render Auditor and Ledger
@@ -2785,7 +2789,7 @@ html_template = f"""<!DOCTYPE html>
     function testBitgetConnection() {{
       const key = document.getElementById("settingsApiKey").value.trim();
       if (!key) return alert("Please enter your Bitget API Key to test connection.");
-      alert("[BITGET UTA v3 CONNECTION TEST SUCCESSFUL]\nLatency: 14ms\nPermissions: Read / Trade\nAccount Status: NORMAL");
+      alert(`[BITGET UTA v3 CONNECTION TEST SUCCESSFUL]\\nLatency: 14ms\\nPermissions: Read / Trade\\nAccount Status: NORMAL`);
     }}
 
     function refreshBitgetAccount() {{
@@ -2808,7 +2812,7 @@ html_template = f"""<!DOCTYPE html>
         ChronosWalletStore.setCurrentData(d);
       }}
 
-      alert(`[BITGET GATEWAY CONFIGURATION SAVED]\nEnvironment: ${{env === 'live' ? 'Live Capital (Bitget UTA v3)' : 'Paper Mode Simulation'}}\nHMAC-SHA256 non-custodial headers active.`);
+      alert(`[BITGET GATEWAY CONFIGURATION SAVED]\\nEnvironment: ${{env === 'live' ? 'Live Capital (Bitget UTA v3)' : 'Paper Mode Simulation'}}\\nHMAC-SHA256 non-custodial headers active.`);
     }}
     window.addEventListener("resize", drawCandleChart);
     window.addEventListener("DOMContentLoaded", () => {{
