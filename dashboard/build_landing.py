@@ -216,9 +216,10 @@ html_content = f"""<!DOCTYPE html>
     }}
 
     .container {{
-      max-width: 1240px;
+      max-width: 1560px;
+      width: calc(100% - 2.5rem);
       margin: 0 auto;
-      padding: 0 1.5rem;
+      padding: 0 1.25rem;
     }}
 
     .font-serif {{
@@ -390,20 +391,21 @@ html_content = f"""<!DOCTYPE html>
     }}
 
     .section-desc {{
-      font-size: 0.86rem !important;
+      font-size: 0.88rem !important;
       color: var(--color-grey-text);
-      max-width: 640px;
+      max-width: 880px;
       line-height: 1.55 !important;
     }}
 
     .hero-h1 {{
       font-family: var(--font-serif-editorial);
-      font-size: 2.65rem !important;
+      font-size: 2.85rem !important;
       font-weight: 700;
       line-height: 1.12 !important;
       letter-spacing: -0.02em;
       color: var(--color-black);
       margin-bottom: 0.85rem !important;
+      max-width: 1040px !important;
     }}
 
     .hero-h1 em {{
@@ -411,15 +413,15 @@ html_content = f"""<!DOCTYPE html>
     }}
 
     .hero-subtext {{
-      font-size: 0.92rem !important;
+      font-size: 1.02rem !important;
       color: var(--color-grey-text);
       line-height: 1.6 !important;
       margin-bottom: 1.5rem !important;
-      max-width: 540px;
+      max-width: 820px !important;
     }}
 
     .landing-hero-container {{
-      padding: 6.5rem 0 2.5rem !important;
+      padding: 5.5rem 0 2rem !important;
       text-align: center;
     }}
 
@@ -783,10 +785,10 @@ html_content = f"""<!DOCTYPE html>
         <a href="#guardrails">Guardrails</a>
       </nav>
 
-      <!-- Right: Launch Terminal Button -->
+      <!-- Right: Launch Dashboard Button -->
       <div style="display: flex; align-items: center; gap: 0.65rem;">
         <button class="btn-launch-black" onclick="smoothNavigate('app.html')">
-          <span>Launch Terminal</span>
+          <span>Launch Dashboard</span>
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </button>
       </div>
@@ -795,23 +797,23 @@ html_content = f"""<!DOCTYPE html>
 
   <!-- Hero Section -->
   <section class="landing-hero-container container" id="hero">
-    <div class="hero-pop" style="max-width: 860px; margin: 0 auto; text-align: center;">
+    <div class="hero-pop" style="max-width: 1140px; margin: 0 auto; text-align: center;">
       <div style="display: inline-flex; align-items: center; gap: 0.45rem; margin-bottom: 1.1rem; font-family: var(--font-terminal); font-size: 0.72rem; color: #10B981; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;">
         <span style="width: 6px; height: 6px; border-radius: 50%; background-color: #10B981; display: inline-block;"></span>
         <span>Track 1: Alpha Factory · After-Hours Information Pricing</span>
       </div>
-      <h1 class="hero-h1" style="font-size: clamp(2.5rem, 4.8vw, 3.8rem); line-height: 1.12; max-width: 860px; margin: 0 auto 1.15rem;">
+      <h1 class="hero-h1" style="font-size: clamp(2.5rem, 4.8vw, 3.8rem); line-height: 1.12; max-width: 1040px; margin: 0 auto 1.15rem;">
         Autonomous After-Hours<br>
         <em>Information Pricing</em> &<br>
         Convergence Engine.
       </h1>
-      <p class="hero-subtext" style="font-size: 1.02rem; line-height: 1.65; max-width: 660px; margin: 0 auto 1.85rem;">
+      <p class="hero-subtext" style="font-size: 1.02rem; line-height: 1.65; max-width: 820px; margin: 0 auto 1.85rem;">
         Chronos monetizes the 128-hour weekly closure gap of traditional equity markets by capturing retail price dislocations across tokenized U.S. equities (rTokens) and harvesting mean-reversion profits during Monday institutional pre-market liquidity.
       </p>
 
       <div style="display: flex; align-items: center; justify-content: center; gap: 0.85rem; flex-wrap: wrap;">
         <button class="btn-launch-black" onclick="smoothNavigate('app.html')">
-          <span>Launch Web3 Terminal</span>
+          <span>Launch Dashboard</span>
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </button>
         <a href="#platform" class="btn-docs-grey">
@@ -1151,7 +1153,7 @@ html_content = f"""<!DOCTYPE html>
         </div>
         <div style="display: flex; align-items: center; gap: 0.75rem;">
           <button class="btn-launch-black" onclick="window.location.href='app.html'">
-            <span>Launch Web3 Terminal</span>
+            <span>Launch Dashboard</span>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </button>
         </div>
@@ -1248,7 +1250,7 @@ html_content = f"""<!DOCTYPE html>
             </ul>
           </div>
           <button class="btn-docs-grey" style="width: 100%; justify-content: center;" onclick="window.location.href='app.html'">
-            <span>Launch Web3 Terminal ($50k) →</span>
+            <span>Launch Dashboard ($50k) →</span>
           </button>
         </div>
       </div>
@@ -1451,12 +1453,12 @@ html_content = f"""<!DOCTYPE html>
         <h2 style="font-family: var(--font-serif-editorial); font-size: 1.75rem; font-weight: 600; line-height: 1.2; margin-bottom: 0.65rem; color: #FFF;">
           Deploy Institutional After-Hours Alpha
         </h2>
-        <p style="font-size: 0.85rem; color: #9CA3AF; max-width: 560px; margin: 0 auto 1.5rem; line-height: 1.55;">
+        <p style="font-size: 0.85rem; color: #9CA3AF; max-width: 780px; margin: 0 auto 1.5rem; line-height: 1.55;">
           Continuous statistical arbitrage across tokenized equities. Seamlessly integrated with Bitget UTA v3 and official Bitget MCP tools.
         </p>
         <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
           <button class="btn-launch-white" onclick="smoothNavigate('app.html')">
-            <span>Launch Web3 Terminal</span>
+            <span>Launch Dashboard</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </button>
           <a href="https://github.com/OpeyemiMoses/Chronos" target="_blank" class="btn-pill-dark-outline" style="text-decoration: none;">
@@ -1474,7 +1476,7 @@ html_content = f"""<!DOCTYPE html>
       <div class="footer-grid-container" style="display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
         <div>
           <img src="assets/chronos_logo.svg" alt="Chronos" style="height: 28px; margin-bottom: 0.75rem;">
-          <p style="font-size: 0.88rem; color: var(--color-grey-text); max-width: 320px; line-height: 1.6;">
+          <p style="font-size: 0.88rem; color: var(--color-grey-text); max-width: 440px; line-height: 1.6;">
             Chronos is an autonomous quantitative trading engine for Bitget AI Base Camp Season 2, Track 1: Alpha Factory. Specializing in 24/7 After-Hours Information Pricing on tokenized U.S. equities.
           </p>
           <div style="margin-top: 1rem; font-family: var(--font-terminal); font-size: 0.72rem; color: #71717A; letter-spacing: 0.04em;">
@@ -1496,7 +1498,7 @@ html_content = f"""<!DOCTYPE html>
           <h5 style="font-family: var(--font-terminal); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1.1rem;">Hackathon</h5>
           <ul style="list-style: none; font-size: 0.88rem; color: var(--color-grey-text); display: flex; flex-direction: column; gap: 0.6rem;">
             <li><a href="https://github.com/OpeyemiMoses/Chronos" target="_blank" style="color: inherit; text-decoration: none;">GitHub Repository</a></li>
-            <li><a href="app.html" style="color: inherit; text-decoration: none;">Unified Web3 Terminal</a></li>
+            <li><a href="app.html" style="color: inherit; text-decoration: none;">Live Trading Dashboard</a></li>
             <li><a href="app.html#auditor" style="color: inherit; text-decoration: none;">Cognitive Self-Auditor</a></li>
             <li><a href="app.html#settings" style="color: inherit; text-decoration: none;">Autonomous Settings</a></li>
           </ul>

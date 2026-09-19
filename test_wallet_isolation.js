@@ -247,6 +247,28 @@ if (aliceUpdatedCfg.agentConfig.maxTrades !== 3 || aliceUpdatedCfg.agentConfig.c
   process.exit(1);
 }
 
+console.log('Sidebar badge for 3 trades:', elements['sidebarTradesBadge']?.textContent);
+console.log('Overview cap badge for 3 trades:', elements['overviewWeekendCapBadge']?.textContent);
+console.log('Sidebar nav text for 3 trades:', elements['sidebarTradesNavText']?.textContent);
+console.log('Trades page title for 3 trades:', elements['tradesPageTitle']?.textContent);
+
+if (elements['overviewWeekendCapBadge']?.textContent !== 'WEEKEND CAP: 3 TRADES') {
+  console.error('FAIL: overviewWeekendCapBadge should be WEEKEND CAP: 3 TRADES, got:', elements['overviewWeekendCapBadge']?.textContent);
+  process.exit(1);
+}
+if (elements['sidebarTradesBadge']?.textContent !== '0/3') {
+  console.error('FAIL: sidebarTradesBadge should be 0/3, got:', elements['sidebarTradesBadge']?.textContent);
+  process.exit(1);
+}
+if (elements['sidebarTradesNavText']?.textContent !== '3-Trade Strategy') {
+  console.error('FAIL: sidebarTradesNavText should be 3-Trade Strategy, got:', elements['sidebarTradesNavText']?.textContent);
+  process.exit(1);
+}
+if (elements['tradesPageTitle']?.textContent !== 'Active 3-Trade Weekend Portfolio') {
+  console.error('FAIL: tradesPageTitle should be Active 3-Trade Weekend Portfolio, got:', elements['tradesPageTitle']?.textContent);
+  process.exit(1);
+}
+
 console.log('--- TEST 10: Strategy Clearance Engine Test ---');
 const clearanceResult = verifyStrategyClearance('rNVDA');
 console.log('rNVDA Strategy Clearance:', clearanceResult.cleared, clearanceResult.reason);

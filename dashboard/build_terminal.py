@@ -3014,7 +3014,7 @@ html_template = f"""<!DOCTYPE html>
 
           <div class="ghost-nav-item" id="navItemTrades" onclick="switchView('trades', this)">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-            <span class="ghost-nav-text">5-Trade Strategy</span>
+            <span class="ghost-nav-text" id="sidebarTradesNavText">5-Trade Strategy</span>
             <span class="ghost-nav-badge" id="sidebarTradesBadge" style="background: rgba(16, 185, 129, 0.2); color: #34D399;">0/5</span>
           </div>
 
@@ -3074,7 +3074,7 @@ html_template = f"""<!DOCTYPE html>
       <!-- Top Running Banner & Header Controls -->
       <div class="ghost-top-bar" id="ghostTopBar">
         <div class="ghost-running-banner">
-          BITGET UTA v3 SPOT ORACLE · 24/7 TOKENIZED EQUITIES · RESIDUAL DRIFT ARBITRAGE · 5-TRADE WEEKEND CAP
+          BITGET UTA v3 SPOT ORACLE · 24/7 TOKENIZED EQUITIES · RESIDUAL DRIFT ARBITRAGE · AUTONOMOUS WEEKEND CAP
         </div>
 
         <div class="ghost-top-controls">
@@ -3113,7 +3113,7 @@ html_template = f"""<!DOCTYPE html>
               <div class="overview-kpi-icon">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
               </div>
-              <span class="overview-kpi-badge">WEEKEND CAP: 5 TRADES</span>
+              <span class="overview-kpi-badge" id="overviewWeekendCapBadge">WEEKEND CAP: 5 TRADES</span>
             </div>
             <div class="overview-kpi-mid">
               <div class="overview-kpi-pill">
@@ -3186,7 +3186,7 @@ html_template = f"""<!DOCTYPE html>
           <div class="overview-main-card">
             <div>
               <h2 class="overview-card-h2">Your Autonomous Weekend Position is Active</h2>
-              <p class="overview-card-desc">Trades are placed sequentially only when statistical drift clears (|Z| ≥ 2.0σ). Maximum 5 trades per weekend to enforce disciplined portfolio risk sizing.</p>
+              <p class="overview-card-desc" id="overviewCardDescCap">Trades are placed sequentially only when statistical drift clears (|Z| ≥ 2.0σ). Disciplined portfolio risk sizing enforced per weekend.</p>
 
               <!-- Dynamic callout: updated by renderOverviewDynamic() -->
               <div id="overviewActiveCallout" class="overview-inner-callout">
@@ -3247,7 +3247,7 @@ html_template = f"""<!DOCTYPE html>
                   </tr>
                   <tr>
                     <td class="label">Weekend Cap Limit</td>
-                    <td class="val" style="color: #D97706;">Max 5 Trades (Sequential)</td>
+                    <td class="val" style="color: #D97706;" id="overviewWeekendCapLimitCell">Max 5 Trades (Sequential)</td>
                   </tr>
                   <tr>
                     <td class="label">Principal Safety</td>
@@ -3269,7 +3269,7 @@ html_template = f"""<!DOCTYPE html>
           <div class="overview-main-card">
             <div>
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-                <span class="overview-kpi-badge" style="background: #F4EFE6; border: 1px solid #EEE9DF; border-radius: 9999px; padding: 0.25rem 0.65rem;">5-Trade Sequential Architecture</span>
+                <span class="overview-kpi-badge" id="overviewArchBadge" style="background: #F4EFE6; border: 1px solid #EEE9DF; border-radius: 9999px; padding: 0.25rem 0.65rem;">5-Trade Sequential Architecture</span>
                 <span style="font-family: var(--font-terminal); font-size: 0.72rem; color: #71717A;">Risk-Parity Volatility Sized</span>
               </div>
               <h2 class="overview-card-h2">Active Weekend Alpha Trades</h2>
@@ -3281,7 +3281,7 @@ html_template = f"""<!DOCTYPE html>
               </div>
 
               <!-- Warm Callout Strip -->
-              <div class="warm-callout-strip">
+              <div class="warm-callout-strip" id="overviewCapCallout">
                 <span class="ghost-status-dot" style="display:inline-block; vertical-align:middle; margin-right:4px;"></span><strong>5-Trade Cap Active:</strong> Maximum 5 trades allowed per weekend. Positions are entered only when the individual asset's dislocation clears, preventing simultaneous capital over-commitment.
               </div>
             </div>
@@ -3702,7 +3702,7 @@ html_template = f"""<!DOCTYPE html>
             </button>
             <div style="display: flex; align-items: center; gap: 0.4rem; font-family: var(--font-terminal); font-size: 0.72rem; color: #71717A;">
               <span class="ghost-status-dot"></span>
-              <span>5-TRADE SEQUENTIAL ARCHITECTURE</span>
+              <span id="tradesArchLabel">5-TRADE SEQUENTIAL ARCHITECTURE</span>
               <span style="color: #D4CEBF;">/</span>
               <span style="color: #18181B; font-weight: 600;" id="tradesHeaderSubtitle">Active Weekend Portfolio (0/5 Deployed)</span>
             </div>
@@ -3715,8 +3715,8 @@ html_template = f"""<!DOCTYPE html>
 
         <!-- Page Header -->
         <div style="margin-bottom: 1.15rem;">
-          <h1 class="market-title" style="margin-bottom: 0.35rem;">Active 5-Trade Weekend Portfolio</h1>
-          <p class="market-subtitle">
+          <h1 class="market-title" id="tradesPageTitle" style="margin-bottom: 0.35rem;">Active 5-Trade Weekend Portfolio</h1>
+          <p class="market-subtitle" id="tradesPageSubtitle">
             Maximum 5 trades permitted per weekend. Trades deploy sequentially only when individual statistical dislocation clears (|Z| ≥ 2.0σ), sized via risk-parity volatility weighting, and cash-settled into 100% USDT at Monday institutional pre-market open.
           </p>
         </div>
@@ -4234,7 +4234,7 @@ html_template = f"""<!DOCTYPE html>
 
       <!-- Modal Footer -->
       <div class="trade-reasoning-footer">
-        <div style="font-family: var(--font-terminal); font-size: 0.72rem; color: #64748B;">
+        <div id="modalCapEnforcedText" style="font-family: var(--font-terminal); font-size: 0.72rem; color: #64748B;">
           Chronos Autonomous Execution Engine • Strict 5-Trade Weekend Cap Enforced
         </div>
         <button type="button" class="btn-execute-big" style="width: auto; padding: 0.5rem 1.45rem; font-size: 0.82rem; background: #0F172A; color: #FFFFFF; font-weight: 700; border-radius: 8px; border: 1px solid #0F172A;" onclick="closeTradeReasoningModal()">
@@ -4258,6 +4258,68 @@ html_template = f"""<!DOCTYPE html>
     window.selectedSymbol = "rNVDA";
     var executionMode = "AUTO"; // AUTO or MANUAL
     var chartViewMode = "candles";
+
+    // =========================================================================
+    // AUTONOMOUS AGENT CONFIGURATION & STRATEGY CLEARANCE CONSTANTS
+    // =========================================================================
+    var MAX_WEEKEND_TRADES = 5;
+    var AGENT_TRADE_COLLATERAL = 2500;
+
+    function getAgentConfig() {{
+      if (typeof ChronosWalletStore !== "undefined" && ChronosWalletStore.getCurrentData) {{
+        const d = ChronosWalletStore.getCurrentData();
+        if (d && d.agentConfig) {{
+          return {{
+            maxTrades: typeof d.agentConfig.maxTrades === "number" ? Math.max(1, Math.min(10, d.agentConfig.maxTrades)) : 5,
+            collateralPerTrade: typeof d.agentConfig.collateralPerTrade === "number" ? Math.max(100, d.agentConfig.collateralPerTrade) : 2500
+          }};
+        }}
+      }}
+      return {{ maxTrades: 5, collateralPerTrade: 2500 }};
+    }}
+
+    function syncAgentConfigSettings() {{
+      const cfg = getAgentConfig();
+      MAX_WEEKEND_TRADES = cfg.maxTrades;
+      AGENT_TRADE_COLLATERAL = cfg.collateralPerTrade;
+
+      const maxIn = document.getElementById("settingsAgentMaxTradesInput");
+      const maxRng = document.getElementById("settingsAgentMaxTradesRange");
+      const maxDsp = document.getElementById("settingsMaxTradesDisplay");
+      const colIn = document.getElementById("settingsAgentCollateralInput");
+      const colDsp = document.getElementById("settingsCollateralDisplay");
+      const expDsp = document.getElementById("settingsTotalMaxExposure");
+
+      if (maxIn) maxIn.value = MAX_WEEKEND_TRADES;
+      if (maxRng) maxRng.value = MAX_WEEKEND_TRADES;
+      if (maxDsp) maxDsp.textContent = `${{MAX_WEEKEND_TRADES}} Trade${{MAX_WEEKEND_TRADES !== 1 ? 's' : ''}}`;
+      if (colIn) colIn.value = AGENT_TRADE_COLLATERAL;
+      if (colDsp) colDsp.textContent = `$${{AGENT_TRADE_COLLATERAL.toLocaleString('en-US', {{ minimumFractionDigits: 2, maximumFractionDigits: 2 }})}} USDT`;
+      if (expDsp) expDsp.textContent = `$${{(MAX_WEEKEND_TRADES * AGENT_TRADE_COLLATERAL).toLocaleString('en-US', {{ minimumFractionDigits: 2, maximumFractionDigits: 2 }})}} USDT`;
+
+      const sidebarNav = document.getElementById("sidebarTradesNavText");
+      if (sidebarNav) sidebarNav.textContent = `${{MAX_WEEKEND_TRADES}}-Trade Strategy`;
+      const capBadge = document.getElementById("overviewWeekendCapBadge");
+      if (capBadge) capBadge.textContent = `WEEKEND CAP: ${{MAX_WEEKEND_TRADES}} TRADES`;
+      const capLimitCell = document.getElementById("overviewWeekendCapLimitCell");
+      if (capLimitCell) capLimitCell.textContent = `Max ${{MAX_WEEKEND_TRADES}} Trades (Sequential)`;
+      const archBadge = document.getElementById("overviewArchBadge");
+      if (archBadge) archBadge.textContent = `${{MAX_WEEKEND_TRADES}}-Trade Sequential Architecture`;
+      const capCallout = document.getElementById("overviewCapCallout");
+      if (capCallout) capCallout.innerHTML = `<span class="ghost-status-dot" style="display:inline-block; vertical-align:middle; margin-right:4px;"></span><strong>${{MAX_WEEKEND_TRADES}}-Trade Cap Active:</strong> Maximum ${{MAX_WEEKEND_TRADES}} trades allowed per weekend. Positions are entered only when the individual asset's dislocation clears, preventing simultaneous capital over-commitment.`;
+      const telCap = document.getElementById("telemetryCapacityLine");
+      if (telCap) telCap.textContent = `Autonomous ${{MAX_WEEKEND_TRADES}}-trade architecture active. Sequential entry enabled.`;
+      const quotaExp = document.getElementById("arenaQuotaExplainer");
+      if (quotaExp) quotaExp.textContent = `Autonomous AI agent is capped at ${{MAX_WEEKEND_TRADES}} sequential trades during weekends.`;
+      const tradesTitle = document.getElementById("tradesPageTitle");
+      if (tradesTitle) tradesTitle.textContent = `Active ${{MAX_WEEKEND_TRADES}}-Trade Weekend Portfolio`;
+      const tradesArch = document.getElementById("tradesArchLabel");
+      if (tradesArch) tradesArch.textContent = `${{MAX_WEEKEND_TRADES}}-TRADE SEQUENTIAL ARCHITECTURE`;
+      const tradesSub = document.getElementById("tradesPageSubtitle");
+      if (tradesSub) tradesSub.textContent = `Maximum ${{MAX_WEEKEND_TRADES}} trades permitted per weekend. Trades deploy sequentially only when individual statistical dislocation clears (|Z| ≥ 2.0σ), sized via risk-parity volatility weighting, and cash-settled into 100% USDT at Monday institutional pre-market open.`;
+      const modalCap = document.getElementById("modalCapEnforcedText");
+      if (modalCap) modalCap.textContent = `Chronos Autonomous Execution Engine • Strict ${{MAX_WEEKEND_TRADES}}-Trade Weekend Cap Enforced`;
+    }}
 
     // Chronos Wallet & Per-Wallet State Store
     const ChronosWalletStore = {{
@@ -4830,7 +4892,7 @@ html_template = f"""<!DOCTYPE html>
             `;
           }});
           // Remaining empty slots
-          for (let i = openCount; i < Math.min(openCount + 1, 5); i++) {{
+          for (let i = openCount; i < Math.min(openCount + 1, MAX_WEEKEND_TRADES); i++) {{
             boxesHtml += `
               <div class="overview-mini-box" style="border: 1px dashed #EEE9DF; background: #FAFAFA; opacity: 0.85;">
                 <span class="mini-box-tag">SLOT #${{i + 1}}</span>
@@ -4953,42 +5015,8 @@ html_template = f"""<!DOCTYPE html>
     }}
 
     // =========================================================================
-    // AUTONOMOUS AGENT CONFIGURATION & STRATEGY CLEARANCE ENGINE
+    // AUTONOMOUS AGENT SETTINGS CONTROLS & EVENT HANDLERS
     // =========================================================================
-    var MAX_WEEKEND_TRADES = 5;
-    var AGENT_TRADE_COLLATERAL = 2500;
-
-    function getAgentConfig() {{
-      const d = ChronosWalletStore.getCurrentData();
-      if (d && d.agentConfig) {{
-        return {{
-          maxTrades: typeof d.agentConfig.maxTrades === "number" ? Math.max(1, Math.min(10, d.agentConfig.maxTrades)) : 5,
-          collateralPerTrade: typeof d.agentConfig.collateralPerTrade === "number" ? Math.max(100, d.agentConfig.collateralPerTrade) : 2500
-        }};
-      }}
-      return {{ maxTrades: 5, collateralPerTrade: 2500 }};
-    }}
-
-    function syncAgentConfigSettings() {{
-      const cfg = getAgentConfig();
-      MAX_WEEKEND_TRADES = cfg.maxTrades;
-      AGENT_TRADE_COLLATERAL = cfg.collateralPerTrade;
-
-      const maxIn = document.getElementById("settingsAgentMaxTradesInput");
-      const maxRng = document.getElementById("settingsAgentMaxTradesRange");
-      const maxDsp = document.getElementById("settingsMaxTradesDisplay");
-      const colIn = document.getElementById("settingsAgentCollateralInput");
-      const colDsp = document.getElementById("settingsCollateralDisplay");
-      const expDsp = document.getElementById("settingsTotalMaxExposure");
-
-      if (maxIn) maxIn.value = MAX_WEEKEND_TRADES;
-      if (maxRng) maxRng.value = MAX_WEEKEND_TRADES;
-      if (maxDsp) maxDsp.textContent = `${{MAX_WEEKEND_TRADES}} Trade${{MAX_WEEKEND_TRADES !== 1 ? 's' : ''}}`;
-      if (colIn) colIn.value = AGENT_TRADE_COLLATERAL;
-      if (colDsp) colDsp.textContent = `$${{AGENT_TRADE_COLLATERAL.toLocaleString('en-US', {{ minimumFractionDigits: 2, maximumFractionDigits: 2 }})}} USDT`;
-      if (expDsp) expDsp.textContent = `$${{(MAX_WEEKEND_TRADES * AGENT_TRADE_COLLATERAL).toLocaleString('en-US', {{ minimumFractionDigits: 2, maximumFractionDigits: 2 }})}} USDT`;
-    }}
-
     function updateAgentMaxTradesDisplay(val) {{
       const num = Math.max(1, Math.min(10, parseInt(val) || 5));
       const maxIn = document.getElementById("settingsAgentMaxTradesInput");
@@ -5040,6 +5068,7 @@ html_template = f"""<!DOCTYPE html>
       }};
       ChronosWalletStore.setCurrentData(d);
       syncAgentConfigSettings();
+      ChronosWalletStore.syncActiveView();
       renderActivePositions();
       renderOverviewDynamic(d);
 
@@ -5514,7 +5543,7 @@ html_template = f"""<!DOCTYPE html>
           qBar.style.width = "100%";
           qBar.style.background = "#10B981";
         }}
-        if (qExp) qExp.textContent = "In manual mode, users can trade as many times as they want without limits. Autonomous agent remains capped to 5 trades.";
+        if (qExp) qExp.textContent = `In manual mode, users can trade as many times as they want without limits. Autonomous agent remains capped to ${{MAX_WEEKEND_TRADES}} trades.`;
       }} else {{
         if (qLabel) qLabel.textContent = "Weekend Cap Quota";
         if (qBadge) {{
@@ -5525,7 +5554,7 @@ html_template = f"""<!DOCTYPE html>
           qBar.style.width = `${{Math.min(100, (openCount / MAX_WEEKEND_TRADES) * 100)}}%`;
           qBar.style.background = openCount >= MAX_WEEKEND_TRADES ? "#EF4444" : "#10B981";
         }}
-        if (qExp) qExp.textContent = "Autonomous AI agent is capped at 5 sequential trades during weekends.";
+        if (qExp) qExp.textContent = `Autonomous AI agent is capped at ${{MAX_WEEKEND_TRADES}} sequential trades during weekends.`;
       }}
     }}
 
@@ -5547,7 +5576,7 @@ html_template = f"""<!DOCTYPE html>
           arenaSummary.innerHTML = `
             <div style="background: rgba(0,0,0,0.03); border: 1px dashed rgba(0,0,0,0.15); border-radius: 8px; padding: 0.65rem; margin-top: 0.5rem; text-align: center;">
               <div style="font-family: var(--font-terminal); font-size: 0.70rem; color: var(--color-grey-muted); font-weight: 600;">
-                ${{executionMode === "AUTO" ? "0 / 5 GLOBAL TRADES DEPLOYED" : "0 ACTIVE POSITIONS (UNCAPPED)"}}
+                ${{executionMode === "AUTO" ? `0 / ${{MAX_WEEKEND_TRADES}} GLOBAL TRADES DEPLOYED` : "0 ACTIVE POSITIONS (UNCAPPED)"}}
               </div>
               <div style="font-size: 0.74rem; color: #888; margin-top: 0.2rem;">
                 Trades placed here will appear in your <strong>Order Book</strong>.
@@ -6311,7 +6340,7 @@ html_template = f"""<!DOCTYPE html>
         }}
         if (pulse) pulse.style.animation = "pulseGlow 1.5s infinite";
         if (title) title.textContent = "AUTONOMOUS AGENT: RUNNING 24/7";
-        updateAgentTelemetry("[AUTONOMOUS AGENT] Auto-Pilot resumed. Opportunistic scanning active (max 5 trades/weekend).");
+        updateAgentTelemetry(`[AUTONOMOUS AGENT] Auto-Pilot resumed. Opportunistic scanning active (max ${{MAX_WEEKEND_TRADES}} trades/weekend).`);
         showToast("Auto-Pilot Resumed", "Chronos autonomous agent is actively monitoring orderbooks and entering opportunities one by one.", "success");
         startAutoPilotInterval();
       }} else {{
@@ -6693,9 +6722,9 @@ html_template = f"""<!DOCTYPE html>
       if (mode === "AUTO") {{
         if (dirWrap) dirWrap.style.display = "none";
         if (openCount >= MAX_WEEKEND_TRADES) {{
-          if (execText) execText.textContent = "WEEKEND CAP REACHED (5/5 TRADES ACTIVE)";
+          if (execText) execText.textContent = `WEEKEND CAP REACHED (${{MAX_WEEKEND_TRADES}}/${{MAX_WEEKEND_TRADES}} TRADES ACTIVE)`;
         }} else {{
-          if (execText) execText.textContent = openCount === 0 ? "ACTIVATE AUTONOMOUS STRATEGY" : `DISPATCH ADDITIONAL TRADE (${{openCount}}/5 ACTIVE)`;
+          if (execText) execText.textContent = openCount === 0 ? "ACTIVATE AUTONOMOUS STRATEGY" : `DISPATCH ADDITIONAL TRADE (${{openCount}}/${{MAX_WEEKEND_TRADES}} ACTIVE)`;
         }}
         if (execBtn) {{
           execBtn.style.background = "#18181B";
