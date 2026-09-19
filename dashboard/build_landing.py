@@ -418,24 +418,9 @@ html_content = f"""<!DOCTYPE html>
       max-width: 540px;
     }}
 
-    .hero-3d-clean-wrap {{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-    }}
-
-    .hero-3d-clean-img {{
-      max-width: 100%;
-      height: auto;
-      border-radius: 12px;
-      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.08);
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-    }}
-
-    .hero-3d-clean-img:hover {{
-      transform: translateY(-4px) scale(1.01);
-      box-shadow: 0 16px 44px rgba(0, 0, 0, 0.12);
+    .landing-hero-container {{
+      padding: 6.5rem 0 2.5rem !important;
+      text-align: center;
     }}
 
     /* 24/7 Market Dislocation Ticker Tape */
@@ -810,46 +795,39 @@ html_content = f"""<!DOCTYPE html>
 
   <!-- Hero Section -->
   <section class="landing-hero-container container" id="hero">
-    <div class="landing-hero-grid" style="display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 2rem; align-items: center;">
-      <!-- Left Column: Editorial Pitch -->
-      <div class="hero-pop">
-        <div style="display: inline-flex; align-items: center; gap: 0.45rem; margin-bottom: 0.85rem;" class="badge-pill-green">
-          <span>TRACK 1: ALPHA FACTORY · SUB-THEME: AFTER-HOURS PRICING</span>
-        </div>
-        <h1 class="hero-h1">
-          Autonomous After-Hours<br>
-          <em>Information Pricing</em> &<br>
-          Convergence Engine.
-        </h1>
-        <p class="hero-subtext">
-          Chronos monetizes the 128-hour weekly closure gap of traditional equity markets by capturing retail price dislocations across tokenized U.S. equities (rTokens) and harvesting mean-reversion profits during Monday institutional pre-market liquidity.
-        </p>
+    <div class="hero-pop" style="max-width: 860px; margin: 0 auto; text-align: center;">
+      <div style="display: inline-flex; align-items: center; gap: 0.45rem; margin-bottom: 1.1rem; font-family: var(--font-terminal); font-size: 0.72rem; color: #10B981; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;">
+        <span style="width: 6px; height: 6px; border-radius: 50%; background-color: #10B981; display: inline-block;"></span>
+        <span>Track 1: Alpha Factory · After-Hours Information Pricing</span>
+      </div>
+      <h1 class="hero-h1" style="font-size: clamp(2.5rem, 4.8vw, 3.8rem); line-height: 1.12; max-width: 860px; margin: 0 auto 1.15rem;">
+        Autonomous After-Hours<br>
+        <em>Information Pricing</em> &<br>
+        Convergence Engine.
+      </h1>
+      <p class="hero-subtext" style="font-size: 1.02rem; line-height: 1.65; max-width: 660px; margin: 0 auto 1.85rem;">
+        Chronos monetizes the 128-hour weekly closure gap of traditional equity markets by capturing retail price dislocations across tokenized U.S. equities (rTokens) and harvesting mean-reversion profits during Monday institutional pre-market liquidity.
+      </p>
 
-        <div style="display: flex; align-items: center; gap: 0.85rem; flex-wrap: wrap;">
-          <button class="btn-launch-black" onclick="smoothNavigate('app.html')">
-            <span>Launch Web3 Terminal</span>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </button>
-          <a href="#platform" class="btn-docs-grey">
-            <span>Explore Dislocation Radar</span>
-          </a>
-          <a href="#thesis" class="btn-pill-dark-outline" style="color: var(--color-black); border-color: rgba(0,0,0,0.22); text-decoration: none;">
-            <span>Read Thesis</span>
-          </a>
-        </div>
-
-        <div style="display: flex; align-items: center; gap: 1.8rem; margin-top: 2.25rem; font-size: 0.8rem; color: var(--color-grey-text); font-family: var(--font-terminal); flex-wrap: wrap;">
-          <div><strong style="color: var(--color-black); font-size: 0.95rem;">120D</strong> Horizon</div>
-          <div><strong style="color: var(--color-green); font-size: 0.95rem;">+39.71%</strong> Alpha</div>
-          <div><strong style="color: var(--color-green); font-size: 0.95rem;">4.44</strong> Full Sharpe</div>
-          <div><strong style="color: var(--color-black); font-size: 0.95rem;">1.26x</strong> Anti-Overfit</div>
-          <div><strong style="color: var(--color-black); font-size: 0.95rem;">100%</strong> Weekday Cash</div>
-        </div>
+      <div style="display: flex; align-items: center; justify-content: center; gap: 0.85rem; flex-wrap: wrap;">
+        <button class="btn-launch-black" onclick="smoothNavigate('app.html')">
+          <span>Launch Web3 Terminal</span>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </button>
+        <a href="#platform" class="btn-docs-grey">
+          <span>Explore Dislocation Radar</span>
+        </a>
+        <a href="#thesis" class="btn-pill-dark-outline" style="color: var(--color-black); border-color: rgba(0,0,0,0.22); text-decoration: none;">
+          <span>Read Thesis</span>
+        </a>
       </div>
 
-      <!-- Right Column: 3D Spherical Alpha Clockwork Render -->
-      <div class="hero-3d-clean-wrap">
-        <img src="assets/chronos_3d_hero.png" alt="Chronos Spherical Alpha Engine" class="hero-3d-clean-img">
+      <div style="display: flex; align-items: center; justify-content: center; gap: 2rem; margin-top: 2.5rem; font-size: 0.82rem; color: var(--color-grey-text); font-family: var(--font-terminal); flex-wrap: wrap;">
+        <div><strong style="color: var(--color-black); font-size: 0.95rem;">120D</strong> Horizon</div>
+        <div><strong style="color: var(--color-green); font-size: 0.95rem;">+39.71%</strong> Alpha</div>
+        <div><strong style="color: var(--color-green); font-size: 0.95rem;">4.44</strong> Full Sharpe</div>
+        <div><strong style="color: var(--color-black); font-size: 0.95rem;">1.26x</strong> Anti-Overfit</div>
+        <div><strong style="color: var(--color-black); font-size: 0.95rem;">100%</strong> Weekday Cash</div>
       </div>
     </div>
   </section>
@@ -863,7 +841,7 @@ html_content = f"""<!DOCTYPE html>
         <strong style="color: var(--color-black);">rNVDA</strong>
         <span style="color: var(--color-grey-text);">$132.80</span>
         <span style="color: var(--color-green); font-weight: 600;">+3.42%</span>
-        <span class="badge-pill-gold" style="font-size: 0.64rem;">+2.24σ DISLOCATION</span>
+        <span style="font-family: var(--font-terminal); font-size: 0.68rem; font-weight: 700; color: #D97706;">+2.24σ DISLOCATION</span>
       </div>
       <!-- Item 2: TSLA -->
       <div class="ticker-item">
@@ -871,7 +849,7 @@ html_content = f"""<!DOCTYPE html>
         <strong style="color: var(--color-black);">rTSLA</strong>
         <span style="color: var(--color-grey-text);">$258.40</span>
         <span style="color: var(--color-green); font-weight: 600;">+4.19%</span>
-        <span class="badge-pill-gold" style="font-size: 0.64rem;">+2.65σ DISLOCATION</span>
+        <span style="font-family: var(--font-terminal); font-size: 0.68rem; font-weight: 700; color: #D97706;">+2.65σ DISLOCATION</span>
       </div>
       <!-- Item 3: MSTR -->
       <div class="ticker-item">
@@ -879,7 +857,7 @@ html_content = f"""<!DOCTYPE html>
         <strong style="color: var(--color-black);">rMSTR</strong>
         <span style="color: var(--color-grey-text);">$312.40</span>
         <span style="color: var(--color-green); font-weight: 600;">+6.91%</span>
-        <span class="badge-pill-gold" style="font-size: 0.64rem;">+3.48σ EXTREME</span>
+        <span style="font-family: var(--font-terminal); font-size: 0.68rem; font-weight: 700; color: #D97706;">+3.48σ EXTREME</span>
       </div>
       <!-- Item 4: COIN -->
       <div class="ticker-item">
@@ -887,7 +865,7 @@ html_content = f"""<!DOCTYPE html>
         <strong style="color: var(--color-black);">rCOIN</strong>
         <span style="color: var(--color-grey-text);">$218.50</span>
         <span style="color: var(--color-green); font-weight: 600;">+5.65%</span>
-        <span class="badge-pill-gold" style="font-size: 0.64rem;">+3.10σ DISLOCATION</span>
+        <span style="font-family: var(--font-terminal); font-size: 0.68rem; font-weight: 700; color: #D97706;">+3.10σ DISLOCATION</span>
       </div>
       <!-- Item 5: AAPL -->
       <div class="ticker-item">
@@ -895,7 +873,7 @@ html_content = f"""<!DOCTYPE html>
         <strong style="color: var(--color-black);">rAAPL</strong>
         <span style="color: var(--color-grey-text);">$222.20</span>
         <span style="color: var(--color-red); font-weight: 600;">-0.80%</span>
-        <span class="badge-pill-light" style="font-size: 0.64rem;">-0.53σ NORMAL</span>
+        <span style="font-family: var(--font-terminal); font-size: 0.68rem; font-weight: 600; color: #71717A;">-0.53σ NORMAL</span>
       </div>
       <!-- Item 6: SPY -->
       <div class="ticker-item">
@@ -903,7 +881,7 @@ html_content = f"""<!DOCTYPE html>
         <strong style="color: var(--color-black);">rSPY</strong>
         <span style="color: var(--color-grey-text);">$564.05</span>
         <span style="color: var(--color-green); font-weight: 600;">+0.40%</span>
-        <span class="badge-pill-light" style="font-size: 0.64rem;">+0.27σ ANCHOR</span>
+        <span style="font-family: var(--font-terminal); font-size: 0.68rem; font-weight: 600; color: #71717A;">+0.27σ ANCHOR</span>
       </div>
       <!-- Item 7: QQQ -->
       <div class="ticker-item">
@@ -911,7 +889,7 @@ html_content = f"""<!DOCTYPE html>
         <strong style="color: var(--color-black);">rQQQ</strong>
         <span style="color: var(--color-grey-text);">$482.73</span>
         <span style="color: var(--color-green); font-weight: 600;">+0.80%</span>
-        <span class="badge-pill-light" style="font-size: 0.64rem;">+0.53σ ANCHOR</span>
+        <span style="font-family: var(--font-terminal); font-size: 0.68rem; font-weight: 600; color: #71717A;">+0.53σ ANCHOR</span>
       </div>
       <!-- Item 8: BTC -->
       <div class="ticker-item">
@@ -919,7 +897,7 @@ html_content = f"""<!DOCTYPE html>
         <strong style="color: var(--color-black);">BTC/USDT</strong>
         <span style="color: var(--color-grey-text);">$64,250</span>
         <span style="color: var(--color-green); font-weight: 600;">+1.12%</span>
-        <span class="badge-pill-green" style="font-size: 0.64rem;">MACRO BASELINE</span>
+        <span style="font-family: var(--font-terminal); font-size: 0.68rem; font-weight: 700; color: #10B981;">MACRO BASELINE</span>
       </div>
 
       <!-- Duplicate items for seamless continuous ticker loop -->
@@ -928,28 +906,28 @@ html_content = f"""<!DOCTYPE html>
         <strong style="color: var(--color-black);">rNVDA</strong>
         <span style="color: var(--color-grey-text);">$132.80</span>
         <span style="color: var(--color-green); font-weight: 600;">+3.42%</span>
-        <span class="badge-pill-gold" style="font-size: 0.64rem;">+2.24σ DISLOCATION</span>
+        <span style="font-family: var(--font-terminal); font-size: 0.68rem; font-weight: 700; color: #D97706;">+2.24σ DISLOCATION</span>
       </div>
       <div class="ticker-item">
         <img src="assets/tokens/tsla.svg" alt="TSLA" class="ticker-icon">
         <strong style="color: var(--color-black);">rTSLA</strong>
         <span style="color: var(--color-grey-text);">$258.40</span>
         <span style="color: var(--color-green); font-weight: 600;">+4.19%</span>
-        <span class="badge-pill-gold" style="font-size: 0.64rem;">+2.65σ DISLOCATION</span>
+        <span style="font-family: var(--font-terminal); font-size: 0.68rem; font-weight: 700; color: #D97706;">+2.65σ DISLOCATION</span>
       </div>
       <div class="ticker-item">
         <img src="assets/tokens/mstr.svg" alt="MSTR" class="ticker-icon">
         <strong style="color: var(--color-black);">rMSTR</strong>
         <span style="color: var(--color-grey-text);">$312.40</span>
         <span style="color: var(--color-green); font-weight: 600;">+6.91%</span>
-        <span class="badge-pill-gold" style="font-size: 0.64rem;">+3.48σ EXTREME</span>
+        <span style="font-family: var(--font-terminal); font-size: 0.68rem; font-weight: 700; color: #D97706;">+3.48σ EXTREME</span>
       </div>
       <div class="ticker-item">
         <img src="assets/tokens/coin.svg" alt="COIN" class="ticker-icon">
         <strong style="color: var(--color-black);">rCOIN</strong>
         <span style="color: var(--color-grey-text);">$218.50</span>
         <span style="color: var(--color-green); font-weight: 600;">+5.65%</span>
-        <span class="badge-pill-gold" style="font-size: 0.64rem;">+3.10σ DISLOCATION</span>
+        <span style="font-family: var(--font-terminal); font-size: 0.68rem; font-weight: 700; color: #D97706;">+3.10σ DISLOCATION</span>
       </div>
     </div>
   </div>
@@ -1075,7 +1053,7 @@ html_content = f"""<!DOCTYPE html>
           <div>
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 1px dashed rgba(255,255,255,0.2); padding-bottom: 0.75rem;">
               <span class="font-terminal" style="font-size: 0.75rem; letter-spacing: 0.12em; color: var(--color-green);">MATHEMATICAL FORMULATION</span>
-              <span class="badge-pill-green" style="font-size: 0.72rem;">BITGET MCP READY</span>
+              <span style="font-family: var(--font-terminal); font-size: 0.72rem; font-weight: 700; color: #10B981; letter-spacing: 0.04em;">BITGET MCP READY</span>
             </div>
 
             <div style="background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 1.25rem; margin-bottom: 1.5rem;">
@@ -1185,8 +1163,8 @@ html_content = f"""<!DOCTYPE html>
         <div class="card-paper" style="display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
           <div>
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
-              <span class="badge-pill-light" style="font-size: 0.72rem; font-weight: 700;">MODULE 01</span>
-              <span class="badge-pill-green" style="font-size: 0.7rem;">LIVE ARENA</span>
+              <span style="font-family: var(--font-terminal); font-size: 0.72rem; font-weight: 700; color: #71717A;">MODULE 01</span>
+              <span style="font-family: var(--font-terminal); font-size: 0.72rem; font-weight: 700; color: #10B981;">LIVE ARENA</span>
             </div>
             <h3 style="font-family: var(--font-serif-editorial); font-size: 1.18rem; margin-bottom: 0.45rem;">Real-Time Trading Arena</h3>
             <p style="font-size: 0.88rem; color: var(--color-grey-text); line-height: 1.6; margin-bottom: 1.25rem;">
@@ -1207,7 +1185,7 @@ html_content = f"""<!DOCTYPE html>
               </li>
             </ul>
           </div>
-          <button class="btn-docs-grey" style="width: 100%; justify-content: center;" onclick="window.location.href='app.html'">
+          <button class="btn-docs-grey" style="width: 100%; justify-content: center;" onclick="smoothNavigate('app.html')">
             <span>Enter Trading Arena →</span>
           </button>
         </div>
@@ -1216,8 +1194,8 @@ html_content = f"""<!DOCTYPE html>
         <div class="card-paper" style="display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
           <div>
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
-              <span class="badge-pill-light" style="font-size: 0.72rem; font-weight: 700;">MODULE 02</span>
-              <span class="badge-pill-gold" style="font-size: 0.7rem;">CLOSED-LOOP AI</span>
+              <span style="font-family: var(--font-terminal); font-size: 0.72rem; font-weight: 700; color: #71717A;">MODULE 02</span>
+              <span style="font-family: var(--font-terminal); font-size: 0.72rem; font-weight: 700; color: #D97706;">CLOSED-LOOP AI</span>
             </div>
             <h3 style="font-family: var(--font-serif-editorial); font-size: 1.18rem; margin-bottom: 0.45rem;">Cognitive Self-Auditor</h3>
             <p style="font-size: 0.88rem; color: var(--color-grey-text); line-height: 1.6; margin-bottom: 1.25rem;">
@@ -1238,7 +1216,7 @@ html_content = f"""<!DOCTYPE html>
               </li>
             </ul>
           </div>
-          <button class="btn-docs-grey" style="width: 100%; justify-content: center;" onclick="window.location.href='app.html#auditor'">
+          <button class="btn-docs-grey" style="width: 100%; justify-content: center;" onclick="smoothNavigate('app.html#auditor')">
             <span>Inspect Self-Auditor →</span>
           </button>
         </div>
@@ -1247,8 +1225,8 @@ html_content = f"""<!DOCTYPE html>
         <div class="card-paper" style="display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
           <div>
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
-              <span class="badge-pill-light" style="font-size: 0.72rem; font-weight: 700;">MODULE 03</span>
-              <span class="badge-pill-light" style="font-size: 0.7rem; font-weight: 700;">RAINBOWKIT WEB3</span>
+              <span style="font-family: var(--font-terminal); font-size: 0.72rem; font-weight: 700; color: #71717A;">MODULE 03</span>
+              <span style="font-family: var(--font-terminal); font-size: 0.72rem; font-weight: 700; color: #09090B;">RAINBOWKIT WEB3</span>
             </div>
             <h3 style="font-family: var(--font-serif-editorial); font-size: 1.18rem; margin-bottom: 0.45rem;">Web3 Wallet &amp; Autonomous Bot</h3>
             <p style="font-size: 0.88rem; color: var(--color-grey-text); line-height: 1.6; margin-bottom: 1.25rem;">
@@ -1336,11 +1314,11 @@ html_content = f"""<!DOCTYPE html>
           <div class="simulator-panel">
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
               <div style="display: flex; align-items: center; gap: 0.5rem;">
-                <span class="badge-pill-green" style="font-size: 0.7rem;">STRATEGY CLEARANCE ENGINE</span>
+                <span style="font-family: var(--font-terminal); font-size: 0.72rem; font-weight: 700; color: #10B981; letter-spacing: 0.05em;">STRATEGY CLEARANCE ENGINE</span>
                 <span style="font-family: var(--font-terminal); font-size: 0.76rem; color: var(--color-grey-text);" id="clearanceAssetSymbol">rNVDA / USDT</span>
               </div>
               <button class="btn-launch-black" style="padding: 0.35rem 0.85rem; font-size: 0.72rem; height: auto;" onclick="runClearanceCheck()">
-                <span>⚡ Run Pre-Trade Clearance Check</span>
+                <span>Run Pre-Trade Clearance Check</span>
               </button>
             </div>
 
@@ -1377,7 +1355,7 @@ html_content = f"""<!DOCTYPE html>
                 <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--color-green); display: inline-block;"></span>
                 <span class="font-terminal" style="font-size: 0.76rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">Terminal Active</span>
               </div>
-              <span class="badge-pill-green" style="font-size: 0.7rem;">INSTANT ACCESS</span>
+              <span style="font-family: var(--font-terminal); font-size: 0.72rem; font-weight: 700; color: #10B981; letter-spacing: 0.05em;">INSTANT ACCESS</span>
             </div>
 
             <h3 style="font-family: var(--font-serif-editorial); font-size: 1.35rem; margin-bottom: 0.5rem; line-height: 1.2;">
@@ -1467,8 +1445,8 @@ html_content = f"""<!DOCTYPE html>
   <section class="section-spacious" style="background-color: var(--color-canvas-light);">
     <div class="container">
       <div class="card-dark" style="text-align: center; padding: 2.5rem 1.5rem; border-radius: 12px;">
-        <div class="badge-pill-green" style="margin-bottom: 1.25rem;">
-          <span>BITGET AI BASE CAMP S2 · SUBMISSION READY</span>
+        <div style="font-family: var(--font-terminal); font-size: 0.72rem; font-weight: 700; color: #10B981; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem;">
+          Bitget AI Base Camp S2 · Submission Ready
         </div>
         <h2 style="font-family: var(--font-serif-editorial); font-size: 1.75rem; font-weight: 600; line-height: 1.2; margin-bottom: 0.65rem; color: #FFF;">
           Deploy Institutional After-Hours Alpha
@@ -1499,8 +1477,8 @@ html_content = f"""<!DOCTYPE html>
           <p style="font-size: 0.88rem; color: var(--color-grey-text); max-width: 320px; line-height: 1.6;">
             Chronos is an autonomous quantitative trading engine for Bitget AI Base Camp Season 2, Track 1: Alpha Factory. Specializing in 24/7 After-Hours Information Pricing on tokenized U.S. equities.
           </p>
-          <div style="margin-top: 1.25rem;" class="badge-pill-light">
-            <span>BITGET UTA v3 COMPLIANT</span>
+          <div style="margin-top: 1rem; font-family: var(--font-terminal); font-size: 0.72rem; color: #71717A; letter-spacing: 0.04em;">
+            Bitget UTA v3 Compliant
           </div>
         </div>
 
@@ -1733,7 +1711,6 @@ html_content = f"""<!DOCTYPE html>
     function initScrollPopAnimations() {{
       const targetSelectors = [
         ".hero-pop",
-        ".hero-3d-clean-wrap",
         ".market-ticker-wrap",
         ".section-tag",
         ".section-title",

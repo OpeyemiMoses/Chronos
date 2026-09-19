@@ -5367,37 +5367,6 @@ img, svg, video, canvas {
       currentAddress: null,
 
       init() {
-        // Ensure all testing trades and audits across all cached wallets in localStorage are purged so trade ledger starts clean
-        try {
-          for (let i = 0; i < localStorage.length; i++) {
-            const k = localStorage.key(i);
-            if (k && k.startsWith("chronos_wallet_")) {
-              const raw = localStorage.getItem(k);
-              if (raw) {
-                try {
-                  const w = JSON.parse(raw);
-                  let changed = false;
-                  if (w && w.trades && w.trades.length > 0) {
-                    w.trades = [];
-                    changed = true;
-                  }
-                  if (w && w.audits && w.audits.length > 0) {
-                    w.audits = [];
-                    changed = true;
-                  }
-                  if (w && !w.agentConfig) {
-                    w.agentConfig = { maxTrades: 5, collateralPerTrade: 2500 };
-                    changed = true;
-                  }
-                  if (changed) {
-                    localStorage.setItem(k, JSON.stringify(w));
-                  }
-                } catch(e) {}
-              }
-            }
-          }
-        } catch(e) {}
-
         const savedAddr = localStorage.getItem("chronos_active_wallet") || null;
         this.currentAddress = savedAddr;
         if (this.currentAddress) {
@@ -5490,18 +5459,6 @@ img, svg, video, canvas {
           this.saveData(addr, d);
         } else {
           let modified = false;
-          // Purge testing trades so trade ledger starts clean and isolated per wallet
-          if (!d.tradesPurgedV2) {
-            d.trades = [];
-            d.tradesPurgedV2 = true;
-            modified = true;
-          }
-          // Clear any test audits from previous testing sessions so Post-Mortem Trade Diagnoses starts 100% clean
-          if (!d.auditsPurgedV2) {
-            d.audits = [];
-            d.auditsPurgedV2 = true;
-            modified = true;
-          }
           if (!d.agentConfig) {
             d.agentConfig = { maxTrades: 5, collateralPerTrade: 2500 };
             modified = true;
@@ -5910,7 +5867,7 @@ img, svg, video, canvas {
         if (calloutText) calloutText.innerHTML = `Connect your wallet to see live agent status and active positions.`;
       } else if (openCount === 0) {
         if (calloutStatus) { calloutStatus.textContent = "Scanning 24/7 (0 Trades Active)"; calloutStatus.style.color = "#D97706"; }
-        if (calloutText) calloutText.innerHTML = `The autonomous agent is monitoring 7 tokenized equities on Bitget. No counter-positions deployed yet this weekend cycle. Click <strong>⚡ Deploy Alpha Trade #1</strong> below or open the <strong>Trading Arena</strong>.`;
+        if (calloutText) calloutText.innerHTML = `The autonomous agent is monitoring 7 tokenized equities on Bitget. No counter-positions deployed yet this weekend cycle. Click <strong>Deploy Alpha Trade #1</strong> below or open the <strong>Trading Arena</strong>.`;
       } else {
         const syms = openPositions.map(p => `${p.symbol}`).join(", ");
         if (calloutStatus) { calloutStatus.textContent = `Scanning 24/7 (${openCount} Trade${openCount > 1 ? "s" : ""} Active)`; calloutStatus.style.color = "#10B981"; }
@@ -5948,7 +5905,7 @@ img, svg, video, canvas {
                   </button>
                 ` : `
                   <button class="ghost-mode-btn" onclick="triggerInstantAgentTrade()" style="padding: 0.4rem 1.1rem; font-size: 0.76rem; background: #18181B; color: #FFF; border-radius: 9999px;">
-                    ⚡ Auto-Deploy Alpha Trade (Agent)
+                    Auto-Deploy Alpha Trade (Agent)
                   </button>
                   <button class="ghost-mode-btn" onclick="switchView('arena')" style="padding: 0.4rem 1.1rem; font-size: 0.76rem; border-radius: 9999px;">
                     Open Trading Arena →
