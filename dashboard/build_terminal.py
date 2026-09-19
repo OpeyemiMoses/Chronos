@@ -183,7 +183,7 @@ html_template = f"""<!DOCTYPE html>
   <!-- Google Fonts: Instrument Serif, Playfair Display, Inter, Space Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Neuton:ital,wght@0,200;0,300;0,400;0,700;0,800;1,400&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Official RainbowKit Upstream CSS & React Bundle -->
   <link rel="stylesheet" href="assets/rainbowkit.bundle.css">
@@ -193,25 +193,31 @@ html_template = f"""<!DOCTYPE html>
 {theme_css}
 
     :root {{
-      --font-serif-editorial: "Instrument Serif", "Playfair Display", Georgia, serif;
+      --font-serif-editorial: "Neuton", "Playfair Display", Georgia, serif;
+      --font-heading: "Neuton", Georgia, serif;
       --font-sans-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      --font-terminal: "Space Mono", monospace;
+      --font-terminal: "JetBrains Mono", monospace;
+      --font-mono: "JetBrains Mono", monospace;
       
       --color-white: #FFFFFF;
-      --color-canvas-light: #FAF9F6;
-      --color-canvas-subtle: #F4F2EC;
-      --color-black: #090909;
-      --color-black-night: #050505;
-      --color-grey-pill: #ECEEF2;
-      --color-grey-border: rgba(0, 0, 0, 0.08);
-      --color-grey-text: #5A5E66;
-      --color-grey-muted: #8E9299;
-      --color-green: #00C853;
-      --color-green-light: #00E676;
-      --color-red: #E50914;
+      --color-canvas-light: #FAF8F5;
+      --color-canvas-subtle: #F4EFE6;
+      --color-black: #09090B;
+      --color-black-night: #0C0C0E;
+      --color-black-card: #18181B;
+      --color-grey-pill: #F4EFE6;
+      --color-grey-border: #EEE9DF;
+      --color-border-hairline: #EEE9DF;
+      --color-border-subtle: #E4E4E7;
+      --color-grey-text: #52525B;
+      --color-grey-muted: #71717A;
+      --color-green: #10B981;
+      --color-green-light: #34D399;
+      --color-red: #EF4444;
       --color-amber: #F59E0B;
-      --color-blue: #2563EB;
-      --border-dashed: 1px dashed rgba(0, 0, 0, 0.22);
+      --color-blue: #0284C7;
+      --border-thin: 1px solid #EEE9DF;
+      --border-dashed: 1px solid #EEE9DF;
     }}
 
     * {{ box-sizing: border-box; margin: 0; padding: 0; }}
@@ -226,18 +232,18 @@ html_template = f"""<!DOCTYPE html>
       -webkit-font-smoothing: antialiased;
     }}
 
-    /* Top Navigation Header */
+    /* Top Navigation Header (Ghost Torus Style) */
     .app-header {{
-      background: #FFFFFF;
-      border-bottom: 1px dashed rgba(0, 0, 0, 0.18);
-      padding: 0.65rem 1.5rem;
+      background: #FAF8F5;
+      border-bottom: 1px solid #EEE9DF;
+      padding: 0.75rem 1.75rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
       position: sticky;
       top: 0;
       z-index: 1000;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
     }}
 
     .app-header-left {{
@@ -441,8 +447,8 @@ html_template = f"""<!DOCTYPE html>
     }}
 
     .app-sidebar {{
-      background: #FFFFFF;
-      border-right: 1px dashed rgba(0, 0, 0, 0.18);
+      background: #FAF8F5;
+      border-right: 1px solid #EEE9DF;
       padding: 1.25rem 0.85rem;
       display: flex;
       flex-direction: column;
@@ -528,17 +534,19 @@ html_template = f"""<!DOCTYPE html>
 
     .market-title {{
       font-family: var(--font-serif-editorial);
-      font-size: 2.5rem;
-      font-weight: 400;
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
       line-height: 1.15;
       margin-bottom: 0.4rem;
+      color: #09090B;
     }}
 
     .market-subtitle {{
       font-size: 0.92rem;
       color: var(--color-grey-text);
       max-width: 780px;
-      line-height: 1.55;
+      line-height: 1.6;
     }}
 
     .status-strip {{
@@ -546,23 +554,24 @@ html_template = f"""<!DOCTYPE html>
       align-items: center;
       gap: 0.5rem;
       background: #FFFFFF;
-      border: 1px dashed rgba(0, 0, 0, 0.2);
-      border-radius: 4px;
-      padding: 0.35rem 0.85rem;
+      border: 1px solid #EEE9DF;
+      border-radius: 9999px;
+      padding: 0.35rem 0.95rem;
       margin-top: 0.85rem;
       font-size: 0.78rem;
-      color: #374151;
+      color: #52525B;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
     }}
 
     /* Weekly 4-Phase Operational Lifecycle Stepper */
     .lifecycle-stepper-container {{
       background: #FFFFFF;
-      border: 1px dashed rgba(0, 0, 0, 0.22);
-      border-radius: 8px;
-      padding: 0.95rem 1.25rem;
+      border: 1px solid #EEE9DF;
+      border-radius: 12px;
+      padding: 1rem 1.35rem;
       margin-top: 1rem;
       margin-bottom: 1.25rem;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
     }}
 
     .lifecycle-stepper-header {{
@@ -674,10 +683,10 @@ html_template = f"""<!DOCTYPE html>
 
     .chart-panel-card {{
       background: #FFFFFF;
-      border: 1px dashed rgba(0, 0, 0, 0.22);
-      border-radius: 8px;
+      border: 1px solid #EEE9DF;
+      border-radius: 12px;
       padding: 1.5rem;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
     }}
 
     .chart-card-header {{
@@ -767,10 +776,10 @@ html_template = f"""<!DOCTYPE html>
     /* Strategy Execution Panel */
     .execution-panel-card {{
       background: #FFFFFF;
-      border: 1px dashed rgba(0, 0, 0, 0.22);
-      border-radius: 8px;
+      border: 1px solid #EEE9DF;
+      border-radius: 12px;
       padding: 1.5rem;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
     }}
 
     .execution-header {{
@@ -913,20 +922,27 @@ html_template = f"""<!DOCTYPE html>
       width: 100%;
       background: #000000;
       color: #FFFFFF;
-      border: none;
-      border-radius: 8px;
+      border: 1px solid #000000;
+      border-radius: 9999px;
       padding: 0.85rem;
-      font-family: var(--font-terminal);
-      font-size: 0.84rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
+      font-family: var(--font-sans-body);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
       transition: all 0.2s ease;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14);
+    }}
+
+    .btn-execute-big:hover {{
+      background: #27272A;
+      border-color: #27272A;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
     }}
 
     .btn-execute-big:hover {{
@@ -937,15 +953,16 @@ html_template = f"""<!DOCTYPE html>
 
     /* Autonomous Execution Live Banner */
     .auto-live-status-bar {{
-      background: #0F172A;
+      background: #0C0C0E;
       color: #FFFFFF;
-      border-radius: 8px;
-      padding: 1rem 1.25rem;
+      border: 1px solid #27272A;
+      border-radius: 12px;
+      padding: 1rem 1.35rem;
       margin-bottom: 1.5rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.15);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     }}
 
     .auto-live-pulse {{
@@ -1152,23 +1169,23 @@ html_template = f"""<!DOCTYPE html>
 
     .trade-reasoning-card {{
       background: #FFFFFF;
-      color: #0F172A;
+      color: #09090B;
       border-radius: 16px;
-      border: 1px solid #E2E8F0;
+      border: 1px solid #EEE9DF;
       width: 100%;
       max-width: 960px;
       max-height: 90vh;
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.22), 0 0 0 1px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.04);
       animation: modalRise 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }}
 
     .trade-reasoning-header {{
       padding: 1.25rem 1.75rem;
-      background: #FFFFFF;
-      border-bottom: 1px solid #E2E8F0;
+      background: #FAF8F5;
+      border-bottom: 1px solid #EEE9DF;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -1178,9 +1195,9 @@ html_template = f"""<!DOCTYPE html>
     .modal-asset-avatar-wrap {{
       width: 44px;
       height: 44px;
-      border-radius: 10px;
-      background: #F8FAFC;
-      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      background: #F4EFE6;
+      border: 1px solid #EEE9DF;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1196,42 +1213,43 @@ html_template = f"""<!DOCTYPE html>
 
     .trade-reasoning-tag {{
       font-family: var(--font-terminal);
-      font-size: 0.68rem;
+      font-size: 0.70rem;
       letter-spacing: 0.08em;
       color: #0284C7;
       margin-bottom: 0.2rem;
-      font-weight: 700;
+      font-weight: 600;
+      text-transform: uppercase;
     }}
 
     .trade-reasoning-title {{
-      font-family: var(--font-sans-body);
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: #0F172A;
+      font-family: var(--font-serif-editorial);
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: #09090B;
       margin: 0;
       line-height: 1.2;
     }}
 
     .trade-reasoning-subtitle {{
       font-size: 0.78rem;
-      color: #64748B;
+      color: #71717A;
       margin-top: 0.15rem;
       font-family: var(--font-terminal);
     }}
 
     .trade-reasoning-close {{
-      background: #F1F5F9;
-      border: 1px solid #E2E8F0;
-      color: #64748B;
+      background: #FFFFFF;
+      border: 1px solid #EEE9DF;
+      color: #52525B;
       width: 34px;
       height: 34px;
-      border-radius: 8px;
+      border-radius: 9999px;
       cursor: pointer;
       font-size: 1.1rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.15s ease;
+      transition: all 0.2s ease;
       flex-shrink: 0;
     }}
 
@@ -1251,8 +1269,8 @@ html_template = f"""<!DOCTYPE html>
 
     /* Left Sidebar: Execution Trajectory & Payout Specs */
     .reasoning-sidebar {{
-      background: #F8FAFC;
-      border-right: 1px solid #E2E8F0;
+      background: #FAF8F5;
+      border-right: 1px solid #EEE9DF;
       padding: 1.4rem;
       display: flex;
       flex-direction: column;
@@ -1261,10 +1279,10 @@ html_template = f"""<!DOCTYPE html>
 
     .contract-spec-card {{
       background: #FFFFFF;
-      border: 1px solid #E2E8F0;
-      border-radius: 10px;
+      border: 1px solid #EEE9DF;
+      border-radius: 12px;
       padding: 0.95rem 1rem;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
     }}
 
     .contract-type-badge {{
@@ -1299,10 +1317,10 @@ html_template = f"""<!DOCTYPE html>
     /* Trajectory Card */
     .trajectory-card {{
       background: #FFFFFF;
-      border: 1px solid #E2E8F0;
-      border-radius: 10px;
+      border: 1px solid #EEE9DF;
+      border-radius: 12px;
       padding: 1rem;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
     }}
 
     .trajectory-label {{
@@ -1371,13 +1389,13 @@ html_template = f"""<!DOCTYPE html>
     /* Financial Summary Box */
     .financial-summary-box {{
       background: #FFFFFF;
-      border: 1px solid #E2E8F0;
-      border-radius: 10px;
+      border: 1px solid #EEE9DF;
+      border-radius: 12px;
       padding: 0.85rem 1rem;
       display: flex;
       flex-direction: column;
       gap: 0.45rem;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
     }}
 
     .fin-row {{
@@ -1416,33 +1434,34 @@ html_template = f"""<!DOCTYPE html>
       display: flex;
       gap: 0.45rem;
       padding-bottom: 1rem;
-      border-bottom: 1px solid #E2E8F0;
+      border-bottom: 1px solid #EEE9DF;
       margin-bottom: 1.25rem;
     }}
 
     .reasoning-tab-btn {{
-      background: #F1F5F9;
-      border: 1px solid #E2E8F0;
-      color: #475569;
-      border-radius: 8px;
-      padding: 0.5rem 0.95rem;
+      background: #FAF8F5;
+      border: 1px solid #EEE9DF;
+      color: #52525B;
+      border-radius: 9999px;
+      padding: 0.45rem 1.1rem;
       font-size: 0.78rem;
-      font-weight: 600;
+      font-weight: 500;
       font-family: var(--font-sans-body);
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all 0.2s ease;
     }}
 
     .reasoning-tab-btn:hover {{
-      background: #E2E8F0;
-      color: #0F172A;
+      border-color: #D4CEBF;
+      color: #09090B;
     }}
 
     .reasoning-tab-btn.active {{
-      background: #0F172A;
+      background: #000000;
       color: #FFFFFF;
-      border-color: #0F172A;
-      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.2);
+      border-color: #000000;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     }}
 
     /* Tab Panes */

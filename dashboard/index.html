@@ -10,41 +10,510 @@
   <!-- Google Fonts: Instrument Serif, Playfair Display, Inter, Space Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Neuton:ital,wght@0,200;0,300;0,400;0,700;0,800;1,400&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-:root{--font-serif-editorial: "Instrument Serif", "Playfair Display", Georgia, serif;--font-sans-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;--font-bobz: "Instrument Serif", "Playfair Display", Georgia, serif;--font-heading: "Instrument Serif", "Playfair Display", Georgia, serif;--font-number: "Instrument Serif", "Playfair Display", serif;--font-terminal: "Space Mono", "Special Elite", monospace;--font-subtext: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;--color-white: #FFFFFF;--color-canvas-light: #FAF9F6;--color-canvas-subtle: #F2F0EB;--color-black: #000000;--color-black-night: #090909;--color-black-card: #121212;--color-grey-bg: #C5CAD3;--color-grey-light: #F4F5F7;--color-grey-pill: #E2E5EB;--color-grey-border: rgba(0, 0, 0, .07);--color-grey-text: #5A5E66;--color-grey-muted: #8E9299;--color-green: #00C853;--color-green-light: #00E676;--color-red: #E50914;--color-red-light: #FF1744;--color-amber: #F59E0B;--border-thin: 1px solid rgba(0, 0, 0, .08)}*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth;font-size:14.5px;width:100%}body{background-color:var(--color-canvas-light);color:var(--color-black);font-family:var(--font-sans-body);font-size:.9rem;line-height:1.55;-webkit-font-smoothing:antialiased;width:100%;position:relative}#root{width:100%;min-height:100vh}img,svg,video,canvas{max-width:100%}.table-scroll-container,.table-responsive{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;display:block}.font-serif,.font-heading,.font-bobz{font-family:var(--font-serif-editorial);font-weight:400;letter-spacing:-.01em}.font-number{font-family:var(--font-serif-editorial);font-weight:400;letter-spacing:.01em}.font-terminal{font-family:var(--font-terminal);letter-spacing:.05em}.font-subtext,.font-body{font-family:var(--font-sans-body);font-size:.88rem;line-height:1.55}.header-wrapper{position:fixed;top:1.25rem;left:0;right:0;z-index:100;width:100%;display:flex;justify-content:center;pointer-events:none;padding:0 1rem}.header-pill{pointer-events:auto;background-color:#fffffff0;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(0,0,0,.08);border-radius:28px;padding:.42rem .55rem .42rem 1.05rem;display:flex;align-items:center;justify-content:space-between;gap:1.15rem;width:auto;min-width:290px;max-width:360px;box-shadow:0 4px 20px #0000000a;transition:max-width .65s cubic-bezier(.16,1,.3,1),min-width .65s cubic-bezier(.16,1,.3,1),width .65s cubic-bezier(.16,1,.3,1),padding .5s cubic-bezier(.16,1,.3,1),gap .5s cubic-bezier(.16,1,.3,1),box-shadow .35s ease,border-color .35s ease,transform .35s cubic-bezier(.22,1,.36,1)}.header-pill:hover{box-shadow:0 8px 30px #00000014;border-color:#00000026}.header-pill.is-scrolled{min-width:0;max-width:1240px;width:94%;padding:.5rem 1.25rem .5rem 1.75rem;gap:2rem;box-shadow:0 8px 32px #00000014;border-color:#0000001a}.header-logo-img{height:48px;width:auto;object-fit:contain;transition:transform .3s cubic-bezier(.22,1,.36,1);cursor:pointer;display:block}.header-logo-img:hover{transform:scale(1.05) translateY(-1px)}.header-nav{display:flex;align-items:center;gap:0px;max-width:0px;opacity:0;overflow:hidden;pointer-events:none;transform:scale(.92);white-space:nowrap;transition:max-width .65s cubic-bezier(.16,1,.3,1),opacity .45s cubic-bezier(.16,1,.3,1),transform .65s cubic-bezier(.16,1,.3,1),gap .65s cubic-bezier(.16,1,.3,1)}.header-pill.is-scrolled .header-nav{max-width:800px;opacity:1;pointer-events:auto;gap:2.25rem;transform:scale(1)}.header-nav a{color:#374151;text-decoration:none;font-family:var(--font-subtext);font-size:.88rem;font-weight:400;letter-spacing:.01em;display:inline-block;position:relative;transition:color .25s ease,transform .25s ease}.header-nav a:hover{color:var(--color-black);transform:translateY(-2px)}.header-nav a:after{content:"";position:absolute;bottom:-4px;left:0;width:100%;height:1.5px;background-color:var(--color-black);opacity:0;transform:scaleX(0);transition:opacity .25s ease,transform .25s ease}.header-nav a:hover:after{opacity:1;transform:scaleX(1)}.btn-launch-black{background-color:var(--color-black);color:var(--color-white);border:1px solid var(--color-black);border-radius:28px;padding:.52rem 1.3rem;font-family:var(--font-bobz);font-size:.82rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:.42rem;transition:border-radius .4s cubic-bezier(.22,1,.36,1),transform .35s cubic-bezier(.22,1,.36,1),background-color .3s ease,border-color .3s ease,box-shadow .35s ease;box-shadow:0 2px 6px #0000001f;-webkit-user-select:none;user-select:none}.btn-launch-black span,.btn-launch-black svg{display:inline-flex;align-items:center;transition:transform .35s cubic-bezier(.22,1,.36,1);transform-origin:center}.btn-launch-black:hover{border-radius:8px;background-color:#222;transform:translateY(-2px);box-shadow:0 6px 16px #00000038}.btn-launch-black:hover span{transform:scale(.92)}.btn-launch-black:active{transform:translateY(0) scale(.98)}.btn-docs-grey{background-color:var(--color-grey-pill);color:var(--color-black);border:1px solid rgba(0,0,0,.1);border-radius:28px;padding:.52rem 1.25rem;font-family:var(--font-bobz);font-size:.82rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:.42rem;text-decoration:none;transition:border-radius .4s cubic-bezier(.22,1,.36,1),transform .35s cubic-bezier(.22,1,.36,1),background-color .3s ease,border-color .3s ease,box-shadow .35s ease;-webkit-user-select:none;user-select:none}.btn-docs-grey span,.btn-docs-grey svg{display:inline-flex;align-items:center;transition:transform .35s cubic-bezier(.22,1,.36,1);transform-origin:center}.btn-docs-grey:hover{border-radius:8px;background-color:#d1d5df;border-color:#0003;transform:translateY(-2px);box-shadow:0 4px 14px #0000001a}.btn-docs-grey:hover span{transform:scale(.92)}.btn-docs-grey:active{transform:translateY(0) scale(.98)}.btn-launch-white{background-color:var(--color-white);color:var(--color-black);border:1px solid var(--color-white);border-radius:28px;padding:.52rem 1.3rem;font-family:var(--font-bobz);font-size:.82rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:.42rem;transition:border-radius .4s cubic-bezier(.22,1,.36,1),transform .35s cubic-bezier(.22,1,.36,1),background-color .3s ease,box-shadow .35s ease;-webkit-user-select:none;user-select:none}.btn-launch-white span,.btn-launch-white svg{display:inline-flex;align-items:center;transition:transform .35s cubic-bezier(.22,1,.36,1);transform-origin:center}.btn-launch-white:hover{border-radius:8px;background-color:#f0f0f0;transform:translateY(-2px);box-shadow:0 6px 18px #ffffff40}.btn-launch-white:hover span{transform:scale(.92)}.btn-launch-white:active{transform:translateY(0) scale(.98)}.btn-pill-dark-outline{background-color:#ffffff0d;color:var(--color-white);border:1px solid rgba(255,255,255,.15);border-radius:28px;padding:.42rem 1.05rem;font-family:var(--font-bobz);font-size:.78rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:.38rem;transition:border-radius .4s cubic-bezier(.22,1,.36,1),transform .35s cubic-bezier(.22,1,.36,1),background-color .3s ease,border-color .3s ease;-webkit-user-select:none;user-select:none}.btn-pill-dark-outline span,.btn-pill-dark-outline svg{display:inline-flex;align-items:center;transition:transform .35s cubic-bezier(.22,1,.36,1);transform-origin:center}.btn-pill-dark-outline:hover{border-radius:8px;background-color:#ffffff26;border-color:#ffffff4d;transform:translateY(-2px)}.btn-pill-dark-outline:hover span{transform:scale(.92)}.btn-pill-dark-outline:active{transform:translateY(0) scale(.98)}.btn-bet-up{background-color:var(--color-green);color:var(--color-black);border:none;border-radius:28px;padding:.52rem .95rem;font-family:var(--font-bobz);font-size:.82rem;font-weight:900;letter-spacing:.02em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.4rem;transition:border-radius .4s cubic-bezier(.22,1,.36,1),transform .35s cubic-bezier(.22,1,.36,1),box-shadow .3s ease;-webkit-user-select:none;user-select:none}.btn-bet-up span,.btn-bet-up svg{display:inline-flex;align-items:center;transition:transform .35s cubic-bezier(.22,1,.36,1);transform-origin:center}.btn-bet-up:hover{border-radius:8px;transform:translateY(-2px);box-shadow:0 6px 16px #00c8535c}.btn-bet-up:hover span{transform:scale(.92)}.btn-bet-up:active{transform:translateY(0) scale(.98)}.btn-bet-down{background-color:var(--color-red);color:var(--color-white);border:none;border-radius:28px;padding:.52rem .95rem;font-family:var(--font-bobz);font-size:.82rem;font-weight:900;letter-spacing:.02em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.4rem;transition:border-radius .4s cubic-bezier(.22,1,.36,1),transform .35s cubic-bezier(.22,1,.36,1),box-shadow .3s ease;-webkit-user-select:none;user-select:none}.btn-bet-down span,.btn-bet-down svg{display:inline-flex;align-items:center;transition:transform .35s cubic-bezier(.22,1,.36,1);transform-origin:center}.btn-bet-down:hover{border-radius:8px;transform:translateY(-2px);box-shadow:0 6px 16px #e509145c}.btn-bet-down:hover span{transform:scale(.92)}.btn-bet-down:active{transform:translateY(0) scale(.98)}.badge-pill-light{display:inline-flex;align-items:center;gap:.35rem;padding:.3rem .85rem;background-color:#0000000a;border:1px solid rgba(0,0,0,.07);border-radius:4px;font-size:.8rem;color:#4a4d53;transition:transform .3s cubic-bezier(.22,1,.36,1),background-color .25s ease,border-color .25s ease,box-shadow .25s ease;cursor:default}.badge-pill-light:hover{transform:translateY(-1.5px) scale(1.03);background-color:#00000014;border-color:#00000024;box-shadow:0 2px 8px #0000000d}.badge-pill-green{display:inline-flex;align-items:center;gap:.35rem;padding:.3rem .85rem;background-color:#00c85314;border:1px solid rgba(0,200,83,.22);border-radius:4px;font-family:var(--font-bobz);font-size:.8rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--color-green);transition:transform .3s cubic-bezier(.22,1,.36,1),background-color .25s ease,border-color .25s ease,box-shadow .25s ease;cursor:default}.badge-pill-green:hover{transform:translateY(-1.5px) scale(1.03);background-color:#00c85326;border-color:#00c85366;box-shadow:0 4px 12px #00c8532e}.badge-pill-gold{display:inline-flex;align-items:center;gap:.35rem;padding:.3rem .85rem;background-color:#f59e0b1a;border:1px solid rgba(245,158,11,.22);border-radius:4px;font-family:var(--font-bobz);font-size:.8rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#fbbf24;transition:transform .3s cubic-bezier(.22,1,.36,1),background-color .25s ease,border-color .25s ease,box-shadow .25s ease;cursor:default}.badge-pill-gold:hover{transform:translateY(-1.5px) scale(1.03);background-color:#f59e0b2e;border-color:#f59e0b73;box-shadow:0 4px 12px #f59e0b2e}.card-light,.card-paper,.card-deckled{background-color:#fff;position:relative;border-radius:6px;border:1px dashed rgba(0,0,0,.22);padding:1.6rem 1.75rem;box-shadow:0 4px 16px #00000008,0 1px 2px #00000005;transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s ease,border-color .25s ease}.card-light:hover,.card-paper:hover,.card-deckled:hover{transform:translateY(-2px);border-color:#00000073;box-shadow:0 8px 24px #0000000f}.card-dark{background-color:var(--color-black-card);position:relative;border-radius:6px;border:1px dashed rgba(255,255,255,.24);padding:1.6rem 1.75rem;color:var(--color-white);box-shadow:0 8px 28px #00000059;transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s ease,border-color .25s ease}.card-dark:hover{transform:translateY(-2px);border-color:#ffffff7a;box-shadow:0 12px 36px #00000073}.divider-dashed{border:none;border-top:1px dashed rgba(0,0,0,.14);margin:1rem 0;width:100%}.stat-box-interactive{transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s ease,border-color .3s ease,background-color .3s ease}.stat-box-interactive:hover{transform:translateY(-3px);box-shadow:0 6px 18px #0000000f;background-color:#eceef2}.font-number{font-family:var(--font-number);font-weight:800;letter-spacing:.04em;text-transform:uppercase;display:inline-block;transition:color .3s ease,transform .3s ease}.font-number:hover{color:var(--color-black)!important;transform:translate(2px)}footer a,.footer-link{display:inline-block;transition:color .25s ease,transform .25s ease!important}footer a:hover,.footer-link:hover{color:var(--color-black)!important;transform:translate(4px)}.footer-dark-banner-link{transition:transform .3s ease,color .3s ease}.footer-dark-banner-link:hover{transform:translate(3px)}@keyframes floatHero{0%,to{transform:translateY(0) rotate(0)}50%{transform:translateY(-8px) rotate(.5deg)}}.animate-float-hero{animation:floatHero 6s ease-in-out infinite}.hero-3d-interactive-wrapper{position:relative;width:100%;max-width:580px;cursor:pointer;transition:transform 1.25s cubic-bezier(.22,1,.36,1),filter 1.25s ease;filter:drop-shadow(0 20px 44px rgba(0,0,0,.1))}.hero-3d-interactive-wrapper:hover{transform:scale(1.1) translateY(-6px);filter:drop-shadow(0 28px 56px rgba(0,0,0,.16))}.hero-3d-img-base{width:100%;height:auto;display:block;border-radius:24px;transition:opacity 1.25s cubic-bezier(.22,1,.36,1),transform 1.25s cubic-bezier(.22,1,.36,1);-webkit-user-select:none;user-select:none;pointer-events:none}.hero-3d-img-primary{opacity:1;transform:scale(1)}.hero-3d-interactive-wrapper:hover .hero-3d-img-primary{opacity:0;transform:scale(1.04)}.hero-3d-img-alt{position:absolute;top:0;left:0;opacity:0;transform:scale(.96)}.hero-3d-interactive-wrapper:hover .hero-3d-img-alt{opacity:1;transform:scale(1)}@keyframes elementPopIn{0%{opacity:0;filter:blur(10px);transform:translateY(24px) scale(.96)}65%{opacity:1;filter:blur(0px);transform:translateY(-3px) scale(1.012)}to{opacity:1;filter:blur(0px);transform:translateY(0) scale(1)}}@keyframes pageRiseIn{0%{opacity:0}to{opacity:1}}@keyframes tabRisePop{0%{opacity:0;filter:blur(8px);transform:translateY(20px) scale(.98)}70%{opacity:1;filter:blur(0px);transform:translateY(-2px) scale(1.005)}to{opacity:1;filter:blur(0px);transform:translateY(0) scale(1)}}@keyframes floatHero{0%,to{transform:translateY(0) rotate(0)}50%{transform:translateY(-9px) rotate(.5deg)}}@keyframes subtleFloat{0%,to{transform:translateY(0)}50%{transform:translateY(-6px)}}@keyframes springBlurPop{0%{opacity:0;filter:blur(10px);transform:translateY(26px) scale(.95)}65%{opacity:1;filter:blur(0px);transform:translateY(-3px) scale(1.015)}to{opacity:1;filter:blur(0px);transform:translateY(0) scale(1)}}@keyframes pulseGlow{0%,to{opacity:.8;transform:scale(1)}50%{opacity:1;transform:scale(1.03)}}.page-rise-in{animation:pageRiseIn .3s ease-out both}.tab-content-rise,.module-enter{animation:tabRisePop .46s cubic-bezier(.16,1,.3,1) both;will-change:opacity,filter,transform;backface-visibility:hidden}.page-rise-in>*:nth-child(1),.tab-content-rise>*:nth-child(1){animation-delay:.02s}.page-rise-in>*:nth-child(2),.tab-content-rise>*:nth-child(2){animation-delay:.06s}.page-rise-in>*:nth-child(3),.tab-content-rise>*:nth-child(3){animation-delay:.1s}.page-rise-in>*:nth-child(4),.tab-content-rise>*:nth-child(4){animation-delay:.14s}.page-rise-in>*:nth-child(5),.tab-content-rise>*:nth-child(5){animation-delay:.18s}.animate-float-hero{animation:floatHero 5.5s ease-in-out infinite;will-change:transform}.animate-float-subtle{animation:subtleFloat 4s ease-in-out infinite}.hero-pop{animation:springBlurPop .65s cubic-bezier(.16,1,.3,1) both;will-change:opacity,filter,transform}.scroll-reveal,.reveal-pop{opacity:0;filter:blur(8px);transform:translateY(32px) scale(.96);transition:opacity .7s cubic-bezier(.16,1,.3,1),filter .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);will-change:opacity,filter,transform}.scroll-reveal.is-revealed,.scroll-reveal[data-revealed=true],.reveal-pop.is-revealed,.reveal-pop[data-revealed=true]{opacity:1!important;filter:blur(0px)!important;transform:translateY(0) scale(1)!important}.hover-rise-card{transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s cubic-bezier(.16,1,.3,1),border-color .25s ease}.hover-rise-card:hover{transform:translateY(-4px);box-shadow:0 14px 36px #00000014}.reveal-delay-1,.stagger-1{animation-delay:.08s!important;transition-delay:.08s!important}.reveal-delay-2,.stagger-2{animation-delay:.16s!important;transition-delay:.16s!important}.reveal-delay-3,.stagger-3{animation-delay:.24s!important;transition-delay:.24s!important}.reveal-delay-4,.stagger-4{animation-delay:.32s!important;transition-delay:.32s!important}.reveal-delay-5,.stagger-5{animation-delay:.4s!important;transition-delay:.4s!important}::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-track{background:var(--color-canvas-light)}::-webkit-scrollbar-thumb{background:#00000026;border-radius:9999px}::-webkit-scrollbar-thumb:hover{background:#00000040}.btn-wallet-connect{background-color:var(--color-black);color:var(--color-white);border:1px solid var(--color-black);border-radius:28px;padding:.48rem 1.15rem;font-family:var(--font-bobz);font-size:.82rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:.42rem;transition:border-radius .4s cubic-bezier(.22,1,.36,1),transform .35s cubic-bezier(.22,1,.36,1),background-color .3s ease,border-color .3s ease,box-shadow .35s ease;box-shadow:0 2px 6px #0000001f;-webkit-user-select:none;user-select:none}.btn-wallet-connect span,.btn-wallet-connect svg{display:inline-flex;align-items:center;transition:transform .35s cubic-bezier(.22,1,.36,1);transform-origin:center}.btn-wallet-connect:hover{border-radius:8px;background-color:#222;transform:translateY(-2px);box-shadow:0 6px 16px #00000038}.btn-wallet-connect:hover span{transform:scale(.92)}.btn-wallet-connect:active{transform:translateY(0) scale(.98)}.wallet-connected-widget{display:inline-flex;align-items:center;background-color:var(--color-canvas-light);border:1px solid rgba(0,0,0,.08);border-radius:28px;padding:.25rem .35rem .25rem .75rem;gap:.55rem;box-shadow:0 2px 8px #00000008;transition:all .3s ease}.wallet-connected-widget:hover{border-color:#00000029;box-shadow:0 4px 14px #0000000f}.wallet-chain-chip{display:flex;align-items:center;gap:.4rem;background:none;border:none;font-family:var(--font-terminal);font-size:.82rem;font-weight:700;color:#374151;cursor:pointer;padding:.25rem .45rem;border-radius:6px;transition:background-color .2s ease,color .2s ease}.wallet-chain-chip:hover{background-color:#0000000d;color:var(--color-black)}.wallet-account-pill{background-color:var(--color-black);color:var(--color-white);border:1px solid var(--color-black);border-radius:20px;padding:.35rem .85rem;font-family:var(--font-terminal);font-size:.82rem;font-weight:700;letter-spacing:.02em;cursor:pointer;display:flex;align-items:center;gap:.4rem;transition:border-radius .35s cubic-bezier(.22,1,.36,1),background-color .2s ease,transform .2s ease}.wallet-account-pill:hover{border-radius:6px;background-color:#222;transform:translateY(-1px)}.desktop-only{display:flex!important}.mobile-only{display:none!important}.landing-hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:2.5rem;align-items:center}.landing-arch-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:2.5rem}.landing-grid-2col{display:grid;grid-template-columns:1fr 1fr;gap:2rem}.landing-grid-3col{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}.landing-grid-4col{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem}.dashboard-arena-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:2rem;align-items:start}.mobile-market-chip-bar{display:none;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:.5rem;padding:.25rem .25rem .75rem;margin-bottom:1.25rem}.mobile-market-chip-bar::-webkit-scrollbar{display:none}.mobile-market-chip{flex-shrink:0;display:flex;align-items:center;gap:.45rem;padding:.45rem .85rem;border-radius:8px;border:1px solid rgba(0,0,0,.08);background-color:#fff;color:var(--color-black);font-family:var(--font-bobz);font-size:.82rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .2s ease;-webkit-user-select:none;user-select:none}.mobile-market-chip.is-active{background-color:var(--color-black);color:#fff;border-color:var(--color-black)}.mobile-nav-backdrop{position:fixed;top:0;left:0;right:0;bottom:0;width:100vw;height:100vh;height:100dvh;background-color:#0000007a;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:9998;animation:fadeIn .2s ease both}.mobile-nav-drawer{position:fixed;top:0;right:0;bottom:0;width:min(320px,86vw);height:100vh;height:100dvh;max-height:100dvh;background-color:#fff;z-index:9999;display:flex;flex-direction:column;justify-content:space-between;padding:1.15rem 1.15rem 1.35rem;box-shadow:-10px 0 40px #00000038;border-left:1px solid rgba(0,0,0,.08);animation:slideDrawerIn .3s cubic-bezier(.16,1,.3,1) both;overflow:hidden}@keyframes slideDrawerIn{0%{transform:translate(100%)}to{transform:translate(0)}}.mobile-nav-link{display:flex;align-items:center;justify-content:space-between;padding:.52rem .55rem;font-family:var(--font-bobz);font-size:.92rem;font-weight:700;color:var(--color-black);text-decoration:none;border-bottom:1px solid rgba(0,0,0,.04);border-radius:6px;transition:all .15s ease}.mobile-nav-link:hover,.mobile-nav-link:active{background-color:#0000000a;color:var(--color-green);padding-left:.75rem}.mobile-dashboard-tabbar{display:none;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:.4rem;padding:.5rem .75rem;background-color:#fff;border-bottom:1px solid rgba(0,0,0,.08)}.mobile-dashboard-tabbar::-webkit-scrollbar{display:none}.mobile-tab-btn{flex-shrink:0;display:inline-flex;align-items:center;gap:.35rem;padding:.4rem .75rem;border-radius:6px;border:1px solid transparent;background:transparent;font-family:var(--font-bobz);font-size:.82rem;font-weight:700;color:#6b7280;cursor:pointer;white-space:nowrap}.mobile-tab-btn.is-active{background-color:var(--color-grey-pill);color:var(--color-black);border-color:#00000014}@media(max-width:960px){.desktop-only{display:none!important}.mobile-only{display:flex!important}.header-wrapper{top:.75rem;padding:0 .75rem}.header-pill{min-width:0!important;max-width:100%!important;width:100%!important;padding:.45rem .85rem!important;gap:.65rem!important}.header-nav{display:none!important}.header-logo-img{height:38px!important}.landing-hero-grid{grid-template-columns:1fr!important;gap:2rem!important;margin-top:5.5rem!important}.landing-arch-grid{grid-template-columns:1fr!important;gap:1.5rem!important;padding:1.5rem!important}.landing-grid-2col{grid-template-columns:1fr!important;gap:1.5rem!important}.landing-grid-3col{grid-template-columns:1fr!important;gap:1.25rem!important}.landing-grid-4col{grid-template-columns:repeat(2,1fr)!important;gap:1rem!important}.dashboard-arena-grid{grid-template-columns:1fr!important;gap:1.5rem!important}.dashboard-sidebar-desktop{display:none!important}.dashboard-main-canvas{padding:1.25rem 1rem 4rem!important}.mobile-market-chip-bar,.mobile-dashboard-tabbar{display:flex!important}.connect-wallet-split-container{display:flex!important;flex-direction:column!important;width:100%!important;min-height:100vh!important;grid-template-columns:1fr!important}.connect-wallet-form-panel{order:1!important;padding:1.75rem 1.25rem 2.5rem!important;min-height:auto!important;width:100%!important;border-bottom:1px solid rgba(0,0,0,.08)!important}.connect-wallet-story-panel{order:2!important;padding:2.25rem 1.25rem 3rem!important;min-height:auto!important;width:100%!important;border-right:none!important;border-top:1px solid rgba(255,255,255,.1)!important}.connect-wallet-modal-card{width:95vw!important;max-width:480px!important;max-height:90vh!important}.card-paper{padding:1.25rem!important}.footer-grid-container{grid-template-columns:1fr!important;gap:2rem!important}table{min-width:580px}}@media(max-width:640px){html{font-size:13.5px}.landing-grid-4col{grid-template-columns:1fr!important}.hero-pop h1{font-size:1.65rem!important;line-height:1.2!important}.btn-wallet-connect{padding:.42rem .85rem!important;font-size:.76rem!important}.wallet-account-pill{padding:.3rem .65rem!important;font-size:.76rem!important}.wallet-chain-chip{display:none!important}.dashboard-arena-grid,.dashboard-main-canvas,.landing-hero-grid,.landing-arch-grid,.landing-grid-2col,.landing-grid-3col{width:100%!important;max-width:100vw!important;box-sizing:border-box!important}.header-wrapper{padding:0 .5rem!important}.header-pill{padding:.35rem .65rem!important;gap:.45rem!important}.card-paper{padding:1rem!important;width:100%!important;box-sizing:border-box!important}.real-market-chart-container{width:100%!important;max-width:100vw!important;overflow:hidden!important}}@media(max-width:480px){html{font-size:12.8px}.hero-pop h1{font-size:1.45rem!important}.btn-launch-black{padding:.6rem .9rem!important;font-size:.78rem!important}.connect-wallet-modal-card{width:98vw!important;margin:0 auto!important}}
+@import url('https://fonts.googleapis.com/css2?family=Neuton:ital,wght@0,200;0,300;0,400;0,700;0,800;1,400&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --font-serif-editorial: "Neuton", "Playfair Display", Georgia, serif;
+  --font-heading: "Neuton", Georgia, serif;
+  --font-sans-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-terminal: "JetBrains Mono", "Space Mono", monospace;
+  --font-mono: "JetBrains Mono", monospace;
+  --font-subtext: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-bobz: "Neuton", Georgia, serif;
+  --font-number: "Neuton", Georgia, serif;
+
+  --color-white: #FFFFFF;
+  --color-canvas-light: #FAF8F5;
+  --color-canvas-subtle: #F4EFE6;
+  --color-black: #09090B;
+  --color-black-night: #0C0C0E;
+  --color-black-card: #18181B;
+  --color-grey-bg: #E4E4E7;
+  --color-grey-light: #F4EFE6;
+  --color-grey-pill: #F4EFE6;
+  --color-grey-border: #EEE9DF;
+  --color-border-hairline: #EEE9DF;
+  --color-border-subtle: #E4E4E7;
+  --color-grey-text: #52525B;
+  --color-grey-muted: #71717A;
+  --color-green: #10B981;
+  --color-green-light: #34D399;
+  --color-red: #EF4444;
+  --color-red-light: #F87171;
+  --color-amber: #F59E0B;
+  --border-thin: 1px solid #EEE9DF;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 14.5px;
+  width: 100%;
+}
+
+body {
+  background-color: var(--color-canvas-light);
+  color: var(--color-black);
+  font-family: var(--font-sans-body);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  width: 100%;
+  position: relative;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+img, svg, video, canvas {
+  max-width: 100%;
+}
+
+.table-scroll-container, .table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  display: block;
+}
+
+.font-serif, .font-heading, .font-bobz {
+  font-family: var(--font-serif-editorial);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.font-number {
+  font-family: var(--font-serif-editorial);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.font-terminal {
+  font-family: var(--font-terminal);
+  letter-spacing: 0.02em;
+}
+
+.font-subtext, .font-body {
+  font-family: var(--font-sans-body);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--color-grey-text);
+}
+
+/* Header Floating Pill (Ghost Torus Style) */
+.header-wrapper {
+  position: fixed;
+  top: 1.25rem;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  padding: 0 1rem;
+}
+
+.header-pill {
+  pointer-events: auto;
+  background-color: rgba(250, 248, 245, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--color-border-hairline);
+  border-radius: 9999px;
+  padding: 0.42rem 0.65rem 0.42rem 1.15rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  width: auto;
+  min-width: 310px;
+  max-width: 380px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.header-pill:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  border-color: #D4CEBF;
+}
+
+.header-pill.is-scrolled {
+  min-width: 0;
+  max-width: 1240px;
+  width: 94%;
+  padding: 0.5rem 1.25rem 0.5rem 1.75rem;
+  gap: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+  border-color: #D4CEBF;
+}
+
+.header-logo-img {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  cursor: pointer;
+  display: block;
+}
+
+.header-logo-img:hover {
+  transform: scale(1.04) translateY(-1px);
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 0px;
+  max-width: 0px;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transform: scale(0.95);
+  white-space: nowrap;
+  transition: max-width 0.65s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), gap 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.header-pill.is-scrolled .header-nav {
+  max-width: 800px;
+  opacity: 1;
+  pointer-events: auto;
+  gap: 2.25rem;
+  transform: scale(1);
+}
+
+.header-nav a {
+  color: var(--color-grey-text);
+  text-decoration: none;
+  font-family: var(--font-sans-body);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  display: inline-block;
+  position: relative;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.header-nav a:hover {
+  color: var(--color-black);
+  transform: translateY(-1px);
+}
+
+.header-nav a:after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  background-color: var(--color-black);
+  opacity: 0;
+  transform: scaleX(0);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.header-nav a:hover:after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+/* Pill Buttons (Ghost Torus Style) */
+.btn-launch-black {
+  background-color: #000000;
+  color: #FFFFFF;
+  border: 1px solid #000000;
+  border-radius: 9999px;
+  padding: 0.52rem 1.35rem;
+  font-family: var(--font-sans-body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  transition: all 0.2s ease;
+  -webkit-user-select: none;
+  user-select: none;
+  text-decoration: none;
+}
+
+.btn-launch-black:hover {
+  background-color: #27272A;
+  border-color: #27272A;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+}
+
+.btn-launch-black:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.btn-docs-grey {
+  background-color: #FFFFFF;
+  color: var(--color-black);
+  border: 1px solid var(--color-border-hairline);
+  border-radius: 9999px;
+  padding: 0.52rem 1.35rem;
+  font-family: var(--font-sans-body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  text-decoration: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  transition: all 0.2s ease;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.btn-docs-grey:hover {
+  background-color: #FAF8F5;
+  border-color: #D4CEBF;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+}
+
+.btn-docs-grey:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.btn-launch-white {
+  background-color: #FFFFFF;
+  color: #000000;
+  border: 1px solid var(--color-border-hairline);
+  border-radius: 9999px;
+  padding: 0.52rem 1.35rem;
+  font-family: var(--font-sans-body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+
+.btn-launch-white:hover {
+  background-color: #F4EFE6;
+  transform: translateY(-1px);
+}
+
+/* Badges (Ghost Torus Style) */
+.badge-pill-light {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.75rem;
+  background-color: #FFFFFF;
+  border: 1px solid var(--color-border-hairline);
+  border-radius: 9999px;
+  font-family: var(--font-terminal);
+  font-size: 0.76rem;
+  color: var(--color-grey-text);
+  cursor: default;
+}
+
+.badge-pill-green {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.75rem;
+  background-color: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  border-radius: 9999px;
+  font-family: var(--font-terminal);
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #059669;
+  cursor: default;
+}
+
+.badge-pill-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.75rem;
+  background-color: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.28);
+  border-radius: 9999px;
+  font-family: var(--font-terminal);
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #B45309;
+  cursor: default;
+}
+
+/* Editorial Cards (Ghost Torus Style: Warm paper / White / Hairline border) */
+.card-light, .card-paper, .card-deckled {
+  background-color: #FFFFFF;
+  position: relative;
+  border-radius: 12px;
+  border: 1px solid var(--color-border-hairline);
+  padding: 1.6rem 1.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.2s ease;
+}
+
+.card-light:hover, .card-paper:hover, .card-deckled:hover {
+  transform: translateY(-2px);
+  border-color: #D4CEBF;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+.card-foundations {
+  background-color: var(--color-canvas-light);
+  border: 1px solid var(--color-border-hairline);
+  border-radius: 12px;
+  padding: 1.6rem 1.75rem;
+  transition: all 0.25s ease;
+}
+
+.card-foundations:hover {
+  background-color: #FFFFFF;
+  border-color: #D4CEBF;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+.divider-dashed {
+  border: none;
+  border-top: 1px solid var(--color-border-hairline);
+  margin: 1.25rem 0;
+  width: 100%;
+}
+
+.stat-box-interactive {
+  background-color: #FFFFFF;
+  border: 1px solid var(--color-border-hairline);
+  border-radius: 10px;
+  padding: 1.1rem 1.25rem;
+  transition: all 0.2s ease;
+}
+
+.stat-box-interactive:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+  border-color: #D4CEBF;
+}
+
+/* Animations */
+@keyframes pageRiseIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.page-rise-in {
+  animation: pageRiseIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-canvas-light);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* Layout grids */
+.landing-hero-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.landing-arch-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 2.5rem;
+}
+
+.landing-grid-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.landing-grid-3col {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.landing-grid-4col {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+
+@media (max-width: 960px) {
+  .landing-hero-grid, .landing-arch-grid, .landing-grid-2col, .landing-grid-3col {
+    grid-template-columns: 1fr !important;
+  }
+  .landing-grid-4col {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
 
 
-    /* Chronos Design Tokens & Theme Typography */
+    /* Ghost Torus Editorial Design Tokens & Chronos Typography */
     :root {
-      --font-serif-editorial: "Instrument Serif", "Playfair Display", Georgia, serif;
+      --font-serif-editorial: "Neuton", "Playfair Display", Georgia, serif;
+      --font-heading: "Neuton", Georgia, serif;
       --font-sans-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      --font-terminal: "Space Mono", "Special Elite", monospace;
-      --font-bobz: "Instrument Serif", "Playfair Display", Georgia, serif;
-      --font-heading: "Instrument Serif", "Playfair Display", Georgia, serif;
-      --font-number: "Instrument Serif", "Playfair Display", serif;
+      --font-terminal: "JetBrains Mono", monospace;
+      --font-mono: "JetBrains Mono", monospace;
+      --font-bobz: "Neuton", Georgia, serif;
+      --font-number: "JetBrains Mono", monospace;
       --font-subtext: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       
       --color-white: #FFFFFF;
-      --color-canvas-light: #FAF9F6;
-      --color-canvas-subtle: #F2F0EB;
-      --color-black: #000000;
-      --color-black-night: #090909;
-      --color-black-card: #121212;
-      --color-grey-pill: #E2E5EB;
-      --color-grey-border: rgba(0, 0, 0, .08);
-      --color-grey-text: #5A5E66;
-      --color-grey-muted: #8E9299;
-      --color-green: #00C853;
-      --color-green-light: #00E676;
-      --color-red: #E50914;
-      --color-red-light: #FF1744;
+      --color-canvas-light: #FAF8F5;
+      --color-canvas-subtle: #F4EFE6;
+      --color-black: #09090B;
+      --color-black-night: #0C0C0E;
+      --color-black-card: #18181B;
+      --color-grey-pill: #F4EFE6;
+      --color-grey-border: #EEE9DF;
+      --color-border-hairline: #EEE9DF;
+      --color-border-subtle: #E4E4E7;
+      --color-grey-text: #52525B;
+      --color-grey-muted: #71717A;
+      --color-green: #10B981;
+      --color-green-light: #34D399;
+      --color-red: #EF4444;
+      --color-red-light: #F87171;
       --color-amber: #F59E0B;
-      --color-cyan: #00D2FF;
-      --border-thin: 1px solid rgba(0, 0, 0, .08);
-      --border-dashed: 1px dashed rgba(0, 0, 0, 0.22);
-      --border-dashed-dark: 1px dashed rgba(255, 255, 255, 0.22);
+      --color-cyan: #0284C7;
+      --border-thin: 1px solid #EEE9DF;
+      --border-dashed: 1px solid #EEE9DF;
+      --border-dashed-dark: 1px solid rgba(255, 255, 255, 0.12);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -199,10 +668,10 @@
       padding-bottom: 4rem !important;
     }
 
-    /* Section Spacing */
+    /* Section Spacing (Ghost Torus Hairline Border) */
     .section-spacious {
       padding: 5.5rem 0;
-      border-bottom: 1px dashed rgba(0, 0, 0, 0.14);
+      border-bottom: 1px solid #EEE9DF;
     }
 
     .section-tag {
@@ -227,10 +696,10 @@
 
     .section-title {
       font-family: var(--font-serif-editorial);
-      font-size: 3.1rem;
-      font-weight: 400;
+      font-size: 3.0rem;
+      font-weight: 700;
       line-height: 1.12;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.015em;
       color: var(--color-black);
       margin-bottom: 0.95rem;
     }
@@ -256,8 +725,8 @@
       font-family: var(--font-serif-editorial);
       font-size: 3.8rem;
       line-height: 1.08;
-      font-weight: 400;
-      letter-spacing: -0.025em;
+      font-weight: 700;
+      letter-spacing: -0.02em;
       margin: 1.25rem 0;
       color: var(--color-black);
     }
@@ -291,8 +760,8 @@
       height: auto;
       display: block;
       border-radius: 20px;
-      border: 1px dashed rgba(0, 0, 0, 0.18);
-      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.1);
+      border: 1px solid #EEE9DF;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
       transition: transform 0.5s ease, box-shadow 0.5s ease;
       animation: floatHero 6s ease-in-out infinite;
     }
@@ -307,12 +776,12 @@
       box-shadow: 0 28px 64px rgba(0, 0, 0, 0.16);
     }
 
-    /* Stat Box Numbers */
+    /* Stat Box Numbers (Ghost Torus Style) */
     .stat-number {
       font-family: var(--font-serif-editorial);
       font-size: 2.85rem;
       line-height: 1;
-      font-weight: 400;
+      font-weight: 700;
       color: var(--color-black);
       margin-bottom: 0.4rem;
     }
@@ -357,13 +826,13 @@
       margin-bottom: 1.1rem;
     }
 
-    /* Interactive Chart Box */
+    /* Interactive Chart Box (Ghost Torus Card) */
     .chart-box {
       background: #FFFFFF;
-      border: 1px dashed rgba(0, 0, 0, 0.22);
-      border-radius: 6px;
+      border: 1px solid #EEE9DF;
+      border-radius: 12px;
       padding: 1.75rem;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
       position: relative;
     }
 
@@ -378,9 +847,10 @@
 
     .asset-pill-group {
       display: inline-flex;
-      background-color: var(--color-grey-pill);
+      background-color: #F4EFE6;
+      border: 1px solid #EEE9DF;
       padding: 0.25rem;
-      border-radius: 24px;
+      border-radius: 9999px;
       gap: 0.25rem;
     }
 
@@ -388,19 +858,19 @@
       border: none;
       background: none;
       font-family: var(--font-terminal);
-      font-size: 0.82rem;
-      font-weight: 700;
+      font-size: 0.80rem;
+      font-weight: 600;
       padding: 0.35rem 0.95rem;
-      border-radius: 20px;
+      border-radius: 9999px;
       cursor: pointer;
-      color: var(--color-grey-text);
+      color: #52525B;
       transition: all 0.25s ease;
     }
 
     .asset-pill.active {
-      background-color: var(--color-black);
-      color: #FFF;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      background-color: #000000;
+      color: #FFFFFF;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
     }
 
     #priceCanvas {
@@ -521,22 +991,27 @@
     }
 
     .filter-btn {
-      background: #FFF;
-      border: 1px dashed rgba(0, 0, 0, 0.22);
-      padding: 0.42rem 1rem;
-      border-radius: 20px;
+      background: #FFFFFF;
+      border: 1px solid #EEE9DF;
+      padding: 0.42rem 1.1rem;
+      border-radius: 9999px;
       font-family: var(--font-terminal);
       font-size: 0.78rem;
-      font-weight: 700;
-      color: var(--color-grey-text);
+      font-weight: 600;
+      color: #52525B;
       cursor: pointer;
       transition: all 0.25s ease;
     }
 
+    .filter-btn:hover {
+      border-color: #D4CEBF;
+      color: #09090B;
+    }
+
     .filter-btn.active {
-      background: var(--color-black);
-      color: #FFF;
-      border-color: var(--color-black);
+      background: #000000;
+      color: #FFFFFF;
+      border-color: #000000;
     }
 
     /* Tooltip */
@@ -1154,7 +1629,7 @@
   </section>
 
   <!-- Editorial Footer -->
-  <footer style="background-color: #FFF; border-top: 1px dashed rgba(0, 0, 0, 0.22); padding: 4.5rem 0 3rem;">
+  <footer style="background-color: #FFF; border-top: 1px solid #EEE9DF; padding: 4.5rem 0 3rem;">
     <div class="container">
       <div class="footer-grid-container" style="display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 2.5rem; margin-bottom: 3.5rem;">
         <div>
@@ -1208,7 +1683,7 @@
   <!-- Embedded Client Logic & Real Data Rendering -->
   <script>
     const realTrades = [{"trade_id": "TR-001", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-05-22 17:00:00-04:00", "exit_time": "2026-05-24 09:00:00-04:00", "entry_price": 118.27, "exit_price": 116.3, "quantity": 169.1, "pnl_usd": 313.6, "return_pct": 1.57, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-002", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-05-24 16:00:00-04:00", "exit_time": "2026-05-25 08:00:00-04:00", "entry_price": 112.64, "exit_price": 114.61, "quantity": 179.11, "pnl_usd": 331.8, "return_pct": 1.64, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-003", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-05-31 22:00:00-04:00", "exit_time": "2026-06-01 08:00:00-04:00", "entry_price": 121.04, "exit_price": 120.32, "quantity": 166.23, "pnl_usd": 100.47, "return_pct": 0.5, "exit_reason": "Monday Convergence Exit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-004", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-06-06 23:00:00-04:00", "exit_time": "2026-06-08 00:00:00-04:00", "entry_price": 135.66, "exit_price": 131.06, "quantity": 148.44, "pnl_usd": 663.34, "return_pct": 3.29, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-005", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-06-13 00:00:00-04:00", "exit_time": "2026-06-15 08:00:00-04:00", "entry_price": 119.99, "exit_price": 128.49, "quantity": 168.9, "pnl_usd": 1414.62, "return_pct": 6.98, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-006", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-06-20 17:00:00-04:00", "exit_time": "2026-06-22 01:00:00-04:00", "entry_price": 125.96, "exit_price": 136.33, "quantity": 163.11, "pnl_usd": 1669.46, "return_pct": 8.13, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-007", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-06-27 11:00:00-04:00", "exit_time": "2026-06-28 23:00:00-04:00", "entry_price": 139.37, "exit_price": 139.51, "quantity": 149.77, "pnl_usd": -1.02, "return_pct": -0.0, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.95}, {"trade_id": "TR-008", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-07-03 20:00:00-04:00", "exit_time": "2026-07-04 22:00:00-04:00", "entry_price": 145.37, "exit_price": 152.85, "quantity": 143.56, "pnl_usd": 1051.36, "return_pct": 5.04, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-009", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-07-05 06:00:00-04:00", "exit_time": "2026-07-06 08:00:00-04:00", "entry_price": 151.16, "exit_price": 163.17, "quantity": 139.43, "pnl_usd": 1652.29, "return_pct": 7.84, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-010", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-07-12 03:00:00-04:00", "exit_time": "2026-07-12 17:00:00-04:00", "entry_price": 158.26, "exit_price": 166.59, "quantity": 135.24, "pnl_usd": 1104.73, "return_pct": 5.16, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-011", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-07-12 23:00:00-04:00", "exit_time": "2026-07-13 08:00:00-04:00", "entry_price": 163.24, "exit_price": 165.02, "quantity": 132.44, "pnl_usd": 213.92, "return_pct": 0.99, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-012", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-07-18 05:00:00-04:00", "exit_time": "2026-07-18 20:00:00-04:00", "entry_price": 158.96, "exit_price": 162.56, "quantity": 139.93, "pnl_usd": -526.66, "return_pct": -2.37, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.95}, {"trade_id": "TR-013", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-07-19 08:00:00-04:00", "exit_time": "2026-07-19 16:00:00-04:00", "entry_price": 166.63, "exit_price": 164.75, "quantity": 130.19, "pnl_usd": 223.01, "return_pct": 1.03, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-014", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-07-24 19:00:00-04:00", "exit_time": "2026-07-25 09:00:00-04:00", "entry_price": 164.2, "exit_price": 163.98, "quantity": 131.47, "pnl_usd": -51.28, "return_pct": -0.24, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.95}, {"trade_id": "TR-015", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-07-25 19:00:00-04:00", "exit_time": "2026-07-26 23:00:00-04:00", "entry_price": 164.24, "exit_price": 162.78, "quantity": 131.35, "pnl_usd": 170.48, "return_pct": 0.79, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-016", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-08-02 10:00:00-04:00", "exit_time": "2026-08-03 08:00:00-04:00", "entry_price": 186.15, "exit_price": 178.84, "quantity": 116.05, "pnl_usd": -868.77, "return_pct": -4.02, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.95}, {"trade_id": "TR-017", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-08-07 20:00:00-04:00", "exit_time": "2026-08-08 00:00:00-04:00", "entry_price": 155.85, "exit_price": 157.63, "quantity": 143.85, "pnl_usd": 233.13, "return_pct": 1.04, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-018", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-08-08 05:00:00-04:00", "exit_time": "2026-08-09 22:00:00-04:00", "entry_price": 161.53, "exit_price": 157.19, "quantity": 137.78, "pnl_usd": 576.56, "return_pct": 2.59, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-019", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-08-16 16:00:00-04:00", "exit_time": "2026-08-17 08:00:00-04:00", "entry_price": 158.29, "exit_price": 166.86, "quantity": 136.32, "pnl_usd": 1146.24, "return_pct": 5.31, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-020", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-08-22 10:00:00-04:00", "exit_time": "2026-08-24 08:00:00-04:00", "entry_price": 155.21, "exit_price": 153.69, "quantity": 140.47, "pnl_usd": -235.07, "return_pct": -1.08, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.95}, {"trade_id": "TR-021", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-08-30 04:00:00-04:00", "exit_time": "2026-08-30 20:00:00-04:00", "entry_price": 148.87, "exit_price": 150.52, "quantity": 146.11, "pnl_usd": 219.07, "return_pct": 1.01, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-022", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-09-05 00:00:00-04:00", "exit_time": "2026-09-05 17:00:00-04:00", "entry_price": 140.57, "exit_price": 137.7, "quantity": 155.02, "pnl_usd": 422.62, "return_pct": 1.94, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-023", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-09-05 22:00:00-04:00", "exit_time": "2026-09-06 17:00:00-04:00", "entry_price": 132.53, "exit_price": 138.58, "quantity": 165.02, "pnl_usd": 975.68, "return_pct": 4.46, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-024", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-09-07 05:00:00-04:00", "exit_time": "2026-09-07 08:00:00-04:00", "entry_price": 144.98, "exit_price": 146.06, "quantity": 152.18, "pnl_usd": -186.78, "return_pct": -0.85, "exit_reason": "Monday Convergence Exit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.95}, {"trade_id": "TR-025", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-09-12 17:00:00-04:00", "exit_time": "2026-09-13 11:00:00-04:00", "entry_price": 155.52, "exit_price": 147.72, "quantity": 149.63, "pnl_usd": 1145.19, "return_pct": 4.92, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-026", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-09-14 03:00:00-04:00", "exit_time": "2026-09-14 08:00:00-04:00", "entry_price": 146.94, "exit_price": 141.43, "quantity": 157.89, "pnl_usd": 847.26, "return_pct": 3.65, "exit_reason": "Monday Convergence Exit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}];
-    const auditMemory = {"total_audited_trades": 30, "win_count": 23, "loss_count": 7, "cumulative_pnl_usd": 13443.618200000008, "asset_adjustments": {"rNVDA": {"z_entry": 2.0, "weight_cap": 0.25, "consecutive_losses": 0}, "rTSLA": {"z_entry": 2.5, "weight_cap": 0.25, "consecutive_losses": 2}, "rAAPL": {"z_entry": 2.0, "weight_cap": 0.25, "consecutive_losses": 0}, "rCOIN": {"z_entry": 2.0, "weight_cap": 0.25, "consecutive_losses": 0}, "rMSTR": {"z_entry": 2.0, "weight_cap": 0.25, "consecutive_losses": 0}, "rSPY": {"z_entry": 2.0, "weight_cap": 0.25, "consecutive_losses": 0}, "rQQQ": {"z_entry": 2.0, "weight_cap": 0.25, "consecutive_losses": 0}}, "recent_post_mortems": [{"trade_id": "TR-026", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": 3.75, "pnl_usd": 869.97, "exit_reason": "Monday Convergence Exit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-025", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": 5.02, "pnl_usd": 1167.11, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-024", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": -0.74, "pnl_usd": -164.35, "exit_reason": "Monday Convergence Exit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 34.5, "verdict": "CONVERGENCE_LATENCY", "root_cause": "Price converged slower than expected in pre-market window", "corrective_action": "Extend pre-market exit buffer until 09:15 EST", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-023", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": 4.57, "pnl_usd": 998.37, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-022", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": 2.04, "pnl_usd": 444.91, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-021", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": 1.11, "pnl_usd": 241.08, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-020", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": -0.98, "pnl_usd": -213.51, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 34.5, "verdict": "CONVERGENCE_LATENCY", "root_cause": "Price converged slower than expected in pre-market window", "corrective_action": "Extend pre-market exit buffer until 09:15 EST", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-019", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": 5.41, "pnl_usd": 1168.26, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-018", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": 2.69, "pnl_usd": 597.97, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-017", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": 1.14, "pnl_usd": 256.05, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-016", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": -3.93, "pnl_usd": -848.33, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 34.5, "verdict": "CONVERGENCE_LATENCY", "root_cause": "Price converged slower than expected in pre-market window", "corrective_action": "Extend pre-market exit buffer until 09:15 EST", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-015", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": 0.89, "pnl_usd": 191.77, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-014", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": -0.13, "pnl_usd": -28.92, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 34.5, "verdict": "CONVERGENCE_LATENCY", "root_cause": "Price converged slower than expected in pre-market window", "corrective_action": "Extend pre-market exit buffer until 09:15 EST", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-013", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": 1.13, "pnl_usd": 244.76, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-012", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": -2.26, "pnl_usd": -503.75, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 34.5, "verdict": "CONVERGENCE_LATENCY", "root_cause": "Price converged slower than expected in pre-market window", "corrective_action": "Extend pre-market exit buffer until 09:15 EST", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-011", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": 1.09, "pnl_usd": 235.74, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-010", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": 5.26, "pnl_usd": 1126.55, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-009", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": 7.95, "pnl_usd": 1674.55, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-008", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": 5.15, "pnl_usd": 1073.83, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-007", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": 0.1, "pnl_usd": 20.97, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 34.5, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}]};
+    const auditMemory = {"total_audited_trades": 32, "win_count": 25, "loss_count": 7, "cumulative_pnl_usd": 13899.11820000001, "asset_adjustments": {"rNVDA": {"z_entry": 2.0, "weight_cap": 0.25, "consecutive_losses": 0}, "rTSLA": {"z_entry": 2.5, "weight_cap": 0.25, "consecutive_losses": 2}, "rAAPL": {"z_entry": 2.0, "weight_cap": 0.25, "consecutive_losses": 0}, "rCOIN": {"z_entry": 2.0, "weight_cap": 0.25, "consecutive_losses": 0}, "rMSTR": {"z_entry": 2.0, "weight_cap": 0.25, "consecutive_losses": 0}, "rSPY": {"z_entry": 2.0, "weight_cap": 0.25, "consecutive_losses": 0}, "rQQQ": {"z_entry": 2.0, "weight_cap": 0.25, "consecutive_losses": 0}}, "recent_post_mortems": [{"trade_id": "tr_1789781033818", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": 3.82, "pnl_usd": 253.5, "exit_reason": "Monday Open (HOLD_TRAILING_STOP (+1.5% Lock))", "entry_z": 4.46, "exit_z": 0.28, "mae_pct": 1.2, "beta_deviation_pct": 0.0, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-19 02:23:53 EST"}, {"trade_id": "tr_1789773270910", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": 3.04, "pnl_usd": 202.0, "exit_reason": "Monday Pre-Market Convergence (08:30 EST)", "entry_z": 4.46, "exit_z": 0.28, "mae_pct": 1.2, "beta_deviation_pct": 0.0, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-19 00:14:30 EST"}, {"trade_id": "TR-026", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": 3.75, "pnl_usd": 869.97, "exit_reason": "Monday Convergence Exit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-025", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": 5.02, "pnl_usd": 1167.11, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-024", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": -0.74, "pnl_usd": -164.35, "exit_reason": "Monday Convergence Exit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 34.5, "verdict": "CONVERGENCE_LATENCY", "root_cause": "Price converged slower than expected in pre-market window", "corrective_action": "Extend pre-market exit buffer until 09:15 EST", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-023", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": 4.57, "pnl_usd": 998.37, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-022", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": 2.04, "pnl_usd": 444.91, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-021", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": 1.11, "pnl_usd": 241.08, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-020", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": -0.98, "pnl_usd": -213.51, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 34.5, "verdict": "CONVERGENCE_LATENCY", "root_cause": "Price converged slower than expected in pre-market window", "corrective_action": "Extend pre-market exit buffer until 09:15 EST", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-019", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": 5.41, "pnl_usd": 1168.26, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-018", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": 2.69, "pnl_usd": 597.97, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-017", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": 1.14, "pnl_usd": 256.05, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-016", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": -3.93, "pnl_usd": -848.33, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 34.5, "verdict": "CONVERGENCE_LATENCY", "root_cause": "Price converged slower than expected in pre-market window", "corrective_action": "Extend pre-market exit buffer until 09:15 EST", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-015", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": 0.89, "pnl_usd": 191.77, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-014", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": -0.13, "pnl_usd": -28.92, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 34.5, "verdict": "CONVERGENCE_LATENCY", "root_cause": "Price converged slower than expected in pre-market window", "corrective_action": "Extend pre-market exit buffer until 09:15 EST", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-013", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": 1.13, "pnl_usd": 244.76, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-012", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": -2.26, "pnl_usd": -503.75, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 34.5, "verdict": "CONVERGENCE_LATENCY", "root_cause": "Price converged slower than expected in pre-market window", "corrective_action": "Extend pre-market exit buffer until 09:15 EST", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-011", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": 1.09, "pnl_usd": 235.74, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-010", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": 5.26, "pnl_usd": 1126.55, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-009", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": 7.95, "pnl_usd": 1674.55, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}]};
     const chartData = {"rNVDA": {"name": "rNVDA / USDT", "symbol": "rNVDA", "anchor_price": 128.4, "prices": [152.77, 154.03, 153.39, 152.95, 154.36, 155.07, 155.6, 155.67, 155.33, 155.54, 153.37, 154.46, 153.24, 152.47, 151.07, 150.91, 149.86, 150.04, 150.89, 151.53, 151.31, 150.2, 149.4, 148.8, 147.64, 147.2, 145.45, 144.2, 145.12, 146.94, 146.25, 146.86, 145.76, 145.55, 144.2, 145.75, 143.14, 143.09, 143.2, 143.21, 147.01, 147.27, 145.82, 146.3, 144.92, 141.36, 139.25, 138.98, 139.11, 136.24, 136.79, 135.11, 137.86, 139.7, 140.44, 141.08, 141.7, 141.7, 139.74, 139.47, 139.66, 139.17, 137.27, 137.19, 140.1, 141.72, 141.25, 142.52, 141.92, 140.03, 141.47, 142.15, 142.83, 142.12, 142.9, 142.47, 143.42, 146.42, 146.87, 147.25, 146.2, 148.52, 146.69, 148.12, 146.92, 145.77, 145.59, 145.92, 145.25, 144.34, 145.29, 144.31, 145.24, 147.06, 148.08, 150.58, 149.47, 149.66, 150.27, 148.52, 148.57, 147.25, 148.89, 149.27, 149.44, 148.24, 147.36, 147.99, 149.53, 148.54, 149.84, 146.8, 145.71, 146.77, 146.16, 143.79, 142.7, 142.17, 142.24, 143.12], "markers": [{"index": 28, "price": 133.62, "type": "ENTRY", "label": "SHORT 2.24\u03c3"}, {"index": 98, "price": 128.4, "type": "EXIT", "label": "CONVERGENCE"}]}, "rTSLA": {"name": "rTSLA / USDT", "symbol": "rTSLA", "anchor_price": 248.0, "prices": [595.12, 599.54, 596.29, 599.26, 606.58, 607.73, 610.86, 605.79, 605.7, 609.52, 607.47, 607.88, 600.53, 596.43, 593.33, 589.79, 588.02, 586.61, 592.96, 597.42, 591.15, 588.67, 580.9, 578.33, 577.39, 569.71, 564.92, 563.84, 569.01, 571.05, 567.95, 565.6, 560.67, 556.91, 552.14, 552.13, 542.36, 535.14, 532.53, 535.65, 549.98, 549.73, 546.96, 547.3, 538.93, 522.04, 532.83, 535.06, 530.81, 528.95, 541.48, 539.71, 534.43, 551.56, 555.03, 562.39, 564.59, 562.91, 552.37, 551.58, 554.13, 551.64, 543.22, 543.87, 547.94, 558.04, 556.52, 559.03, 559.27, 548.91, 542.56, 536.63, 539.15, 529.04, 536.63, 532.58, 531.49, 547.23, 547.46, 549.32, 539.95, 549.85, 541.93, 541.22, 536.33, 532.65, 527.97, 527.16, 523.89, 520.9, 524.3, 519.09, 521.25, 530.33, 520.21, 513.66, 507.45, 502.2, 498.78, 500.57, 506.83, 499.51, 502.27, 506.38, 505.35, 498.77, 496.97, 496.15, 504.59, 498.31, 505.11, 490.17, 489.68, 489.43, 483.86, 479.42, 477.38, 477.04, 466.74, 470.45], "markers": [{"index": 30, "price": 253.52, "type": "ENTRY", "label": "SHORT 2.65\u03c3"}, {"index": 98, "price": 248.0, "type": "EXIT", "label": "CONVERGENCE"}]}, "rMSTR": {"name": "rMSTR / USDT", "symbol": "rMSTR", "anchor_price": 292.2, "prices": [281.3, 283.45, 277.48, 278.71, 283.89, 285.57, 286.94, 284.03, 283.84, 282.74, 280.77, 280.8, 272.88, 267.42, 268.82, 266.55, 266.17, 262.65, 264.81, 268.93, 266.33, 266.24, 260.57, 259.9, 259.33, 254.91, 250.76, 248.65, 250.89, 256.65, 254.58, 252.42, 250.3, 252.51, 247.53, 249.25, 242.92, 241.32, 241.11, 242.76, 254.75, 255.76, 251.62, 250.35, 241.16, 238.29, 235.55, 234.16, 231.2, 222.85, 223.32, 224.69, 221.55, 228.48, 229.46, 230.74, 232.36, 235.76, 227.7, 224.86, 227.79, 226.83, 222.35, 221.73, 224.18, 234.28, 234.32, 238.25, 234.47, 225.58, 230.72, 234.52, 236.7, 239.9, 240.83, 242.38, 243.53, 252.44, 252.39, 254.86, 248.83, 253.11, 244.09, 244.89, 239.6, 235.33, 233.36, 228.66, 227.57, 223.46, 226.83, 224.06, 224.46, 231.55, 231.69, 235.7, 233.35, 237.9, 242.39, 248.8, 246.52, 245.1, 248.34, 250.98, 251.49, 248.91, 245.98, 247.41, 249.84, 244.99, 250.73, 242.51, 239.81, 241.73, 236.93, 234.17, 231.73, 233.62, 235.72, 228.54], "markers": [{"index": 32, "price": 312.41, "type": "ENTRY", "label": "SHORT 3.48\u03c3"}, {"index": 98, "price": 292.2, "type": "EXIT", "label": "CONVERGENCE"}]}, "rAAPL": {"name": "rAAPL / USDT", "symbol": "rAAPL", "anchor_price": 224.0, "prices": [227.5946, 227.8214, 227.7062, 227.627, 227.8808, 228.0086, 228.10399999999998, 228.1166, 228.0554, 228.0932, 227.7026, 227.8988, 227.6792, 227.54059999999998, 227.2886, 227.25979999999998, 227.0708, 227.1032, 227.2562, 227.3714, 227.3318, 227.132, 226.988, 226.88, 226.6712, 226.59199999999998, 226.277, 226.052, 226.2176, 226.5452, 226.421, 226.5308, 226.3328, 226.295, 226.052, 226.331, 225.8612, 225.8522, 225.87199999999999, 225.8738, 226.5578, 226.6046, 226.3436, 226.43, 226.1816, 225.5408, 225.161, 225.1124, 225.1358, 224.6192, 224.7182, 224.4158, 224.9108, 225.242, 225.3752, 225.4904, 225.602, 225.602, 225.2492, 225.2006, 225.2348, 225.1466, 224.8046, 224.7902, 225.314, 225.6056, 225.521, 225.7496, 225.64159999999998, 225.3014, 225.5606, 225.683, 225.8054, 225.6776, 225.818, 225.7406, 225.9116, 226.45159999999998, 226.5326, 226.601, 226.412, 226.8296, 226.5002, 226.7576, 226.5416, 226.3346, 226.3022, 226.3616, 226.24099999999999, 226.0772, 226.2482, 226.0718, 226.2392, 226.5668, 226.7504, 227.2004, 227.0006, 227.0348, 227.1446, 226.8296, 226.83859999999999, 226.601, 226.8962, 226.9646, 226.9952, 226.7792, 226.6208, 226.7342, 227.0114, 226.8332, 227.06719999999999, 226.52, 226.3238, 226.5146, 226.4048, 225.9782, 225.78199999999998, 225.6866, 225.6992, 225.8576], "markers": []}, "rCOIN": {"name": "rCOIN / USDT", "symbol": "rCOIN", "anchor_price": 206.8, "prices": [199.71500000000003, 201.1125, 197.23200000000003, 198.0315, 201.3985, 202.49050000000003, 203.38100000000003, 201.4895, 201.366, 200.651, 199.3705, 199.39000000000001, 194.24200000000002, 190.69300000000004, 191.603, 190.12750000000003, 189.88050000000004, 187.5925, 188.99650000000003, 191.67450000000002, 189.9845, 189.92600000000002, 186.24050000000003, 185.805, 185.4345, 182.56150000000002, 179.864, 178.4925, 179.94850000000002, 183.6925, 182.34700000000004, 180.943, 179.56500000000003, 181.00150000000002, 177.76450000000003, 178.88250000000002, 174.768, 173.728, 173.59150000000002, 174.66400000000002, 182.4575, 183.114, 180.42300000000003, 179.59750000000003, 173.62400000000002, 171.75850000000003, 169.97750000000002, 169.074, 167.15, 161.72250000000003, 162.02800000000002, 162.91850000000002, 160.87750000000003, 165.382, 166.019, 166.85100000000003, 167.90400000000002, 170.114, 164.875, 163.02900000000002, 164.9335, 164.3095, 161.3975, 160.99450000000002, 162.58700000000002, 169.15200000000002, 169.178, 171.73250000000002, 169.27550000000002, 163.497, 166.83800000000002, 169.30800000000002, 170.72500000000002, 172.805, 173.40950000000004, 174.41700000000003, 175.16450000000003, 180.95600000000002, 180.92350000000002, 182.52900000000002, 178.60950000000003, 181.39150000000004, 175.5285, 176.04850000000002, 172.61, 169.83450000000002, 168.55400000000003, 165.49900000000002, 164.7905, 162.11900000000003, 164.3095, 162.50900000000001, 162.769, 167.37750000000003, 167.4685, 170.07500000000002, 168.5475, 171.50500000000002, 174.42350000000002, 178.59000000000003, 177.10800000000003, 176.185, 178.29100000000003, 180.007, 180.3385, 178.66150000000002, 176.757, 177.68650000000002, 179.26600000000002, 176.11350000000002, 179.8445, 174.50150000000002, 172.74650000000003, 173.99450000000002, 170.8745, 169.0805, 167.49450000000002, 168.723, 170.08800000000002, 165.42100000000002], "markers": [{"index": 34, "price": 214.88, "type": "ENTRY", "label": "SHORT 3.10\u03c3"}, {"index": 98, "price": 206.8, "type": "EXIT", "label": "CONVERGENCE"}]}, "rSPY": {"name": "rSPY / USDT", "symbol": "rSPY", "anchor_price": 561.8, "prices": [563.3976, 563.4984, 563.4472, 563.4119999999999, 563.5247999999999, 563.5816, 563.6239999999999, 563.6296, 563.6024, 563.6192, 563.4455999999999, 563.5328, 563.4352, 563.3735999999999, 563.2615999999999, 563.2488, 563.1647999999999, 563.1791999999999, 563.2471999999999, 563.2983999999999, 563.2808, 563.192, 563.1279999999999, 563.0799999999999, 562.9871999999999, 562.952, 562.8119999999999, 562.712, 562.7855999999999, 562.9312, 562.876, 562.9248, 562.8367999999999, 562.8199999999999, 562.712, 562.8359999999999, 562.6271999999999, 562.6232, 562.632, 562.6328, 562.9368, 562.9576, 562.8416, 562.88, 562.7696, 562.4848, 562.3159999999999, 562.2944, 562.3048, 562.0752, 562.1192, 561.9848, 562.2048, 562.352, 562.4112, 562.4624, 562.512, 562.512, 562.3552, 562.3335999999999, 562.3488, 562.3095999999999, 562.1576, 562.1511999999999, 562.3839999999999, 562.5136, 562.476, 562.5776, 562.5296, 562.3783999999999, 562.4935999999999, 562.548, 562.6024, 562.5455999999999, 562.608, 562.5735999999999, 562.6496, 562.8896, 562.9255999999999, 562.9559999999999, 562.872, 563.0576, 562.9112, 563.0255999999999, 562.9295999999999, 562.8376, 562.8231999999999, 562.8496, 562.7959999999999, 562.7231999999999, 562.7991999999999, 562.7207999999999, 562.7951999999999, 562.9408, 563.0224, 563.2224, 563.1336, 563.1487999999999, 563.1976, 563.0576, 563.0616, 562.9559999999999, 563.0871999999999, 563.1175999999999, 563.1311999999999, 563.0351999999999, 562.9648, 563.0151999999999, 563.1383999999999, 563.0591999999999, 563.1632, 562.92, 562.8327999999999, 562.9176, 562.8688, 562.6791999999999, 562.592, 562.5495999999999, 562.5551999999999, 562.6256], "markers": []}, "rQQQ": {"name": "rQQQ / USDT", "symbol": "rQQQ", "anchor_price": 478.9, "prices": [481.29639999999995, 481.44759999999997, 481.3708, 481.318, 481.4872, 481.57239999999996, 481.63599999999997, 481.64439999999996, 481.6036, 481.62879999999996, 481.36839999999995, 481.4992, 481.3528, 481.2604, 481.0924, 481.0732, 480.94719999999995, 480.9688, 481.07079999999996, 481.14759999999995, 481.1212, 480.988, 480.892, 480.82, 480.6808, 480.628, 480.41799999999995, 480.268, 480.3784, 480.5968, 480.51399999999995, 480.5872, 480.4552, 480.42999999999995, 480.268, 480.45399999999995, 480.14079999999996, 480.1348, 480.14799999999997, 480.14919999999995, 480.60519999999997, 480.6364, 480.4624, 480.52, 480.3544, 479.92719999999997, 479.674, 479.6416, 479.6572, 479.3128, 479.37879999999996, 479.17719999999997, 479.50719999999995, 479.72799999999995, 479.8168, 479.8936, 479.96799999999996, 479.96799999999996, 479.7328, 479.7004, 479.72319999999996, 479.6644, 479.4364, 479.42679999999996, 479.77599999999995, 479.9704, 479.914, 480.0664, 479.9944, 479.76759999999996, 479.94039999999995, 480.022, 480.1036, 480.0184, 480.11199999999997, 480.06039999999996, 480.1744, 480.53439999999995, 480.5884, 480.63399999999996, 480.508, 480.78639999999996, 480.5668, 480.73839999999996, 480.59439999999995, 480.4564, 480.4348, 480.47439999999995, 480.39399999999995, 480.28479999999996, 480.3988, 480.28119999999996, 480.39279999999997, 480.6112, 480.73359999999997, 481.0336, 480.9004, 480.92319999999995, 480.9964, 480.78639999999996, 480.7924, 480.63399999999996, 480.83079999999995, 480.8764, 480.8968, 480.7528, 480.6472, 480.72279999999995, 480.9076, 480.7888, 480.9448, 480.58, 480.44919999999996, 480.5764, 480.5032, 480.2188, 480.08799999999997, 480.02439999999996, 480.03279999999995, 480.1384], "markers": []}};
 
     let activeSymbol = "rNVDA";
@@ -1327,7 +1802,7 @@
       ctx.fillRect(wStart, 10, wEnd - wStart, h - 45);
 
       ctx.fillStyle = "rgba(0, 0, 0, 0.35)";
-      ctx.font = "10px 'Space Mono', monospace";
+      ctx.font = "10px 'JetBrains Mono', monospace";
       ctx.fillText("WEEKEND TRADING ZONE (24/7 TOKENIZED LIQUIDITY)", wStart + 12, 26);
 
       // Horizontal Anchor Price Line
@@ -1381,14 +1856,14 @@
           ctx.stroke();
 
           ctx.fillStyle = "#000";
-          ctx.font = "bold 9px 'Space Mono', monospace";
+          ctx.font = "bold 9px 'JetBrains Mono', monospace";
           ctx.fillText(m.label, mx - 12, my - 9);
         });
       }
 
       // Axes & Labels
       ctx.fillStyle = "#888";
-      ctx.font = "10px 'Space Mono', monospace";
+      ctx.font = "10px 'JetBrains Mono', monospace";
       ctx.fillText("$" + maxP.toFixed(2), 8, 25);
       ctx.fillText("$" + ((maxP + minP) / 2).toFixed(2), 8, h / 2);
       ctx.fillText("$" + minP.toFixed(2), 8, h - 35);

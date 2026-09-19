@@ -102,40 +102,43 @@ html_content = f"""<!DOCTYPE html>
   <!-- Google Fonts: Instrument Serif, Playfair Display, Inter, Space Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Neuton:ital,wght@0,200;0,300;0,400;0,700;0,800;1,400&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
 {theme_css}
 
-    /* Chronos Design Tokens & Theme Typography */
+    /* Ghost Torus Editorial Design Tokens & Chronos Typography */
     :root {{
-      --font-serif-editorial: "Instrument Serif", "Playfair Display", Georgia, serif;
+      --font-serif-editorial: "Neuton", "Playfair Display", Georgia, serif;
+      --font-heading: "Neuton", Georgia, serif;
       --font-sans-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      --font-terminal: "Space Mono", "Special Elite", monospace;
-      --font-bobz: "Instrument Serif", "Playfair Display", Georgia, serif;
-      --font-heading: "Instrument Serif", "Playfair Display", Georgia, serif;
-      --font-number: "Instrument Serif", "Playfair Display", serif;
+      --font-terminal: "JetBrains Mono", monospace;
+      --font-mono: "JetBrains Mono", monospace;
+      --font-bobz: "Neuton", Georgia, serif;
+      --font-number: "JetBrains Mono", monospace;
       --font-subtext: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       
       --color-white: #FFFFFF;
-      --color-canvas-light: #FAF9F6;
-      --color-canvas-subtle: #F2F0EB;
-      --color-black: #000000;
-      --color-black-night: #090909;
-      --color-black-card: #121212;
-      --color-grey-pill: #E2E5EB;
-      --color-grey-border: rgba(0, 0, 0, .08);
-      --color-grey-text: #5A5E66;
-      --color-grey-muted: #8E9299;
-      --color-green: #00C853;
-      --color-green-light: #00E676;
-      --color-red: #E50914;
-      --color-red-light: #FF1744;
+      --color-canvas-light: #FAF8F5;
+      --color-canvas-subtle: #F4EFE6;
+      --color-black: #09090B;
+      --color-black-night: #0C0C0E;
+      --color-black-card: #18181B;
+      --color-grey-pill: #F4EFE6;
+      --color-grey-border: #EEE9DF;
+      --color-border-hairline: #EEE9DF;
+      --color-border-subtle: #E4E4E7;
+      --color-grey-text: #52525B;
+      --color-grey-muted: #71717A;
+      --color-green: #10B981;
+      --color-green-light: #34D399;
+      --color-red: #EF4444;
+      --color-red-light: #F87171;
       --color-amber: #F59E0B;
-      --color-cyan: #00D2FF;
-      --border-thin: 1px solid rgba(0, 0, 0, .08);
-      --border-dashed: 1px dashed rgba(0, 0, 0, 0.22);
-      --border-dashed-dark: 1px dashed rgba(255, 255, 255, 0.22);
+      --color-cyan: #0284C7;
+      --border-thin: 1px solid #EEE9DF;
+      --border-dashed: 1px solid #EEE9DF;
+      --border-dashed-dark: 1px solid rgba(255, 255, 255, 0.12);
     }}
 
     * {{ box-sizing: border-box; margin: 0; padding: 0; }}
@@ -290,10 +293,10 @@ html_content = f"""<!DOCTYPE html>
       padding-bottom: 4rem !important;
     }}
 
-    /* Section Spacing */
+    /* Section Spacing (Ghost Torus Hairline Border) */
     .section-spacious {{
       padding: 5.5rem 0;
-      border-bottom: 1px dashed rgba(0, 0, 0, 0.14);
+      border-bottom: 1px solid #EEE9DF;
     }}
 
     .section-tag {{
@@ -318,10 +321,10 @@ html_content = f"""<!DOCTYPE html>
 
     .section-title {{
       font-family: var(--font-serif-editorial);
-      font-size: 3.1rem;
-      font-weight: 400;
+      font-size: 3.0rem;
+      font-weight: 700;
       line-height: 1.12;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.015em;
       color: var(--color-black);
       margin-bottom: 0.95rem;
     }}
@@ -347,8 +350,8 @@ html_content = f"""<!DOCTYPE html>
       font-family: var(--font-serif-editorial);
       font-size: 3.8rem;
       line-height: 1.08;
-      font-weight: 400;
-      letter-spacing: -0.025em;
+      font-weight: 700;
+      letter-spacing: -0.02em;
       margin: 1.25rem 0;
       color: var(--color-black);
     }}
@@ -382,8 +385,8 @@ html_content = f"""<!DOCTYPE html>
       height: auto;
       display: block;
       border-radius: 20px;
-      border: 1px dashed rgba(0, 0, 0, 0.18);
-      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.1);
+      border: 1px solid #EEE9DF;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
       transition: transform 0.5s ease, box-shadow 0.5s ease;
       animation: floatHero 6s ease-in-out infinite;
     }}
@@ -398,12 +401,12 @@ html_content = f"""<!DOCTYPE html>
       box-shadow: 0 28px 64px rgba(0, 0, 0, 0.16);
     }}
 
-    /* Stat Box Numbers */
+    /* Stat Box Numbers (Ghost Torus Style) */
     .stat-number {{
       font-family: var(--font-serif-editorial);
       font-size: 2.85rem;
       line-height: 1;
-      font-weight: 400;
+      font-weight: 700;
       color: var(--color-black);
       margin-bottom: 0.4rem;
     }}
@@ -448,13 +451,13 @@ html_content = f"""<!DOCTYPE html>
       margin-bottom: 1.1rem;
     }}
 
-    /* Interactive Chart Box */
+    /* Interactive Chart Box (Ghost Torus Card) */
     .chart-box {{
       background: #FFFFFF;
-      border: 1px dashed rgba(0, 0, 0, 0.22);
-      border-radius: 6px;
+      border: 1px solid #EEE9DF;
+      border-radius: 12px;
       padding: 1.75rem;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
       position: relative;
     }}
 
@@ -469,9 +472,10 @@ html_content = f"""<!DOCTYPE html>
 
     .asset-pill-group {{
       display: inline-flex;
-      background-color: var(--color-grey-pill);
+      background-color: #F4EFE6;
+      border: 1px solid #EEE9DF;
       padding: 0.25rem;
-      border-radius: 24px;
+      border-radius: 9999px;
       gap: 0.25rem;
     }}
 
@@ -479,19 +483,19 @@ html_content = f"""<!DOCTYPE html>
       border: none;
       background: none;
       font-family: var(--font-terminal);
-      font-size: 0.82rem;
-      font-weight: 700;
+      font-size: 0.80rem;
+      font-weight: 600;
       padding: 0.35rem 0.95rem;
-      border-radius: 20px;
+      border-radius: 9999px;
       cursor: pointer;
-      color: var(--color-grey-text);
+      color: #52525B;
       transition: all 0.25s ease;
     }}
 
     .asset-pill.active {{
-      background-color: var(--color-black);
-      color: #FFF;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      background-color: #000000;
+      color: #FFFFFF;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
     }}
 
     #priceCanvas {{
@@ -612,22 +616,27 @@ html_content = f"""<!DOCTYPE html>
     }}
 
     .filter-btn {{
-      background: #FFF;
-      border: 1px dashed rgba(0, 0, 0, 0.22);
-      padding: 0.42rem 1rem;
-      border-radius: 20px;
+      background: #FFFFFF;
+      border: 1px solid #EEE9DF;
+      padding: 0.42rem 1.1rem;
+      border-radius: 9999px;
       font-family: var(--font-terminal);
       font-size: 0.78rem;
-      font-weight: 700;
-      color: var(--color-grey-text);
+      font-weight: 600;
+      color: #52525B;
       cursor: pointer;
       transition: all 0.25s ease;
     }}
 
+    .filter-btn:hover {{
+      border-color: #D4CEBF;
+      color: #09090B;
+    }}
+
     .filter-btn.active {{
-      background: var(--color-black);
-      color: #FFF;
-      border-color: var(--color-black);
+      background: #000000;
+      color: #FFFFFF;
+      border-color: #000000;
     }}
 
     /* Tooltip */
@@ -1245,7 +1254,7 @@ html_content = f"""<!DOCTYPE html>
   </section>
 
   <!-- Editorial Footer -->
-  <footer style="background-color: #FFF; border-top: 1px dashed rgba(0, 0, 0, 0.22); padding: 4.5rem 0 3rem;">
+  <footer style="background-color: #FFF; border-top: 1px solid #EEE9DF; padding: 4.5rem 0 3rem;">
     <div class="container">
       <div class="footer-grid-container" style="display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 2.5rem; margin-bottom: 3.5rem;">
         <div>
@@ -1418,7 +1427,7 @@ html_content = f"""<!DOCTYPE html>
       ctx.fillRect(wStart, 10, wEnd - wStart, h - 45);
 
       ctx.fillStyle = "rgba(0, 0, 0, 0.35)";
-      ctx.font = "10px 'Space Mono', monospace";
+      ctx.font = "10px 'JetBrains Mono', monospace";
       ctx.fillText("WEEKEND TRADING ZONE (24/7 TOKENIZED LIQUIDITY)", wStart + 12, 26);
 
       // Horizontal Anchor Price Line
@@ -1472,14 +1481,14 @@ html_content = f"""<!DOCTYPE html>
           ctx.stroke();
 
           ctx.fillStyle = "#000";
-          ctx.font = "bold 9px 'Space Mono', monospace";
+          ctx.font = "bold 9px 'JetBrains Mono', monospace";
           ctx.fillText(m.label, mx - 12, my - 9);
         }});
       }}
 
       // Axes & Labels
       ctx.fillStyle = "#888";
-      ctx.font = "10px 'Space Mono', monospace";
+      ctx.font = "10px 'JetBrains Mono', monospace";
       ctx.fillText("$" + maxP.toFixed(2), 8, 25);
       ctx.fillText("$" + ((maxP + minP) / 2).toFixed(2), 8, h / 2);
       ctx.fillText("$" + minP.toFixed(2), 8, h - 35);
