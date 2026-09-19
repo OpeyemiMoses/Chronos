@@ -2275,6 +2275,59 @@ html_template = f"""<!DOCTYPE html>
       background: #10B981;
     }}
 
+    /* Header Wallet Connect Button - Matching exact 24px height of ghost-top-controls */
+    #rainbowkitHeaderContainer,
+    #rainbowkitHeaderContainer > div,
+    #rainbowkitHeaderContainer [data-rk],
+    #rainbowkitHeaderContainer [data-rk] > div,
+    #rainbowkitHeaderContainer [data-rk] > div > div {{
+      display: inline-flex !important;
+      align-items: center !important;
+      height: 24px !important;
+      max-height: 24px !important;
+    }}
+
+    #rainbowkitHeaderContainer button,
+    #rainbowkitHeaderContainer [data-testid="rk-connect-button"],
+    #rainbowkitHeaderContainer [data-testid="rk-account-button"],
+    #rainbowkitHeaderContainer [data-testid="rk-chain-button"],
+    #rainbowkitHeaderContainer .iekbcc0,
+    .rk-connect-btn,
+    .rk-pill-chain,
+    .rk-pill-account {{
+      height: 24px !important;
+      min-height: 24px !important;
+      max-height: 24px !important;
+      padding: 0 0.55rem !important;
+      font-size: 0.65rem !important;
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.01em !important;
+      border-radius: 9999px !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 0.28rem !important;
+      line-height: 22px !important;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+      transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1) !important;
+      cursor: pointer !important;
+      white-space: nowrap !important;
+    }}
+
+    #rainbowkitHeaderContainer button:hover,
+    #rainbowkitHeaderContainer [data-testid="rk-connect-button"]:hover,
+    .rk-connect-btn:hover {{
+      transform: translateY(-1px) !important;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12) !important;
+    }}
+
+    #rainbowkitHeaderContainer button svg,
+    #rainbowkitHeaderContainer button img {{
+      width: 13px !important;
+      height: 13px !important;
+    }}
+
     /* =========================================================
        COMPACT OVERVIEW PAGE & LOW-PROFILE KPI STRIP
        ========================================================= */

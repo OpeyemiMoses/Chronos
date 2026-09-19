@@ -179,38 +179,62 @@ RAINBOWKIT_CSS = """
    -------------------------------------------------------------------------- */
 
 /* Header Disconnected Button - Stylized Ultra-Compact Editorial Design */
+#rainbowkitHeaderContainer,
+#rainbowkitHeaderContainer > div,
+#rainbowkitHeaderContainer [data-rk],
+#rainbowkitHeaderContainer [data-rk] > div,
+#rainbowkitHeaderContainer [data-rk] > div > div {
+  display: inline-flex !important;
+  align-items: center !important;
+  height: 24px !important;
+  max-height: 24px !important;
+}
+
+#rainbowkitHeaderContainer button,
+#rainbowkitHeaderContainer [data-testid="rk-connect-button"],
+#rainbowkitHeaderContainer [data-testid="rk-account-button"],
+#rainbowkitHeaderContainer [data-testid="rk-chain-button"],
+#rainbowkitHeaderContainer .iekbcc0,
 .rk-connect-btn {
-  background: #18181B;
-  color: #FFFFFF;
-  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  padding: 0.26rem 0.68rem;
-  height: 26px;
-  box-sizing: border-box;
-  border-radius: 9999px;
-  border: 1px solid #27272A;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
-  user-select: none;
+  background: #18181B !important;
+  color: #FFFFFF !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif !important;
+  font-size: 0.65rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.01em !important;
+  padding: 0 0.52rem !important;
+  height: 24px !important;
+  min-height: 24px !important;
+  max-height: 24px !important;
+  box-sizing: border-box !important;
+  border-radius: 9999px !important;
+  border: 1px solid #27272A !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.28rem !important;
+  line-height: 22px !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  user-select: none !important;
+  white-space: nowrap !important;
 }
+#rainbowkitHeaderContainer button:hover,
+#rainbowkitHeaderContainer [data-testid="rk-connect-button"]:hover,
 .rk-connect-btn:hover {
-  background: #27272A;
-  border-color: #3F3F46;
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  background: #27272A !important;
+  border-color: #3F3F46 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12) !important;
 }
+#rainbowkitHeaderContainer button:active,
 .rk-connect-btn:active {
-  transform: scale(0.98);
+  transform: scale(0.98) !important;
 }
 .rk-rainbow-dot {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
   background: #10B981;
   box-shadow: 0 0 5px rgba(16, 185, 129, 0.6);
@@ -221,49 +245,62 @@ RAINBOWKIT_CSS = """
 .rk-connected-group {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   user-select: none;
 }
 .rk-pill-chain {
-  background: #FFFFFF;
-  color: #18181B;
-  border: 1px solid #EEE9DF;
-  border-radius: 9999px;
-  padding: 0.22rem 0.55rem;
-  height: 26px;
-  box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
-  font-size: 0.68rem;
-  font-weight: 600;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
-  transition: all 0.15s ease;
+  background: #FFFFFF !important;
+  color: #18181B !important;
+  border: 1px solid #EEE9DF !important;
+  border-radius: 9999px !important;
+  padding: 0 0.45rem !important;
+  height: 24px !important;
+  min-height: 24px !important;
+  max-height: 24px !important;
+  box-sizing: border-box !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif !important;
+  font-size: 0.65rem !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.25rem !important;
+  line-height: 22px !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03) !important;
+  transition: all 0.15s ease !important;
 }
 .rk-pill-chain:hover {
-  background: #F4EFE6;
-  border-color: #D4CEBF;
+  background: #F4EFE6 !important;
+  border-color: #D4CEBF !important;
 }
 .rk-pill-account {
-  background: #FFFFFF;
-  color: #18181B;
-  border: 1px solid #EEE9DF;
-  border-radius: 9999px;
-  padding: 0.22rem 0.55rem 0.22rem 0.65rem;
-  height: 26px;
-  box-sizing: border-box;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
-  transition: all 0.15s ease;
+  background: #FFFFFF !important;
+  color: #18181B !important;
+  border: 1px solid #EEE9DF !important;
+  border-radius: 9999px !important;
+  padding: 0 0.45rem 0 0.52rem !important;
+  height: 24px !important;
+  min-height: 24px !important;
+  max-height: 24px !important;
+  box-sizing: border-box !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.28rem !important;
+  font-family: var(--font-terminal), monospace !important;
+  font-size: 0.65rem !important;
+  line-height: 22px !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03) !important;
+  transition: all 0.15s ease !important;
 }
 .rk-pill-account:hover {
-  background: #F4EFE6;
-  border-color: #D4CEBF;
+  background: #F4EFE6 !important;
+  border-color: #D4CEBF !important;
+}
+#rainbowkitHeaderContainer button svg,
+#rainbowkitHeaderContainer button img {
+  width: 13px !important;
+  height: 13px !important;
 }
 .rk-pill-balance {
   font-family: 'Space Mono', monospace;
