@@ -957,7 +957,7 @@
       border-color: #000;
     }
 
-    /* Institutional Strategy & Reasoning Modal */
+    /* Institutional Strategy & Reasoning Modal (Executive Two-Column Tabbed Redesign) */
     .trade-reasoning-overlay {
       display: none;
       position: fixed;
@@ -965,8 +965,8 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(10, 15, 29, 0.86);
-      backdrop-filter: blur(10px);
+      background: rgba(4, 7, 15, 0.88);
+      backdrop-filter: blur(16px);
       z-index: 10000;
       align-items: center;
       justify-content: center;
@@ -978,28 +978,44 @@
     }
 
     .trade-reasoning-card {
-      background: #0B0F19;
+      background: #090D16;
       color: #F8FAFC;
-      border-radius: 14px;
-      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
       width: 100%;
-      max-width: 820px;
+      max-width: 960px;
       max-height: 90vh;
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.08);
+      box-shadow: 0 40px 100px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.05);
       animation: modalRise 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .trade-reasoning-header {
-      padding: 1.35rem 1.75rem;
-      background: #111827;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 1.25rem 1.75rem;
+      background: #0D1220;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
+      align-items: center;
       gap: 1rem;
+    }
+
+    .modal-asset-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: #1E293B;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.88rem;
+      color: #38BDF8;
+      font-family: var(--font-terminal);
+      flex-shrink: 0;
     }
 
     .trade-reasoning-tag {
@@ -1007,47 +1023,29 @@
       font-size: 0.68rem;
       letter-spacing: 0.08em;
       color: #38BDF8;
-      margin-bottom: 0.35rem;
+      margin-bottom: 0.2rem;
       font-weight: 700;
     }
 
     .trade-reasoning-title {
       font-family: var(--font-sans-body);
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       font-weight: 800;
       color: #FFFFFF;
-      margin: 0 0 0.5rem 0;
+      margin: 0;
+      line-height: 1.2;
     }
 
-    .trade-reasoning-pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .reasoning-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      padding: 0.25rem 0.65rem;
-      border-radius: 6px;
+    .trade-reasoning-subtitle {
+      font-size: 0.76rem;
+      color: #94A3B8;
+      margin-top: 0.15rem;
       font-family: var(--font-terminal);
-      font-size: 0.72rem;
-      font-weight: 600;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #E2E8F0;
-    }
-
-    .reasoning-pill.highlight {
-      background: rgba(56, 189, 248, 0.15);
-      border-color: rgba(56, 189, 248, 0.35);
-      color: #38BDF8;
     }
 
     .trade-reasoning-close {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       color: #94A3B8;
       width: 32px;
       height: 32px;
@@ -1062,97 +1060,371 @@
     }
 
     .trade-reasoning-close:hover {
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.18);
       color: #FFFFFF;
     }
 
-    .trade-reasoning-body {
-      padding: 1.5rem 1.75rem;
+    /* Split Two-Column Body */
+    .reasoning-split-layout {
+      display: grid;
+      grid-template-columns: 310px 1fr;
+      min-height: 480px;
       overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
+      max-height: calc(90vh - 145px);
     }
 
-    .reasoning-section-card {
+    /* Left Sidebar: Execution Trajectory & Payout Specs */
+    .reasoning-sidebar {
+      background: #0C111E;
+      border-right: 1px solid rgba(255, 255, 255, 0.07);
+      padding: 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+
+    .contract-spec-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 0.95rem 1rem;
+    }
+
+    .contract-type-badge {
+      display: inline-block;
+      font-family: var(--font-terminal);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.25rem 0.65rem;
+      border-radius: 6px;
+      background: rgba(239, 68, 68, 0.16);
+      color: #F87171;
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      margin-bottom: 0.5rem;
+    }
+
+    .contract-type-badge.long {
+      background: rgba(52, 211, 153, 0.16);
+      color: #34D399;
+      border-color: rgba(52, 211, 153, 0.35);
+    }
+
+    .contract-explainer-text {
+      font-size: 0.78rem;
+      color: #94A3B8;
+      line-height: 1.45;
+    }
+
+    .contract-explainer-text strong {
+      color: #E2E8F0;
+    }
+
+    /* Trajectory Card */
+    .trajectory-card {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 10px;
+      padding: 1rem;
+    }
+
+    .trajectory-label {
+      font-family: var(--font-terminal);
+      font-size: 0.66rem;
+      color: #64748B;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.65rem;
+      font-weight: 700;
+    }
+
+    .trajectory-node {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.82rem;
+    }
+
+    .trajectory-node-left {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      color: #94A3B8;
+    }
+
+    .trajectory-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+    }
+
+    .trajectory-dot.entry { background: #38BDF8; box-shadow: 0 0 6px rgba(56, 189, 248, 0.8); }
+    .trajectory-dot.target { background: #34D399; box-shadow: 0 0 6px rgba(52, 211, 153, 0.8); }
+
+    .trajectory-node-val {
+      font-family: var(--font-terminal);
+      font-weight: 700;
+      color: #FFFFFF;
+    }
+
+    .trajectory-line-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      margin: 0.4rem 0 0.4rem 3px;
+    }
+
+    .trajectory-line {
+      width: 1px;
+      height: 24px;
+      background: dashed rgba(255, 255, 255, 0.2);
+    }
+
+    .trajectory-diff-badge {
+      font-family: var(--font-terminal);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #FBBF24;
+      background: rgba(251, 191, 36, 0.12);
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      border: 1px solid rgba(251, 191, 36, 0.25);
+    }
+
+    /* Financial Summary Box */
+    .financial-summary-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .fin-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      color: #94A3B8;
+    }
+
+    .fin-row strong {
+      font-family: var(--font-terminal);
+      color: #FFFFFF;
+    }
+
+    .fin-row.highlight {
+      padding-top: 0.35rem;
+      margin-top: 0.25rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .fin-row.highlight strong {
+      font-size: 0.88rem;
+    }
+
+    /* Right Main Panel: Tabs & Content */
+    .reasoning-main-content {
+      background: #090D16;
+      padding: 1.4rem 1.75rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .reasoning-tab-bar {
+      display: flex;
+      gap: 0.45rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 1.25rem;
+    }
+
+    .reasoning-tab-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #94A3B8;
+      border-radius: 8px;
+      padding: 0.5rem 0.95rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      font-family: var(--font-sans-body);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .reasoning-tab-btn:hover {
+      background: rgba(255, 255, 255, 0.09);
+      color: #FFFFFF;
+    }
+
+    .reasoning-tab-btn.active {
+      background: #1E293B;
+      color: #38BDF8;
+      border-color: rgba(56, 189, 248, 0.4);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Tab Panes */
+    .reasoning-tab-pane {
+      display: none;
+      animation: fadeIn 0.2s ease-out;
+    }
+
+    .reasoning-tab-pane.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .pane-headline {
+      font-family: var(--font-sans-body);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin: 0 0 0.85rem 0;
+    }
+
+    .pane-quote-box {
+      background: rgba(255, 255, 255, 0.03);
+      border-left: 3px solid #38BDF8;
+      border-radius: 0 8px 8px 0;
+      padding: 1rem 1.2rem;
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: #CBD5E1;
+      margin-bottom: 1.2rem;
+    }
+
+    .pane-feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+    }
+
+    .pane-feature-box {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 8px;
+      padding: 0.75rem 0.95rem;
+    }
+
+    .pane-feature-label {
+      font-family: var(--font-terminal);
+      font-size: 0.66rem;
+      color: #64748B;
+      text-transform: uppercase;
+    }
+
+    .pane-feature-val {
+      font-family: var(--font-terminal);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-top: 0.2rem;
+    }
+
+    .pane-model-card, .pane-adaptation-card, .pane-settlement-card {
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 10px;
       padding: 1.15rem 1.35rem;
-      transition: border-color 0.2s;
+      margin-bottom: 1rem;
     }
 
-    .reasoning-section-card.blue { border-left: 4px solid #38BDF8; }
-    .reasoning-section-card.green { border-left: 4px solid #34D399; }
-    .reasoning-section-card.amber { border-left: 4px solid #FBBF24; }
-    .reasoning-section-card.purple { border-left: 4px solid #A78BFA; }
-    .reasoning-section-card.rose { border-left: 4px solid #F472B6; }
-
-    .reasoning-section-card:hover {
-      border-color: rgba(255, 255, 255, 0.16);
-    }
-
-    .reasoning-section-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 0.65rem;
-    }
-
-    .reasoning-section-title {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.85rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
+    .sub-label {
       font-family: var(--font-terminal);
-      color: #FFFFFF;
+      font-size: 0.68rem;
+      color: #38BDF8;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
     }
 
-    .reasoning-section-desc {
+    .pane-text {
       font-size: 0.88rem;
-      line-height: 1.65;
+      line-height: 1.62;
       color: #CBD5E1;
       margin: 0;
     }
 
-    .reasoning-stats-grid {
+    .pane-timing-alert {
+      margin-top: 1rem;
+      padding: 0.85rem 1rem;
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 8px;
+      display: flex;
+      gap: 0.65rem;
+      align-items: flex-start;
+      color: #38BDF8;
+    }
+
+    /* Sentiment Dashboard Card */
+    .sentiment-dashboard-card {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .sentiment-gauge-row {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.75rem;
-      margin-top: 0.85rem;
-      padding-top: 0.85rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 1.15rem 1.35rem;
     }
 
-    .reasoning-stat-box {
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 6px;
-      padding: 0.55rem 0.75rem;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .reasoning-stat-label {
+    .sentiment-score-val {
       font-family: var(--font-terminal);
-      font-size: 0.68rem;
-      color: #94A3B8;
-      text-transform: uppercase;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #F472B6;
+      margin: 0.2rem 0;
     }
 
-    .reasoning-stat-val {
+    .sentiment-status-pill {
+      display: inline-block;
+      font-size: 0.72rem;
+      color: #F472B6;
+      background: rgba(244, 114, 182, 0.12);
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      border: 1px solid rgba(244, 114, 182, 0.3);
+      font-weight: 600;
+    }
+
+    .order-depth-val {
       font-family: var(--font-terminal);
-      font-size: 0.92rem;
+      font-size: 1.15rem;
       font-weight: 700;
-      color: #FFFFFF;
-      margin-top: 0.15rem;
+      color: #E2E8F0;
+      margin: 0.35rem 0 0.1rem 0;
+    }
+
+    .sentiment-decision-card {
+      background: rgba(16, 185, 129, 0.06);
+      border: 1px solid rgba(52, 211, 153, 0.25);
+      border-radius: 10px;
+      padding: 1.15rem 1.35rem;
+    }
+
+    .sentiment-decision-badge {
+      font-family: var(--font-terminal);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #34D399;
+      margin-top: 0.25rem;
     }
 
     .trade-reasoning-footer {
-      padding: 1.1rem 1.75rem;
-      background: #111827;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 1rem 1.75rem;
+      background: #0D1220;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -2544,29 +2816,186 @@
     </main>
   </div>
 
-  <!-- Institutional Strategy & Reasoning Modal -->
+  <!-- Institutional Strategy & Reasoning Modal (Executive Two-Column Layout) -->
   <div id="tradeReasoningModal" class="trade-reasoning-overlay" onclick="handleReasoningBackdropClick(event)">
     <div class="trade-reasoning-card" onclick="event.stopPropagation()">
+      <!-- Top Bar Header -->
       <div class="trade-reasoning-header">
-        <div>
-          <div class="trade-reasoning-tag">[AGENT TRADE REASONING & STRATEGY AUDIT]</div>
-          <h2 id="modalTradeTitle" class="trade-reasoning-title">Trade Reasoning & Strategy Details</h2>
-          <div class="trade-reasoning-pills" id="modalTradePills">
-            <!-- Dynamically populated -->
+        <div style="display: flex; align-items: center; gap: 0.85rem;">
+          <div class="modal-asset-avatar" id="modalAssetAvatar">NVDA</div>
+          <div>
+            <div class="trade-reasoning-tag">[INSTITUTIONAL STRATEGY SPECIFICATION]</div>
+            <h2 id="modalTradeTitle" class="trade-reasoning-title">NVIDIA Corporation (rNVDA)</h2>
+            <div class="trade-reasoning-subtitle" id="modalTradeSubtitle">Trade #POS-194671 • Weekend Dislocation Execution</div>
           </div>
         </div>
         <button class="trade-reasoning-close" onclick="closeTradeReasoningModal()" aria-label="Close modal">✕</button>
       </div>
 
-      <div class="trade-reasoning-body" id="modalTradeBody">
-        <!-- Dynamically rendered 5 Plain-English Sections -->
+      <!-- Split Two-Column Body -->
+      <div class="reasoning-split-layout">
+        <!-- Left Sidebar: Execution Trajectory & Payout Card -->
+        <div class="reasoning-sidebar">
+          <!-- Contract Type Card -->
+          <div class="contract-spec-card">
+            <div class="contract-spec-header">
+              <span class="contract-type-badge" id="modalContractBadge">USDT-Margined Perpetual (Short)</span>
+            </div>
+            <div class="contract-explainer-text" id="modalContractExplainer">
+              <strong>Short Contract:</strong> The bot sells contracts at the higher weekend price, then buys them back cheaper when Wall Street opens Monday. Profit is collected in USDT without owning underlying stock shares.
+            </div>
+          </div>
+
+          <!-- Visual Trajectory Bridge -->
+          <div class="trajectory-card">
+            <div class="trajectory-label">PRICE CONVERGENCE TRAJECTORY</div>
+            <div class="trajectory-node">
+              <div class="trajectory-node-left">
+                <span class="trajectory-dot entry"></span>
+                <span>Weekend Entry</span>
+              </div>
+              <strong class="trajectory-node-val" id="modalEntryPriceVal">$132.80</strong>
+            </div>
+            <div class="trajectory-line-wrap">
+              <div class="trajectory-line"></div>
+              <span class="trajectory-diff-badge" id="modalDriftBadge">+3.42% Retail Drift</span>
+            </div>
+            <div class="trajectory-node">
+              <div class="trajectory-node-left">
+                <span class="trajectory-dot target"></span>
+                <span>Friday Close Anchor</span>
+              </div>
+              <strong class="trajectory-node-val" id="modalAnchorPriceVal">$128.40</strong>
+            </div>
+          </div>
+
+          <!-- Key Financial Summary Box -->
+          <div class="financial-summary-box">
+            <div class="fin-row">
+              <span>Collateral Margin:</span>
+              <strong id="modalCollateralVal">$2,500.00 USDT</strong>
+            </div>
+            <div class="fin-row">
+              <span>Contracts:</span>
+              <strong id="modalContractsVal">18.83 Units</strong>
+            </div>
+            <div class="fin-row highlight">
+              <span>Projected Profit:</span>
+              <strong id="modalProjectedProfitVal" style="color: #34D399;">+$85.50 (+3.42%)</strong>
+            </div>
+            <div class="fin-row">
+              <span>Target Window:</span>
+              <strong id="modalTargetWindowVal">Monday 08:30 EST</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Interactive Tabs & Content -->
+        <div class="reasoning-main-content">
+          <!-- Tab Buttons Bar -->
+          <div class="reasoning-tab-bar">
+            <button type="button" class="reasoning-tab-btn active" id="tabBtnRationale" onclick="switchReasoningTab('rationale')">
+              <span>1. Entry Rationale</span>
+            </button>
+            <button type="button" class="reasoning-tab-btn" id="tabBtnStrategy" onclick="switchReasoningTab('strategy')">
+              <span>2. Strategy Evolution</span>
+            </button>
+            <button type="button" class="reasoning-tab-btn" id="tabBtnMonday" onclick="switchReasoningTab('monday')">
+              <span>3. Monday Settlement</span>
+            </button>
+            <button type="button" class="reasoning-tab-btn" id="tabBtnSentiment" onclick="switchReasoningTab('sentiment')">
+              <span>4. Sentiment Analyzer</span>
+            </button>
+          </div>
+
+          <!-- Tab Panes Container -->
+          <div class="reasoning-tab-pane-container">
+            <!-- Pane 1: Entry Rationale -->
+            <div class="reasoning-tab-pane active" id="paneRationale">
+              <h3 class="pane-headline" id="paneRationaleHeadline">Why Was This Trade Opened At This Specific Price?</h3>
+              <div class="pane-quote-box" id="paneRationaleQuote">
+                <!-- Plain English Story -->
+              </div>
+              <div class="pane-feature-grid" id="paneRationaleFeatures">
+                <div class="pane-feature-box">
+                  <div class="pane-feature-label">Friday Closing Anchor</div>
+                  <div class="pane-feature-val" id="paneFeatureAnchor">$128.40</div>
+                </div>
+                <div class="pane-feature-box">
+                  <div class="pane-feature-label">Weekend Trade Entry</div>
+                  <div class="pane-feature-val" id="paneFeatureEntry" style="color: #38BDF8;">$132.80</div>
+                </div>
+                <div class="pane-feature-box">
+                  <div class="pane-feature-label">Unwarranted Retail Move</div>
+                  <div class="pane-feature-val" id="paneFeatureMove" style="color: #FBBF24;">+3.42%</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pane 2: Strategy Evolution -->
+            <div class="reasoning-tab-pane" id="paneStrategy">
+              <h3 class="pane-headline">Strategy Mechanics & Learning Evolution</h3>
+              <div class="pane-model-card">
+                <div class="sub-label">CURRENT ALGORITHMIC MODEL</div>
+                <div style="font-weight: 700; color: #FFFFFF; font-size: 0.95rem; margin-bottom: 0.4rem;" id="paneCurrentStrategyName">Weekend Retail Drift Reversal (Risk-Managed)</div>
+                <p class="pane-text" id="paneCurrentStrategyDesc"></p>
+              </div>
+              <div class="pane-adaptation-card">
+                <div class="sub-label" style="color: #FBBF24;">HOW THE AGENT ADAPTED FROM PAST TRADES</div>
+                <div style="font-weight: 700; color: #FFFFFF; font-size: 0.88rem; margin: 0.25rem 0;" id="panePrevStrategyName"></div>
+                <p class="pane-text" id="paneWhatChangedDesc" style="color: #CBD5E1;"></p>
+              </div>
+            </div>
+
+            <!-- Pane 3: Monday Settlement -->
+            <div class="reasoning-tab-pane" id="paneMonday">
+              <h3 class="pane-headline">Monday Pre-Market Convergence & Cash Unwind</h3>
+              <div class="pane-settlement-card">
+                <p class="pane-text" id="paneMondayExpectationText"></p>
+                <div class="pane-timing-alert">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  <div>
+                    <strong style="color: #FFFFFF; font-size: 0.85rem;">Why Settle Monday Pre-Market (08:00–09:30 EST)?</strong>
+                    <div style="color: #94A3B8; font-size: 0.82rem; margin-top: 0.2rem;" id="paneWhyMondayText"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pane 4: Sentiment Analyzer -->
+            <div class="reasoning-tab-pane" id="paneSentiment">
+              <h3 class="pane-headline">Post-Weekend Market & Trader Sentiment Analyzer</h3>
+              <div class="sentiment-dashboard-card">
+                <div class="sentiment-gauge-row">
+                  <div>
+                    <div class="sub-label">TRADER SENTIMENT METER</div>
+                    <div class="sentiment-score-val" id="paneSentimentScoreVal">76%</div>
+                    <div class="sentiment-status-pill" id="paneSentimentStatusPill">Extreme Retail Greed / Exhaustion</div>
+                  </div>
+                  <div>
+                    <div class="sub-label">ORDERBOOK DEPTH IMBALANCE</div>
+                    <div class="order-depth-val" id="paneOrderDepthVal">2.4x Institutional Sell Wall</div>
+                    <div style="font-size: 0.74rem; color: #94A3B8; margin-top: 0.2rem;">Pre-Market Block Depth vs Retail Bids</div>
+                  </div>
+                </div>
+
+                <div class="sentiment-decision-card">
+                  <div class="sub-label" style="color: #34D399;">AGENT'S MARKET OPEN DECISION</div>
+                  <div class="sentiment-decision-badge" id="paneOpenDecisionBadge">HOLD A LITTLE BIT (TRAILING STOP FOR EXTRA PROFIT)</div>
+                  <p class="pane-text" id="paneDecisionReasonText" style="margin-top: 0.45rem;"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
+      <!-- Modal Footer -->
       <div class="trade-reasoning-footer">
         <div style="font-family: var(--font-terminal); font-size: 0.72rem; color: #94A3B8;">
-          Chronos Autonomous Engine • Strict 5-Trade Weekend Cap Enforced
+          Chronos Autonomous Execution Engine • Strict 5-Trade Weekend Cap Enforced
         </div>
-        <button type="button" class="btn-execute-big" style="width: auto; padding: 0.5rem 1.35rem; font-size: 0.8rem; background: #38BDF8; color: #0F172A; font-weight: 700;" onclick="closeTradeReasoningModal()">
+        <button type="button" class="btn-execute-big" style="width: auto; padding: 0.5rem 1.45rem; font-size: 0.82rem; background: #38BDF8; color: #090D16; font-weight: 700; border-radius: 8px;" onclick="closeTradeReasoningModal()">
           <span>Done / Close Window</span>
         </button>
       </div>
@@ -3335,6 +3764,21 @@
       };
     }
 
+    function switchReasoningTab(tabId) {
+      const tabBtns = document.querySelectorAll(".reasoning-tab-btn");
+      const tabPanes = document.querySelectorAll(".reasoning-tab-pane");
+
+      tabBtns.forEach(btn => btn.classList.remove("active"));
+      tabPanes.forEach(pane => pane.classList.remove("active"));
+
+      const targetBtn = document.getElementById(`tabBtn${tabId.charAt(0).toUpperCase() + tabId.slice(1)}`);
+      const targetPane = document.getElementById(`pane${tabId.charAt(0).toUpperCase() + tabId.slice(1)}`);
+
+      if (targetBtn) targetBtn.classList.add("active");
+      if (targetPane) targetPane.classList.add("active");
+    }
+    window.switchReasoningTab = switchReasoningTab;
+
     function openTradeReasoningModal(tradeOrPosId) {
       const d = ChronosWalletStore.getCurrentData();
       let item = null;
@@ -3372,144 +3816,111 @@
 
       const meta = item.strategyMetadata || getTradePlainEnglishMetadata(item);
       const isShort = meta.side === "SHORT" || meta.side === "SELL_SHORT";
-      const sideLabel = isShort ? "Short Position (Predicting Pullback to Friday Anchor)" : "Long Position (Predicting Rebound to Friday Anchor)";
-      const sideColor = isShort ? "#F87171" : "#34D399";
       const displayId = item.trade_id || item.id || `POS-${meta.symbol}`;
 
-      // Set Title
+      // Header Elements
+      const avatarEl = document.getElementById("modalAssetAvatar");
+      if (avatarEl) avatarEl.textContent = meta.symbol.replace('r', '');
+
       const titleEl = document.getElementById("modalTradeTitle");
-      if (titleEl) {
-        titleEl.textContent = `Trade #${displayId}: ${meta.symbol} (${meta.company})`;
+      if (titleEl) titleEl.textContent = `${meta.company} (${meta.symbol})`;
+
+      const subEl = document.getElementById("modalTradeSubtitle");
+      if (subEl) subEl.textContent = `Trade #${displayId} • ${isShort ? 'Short Dislocation Execution' : 'Long Reversion Execution'}`;
+
+      // Sidebar Elements
+      const badgeEl = document.getElementById("modalContractBadge");
+      if (badgeEl) {
+        badgeEl.textContent = isShort ? "USDT-Margined Perpetual (Short)" : "USDT-Margined Perpetual (Long)";
+        badgeEl.className = `contract-type-badge ${isShort ? '' : 'long'}`;
       }
 
-      // Set Header Pills
-      const pillsEl = document.getElementById("modalTradePills");
-      if (pillsEl) {
-        pillsEl.innerHTML = `
-          <span class="reasoning-pill" style="color: ${sideColor}; font-weight: 700;">${sideLabel}</span>
-          <span class="reasoning-pill">Entry Price: $${meta.entryPrice.toFixed(2)}</span>
-          <span class="reasoning-pill">Friday Anchor: $${meta.targetPrice.toFixed(2)}</span>
-          <span class="reasoning-pill highlight">Allocation: $${meta.collateral.toLocaleString()} USDT</span>
-        `;
+      const explainerEl = document.getElementById("modalContractExplainer");
+      if (explainerEl) {
+        explainerEl.innerHTML = isShort
+          ? `<strong>Short Contract:</strong> The bot sells contracts at the higher weekend price ($${meta.entryPrice.toFixed(2)}), then buys them back cheaper when Wall Street opens Monday. Profit is collected in USDT without owning underlying stock shares.`
+          : `<strong>Long Contract:</strong> The bot buys contracts at the discounted weekend price ($${meta.entryPrice.toFixed(2)}), expecting a rebound back to the Friday anchor ($${meta.targetPrice.toFixed(2)}) when regular trading opens.`;
       }
 
-      // Set Body Sections (100% Plain English, No Math Jargon)
-      const bodyEl = document.getElementById("modalTradeBody");
-      if (bodyEl) {
-        bodyEl.innerHTML = `
-          <!-- Section 1: Why Was This Trade Opened At This Price? -->
-          <div class="reasoning-section-card blue">
-            <div class="reasoning-section-header">
-              <div class="reasoning-section-title" style="color: #38BDF8;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                <span>1. Why Was This Trade Opened At This Specific Price?</span>
-              </div>
-              <span class="badge-pill-light" style="background: rgba(56, 189, 248, 0.15); color: #38BDF8; font-size: 0.68rem;">PLAIN-ENGLISH REASONING</span>
-            </div>
-            <p class="reasoning-section-desc">${meta.whyOpened}</p>
-            <div class="reasoning-stats-grid">
-              <div class="reasoning-stat-box">
-                <div class="reasoning-stat-label">Friday Closing Anchor</div>
-                <div class="reasoning-stat-val">$${meta.targetPrice.toFixed(2)}</div>
-              </div>
-              <div class="reasoning-stat-box">
-                <div class="reasoning-stat-label">Weekend Trade Entry</div>
-                <div class="reasoning-stat-val" style="color: #38BDF8;">$${meta.entryPrice.toFixed(2)}</div>
-              </div>
-              <div class="reasoning-stat-box">
-                <div class="reasoning-stat-label">Unwarranted Retail Move</div>
-                <div class="reasoning-stat-val" style="color: #FBBF24;">${meta.expectedReturnPct}</div>
-              </div>
-            </div>
-          </div>
+      const entryValEl = document.getElementById("modalEntryPriceVal");
+      if (entryValEl) entryValEl.textContent = `$${meta.entryPrice.toFixed(2)}`;
 
-          <!-- Section 2: What Strategy Did It Use? -->
-          <div class="reasoning-section-card green">
-            <div class="reasoning-section-header">
-              <div class="reasoning-section-title" style="color: #34D399;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                <span>2. What Strategy Did The Agent Use?</span>
-              </div>
-              <span class="badge-pill-light" style="background: rgba(52, 211, 153, 0.15); color: #34D399; font-size: 0.68rem;">CURRENT MODEL</span>
-            </div>
-            <p class="reasoning-section-desc"><strong>Strategy: ${meta.currentStrategy}</strong></p>
-            <p class="reasoning-section-desc" style="margin-top: 0.35rem;">${meta.strategyExplanation}</p>
-          </div>
+      const anchorValEl = document.getElementById("modalAnchorPriceVal");
+      if (anchorValEl) anchorValEl.textContent = `$${meta.targetPrice.toFixed(2)}`;
 
-          <!-- Section 3: What Was The Previous Strategy & What Changed? -->
-          <div class="reasoning-section-card amber">
-            <div class="reasoning-section-header">
-              <div class="reasoning-section-title" style="color: #FBBF24;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
-                <span>3. What Was The Previous Strategy & What Changed?</span>
-              </div>
-              <span class="badge-pill-light" style="background: rgba(251, 191, 36, 0.15); color: #FBBF24; font-size: 0.68rem;">ADAPTIVE LEARNING</span>
-            </div>
-            <p class="reasoning-section-desc"><strong>Previous Baseline: ${meta.previousStrategy}</strong></p>
-            <p class="reasoning-section-desc" style="margin-top: 0.35rem;"><strong>What Changed & Why:</strong> ${meta.whatChanged}</p>
-          </div>
+      const driftBadgeEl = document.getElementById("modalDriftBadge");
+      if (driftBadgeEl) driftBadgeEl.textContent = `${meta.expectedReturnPct} Retail Drift`;
 
-          <!-- Section 4: Expectation On Monday Close -->
-          <div class="reasoning-section-card purple">
-            <div class="reasoning-section-header">
-              <div class="reasoning-section-title" style="color: #A78BFA;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                <span>4. What Is The Expectation When It Closes On Monday?</span>
-              </div>
-              <span class="badge-pill-light" style="background: rgba(167, 139, 250, 0.15); color: #A78BFA; font-size: 0.68rem;">PROJECTED EXIT</span>
-            </div>
-            <p class="reasoning-section-desc">${meta.expectation}</p>
-            <p class="reasoning-section-desc" style="margin-top: 0.35rem; color: #94A3B8; font-size: 0.82rem;">${meta.whyMonday}</p>
-            <div class="reasoning-stats-grid">
-              <div class="reasoning-stat-box">
-                <div class="reasoning-stat-label">Expected Target Price</div>
-                <div class="reasoning-stat-val" style="color: #34D399;">$${meta.targetPrice.toFixed(2)}</div>
-              </div>
-              <div class="reasoning-stat-box">
-                <div class="reasoning-stat-label">Expected Gain</div>
-                <div class="reasoning-stat-val" style="color: #34D399;">+${meta.expectedProfitUsd.toFixed(2)} (${meta.expectedReturnPct})</div>
-              </div>
-              <div class="reasoning-stat-box">
-                <div class="reasoning-stat-label">Target Settlement Window</div>
-                <div class="reasoning-stat-val" style="font-size: 0.78rem;">${meta.settlementTargetDay}</div>
-              </div>
-            </div>
-          </div>
+      const collatValEl = document.getElementById("modalCollateralVal");
+      if (collatValEl) collatValEl.textContent = `$${meta.collateral.toLocaleString()} USDT`;
 
-          <!-- Section 5: Post-Weekend Market & Trader Sentiment Analyzer -->
-          <div class="reasoning-section-card rose">
-            <div class="reasoning-section-header">
-              <div class="reasoning-section-title" style="color: #F472B6;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
-                <span>5. Post-Weekend Market & Trader Sentiment Analyzer</span>
-              </div>
-              <span class="badge-pill-light" style="background: rgba(244, 114, 182, 0.15); color: #F472B6; font-size: 0.68rem;">MONDAY OPEN DECISION</span>
-            </div>
-            <p class="reasoning-section-desc">
-              When the weekend concludes and Monday pre-market opens, the agent automatically inspects trader sentiment and order flow depth to choose between two actions:
-            </p>
-            <div style="margin-top: 0.75rem; background: rgba(0,0,0,0.3); border-radius: 8px; padding: 0.85rem 1rem;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
-                <span style="font-family: var(--font-terminal); font-size: 0.75rem; color: #94A3B8;">TRADER SENTIMENT INDEX:</span>
-                <strong style="font-family: var(--font-terminal); color: #F472B6;">${meta.sentimentScore}% (${meta.sentimentStatus})</strong>
-              </div>
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-                <span style="font-family: var(--font-terminal); font-size: 0.75rem; color: #94A3B8;">ORDERBOOK DEPTH:</span>
-                <strong style="font-family: var(--font-terminal); color: #E2E8F0;">${meta.orderDepth}</strong>
-              </div>
-              <div style="padding-top: 0.5rem; border-top: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; gap: 0.65rem;">
-                <span style="font-family: var(--font-terminal); font-size: 0.72rem; color: #94A3B8;">AGENT DECISION:</span>
-                <span class="badge-pill-light" style="background: rgba(16, 185, 129, 0.2); color: #34D399; font-weight: 700; font-size: 0.75rem;">
-                  ${meta.openDecision === "HOLD_TRAILING_STOP" ? "HOLD A LITTLE BIT (TRAILING STOP FOR EXTRA PROFIT)" : "CLOSE IMMEDIATELY & HARVEST PROFIT"}
-                </span>
-              </div>
-              <p style="font-size: 0.84rem; color: #CBD5E1; margin: 0.5rem 0 0 0; line-height: 1.55;">
-                ${meta.decisionReason}
-              </p>
-            </div>
-          </div>
-        `;
+      const contractsValEl = document.getElementById("modalContractsVal");
+      if (contractsValEl) contractsValEl.textContent = `${(meta.collateral / meta.entryPrice).toFixed(2)} Units`;
+
+      const profitValEl = document.getElementById("modalProjectedProfitVal");
+      if (profitValEl) profitValEl.textContent = `+$${meta.expectedProfitUsd.toFixed(2)} (${meta.expectedReturnPct})`;
+
+      const windowValEl = document.getElementById("modalTargetWindowVal");
+      if (windowValEl) windowValEl.textContent = meta.settlementTargetDay;
+
+      // Pane 1: Entry Rationale
+      const rHead = document.getElementById("paneRationaleHeadline");
+      if (rHead) rHead.textContent = `Why Was This Trade Opened at $${meta.entryPrice.toFixed(2)}?`;
+
+      const rQuote = document.getElementById("paneRationaleQuote");
+      if (rQuote) rQuote.textContent = meta.whyOpened;
+
+      const fAnchor = document.getElementById("paneFeatureAnchor");
+      if (fAnchor) fAnchor.textContent = `$${meta.targetPrice.toFixed(2)}`;
+
+      const fEntry = document.getElementById("paneFeatureEntry");
+      if (fEntry) fEntry.textContent = `$${meta.entryPrice.toFixed(2)}`;
+
+      const fMove = document.getElementById("paneFeatureMove");
+      if (fMove) fMove.textContent = meta.expectedReturnPct;
+
+      // Pane 2: Strategy Evolution
+      const curStratName = document.getElementById("paneCurrentStrategyName");
+      if (curStratName) curStratName.textContent = meta.currentStrategy;
+
+      const curStratDesc = document.getElementById("paneCurrentStrategyDesc");
+      if (curStratDesc) curStratDesc.textContent = meta.strategyExplanation;
+
+      const prevStratName = document.getElementById("panePrevStrategyName");
+      if (prevStratName) prevStratName.textContent = `Previous Baseline: ${meta.previousStrategy}`;
+
+      const whatChanged = document.getElementById("paneWhatChangedDesc");
+      if (whatChanged) whatChanged.textContent = meta.whatChanged;
+
+      // Pane 3: Monday Settlement
+      const mText = document.getElementById("paneMondayExpectationText");
+      if (mText) mText.textContent = meta.expectation;
+
+      const whyMText = document.getElementById("paneWhyMondayText");
+      if (whyMText) whyMText.textContent = meta.whyMonday;
+
+      // Pane 4: Sentiment Analyzer
+      const sScore = document.getElementById("paneSentimentScoreVal");
+      if (sScore) sScore.textContent = `${meta.sentimentScore}%`;
+
+      const sPill = document.getElementById("paneSentimentStatusPill");
+      if (sPill) sPill.textContent = meta.sentimentStatus;
+
+      const sDepth = document.getElementById("paneOrderDepthVal");
+      if (sDepth) sDepth.textContent = meta.orderDepth;
+
+      const sDecisionBadge = document.getElementById("paneOpenDecisionBadge");
+      if (sDecisionBadge) {
+        sDecisionBadge.textContent = meta.openDecision === "HOLD_TRAILING_STOP"
+          ? "HOLD A LITTLE BIT (TRAILING STOP FOR EXTRA PROFIT)"
+          : "CLOSE IMMEDIATELY & HARVEST PROFIT";
       }
+
+      const sReasonText = document.getElementById("paneDecisionReasonText");
+      if (sReasonText) sReasonText.textContent = meta.decisionReason;
+
+      // Reset to Tab 1
+      switchReasoningTab('rationale');
 
       // Open Modal
       const modal = document.getElementById("tradeReasoningModal");
@@ -3530,6 +3941,7 @@
     document.addEventListener("keydown", function(e) {
       if (e.key === "Escape") closeTradeReasoningModal();
     });
+
 
     // =========================================================================
     // MULTI-POSITION RENDERING (MAX 5 WEEKEND TRADES)
