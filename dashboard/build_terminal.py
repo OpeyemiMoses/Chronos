@@ -1576,7 +1576,7 @@ html_template = f"""<!DOCTYPE html>
             <div class="lifecycle-step-card completed" id="stepPhase1">
               <div class="step-tag">
                 <span>Phase 1</span>
-                <span class="step-status-icon" id="step1Icon">✓</span>
+                <span class="step-status-icon" id="step1Icon" style="font-size: 0.65rem; letter-spacing: 0.04em;">LOCKED</span>
               </div>
               <div class="step-name">Friday 16:00 EST</div>
               <div class="step-detail">Anchor Baseline Locked</div>
@@ -1587,7 +1587,7 @@ html_template = f"""<!DOCTYPE html>
             <div class="lifecycle-step-card active" id="stepPhase2">
               <div class="step-tag">
                 <span>Phase 2</span>
-                <span class="step-status-icon" id="step2Icon">●</span>
+                <span class="step-status-icon" id="step2Icon" style="font-size: 0.65rem; letter-spacing: 0.04em;">ACTIVE</span>
               </div>
               <div class="step-name">Weekend 24/7</div>
               <div class="step-detail">Dislocation Hunt (|Z| ≥ 2.0σ)</div>
@@ -1598,7 +1598,7 @@ html_template = f"""<!DOCTYPE html>
             <div class="lifecycle-step-card" id="stepPhase3">
               <div class="step-tag">
                 <span>Phase 3</span>
-                <span class="step-status-icon" id="step3Icon">○</span>
+                <span class="step-status-icon" id="step3Icon" style="font-size: 0.65rem; letter-spacing: 0.04em;">PENDING</span>
               </div>
               <div class="step-name">Monday 08:30 EST</div>
               <div class="step-detail">Pre-Market Exit → 100% Cash</div>
@@ -1609,7 +1609,7 @@ html_template = f"""<!DOCTYPE html>
             <div class="lifecycle-step-card" id="stepPhase4">
               <div class="step-tag">
                 <span>Phase 4</span>
-                <span class="step-status-icon" id="step4Icon">○</span>
+                <span class="step-status-icon" id="step4Icon" style="font-size: 0.65rem; letter-spacing: 0.04em;">PENDING</span>
               </div>
               <div class="step-name">Cognitive Self-Audit</div>
               <div class="step-detail">Post-Mortem & Weekday Sleep</div>
@@ -1627,7 +1627,7 @@ html_template = f"""<!DOCTYPE html>
                 <span class="badge-pill-light" style="background: rgba(16, 185, 129, 0.2); color: #34D399; font-size: 0.68rem; border: 1px solid rgba(52, 211, 153, 0.4);" id="autoPilotModeBadge">HANDS-FREE AUTO-PILOT ON</span>
               </div>
               <div class="agent-telemetry-text" id="agentTelemetryText">
-                🤖 Chronos Agent: Scanning Bitget 24/7 orderbooks for weekend retail dislocations...
+                [AGENT TELEMETRY] Chronos Engine: Scanning Bitget 24/7 orderbooks for weekend retail dislocations...
               </div>
             </div>
           </div>
@@ -1664,7 +1664,7 @@ html_template = f"""<!DOCTYPE html>
 
             <div class="chart-subbar">
               <div class="chart-tools-left">
-                <span style="color: var(--color-green);">● Bitget UTA Feed</span>
+                <span style="color: var(--color-green); font-weight: 700;">Bitget UTA Feed</span>
                 <span style="background: rgba(0,0,0,0.06); padding: 0.15rem 0.45rem; border-radius: 4px;">SPOT-247</span>
                 <span style="border-left: 1px solid rgba(0,0,0,0.1); height: 12px; margin: 0 0.25rem;"></span>
                 <span style="cursor: pointer; font-weight: 700;" onclick="toggleChartMode('candles')">CANDLES</span>
@@ -2506,11 +2506,11 @@ html_template = f"""<!DOCTYPE html>
       if (hasOpenPos) {{
         if (s1) s1.className = "lifecycle-step-card completed";
         if (s2) s2.className = "lifecycle-step-card active";
-        if (s2Icon) s2Icon.textContent = "●";
+        if (s2Icon) s2Icon.textContent = "ACTIVE";
         if (s3) s3.className = "lifecycle-step-card";
-        if (s3Icon) s3Icon.textContent = "○";
+        if (s3Icon) s3Icon.textContent = "PENDING";
         if (s4) s4.className = "lifecycle-step-card";
-        if (s4Icon) s4Icon.textContent = "○";
+        if (s4Icon) s4Icon.textContent = "PENDING";
 
         if (badge) {{
           badge.style.background = "rgba(245, 158, 11, 0.12)";
@@ -2522,11 +2522,11 @@ html_template = f"""<!DOCTYPE html>
       }} else if (d.trades && d.trades.length > 0) {{
         if (s1) s1.className = "lifecycle-step-card completed";
         if (s2) s2.className = "lifecycle-step-card completed";
-        if (s2Icon) s2Icon.textContent = "✓";
+        if (s2Icon) s2Icon.textContent = "DONE";
         if (s3) s3.className = "lifecycle-step-card completed";
-        if (s3Icon) s3Icon.textContent = "✓";
+        if (s3Icon) s3Icon.textContent = "DONE";
         if (s4) s4.className = "lifecycle-step-card active";
-        if (s4Icon) s4Icon.textContent = "●";
+        if (s4Icon) s4Icon.textContent = "ACTIVE";
 
         if (badge) {{
           badge.style.background = "rgba(16, 185, 129, 0.12)";
@@ -2538,11 +2538,11 @@ html_template = f"""<!DOCTYPE html>
       }} else {{
         if (s1) s1.className = "lifecycle-step-card completed";
         if (s2) s2.className = "lifecycle-step-card active";
-        if (s2Icon) s2Icon.textContent = "●";
+        if (s2Icon) s2Icon.textContent = "ACTIVE";
         if (s3) s3.className = "lifecycle-step-card";
-        if (s3Icon) s3Icon.textContent = "○";
+        if (s3Icon) s3Icon.textContent = "PENDING";
         if (s4) s4.className = "lifecycle-step-card";
-        if (s4Icon) s4Icon.textContent = "○";
+        if (s4Icon) s4Icon.textContent = "PENDING";
 
         if (badge) {{
           badge.style.background = "rgba(16, 185, 129, 0.12)";
@@ -2562,14 +2562,14 @@ html_template = f"""<!DOCTYPE html>
     let autoPilotTimer = null;
 
     const agentTelemetryMessages = [
-      "🤖 Chronos Agent: Streaming Bitget 24/7 orderbooks for 7 tokenized equities...",
-      "🧠 Agent Reasoning: Evaluating cross-asset beta against BTC ($63,450.00)...",
-      "⚡ Dislocation Scanner: Scanning retail drift against Friday 16:00 EST anchors...",
-      "🔍 Opportunity Detected: rNVDA dislocation +3.42% (|Z| = 2.24σ >= 2.0σ)...",
-      "📈 Risk Parity Execution: Collateral deducted. Dispatched SHORT 18.83 rNVDA order to Bitget UTA v3...",
-      "⏳ Convergence Monitor: Tracking pre-market return toward institutional fair value ($128.40)...",
-      "💰 Cash Harvest: Institutional liquidity returned. Unwound to 100% Cash before regular open...",
-      "🧠 Cognitive Self-Auditor: Closed-loop evaluation completed. MAE analyzed. Parameter memory tuned."
+      "[AGENT TELEMETRY] Streaming Bitget 24/7 orderbooks for 7 tokenized equities...",
+      "[AGENT REASONING] Evaluating cross-asset beta against BTC ($63,450.00)...",
+      "[DISLOCATION SCANNER] Scanning retail drift against Friday 16:00 EST anchors...",
+      "[OPPORTUNITY DETECTED] rNVDA dislocation +3.42% (|Z| = 2.24σ >= 2.0σ)...",
+      "[RISK PARITY ORDER] Collateral deducted. Dispatched SHORT 18.83 rNVDA order to Bitget UTA v3...",
+      "[CONVERGENCE MONITOR] Tracking pre-market return toward institutional fair value ($128.40)...",
+      "[CASH HARVEST] Institutional liquidity returned. Unwound to 100% Cash before regular open...",
+      "[COGNITIVE SELF-AUDITOR] Closed-loop evaluation completed. MAE analyzed. Parameter memory tuned."
     ];
 
     function updateAgentTelemetry(msg) {{
@@ -2596,20 +2596,20 @@ html_template = f"""<!DOCTYPE html>
           if (!autoPilotActive) return;
           const curD = ChronosWalletStore.getCurrentData();
           if (!curD.openPositions || curD.openPositions.length === 0) {{
-            updateAgentTelemetry("⚡ Auto-Executing: Opening SHORT rNVDA dislocation trade (-$2,500 USDT margin)...");
+            updateAgentTelemetry("[AUTO EXECUTION] Opening SHORT rNVDA dislocation trade (-$2,500 USDT margin)...");
             executeTradeOrder();
           }}
         }}, 3500);
       }} else {{
         // Auto-harvest on Monday pre-market convergence
-        updateAgentTelemetry("🎯 Pre-Market Convergence: Institutional books active. Unwinding position to 100% Cash...");
+        updateAgentTelemetry("[PRE-MARKET CONVERGENCE] Institutional books active. Unwinding position to 100% Cash...");
         setTimeout(() => {{
           if (!autoPilotActive) return;
           const curD = ChronosWalletStore.getCurrentData();
           if (curD.openPositions && curD.openPositions.length > 0) {{
             const pos = curD.openPositions[0];
             settleActivePosition(pos.id);
-            updateAgentTelemetry("🧠 Cognitive Self-Audit: Trade closed with profit. Zero weekday risk. Sleeping in 100% Cash.");
+            updateAgentTelemetry("[COGNITIVE SELF-AUDIT] Trade closed with profit. Zero weekday risk. Sleeping in 100% Cash.");
           }}
         }}, 4000);
       }}
@@ -2632,7 +2632,7 @@ html_template = f"""<!DOCTYPE html>
         }}
         if (pulse) pulse.style.animation = "pulseGlow 1.5s infinite";
         if (title) title.textContent = "AUTONOMOUS AGENT: RUNNING 24/7";
-        updateAgentTelemetry("🤖 Chronos Agent: Auto-Pilot resumed. Hands-free scanning active.");
+        updateAgentTelemetry("[AUTONOMOUS AGENT] Auto-Pilot resumed. Hands-free scanning active.");
         showToast("Auto-Pilot Resumed", "Chronos autonomous agent is actively monitoring and executing.", "success");
         startAutoPilotInterval();
       }} else {{
@@ -2645,7 +2645,7 @@ html_template = f"""<!DOCTYPE html>
         }}
         if (pulse) pulse.style.animation = "none";
         if (title) title.textContent = "AUTONOMOUS AGENT: PAUSED";
-        updateAgentTelemetry("⏸ Chronos Agent: Auto-Pilot paused. Manual override enabled.");
+        updateAgentTelemetry("[AUTONOMOUS AGENT] Auto-Pilot paused. Manual override enabled.");
         showToast("Auto-Pilot Paused", "Automatic trade execution paused. You can still force cycle steps manually.", "info");
         if (autoPilotTimer) clearInterval(autoPilotTimer);
       }}
