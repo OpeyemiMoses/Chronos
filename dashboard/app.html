@@ -4514,16 +4514,16 @@ img, svg, video, canvas {
             </div>
 
             <!-- Weekend 5-Trade Architecture Quota Status -->
-            <div style="background: #FFFFFF; border: 1px solid #EEE9DF; border-radius: 8px; padding: 0.55rem 0.75rem;">
+            <div id="arenaQuotaStatusBox" style="background: #FFFFFF; border: 1px solid #EEE9DF; border-radius: 8px; padding: 0.55rem 0.75rem;">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.25rem;">
-                <span style="font-size: 0.68rem; color: #71717A; font-family: var(--font-terminal);">Weekend Cap Quota</span>
-                <span style="font-size: 0.68rem; font-weight: 700; color: #10B981; font-family: var(--font-terminal);">3 / 5 Deployed</span>
+                <span id="arenaQuotaLabel" style="font-size: 0.68rem; color: #71717A; font-family: var(--font-terminal);">Weekend Cap Quota</span>
+                <span id="arenaQuotaBadge" style="font-size: 0.68rem; font-weight: 700; color: #10B981; font-family: var(--font-terminal);">3 / 5 Deployed</span>
               </div>
               <div style="height: 4px; background: #EEE9DF; border-radius: 2px; overflow: hidden;">
-                <div style="width: 60%; height: 100%; background: #10B981; border-radius: 2px;"></div>
+                <div id="arenaQuotaProgressBar" style="width: 60%; height: 100%; background: #10B981; border-radius: 2px;"></div>
               </div>
-              <div style="font-size: 0.65rem; color: #71717A; margin-top: 0.35rem;">
-                Trades execute sequentially when mathematical drift clears (|Z| ≥ 2.0σ).
+              <div id="arenaQuotaExplainer" style="font-size: 0.65rem; color: #71717A; margin-top: 0.35rem;">
+                Autonomous AI agent is capped at 5 sequential trades during weekends.
               </div>
             </div>
 
@@ -4825,7 +4825,7 @@ img, svg, video, canvas {
           </div>
 
           <div style="font-family: var(--font-terminal); font-size: 0.76rem; color: #666;">
-            Connected Account: <strong id="ledgerWalletAddressLabel" style="color: #000;">0x71C...3a9F</strong>
+            Connected Account: <strong id="ledgerWalletAddressLabel" style="color: #000;">--</strong>
           </div>
         </div>
 
@@ -5588,8 +5588,38 @@ img, svg, video, canvas {
       disconnect() {
         this.currentAddress = null;
         localStorage.removeItem("chronos_active_wallet");
+
+        // Immediately dismiss and remove all toasts so no notices linger on screen
+        const cToastContainer = document.getElementById("chronosToastContainer");
+        if (cToastContainer) cToastContainer.innerHTML = "";
+        const toastContainer = document.getElementById("toastContainer");
+        if (toastContainer) toastContainer.innerHTML = "";
+        document.querySelectorAll(".toast-container, .toast-card").forEach(el => {
+          if (el.classList.contains("toast-container")) el.innerHTML = "";
+          else el.remove();
+        });
+
+        // Close any open modals
+        if (typeof closeRainbowModal === "function") closeRainbowModal();
+        if (typeof closeRainbowChainModal === "function") closeRainbowChainModal();
+        if (typeof closeRainbowAccountModal === "function") closeRainbowAccountModal();
+        if (typeof close5TradeStrategyModal === "function") close5TradeStrategyModal();
+        if (typeof closeTradeReasoningModal === "function") closeTradeReasoningModal();
+
+        // If official RainbowKit mounted, reset its container to clean disconnect button
+        const rkContainer = document.getElementById("rainbowkitHeaderContainer");
+        if (rkContainer) {
+          rkContainer.innerHTML = `
+            <button type="button" class="rk-connect-btn" onclick="openRainbowModal()" id="btnRainbowConnect">
+              <span class="rk-rainbow-dot"></span>
+              <span>Connect Wallet</span>
+            </button>
+          `;
+        }
+
         this.renderHeaderWallet();
         this.syncActiveView();
+        if (typeof renderActivePositions === "function") renderActivePositions();
       },
 
       renderHeaderWallet() {
@@ -5602,21 +5632,26 @@ img, svg, video, canvas {
         const d = this.getCurrentData();
         if (!d) return;
 
-        // Dynamic Sidebar Wallet Synchronization
+        // Dynamic Sidebar Wallet Synchronization - completely clean when disconnected
         const uLabel = document.getElementById("ghostSidebarUserLabel");
         const bLabel = document.getElementById("ghostSidebarBoundLabel");
         const sDot = document.getElementById("ghostSidebarStatusDot");
         if (this.currentAddress) {
           const shortAddr = this.currentAddress.slice(0, 6) + "..." + this.currentAddress.slice(-4);
           if (uLabel) uLabel.textContent = shortAddr;
-          if (bLabel) bLabel.textContent = "Bound: " + shortAddr;
+          if (bLabel) {
+            bLabel.textContent = "Bound: " + shortAddr;
+            bLabel.style.display = "block";
+          }
           if (sDot) { sDot.style.color = "#10B981"; sDot.textContent = "●"; }
         } else {
           if (uLabel) uLabel.textContent = "Sandbox Mode";
-          if (bLabel) bLabel.textContent = "No Wallet Connected";
-          if (sDot) { sDot.style.color = "#F59E0B"; sDot.textContent = "●"; }
+          if (bLabel) {
+            bLabel.textContent = "";
+            bLabel.style.display = "none";
+          }
+          if (sDot) { sDot.style.color = "#9CA3AF"; sDot.textContent = "○"; }
         }
-
 
         // Arena displays
         const balStr = `$${d.paperBalance.toLocaleString('en-US', {minimumFractionDigits: 2})}`;
@@ -5638,15 +5673,18 @@ img, svg, video, canvas {
           document.getElementById("sidebarTradeCount").textContent = `${d.trades.length} Trades`;
         }
 
-        // Settings displays
+        // Settings displays - completely strip wallet data when disconnected
         if (document.getElementById("settingsWalletAddress")) {
-          document.getElementById("settingsWalletAddress").textContent = this.currentAddress ? this.currentAddress : "Sandbox Mode (Connect Wallet)";
+          document.getElementById("settingsWalletAddress").textContent = this.currentAddress ? this.currentAddress : "--";
+        }
+        if (document.getElementById("settingsAccountTypeLabel")) {
+          document.getElementById("settingsAccountTypeLabel").textContent = this.currentAddress ? "CONNECTED WALLET" : "INTERNAL VAULT (DISCONNECTED)";
         }
         if (document.getElementById("settingsPaperBalanceDisplay")) {
           document.getElementById("settingsPaperBalanceDisplay").textContent = balStr + " USDT";
         }
         if (document.getElementById("ledgerWalletAddressLabel")) {
-          document.getElementById("ledgerWalletAddressLabel").textContent = this.currentAddress ? (this.currentAddress.slice(0, 6) + "..." + this.currentAddress.slice(-4)) : "Sandbox Mode";
+          document.getElementById("ledgerWalletAddressLabel").textContent = this.currentAddress ? (this.currentAddress.slice(0, 6) + "..." + this.currentAddress.slice(-4)) : "--";
         }
 
         // Re-render Auditor and Ledger
@@ -6170,46 +6208,95 @@ img, svg, video, canvas {
 
 
     // =========================================================================
-    // MULTI-POSITION RENDERING (MAX 5 WEEKEND TRADES)
+    // MULTI-POSITION RENDERING & QUOTA MANAGEMENT
     // =========================================================================
+    function updateArenaQuotaBox(openCount) {
+      const qBox = document.getElementById("arenaQuotaStatusBox");
+      const qLabel = document.getElementById("arenaQuotaLabel");
+      const qBadge = document.getElementById("arenaQuotaBadge");
+      const qBar = document.getElementById("arenaQuotaProgressBar");
+      const qExp = document.getElementById("arenaQuotaExplainer");
+
+      if (!qBox) return;
+
+      if (executionMode === "MANUAL") {
+        if (qLabel) qLabel.textContent = "Discretionary Limit";
+        if (qBadge) {
+          qBadge.textContent = "Uncapped (Unlimited Trades)";
+          qBadge.style.color = "#10B981";
+        }
+        if (qBar) {
+          qBar.style.width = "100%";
+          qBar.style.background = "#10B981";
+        }
+        if (qExp) qExp.textContent = "In manual mode, users can trade as many times as they want without limits. Autonomous agent remains capped to 5 trades.";
+      } else {
+        if (qLabel) qLabel.textContent = "Weekend Cap Quota";
+        if (qBadge) {
+          qBadge.textContent = `${openCount} / ${MAX_WEEKEND_TRADES} Deployed`;
+          qBadge.style.color = openCount >= MAX_WEEKEND_TRADES ? "#EF4444" : "#10B981";
+        }
+        if (qBar) {
+          qBar.style.width = `${Math.min(100, (openCount / MAX_WEEKEND_TRADES) * 100)}%`;
+          qBar.style.background = openCount >= MAX_WEEKEND_TRADES ? "#EF4444" : "#10B981";
+        }
+        if (qExp) qExp.textContent = "Autonomous AI agent is capped at 5 sequential trades during weekends.";
+      }
+    }
+
     function renderActivePositions() {
       const container = document.getElementById("activePositionContainer");
       if (!container) return;
       const d = ChronosWalletStore.getCurrentData();
-      const openPositions = d.openPositions || [];
+      const openPositions = d ? (d.openPositions || []) : [];
       const openCount = openPositions.length;
       const executeBtnText = document.getElementById("executeBtnText");
+
+      updateArenaQuotaBox(openCount);
 
       if (openCount === 0) {
         container.innerHTML = `
           <div style="background: rgba(0,0,0,0.03); border: 1px dashed rgba(0,0,0,0.15); border-radius: 8px; padding: 0.85rem; margin-top: 0.75rem; text-align: center;">
             <div style="font-family: var(--font-terminal); font-size: 0.72rem; color: var(--color-grey-muted); font-weight: 600;">
-              WEEKEND TRADES: 0 / 5 DEPLOYED
+              ${executionMode === "AUTO" ? "WEEKEND TRADES: 0 / 5 DEPLOYED" : "DISCRETIONARY TRADES: 0 ACTIVE (UNCAPPED)"}
             </div>
             <div style="font-size: 0.78rem; color: #666; margin-top: 0.25rem;">
-              Agent scans 24/7. It enters opportunistically one trade at a time as strategy conditions clear.
+              ${executionMode === "AUTO" ? "Agent scans 24/7. It enters opportunistically one trade at a time as strategy conditions clear." : "Manual mode is uncapped. Place as many discretionary trades as you desire."}
             </div>
           </div>
         `;
         if (executeBtnText) {
-          executeBtnText.textContent = executionMode === "AUTO" ? "ACTIVATE AUTONOMOUS STRATEGY" : "DISPATCH MANUAL REBALANCE ORDER";
+          executeBtnText.textContent = executionMode === "AUTO" ? "ACTIVATE AUTONOMOUS STRATEGY" : `Deploy Manual ${manualTradeSide || "BUY"} Order ($${selectedSymbol})`;
         }
         return;
       }
 
       if (executeBtnText) {
-        if (openCount >= MAX_WEEKEND_TRADES) {
-          executeBtnText.textContent = "WEEKEND CAP REACHED (5/5 TRADES ACTIVE)";
+        if (executionMode === "AUTO") {
+          if (openCount >= MAX_WEEKEND_TRADES) {
+            executeBtnText.textContent = "WEEKEND CAP REACHED (5/5 TRADES ACTIVE)";
+          } else {
+            executeBtnText.textContent = `DISPATCH ADDITIONAL TRADE (${openCount}/5 ACTIVE)`;
+          }
         } else {
-          executeBtnText.textContent = `DISPATCH ADDITIONAL TRADE (${openCount}/5 ACTIVE)`;
+          executeBtnText.textContent = `Deploy Manual ${manualTradeSide || "BUY"} Order ($${selectedSymbol})`;
         }
       }
 
-      // Build budget progress bar (5 visual segments)
+      // Build budget progress bar or uncapped badge
       let segmentsHtml = "";
-      for (let i = 0; i < MAX_WEEKEND_TRADES; i++) {
-        const isFilled = i < openCount;
-        segmentsHtml += `<div class="budget-segment ${isFilled ? 'filled' : ''}" title="Weekend Slot ${i+1}: ${isFilled ? openPositions[i].symbol : 'Open / Unallocated'}"></div>`;
+      if (executionMode === "AUTO") {
+        for (let i = 0; i < MAX_WEEKEND_TRADES; i++) {
+          const isFilled = i < openCount;
+          segmentsHtml += `<div class="budget-segment ${isFilled ? 'filled' : ''}" title="Weekend Slot ${i+1}: ${isFilled ? openPositions[i].symbol : 'Open / Unallocated'}"></div>`;
+        }
+      } else {
+        segmentsHtml = `
+          <div style="display: flex; align-items: center; justify-content: space-between; background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.25); border-radius: 6px; padding: 0.35rem 0.65rem; width: 100%;">
+            <span style="font-size: 0.70rem; color: #059669; font-family: var(--font-terminal); font-weight: 700;">● DISCRETIONARY MODE: UNLIMITED</span>
+            <span style="font-size: 0.68rem; color: #71717A; font-family: var(--font-terminal);">${openCount} active position${openCount === 1 ? '' : 's'}</span>
+          </div>
+        `;
       }
 
       // Build list of active position cards
@@ -6228,7 +6315,7 @@ img, svg, video, canvas {
               <div style="display: flex; align-items: center; gap: 0.45rem;">
                 <span style="display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--color-green); box-shadow: 0 0 6px rgba(0,200,83,0.8);"></span>
                 ${getTokenLogoHtml(pos.symbol, 20)}<strong style="font-size: 0.88rem; color: #0F172A;">${pos.symbol}</strong>
-                <span style="font-size: 0.72rem; color: #666;">(#${idx+1} of 5)</span>
+                <span style="font-size: 0.72rem; color: #666;">(#${idx+1}${executionMode === "AUTO" ? " of 5" : ""})</span>
               </div>
               <span style="font-size: 0.7rem; color: #666; font-family: var(--font-terminal);">${pos.entry_time}</span>
             </div>
@@ -6256,16 +6343,23 @@ img, svg, video, canvas {
         `;
       });
 
+      const headerTitle = executionMode === "AUTO"
+        ? `WEEKEND TRADES: ${openCount} / ${MAX_WEEKEND_TRADES} DEPLOYED`
+        : `DISCRETIONARY TRADES: ${openCount} DEPLOYED`;
+      const headerSubtitle = executionMode === "AUTO"
+        ? (openCount >= MAX_WEEKEND_TRADES ? "BUDGET CAP REACHED" : "HUNTING ALPHA")
+        : "UNCAPPED EXECUTION";
+
       container.innerHTML = `
         <div style="background: rgba(0, 200, 83, 0.04); border: 1px solid rgba(0, 200, 83, 0.2); border-radius: 8px; padding: 0.85rem; margin-top: 0.75rem;">
           <div class="multi-pos-header">
             <div>
               <strong style="font-size: 0.78rem; font-family: var(--font-terminal); color: var(--color-green);">
-                WEEKEND TRADES: ${openCount} / ${MAX_WEEKEND_TRADES} DEPLOYED
+                ${headerTitle}
               </strong>
             </div>
             <span style="font-size: 0.72rem; color: #666; font-family: var(--font-terminal);">
-              ${openCount >= MAX_WEEKEND_TRADES ? "BUDGET CAP REACHED" : "HUNTING ALPHA"}
+              ${headerSubtitle}
             </span>
           </div>
 
@@ -6295,20 +6389,21 @@ img, svg, video, canvas {
     }
 
     // =========================================================================
-    // TRADE ORDER EXECUTION (STRICT 5-TRADE CAP & RICH METADATA)
+    // TRADE ORDER EXECUTION (STRICT 5-TRADE CAP FOR AUTO, UNCAPPED FOR MANUAL)
     // =========================================================================
     function executeTradeOrder() {
       const d = ChronosWalletStore.getCurrentData();
       d.openPositions = d.openPositions || [];
 
-      // Check strict 5-trade limit
-      if (d.openPositions.length >= MAX_WEEKEND_TRADES) {
-        showToast("Weekend Cap Reached", `Chronos is strictly capped at a maximum of ${MAX_WEEKEND_TRADES} trades per weekend cycle to preserve your trading capital. All ${MAX_WEEKEND_TRADES} positions are currently held for Monday market open.`, "warning");
+      // Autonomous mode is strictly capped to 5 trades during weekend.
+      // Manual mode allows users to trade as many as they want (uncapped).
+      if (executionMode === "AUTO" && d.openPositions.length >= MAX_WEEKEND_TRADES) {
+        showToast("Weekend Cap Reached", `Chronos autonomous agent is strictly capped at a maximum of ${MAX_WEEKEND_TRADES} trades per weekend cycle to preserve your trading capital. All ${MAX_WEEKEND_TRADES} positions are currently held for Monday market open.`, "warning");
         return;
       }
 
-      // Check if this symbol is already open
-      if (d.openPositions.some(p => p.symbol === selectedSymbol)) {
+      // Check if this symbol is already open for autonomous mode
+      if (executionMode === "AUTO" && d.openPositions.some(p => p.symbol === selectedSymbol)) {
         showToast("Position Already Open", `You already have an active weekend position open in ${selectedSymbol}. To protect against single-stock concentration, choose another asset or wait for Monday open.`, "info");
         return;
       }
@@ -6324,7 +6419,11 @@ img, svg, video, canvas {
       // Deduct margin
       d.paperBalance -= collateral;
       const posId = `POS-${Date.now().toString().slice(-6)}`;
-      const side = m.drift_pct > 0 ? "SHORT" : "LONG";
+      
+      // Manual mode respects the user's manual BUY / SELL choice
+      const side = executionMode === "MANUAL"
+        ? (manualTradeSide === "BUY" ? "LONG" : "SHORT")
+        : (m.drift_pct > 0 ? "SHORT" : "LONG");
 
       const newPos = {
         id: posId,
@@ -6347,11 +6446,19 @@ img, svg, video, canvas {
       renderActivePositions();
       renderLifecycleState();
 
-      showToast(
-        `Trade Placed (${d.openPositions.length}/${MAX_WEEKEND_TRADES})`,
-        `Friday Anchor locked @ $${m.anchor_price.toFixed(2)}. Opened ${newPos.side} ${newPos.contracts} ${m.symbol}. Strategy rules cleared: retail price drifted away from Friday close while Wall Street is closed. Held for Monday open.`,
-        "success"
-      );
+      if (executionMode === "MANUAL") {
+        showToast(
+          `Manual Order Placed (#${d.openPositions.length})`,
+          `Placed manual ${newPos.side} order for ${newPos.contracts} ${m.symbol} ($${collateral.toLocaleString()}). Discretionary execution is uncapped.`,
+          "success"
+        );
+      } else {
+        showToast(
+          `Trade Placed (${d.openPositions.length}/${MAX_WEEKEND_TRADES})`,
+          `Friday Anchor locked @ $${m.anchor_price.toFixed(2)}. Opened ${newPos.side} ${newPos.contracts} ${m.symbol}. Strategy rules cleared: retail price drifted away from Friday close while Wall Street is closed. Held for Monday open.`,
+          "success"
+        );
+      }
     }
 
     // Opportunistic Single-Trade Execution for the Autonomous Agent
@@ -7015,17 +7122,26 @@ img, svg, video, canvas {
       const execBtn = document.getElementById("mainExecuteBtn");
       const execText = document.getElementById("executeBtnText");
 
+      const d = ChronosWalletStore.getCurrentData() || {};
+      const openCount = (d.openPositions || []).length;
+
       if (mode === "AUTO") {
         if (dirWrap) dirWrap.style.display = "none";
-        if (execText) execText.textContent = "ACTIVATE AUTONOMOUS STRATEGY";
+        if (openCount >= MAX_WEEKEND_TRADES) {
+          if (execText) execText.textContent = "WEEKEND CAP REACHED (5/5 TRADES ACTIVE)";
+        } else {
+          if (execText) execText.textContent = openCount === 0 ? "ACTIVATE AUTONOMOUS STRATEGY" : `DISPATCH ADDITIONAL TRADE (${openCount}/5 ACTIVE)`;
+        }
         if (execBtn) {
           execBtn.style.background = "#18181B";
           execBtn.style.borderColor = "#18181B";
         }
       } else {
         if (dirWrap) dirWrap.style.display = "block";
-        setManualTradeSide(manualTradeSide || "SELL");
+        setManualTradeSide(manualTradeSide || "BUY");
       }
+      if (typeof updateArenaQuotaBox === "function") updateArenaQuotaBox(openCount);
+      renderActivePositions();
     }
 
     function setCollateral(val, btn) {
@@ -7389,9 +7505,6 @@ img, svg, video, canvas {
       closeRainbowAccountModal();
       ChronosWalletStore.disconnect();
       renderRainbowHeader();
-      if (typeof showToast === "function") {
-        showToast("Wallet Disconnected", "Restored isolated portfolio.", "info");
-      }
     }
 
     // Copy Connected Address in Photo 2 Account Modal
@@ -7859,7 +7972,6 @@ img, svg, video, canvas {
                 showToast("Wallet Connected", `Connected via RainbowKit: ${account.address.slice(0,6)}...${account.address.slice(-4)}`, "success");
               } else if (account && !account.isConnected) {
                 ChronosWalletStore.disconnect();
-                showToast("Wallet Disconnected", "Restored isolated internal vault execution.", "info");
               }
             }
           });

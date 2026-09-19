@@ -1012,9 +1012,6 @@ RAINBOWKIT_JS = '''
       closeRainbowAccountModal();
       ChronosWalletStore.disconnect();
       renderRainbowHeader();
-      if (typeof showToast === "function") {
-        showToast("Wallet Disconnected", "Restored isolated portfolio.", "info");
-      }
     }
 
     // Copy Connected Address in Photo 2 Account Modal
