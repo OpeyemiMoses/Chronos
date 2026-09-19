@@ -1474,7 +1474,7 @@ html_content = f"""<!DOCTYPE html>
           Deploy Institutional After-Hours Alpha
         </h2>
         <p style="font-size: 0.85rem; color: #9CA3AF; max-width: 560px; margin: 0 auto 1.5rem; line-height: 1.55;">
-          Chronos runs autonomously 24/7 on Python with zero human intervention required. Seamlessly connects to Bitget UTA v3 and official Bitget MCP tools.
+          Continuous statistical arbitrage across tokenized equities. Seamlessly integrated with Bitget UTA v3 and official Bitget MCP tools.
         </p>
         <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
           <button class="btn-launch-white" onclick="window.location.href='app.html'">
