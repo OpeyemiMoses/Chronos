@@ -178,39 +178,41 @@ RAINBOWKIT_CSS = """
    AUTHENTIC RAINBOWKIT DESIGN SYSTEM
    -------------------------------------------------------------------------- */
 
-/* Header Disconnected Button */
+/* Header Disconnected Button - Stylized Editorial Design */
 .rk-connect-btn {
-  background: #1A1B1F;
+  background: #18181B;
   color: #FFFFFF;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  padding: 8px 16px;
-  border-radius: 12px;
-  border: none;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 0.42rem 0.95rem;
+  border-radius: 9999px;
+  border: 1px solid #27272A;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  gap: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
 }
 .rk-connect-btn:hover {
-  background: #272A30;
+  background: #27272A;
+  border-color: #3F3F46;
   transform: translateY(-1px);
-  box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.16);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14);
 }
 .rk-connect-btn:active {
   transform: scale(0.98);
 }
 .rk-rainbow-dot {
-  width: 16px;
-  height: 16px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-  background: conic-gradient(#FF494A, #FF8700, #FFD600, #00D369, #0075FF, #7A00FF, #FF494A);
+  background: #10B981;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
   display: inline-block;
-  box-shadow: 0 0 6px rgba(0, 117, 255, 0.4);
 }
 
 /* Header Connected Dual-Pills */
@@ -222,39 +224,40 @@ RAINBOWKIT_CSS = """
 }
 .rk-pill-chain {
   background: #FFFFFF;
-  color: #1A1B1F;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 12px;
-  padding: 6px 12px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  font-size: 13.5px;
-  font-weight: 700;
+  color: #18181B;
+  border: 1px solid #EEE9DF;
+  border-radius: 9999px;
+  padding: 0.35rem 0.75rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
+  font-size: 0.74rem;
+  font-weight: 600;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  gap: 0.35rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
   transition: all 0.15s ease;
 }
 .rk-pill-chain:hover {
-  background: #F4F4F6;
-  border-color: rgba(0, 0, 0, 0.15);
+  background: #F4EFE6;
+  border-color: #D4CEBF;
 }
 .rk-pill-account {
   background: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 12px;
-  padding: 4px 6px 4px 10px;
+  color: #18181B;
+  border: 1px solid #EEE9DF;
+  border-radius: 9999px;
+  padding: 0.35rem 0.65rem 0.35rem 0.85rem;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  gap: 0.45rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
   transition: all 0.15s ease;
 }
 .rk-pill-account:hover {
-  background: #F4F4F6;
-  border-color: rgba(0, 0, 0, 0.15);
+  background: #F4EFE6;
+  border-color: #D4CEBF;
 }
 .rk-pill-balance {
   font-family: 'Space Mono', monospace;

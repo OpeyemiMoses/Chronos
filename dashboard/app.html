@@ -827,7 +827,7 @@ img, svg, video, canvas {
 
     .market-title {
       font-family: var(--font-serif-editorial);
-      font-size: 2.4rem;
+      font-size: 1.45rem;
       font-weight: 700;
       letter-spacing: -0.01em;
       line-height: 1.15;
@@ -2241,39 +2241,41 @@ img, svg, video, canvas {
    AUTHENTIC RAINBOWKIT DESIGN SYSTEM
    -------------------------------------------------------------------------- */
 
-/* Header Disconnected Button */
+/* Header Disconnected Button - Stylized Editorial Design */
 .rk-connect-btn {
-  background: #1A1B1F;
+  background: #18181B;
   color: #FFFFFF;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  padding: 8px 16px;
-  border-radius: 12px;
-  border: none;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 0.42rem 0.95rem;
+  border-radius: 9999px;
+  border: 1px solid #27272A;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  gap: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
 }
 .rk-connect-btn:hover {
-  background: #272A30;
+  background: #27272A;
+  border-color: #3F3F46;
   transform: translateY(-1px);
-  box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.16);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14);
 }
 .rk-connect-btn:active {
   transform: scale(0.98);
 }
 .rk-rainbow-dot {
-  width: 16px;
-  height: 16px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-  background: conic-gradient(#FF494A, #FF8700, #FFD600, #00D369, #0075FF, #7A00FF, #FF494A);
+  background: #10B981;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
   display: inline-block;
-  box-shadow: 0 0 6px rgba(0, 117, 255, 0.4);
 }
 
 /* Header Connected Dual-Pills */
@@ -2285,39 +2287,40 @@ img, svg, video, canvas {
 }
 .rk-pill-chain {
   background: #FFFFFF;
-  color: #1A1B1F;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 12px;
-  padding: 6px 12px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  font-size: 13.5px;
-  font-weight: 700;
+  color: #18181B;
+  border: 1px solid #EEE9DF;
+  border-radius: 9999px;
+  padding: 0.35rem 0.75rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
+  font-size: 0.74rem;
+  font-weight: 600;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  gap: 0.35rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
   transition: all 0.15s ease;
 }
 .rk-pill-chain:hover {
-  background: #F4F4F6;
-  border-color: rgba(0, 0, 0, 0.15);
+  background: #F4EFE6;
+  border-color: #D4CEBF;
 }
 .rk-pill-account {
   background: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 12px;
-  padding: 4px 6px 4px 10px;
+  color: #18181B;
+  border: 1px solid #EEE9DF;
+  border-radius: 9999px;
+  padding: 0.35rem 0.65rem 0.35rem 0.85rem;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  gap: 0.45rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
   transition: all 0.15s ease;
 }
 .rk-pill-account:hover {
-  background: #F4F4F6;
-  border-color: rgba(0, 0, 0, 0.15);
+  background: #F4EFE6;
+  border-color: #D4CEBF;
 }
 .rk-pill-balance {
   font-family: 'Space Mono', monospace;
@@ -3358,6 +3361,237 @@ img, svg, video, canvas {
       line-height: 1.35;
     }
 
+
+    /* -------------------------------------------------------------
+       TRADING ARENA REDESIGN & COMPACT INSTITUTIONAL CSS
+       ------------------------------------------------------------- */
+    .btn-compact-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: #FFFFFF;
+      border: 1px solid #EEE9DF;
+      color: #18181B;
+      padding: 0.32rem 0.7rem;
+      border-radius: 9999px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+      user-select: none;
+    }
+    .btn-compact-back:hover {
+      background: #F4EFE6;
+      border-color: #D4CEBF;
+      transform: translateX(-1px);
+    }
+
+    .arena-selector-wrap {
+      margin-bottom: 1.15rem;
+    }
+    .arena-selector-label {
+      font-family: var(--font-terminal);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #71717A;
+      margin-bottom: 0.45rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .arena-market-selector-bar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 0.55rem;
+    }
+    @media (max-width: 1200px) {
+      .arena-market-selector-bar {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+    @media (max-width: 768px) {
+      .arena-market-selector-bar {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    .arena-asset-card {
+      background: #FAF8F5;
+      border: 1px solid #EEE9DF;
+      border-radius: 10px;
+      padding: 0.6rem 0.75rem;
+      cursor: pointer;
+      transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      text-align: left;
+      position: relative;
+    }
+    .arena-asset-card:hover {
+      background: #FFFFFF;
+      border-color: #D4CEBF;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      transform: translateY(-1px);
+    }
+    .arena-asset-card.active {
+      background: #FFFFFF;
+      border-color: #18181B;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    }
+    .arena-asset-card.active::before {
+      content: "";
+      position: absolute;
+      top: -1px;
+      left: 12%;
+      right: 12%;
+      height: 2px;
+      background: #10B981;
+      border-radius: 2px;
+    }
+    .asset-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .asset-card-token {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .asset-card-token img {
+      width: 20px;
+      height: 20px;
+      border-radius: 5px;
+      object-fit: contain;
+      background: #FFFFFF;
+      flex-shrink: 0;
+    }
+    .asset-card-symbol {
+      font-weight: 700;
+      font-size: 0.78rem;
+      color: #18181B;
+    }
+    .asset-card-drift {
+      font-family: var(--font-terminal);
+      font-size: 0.66rem;
+      font-weight: 600;
+      padding: 0.12rem 0.38rem;
+      border-radius: 9999px;
+    }
+    .asset-card-drift.green {
+      background: rgba(16, 185, 129, 0.12);
+      color: #059669;
+    }
+    .asset-card-drift.gold {
+      background: rgba(245, 158, 11, 0.12);
+      color: #D97706;
+    }
+    .asset-card-drift.neutral {
+      background: rgba(113, 113, 122, 0.1);
+      color: #71717A;
+    }
+    .asset-card-price {
+      font-family: var(--font-terminal);
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: #09090B;
+    }
+    .asset-card-company {
+      font-size: 0.65rem;
+      color: #71717A;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Arena 2-Column Split Grid */
+    .arena-grid-split {
+      display: grid;
+      grid-template-columns: 1.62fr 1fr;
+      gap: 1.25rem;
+      align-items: start;
+    }
+    @media (max-width: 1060px) {
+      .arena-grid-split {
+        grid-template-columns: 1fr;
+      }
+    }
+    .arena-card {
+      background: #FFFFFF;
+      border: 1px solid #EEE9DF;
+      border-radius: 12px;
+      padding: 1.15rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+    .arena-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.85rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid #EEE9DF;
+    }
+    .orderbook-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-terminal);
+      font-size: 0.68rem;
+    }
+    .orderbook-table th {
+      padding: 0.3rem 0.45rem;
+      text-align: right;
+      color: #71717A;
+      font-weight: 500;
+      border-bottom: 1px solid #EEE9DF;
+    }
+    .orderbook-table th:first-child {
+      text-align: left;
+    }
+    .orderbook-table td {
+      padding: 0.22rem 0.45rem;
+      text-align: right;
+      color: #27272A;
+    }
+    .orderbook-table td:first-child {
+      text-align: left;
+    }
+    .ob-ask-price {
+      color: #EF4444;
+      font-weight: 600;
+    }
+    .ob-bid-price {
+      color: #10B981;
+      font-weight: 600;
+    }
+    .telemetry-console-box {
+      background: #FAF8F5;
+      border: 1px solid #EEE9DF;
+      border-radius: 8px;
+      padding: 0.65rem 0.75rem;
+      font-family: var(--font-terminal);
+      font-size: 0.68rem;
+      color: #52525B;
+      line-height: 1.5;
+      max-height: 120px;
+      overflow-y: auto;
+    }
+    .telemetry-line {
+      display: flex;
+      gap: 0.45rem;
+      margin-bottom: 0.25rem;
+    }
+    .telemetry-time {
+      color: #A1A1AA;
+      flex-shrink: 0;
+    }
+    .telemetry-tag {
+      color: #10B981;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
   </style>
   <script>
     window.selectedSymbol = "rNVDA";
@@ -3504,16 +3738,16 @@ img, svg, video, canvas {
 
       <!-- Bottom Account Info Card -->
       <div class="ghost-sidebar-footer">
-        <div class="ghost-user-card">
+        <div class="ghost-user-card" id="ghostSidebarUserCard">
           <div style="display: flex; align-items: center; justify-content: space-between;">
             <div style="display: flex; align-items: center; gap: 0.35rem; color: #18181B; font-weight: 600;">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-              <span id="ghostSidebarUserLabel">vault-trader@chronos.ai</span>
+              <span id="ghostSidebarUserLabel">Sandbox Mode</span>
             </div>
-            <span style="color: #10B981; font-size: 0.65rem;">●</span>
+            <span id="ghostSidebarStatusDot" style="color: #F59E0B; font-size: 0.65rem;">●</span>
           </div>
           <div style="color: #71717A; font-size: 0.70rem; font-family: var(--font-terminal);" id="ghostSidebarBoundLabel">
-            Bound: 0xb482_8C09
+            No Wallet Connected
           </div>
         </div>
 
@@ -3532,10 +3766,7 @@ img, svg, video, canvas {
         </div>
 
         <div class="ghost-top-controls">
-          <button class="btn-mint-paper" onclick="addPaperBalance(50000)">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            <span>Mint $50k Paper USDT</span>
-          </button>
+
 
           <div class="ghost-mode-segmented">
             <button class="ghost-mode-btn active" id="modeBtnOverview" onclick="switchView('overview')">Overview</button>
@@ -3574,7 +3805,7 @@ img, svg, video, canvas {
             </div>
             <div class="overview-kpi-mid">
               <div class="overview-kpi-pill">
-                <span>🔒</span>
+                
                 <span id="overviewActiveTradesPill">3 / 5 Active Weekend Trades</span>
               </div>
             </div>
@@ -3594,7 +3825,7 @@ img, svg, video, canvas {
             </div>
             <div class="overview-kpi-mid">
               <div class="overview-kpi-pill">
-                <span>📈</span>
+                
                 <span style="color: #10B981;">+39.71% Cumulative Return</span>
               </div>
             </div>
@@ -3610,7 +3841,7 @@ img, svg, video, canvas {
               <div class="overview-kpi-icon">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
               </div>
-              <span class="overview-kpi-badge green">● MONDAY UNWIND #1</span>
+              <span class="overview-kpi-badge green">Monday Unwind #1</span>
             </div>
             <div class="overview-kpi-mid">
               <div class="overview-kpi-big" id="overviewPortfolioVal">$52,485.50</div>
@@ -3650,14 +3881,14 @@ img, svg, video, canvas {
               <div class="overview-inner-callout">
                 <div class="inner-callout-header">
                   <span>Dislocation Detection State</span>
-                  <span style="font-family: var(--font-terminal); font-size: 0.72rem; color: #10B981;">● Scanning 24/7 (3 Trades Active)</span>
+                  <span style="font-family: var(--font-terminal); font-size: 0.72rem; color: #10B981;">Scanning 24/7 (3 Trades Active)</span>
                 </div>
                 <div class="inner-callout-text">
                   The agent is monitoring 7 tokenized equities on Bitget. 3 counter-positions are active ($rNVDA, $rTSLA, $rMSTR) shorting artificial weekend retail euphoria against Friday's anchor. All positions cash-settle into 100% USDT at Monday institutional pre-market open.
                 </div>
                 <button class="btn-decrypt-black" onclick="openTradeReasoningModal('POS-194671')">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2l-2 2m-1-1l-2 2m-1-1l-2 2M3 21l9-9m3-3l6-6"/><circle cx="7.5" cy="16.5" r="4.5"/></svg>
-                  <span>Open Strategy & Reasoning Modal</span>
+                  <span>View Strategy Reasoning</span>
                 </button>
               </div>
 
@@ -3686,7 +3917,7 @@ img, svg, video, canvas {
             <div>
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.1rem;">
                 <span style="font-family: var(--font-terminal); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #71717A;">PROTOCOL SECURITY</span>
-                <span class="overview-kpi-badge green" style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 9999px; padding: 0.2rem 0.65rem;">● Audited & Active</span>
+                <span class="overview-kpi-badge green" style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 9999px; padding: 0.2rem 0.65rem;">Audited & Active</span>
               </div>
 
               <table class="protocol-spec-table">
@@ -3731,8 +3962,8 @@ img, svg, video, canvas {
           <div class="overview-main-card">
             <div>
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-                <span class="overview-kpi-badge" style="background: #F4EFE6; border: 1px solid #EEE9DF; border-radius: 9999px; padding: 0.25rem 0.65rem;">★ 5-Trade Sequential Architecture</span>
-                <span style="font-family: var(--font-terminal); font-size: 0.72rem; color: #71717A;">🔒 Risk-Parity Volatility Sized</span>
+                <span class="overview-kpi-badge" style="background: #F4EFE6; border: 1px solid #EEE9DF; border-radius: 9999px; padding: 0.25rem 0.65rem;">5-Trade Sequential Architecture</span>
+                <span style="font-family: var(--font-terminal); font-size: 0.72rem; color: #71717A;">Risk-Parity Volatility Sized</span>
               </div>
               <h2 class="overview-card-h2">Active Weekend Alpha Trades</h2>
               <p class="overview-card-desc">Draw weight = capital × statistical dislocation. Trades deploy sequentially when individual drift thresholds clear.</p>
@@ -3769,7 +4000,7 @@ img, svg, video, canvas {
 
               <!-- Warm Callout Strip -->
               <div class="warm-callout-strip">
-                ● <strong>5-Trade Cap Active:</strong> Maximum 5 trades allowed per weekend. Positions are entered only when the individual asset's dislocation clears, preventing simultaneous capital over-commitment.
+                <span class="ghost-status-dot" style="display:inline-block; vertical-align:middle; margin-right:4px;"></span><strong>5-Trade Cap Active:</strong> Maximum 5 trades allowed per weekend. Positions are entered only when the individual asset's dislocation clears, preventing simultaneous capital over-commitment.
               </div>
             </div>
           </div>
@@ -3792,7 +4023,7 @@ img, svg, video, canvas {
 
                 <!-- Step 2 -->
                 <div class="stepper-item">
-                  <div class="stepper-dot active">●</div>
+                  <div class="stepper-dot active"><span style="width:6px; height:6px; border-radius:50%; background:#10B981; display:inline-block;"></span></div>
                   <div>
                     <div class="stepper-content-title" style="color: #10B981;">Weekend Dislocation Hunting (Active)</div>
                     <div class="stepper-content-sub">Retail order flow monitored 24/7 on Bitget. 3 of 5 counter-trades deployed into thin books.</div>
@@ -3859,240 +4090,332 @@ img, svg, video, canvas {
       </div>
 
 
-      <!-- VIEW 1: TRADING ARENA -->
+            <!-- VIEW 1: REDESIGNED TRADING ARENA (MULTI-ASSET & INSTITUTIONAL DENSITY) -->
       <div id="viewArena" style="display: none;">
-        <!-- In-App Breadcrumb Header -->
-        <div class="breadcrumb-row">
-          <div style="display: flex; align-items: center; gap: 0.5rem; font-family: var(--font-terminal); font-size: 0.76rem; color: var(--color-grey-text);">
-            <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--color-green);"></span>
-            <span>ACTIVE STRATEGY</span>
-            <span style="color: #DDD;">/</span>
-            <span id="breadcrumbPathDisplay" style="color: #000; font-weight: 700;">NVIDIA Corporation (rNVDA)</span>
-          </div>
-          <div style="display: flex; align-items: center; gap: 1rem;">
-            <div style="font-family: var(--font-terminal); font-size: 0.74rem; color: var(--color-grey-muted);">
-              Wallet Balance: <strong id="arenaPaperBalanceDisplay" style="color: var(--color-green);">$50,000.00 USDT</strong>
-            </div>
-          </div>
-        </div>
-
-        <!-- Market Title Area -->
-        <div class="market-header-area">
-          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 0.35rem;">
-            <img id="marketHeaderTokenLogo" src="assets/tokens/nvda.svg" style="width: 32px; height: 32px; border-radius: 8px; object-fit: contain; border: 1px solid #E2E8F0; background: #FFFFFF; padding: 2px;" alt="Token" />
-            <h1 class="market-title" id="marketTitleDisplay" style="margin: 0;">NVIDIA Corp ($rNVDA / USDT)</h1>
-          </div>
-          <p class="market-subtitle" id="marketSubtitleDisplay">
-            Systematic weekend mean-reversion model. Tracking residual pricing drift against Bitcoin crypto-macro benchmark to capture Monday institutional pre-market convergence.
-          </p>
-
-          <div class="status-strip">
-            <span style="width: 7px; height: 7px; border-radius: 50%; background: var(--color-green); display: inline-block;"></span>
-            <span>Friday Settlement Anchor: <strong id="statusAnchorDisplay" style="font-family: var(--font-terminal);">$128.40 USD</strong> • Next Convergence Cash Unwind: <strong style="font-family: var(--font-terminal);">Monday 08:30 EST</strong> • Gateway: Bitget UTA v3</span>
-          </div>
-        </div>
-
-        <!-- 4-Phase Weekly Operational Lifecycle Stepper -->
-        <div class="lifecycle-stepper-container" id="lifecycleStepperContainer">
-          <div class="lifecycle-stepper-header">
-            <div class="lifecycle-stepper-title">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              <span>4-PHASE WEEKLY OPERATIONAL LIFECYCLE</span>
-            </div>
-            <div class="lifecycle-state-badge" id="lifecycleStateBadge">
-              <span class="auto-live-pulse" style="width: 6px; height: 6px;"></span>
-              <span id="lifecycleStateBadgeText">PHASE 2: 24/7 WEEKEND ALPHA HUNT</span>
-            </div>
-          </div>
-
-          <div class="lifecycle-steps-grid">
-            <div class="lifecycle-step-card completed" id="stepPhase1">
-              <div class="step-tag">
-                <span>Phase 1</span>
-                <span class="step-status-icon" id="step1Icon" style="font-size: 0.65rem; letter-spacing: 0.04em;">LOCKED</span>
-              </div>
-              <div class="step-name">Friday 16:00 EST</div>
-              <div class="step-detail">Anchor Baseline Locked</div>
-            </div>
-
-            <div class="lifecycle-separator">→</div>
-
-            <div class="lifecycle-step-card active" id="stepPhase2">
-              <div class="step-tag">
-                <span>Phase 2</span>
-                <span class="step-status-icon" id="step2Icon" style="font-size: 0.65rem; letter-spacing: 0.04em;">ACTIVE</span>
-              </div>
-              <div class="step-name">Weekend 24/7</div>
-              <div class="step-detail">Dislocation Hunt (|Z| ≥ 2.0σ)</div>
-            </div>
-
-            <div class="lifecycle-separator">→</div>
-
-            <div class="lifecycle-step-card" id="stepPhase3">
-              <div class="step-tag">
-                <span>Phase 3</span>
-                <span class="step-status-icon" id="step3Icon" style="font-size: 0.65rem; letter-spacing: 0.04em;">PENDING</span>
-              </div>
-              <div class="step-name">Monday 08:30 EST</div>
-              <div class="step-detail">Pre-Market Exit → 100% Cash</div>
-            </div>
-
-            <div class="lifecycle-separator">→</div>
-
-            <div class="lifecycle-step-card" id="stepPhase4">
-              <div class="step-tag">
-                <span>Phase 4</span>
-                <span class="step-status-icon" id="step4Icon" style="font-size: 0.65rem; letter-spacing: 0.04em;">PENDING</span>
-              </div>
-              <div class="step-name">Cognitive Self-Audit</div>
-              <div class="step-detail">Post-Mortem & Weekday Sleep</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Autonomous Auto-Pilot Live Bar -->
-        <div class="auto-live-status-bar" id="autoStatusBar">
-          <div style="display: flex; align-items: center; gap: 0.85rem; flex: 1; min-width: 0;">
-            <span class="auto-live-pulse" id="autoPilotPulse"></span>
-            <div style="flex: 1; min-width: 0;">
-              <div style="display: flex; align-items: center; gap: 0.65rem;">
-                <span style="font-size: 0.85rem; font-weight: 700; letter-spacing: 0.04em;" id="autoPilotTitle">AUTONOMOUS AGENT: RUNNING 24/7</span>
-                <span class="badge-pill-light" style="background: rgba(16, 185, 129, 0.2); color: #34D399; font-size: 0.68rem; border: 1px solid rgba(52, 211, 153, 0.4);" id="autoPilotModeBadge">HANDS-FREE AUTO-PILOT ON</span>
-              </div>
-              <div class="agent-telemetry-text" id="agentTelemetryText">
-                [AGENT TELEMETRY] Chronos Engine: Scanning Bitget 24/7 orderbooks for weekend retail dislocations...
-              </div>
-            </div>
-          </div>
-
-          <div style="display: flex; align-items: center; gap: 0.65rem; flex-shrink: 0;">
-            <button class="preset-chip" id="btnToggleAutoPilot" style="background: rgba(16, 185, 129, 0.22); color: #34D399; border: 1px solid rgba(52, 211, 153, 0.45); padding: 0.35rem 0.85rem;" onclick="toggleAutoPilot()">
-              <span>Pause Auto-Pilot</span>
+        <!-- Top Context Header with Compact Back Button -->
+        <div class="breadcrumb-row" style="margin-bottom: 0.85rem;">
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <button class="btn-compact-back" onclick="switchView('overview')">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+              <span>Overview</span>
             </button>
-            <button class="preset-chip" style="background: rgba(255,255,255,0.15); color: #FFF; border: none; padding: 0.35rem 0.85rem;" onclick="triggerAutonomousCycle()">
-              <span id="autoActionBtnText">Force Cycle Step</span>
-            </button>
+            <div style="display: flex; align-items: center; gap: 0.4rem; font-family: var(--font-terminal); font-size: 0.72rem; color: #71717A;">
+              <span class="ghost-status-dot"></span>
+              <span>BITGET UTA v3 SPOT ORACLE</span>
+              <span style="color: #D4CEBF;">/</span>
+              <span id="breadcrumbPathDisplay" style="color: #18181B; font-weight: 600;">NVIDIA Corporation (rNVDA)</span>
+            </div>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 0.85rem; font-family: var(--font-terminal); font-size: 0.72rem;">
+            <span style="color: #71717A;">Available Vault:</span>
+            <strong id="arenaPaperBalanceDisplay" style="color: #10B981; font-weight: 700;">$50,000.00 USDT</strong>
+            <span style="background: #F4EFE6; border: 1px solid #EEE9DF; padding: 0.15rem 0.45rem; border-radius: 4px; font-size: 0.65rem; color: #71717A;">28ms WebSocket</span>
           </div>
         </div>
 
-        <!-- Two-Column Arena Grid -->
-        <div class="arena-grid">
-          <!-- Left: Candlestick Chart Panel Card -->
-          <div class="chart-panel-card">
-            <div class="chart-card-header">
-              <div>
-                <div class="oracle-label">Bitget 24/7 Spot Oracle • <span id="symbolDisplay">rNVDA/USDT</span></div>
-                <div style="display: flex; align-items: baseline; gap: 0.65rem;">
-                  <span class="big-price-val" id="chartPriceDisplay">$132.80</span>
-                  <span class="badge-pill-green" id="chartDriftBadge" style="font-size: 0.76rem; padding: 0.2rem 0.55rem;">+3.42% Drift</span>
+        <!-- Multi-Asset Market Selector Tabs (All 7 Tokenized Equities) -->
+        <div class="arena-selector-wrap">
+          <div class="arena-selector-label">
+            <span>Select 24/7 Tokenized Market (Bitget UTA Spot)</span>
+            <span>7 Markets Active • Weekend Dislocation Scanner</span>
+          </div>
+          <div class="arena-market-selector-bar" id="arenaMarketSelectorBar">
+            <!-- Asset 1: rNVDA -->
+            <div class="arena-asset-card active" data-symbol="rNVDA" onclick="selectMarket('rNVDA')">
+              <div class="asset-card-top">
+                <div class="asset-card-token">
+                  <img src="assets/tokens/nvda.svg" alt="NVDA">
+                  <span class="asset-card-symbol">rNVDA</span>
+                </div>
+                <span class="asset-card-drift green">+3.42%</span>
+              </div>
+              <div class="asset-card-price" id="selectorPrice_rNVDA">$132.80</div>
+              <div class="asset-card-company">NVIDIA Corp • 2.24σ</div>
+            </div>
+
+            <!-- Asset 2: rTSLA -->
+            <div class="arena-asset-card" data-symbol="rTSLA" onclick="selectMarket('rTSLA')">
+              <div class="asset-card-top">
+                <div class="asset-card-token">
+                  <img src="assets/tokens/tsla.svg" alt="TSLA">
+                  <span class="asset-card-symbol">rTSLA</span>
+                </div>
+                <span class="asset-card-drift green">+4.20%</span>
+              </div>
+              <div class="asset-card-price" id="selectorPrice_rTSLA">$253.52</div>
+              <div class="asset-card-company">Tesla Inc • 2.65σ</div>
+            </div>
+
+            <!-- Asset 3: rMSTR -->
+            <div class="arena-asset-card" data-symbol="rMSTR" onclick="selectMarket('rMSTR')">
+              <div class="asset-card-top">
+                <div class="asset-card-token">
+                  <img src="assets/tokens/mstr.svg" alt="MSTR">
+                  <span class="asset-card-symbol">rMSTR</span>
+                </div>
+                <span class="asset-card-drift green">+6.91%</span>
+              </div>
+              <div class="asset-card-price" id="selectorPrice_rMSTR">$312.40</div>
+              <div class="asset-card-company">MicroStrategy • 3.48σ</div>
+            </div>
+
+            <!-- Asset 4: rCOIN -->
+            <div class="arena-asset-card" data-symbol="rCOIN" onclick="selectMarket('rCOIN')">
+              <div class="asset-card-top">
+                <div class="asset-card-token">
+                  <img src="assets/tokens/coin.svg" alt="COIN">
+                  <span class="asset-card-symbol">rCOIN</span>
+                </div>
+                <span class="asset-card-drift green">+5.66%</span>
+              </div>
+              <div class="asset-card-price" id="selectorPrice_rCOIN">$218.50</div>
+              <div class="asset-card-company">Coinbase Global • 3.10σ</div>
+            </div>
+
+            <!-- Asset 5: rAAPL -->
+            <div class="arena-asset-card" data-symbol="rAAPL" onclick="selectMarket('rAAPL')">
+              <div class="asset-card-top">
+                <div class="asset-card-token">
+                  <img src="assets/tokens/aapl.svg" alt="AAPL">
+                  <span class="asset-card-symbol">rAAPL</span>
+                </div>
+                <span class="asset-card-drift gold">-1.82%</span>
+              </div>
+              <div class="asset-card-price" id="selectorPrice_rAAPL">$228.40</div>
+              <div class="asset-card-company">Apple Inc • -1.20σ</div>
+            </div>
+
+            <!-- Asset 6: rSPY -->
+            <div class="arena-asset-card" data-symbol="rSPY" onclick="selectMarket('rSPY')">
+              <div class="asset-card-top">
+                <div class="asset-card-token">
+                  <img src="assets/tokens/spy.svg" alt="SPY">
+                  <span class="asset-card-symbol">rSPY</span>
+                </div>
+                <span class="asset-card-drift neutral">+0.43%</span>
+              </div>
+              <div class="asset-card-price" id="selectorPrice_rSPY">$564.20</div>
+              <div class="asset-card-company">S&P 500 ETF • 0.35σ</div>
+            </div>
+
+            <!-- Asset 7: rQQQ -->
+            <div class="arena-asset-card" data-symbol="rQQQ" onclick="selectMarket('rQQQ')">
+              <div class="asset-card-top">
+                <div class="asset-card-token">
+                  <img src="assets/tokens/qqq.svg" alt="QQQ">
+                  <span class="asset-card-symbol">rQQQ</span>
+                </div>
+                <span class="asset-card-drift neutral">+0.77%</span>
+              </div>
+              <div class="asset-card-price" id="selectorPrice_rQQQ">$482.60</div>
+              <div class="asset-card-company">Nasdaq QQQ • 0.62σ</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2-Column Split: Left Chart & Live Orderbook | Right Execution Card -->
+        <div class="arena-grid-split">
+          <!-- LEFT COLUMN: Terminal Chart & Orderbook -->
+          <div style="display: flex; flex-direction: column; gap: 1rem;">
+            <!-- Chart Panel Card -->
+            <div class="arena-card">
+              <div class="arena-card-header">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                  <img id="marketHeaderTokenLogo" src="assets/tokens/nvda.svg" style="width: 26px; height: 26px; border-radius: 6px;" alt="Token" />
+                  <div>
+                    <div style="display: flex; align-items: baseline; gap: 0.5rem;">
+                      <span id="marketTitleDisplay" style="font-weight: 700; font-size: 0.95rem; color: #18181B;">NVIDIA Corp (rNVDA)</span>
+                      <span class="big-price-val" id="chartPriceDisplay" style="font-size: 1.15rem; font-weight: 700; color: #09090B;">$132.80</span>
+                      <span class="asset-card-drift green" id="chartDriftBadge">+3.42% Drift</span>
+                    </div>
+                    <div style="font-size: 0.68rem; color: #71717A; font-family: var(--font-terminal);">
+                      Oracle: <span id="symbolDisplay">rNVDA/USDT</span> • Friday Anchor: <strong id="statusAnchorDisplay" style="color: #18181B;">$128.40 USD</strong>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Timeframe and Type Controls -->
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                  <div class="timeframe-pill-group">
+                    <button class="timeframe-pill" onclick="setTimeframe('1M', this)">1M</button>
+                    <button class="timeframe-pill" onclick="setTimeframe('5M', this)">5M</button>
+                    <button class="timeframe-pill" onclick="setTimeframe('15M', this)">15M</button>
+                    <button class="timeframe-pill active" onclick="setTimeframe('1H', this)">1H</button>
+                  </div>
+                  <div style="display: flex; gap: 0.2rem; background: #FAF8F5; border: 1px solid #EEE9DF; border-radius: 6px; padding: 2px;">
+                    <button id="btnChartCandles" style="background: #FFFFFF; border: 1px solid #EEE9DF; border-radius: 4px; padding: 0.2rem 0.45rem; font-size: 0.65rem; font-weight: 600; cursor: pointer;" onclick="toggleChartMode('candles')">Candles</button>
+                    <button id="btnChartLine" style="background: transparent; border: none; border-radius: 4px; padding: 0.2rem 0.45rem; font-size: 0.65rem; font-weight: 500; color: #71717A; cursor: pointer;" onclick="toggleChartMode('line')">Line</button>
+                  </div>
                 </div>
               </div>
 
-              <div>
-                <div class="oracle-label" style="text-align: right;">FRIDAY ANCHOR SETTLEMENT</div>
-                <div class="strike-barrier-val" id="strikeBarrierDisplay">$128.40</div>
-                <div class="anchor-subtext" id="anchorStatusSubtext">Prev Close Anchor: $128.40 (OVERBOUGHT)</div>
+              <!-- High-res Candlestick Canvas -->
+              <div style="position: relative; width: 100%; height: 290px; background: #FFFFFF; border-radius: 8px; border: 1px solid #F4EFE6;">
+                <canvas id="appCandleCanvas" style="width: 100%; height: 100%; display: block;"></canvas>
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.65rem; font-size: 0.68rem; color: #71717A; font-family: var(--font-terminal);">
+                <div style="display: flex; gap: 0.85rem;">
+                  <span>24h High: <strong style="color: #18181B;" id="stat24hHigh">$136.33</strong></span>
+                  <span>24h Low: <strong style="color: #18181B;" id="stat24hLow">$126.84</strong></span>
+                  <span>Volume: <strong style="color: #18181B;" id="stat24hVol">$4.2M USDT</strong></span>
+                </div>
+                <div style="color: #EF4444; display: flex; align-items: center; gap: 0.25rem;">
+                  <span style="display: inline-block; width: 12px; height: 1px; background: #EF4444; border-top: 1px dashed #EF4444;"></span>
+                  <span>Dashed Line = Friday Institutional Anchor Baseline</span>
+                </div>
               </div>
             </div>
 
-            <div class="chart-subbar">
-              <div class="chart-tools-left">
-                <span style="color: var(--color-green); font-weight: 700;">Bitget UTA Feed</span>
-                <span style="background: rgba(0,0,0,0.06); padding: 0.15rem 0.45rem; border-radius: 4px;">SPOT-247</span>
-                <span style="border-left: 1px solid rgba(0,0,0,0.1); height: 12px; margin: 0 0.25rem;"></span>
-                <span style="cursor: pointer; font-weight: 700;" onclick="toggleChartMode('candles')">CANDLES</span>
-                <span style="color: #999;">|</span>
-                <span style="cursor: pointer;" onclick="toggleChartMode('line')">LINE</span>
+            <!-- Sub-Card: Orderbook & Agent Telemetry Split -->
+            <div style="display: grid; grid-template-columns: 1fr 1.15fr; gap: 1rem;">
+              <!-- Bitget 24/7 Live Orderbook -->
+              <div class="arena-card">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.55rem; padding-bottom: 0.45rem; border-bottom: 1px solid #EEE9DF;">
+                  <div style="font-size: 0.72rem; font-weight: 700; color: #18181B; display: flex; align-items: center; gap: 0.35rem;">
+                    <span class="ghost-status-dot"></span>
+                    <span>Bitget 24/7 Orderbook</span>
+                  </div>
+                  <span style="font-size: 0.65rem; color: #71717A; font-family: var(--font-terminal);">Thin Retail Book</span>
+                </div>
+                <table class="orderbook-table">
+                  <thead>
+                    <tr>
+                      <th>Price (USDT)</th>
+                      <th>Size</th>
+                      <th>Total</th>
+                    </tr>
+                  </thead>
+                  <tbody id="arenaOrderbookBody">
+                    <tr><td class="ob-ask-price">$133.40</td><td>142.5</td><td>$19,009</td></tr>
+                    <tr><td class="ob-ask-price">$133.10</td><td>85.0</td><td>$11,313</td></tr>
+                    <tr><td class="ob-ask-price">$132.85</td><td>210.2</td><td>$27,925</td></tr>
+                    <tr style="border-top: 1px dashed #EEE9DF; border-bottom: 1px dashed #EEE9DF; background: #FAF8F5;">
+                      <td style="font-weight: 700; color: #09090B;">$132.80</td>
+                      <td colspan="2" style="text-align: right; color: #10B981; font-weight: 600;">Spread: 0.05 USDT</td>
+                    </tr>
+                    <tr><td class="ob-bid-price">$132.75</td><td>95.4</td><td>$12,664</td></tr>
+                    <tr><td class="ob-bid-price">$132.40</td><td>180.0</td><td>$23,832</td></tr>
+                    <tr><td class="ob-bid-price">$132.10</td><td>320.5</td><td>$42,338</td></tr>
+                  </tbody>
+                </table>
               </div>
 
-              <div class="timeframe-pill-group">
-                <button class="timeframe-pill" onclick="setTimeframe('1M', this)">1M</button>
-                <button class="timeframe-pill" onclick="setTimeframe('5M', this)">5M</button>
-                <button class="timeframe-pill" onclick="setTimeframe('15M', this)">15M</button>
-                <button class="timeframe-pill active" onclick="setTimeframe('1H', this)">1H</button>
+              <!-- Autonomous Agent Telemetry Feed -->
+              <div class="arena-card">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.55rem; padding-bottom: 0.45rem; border-bottom: 1px solid #EEE9DF;">
+                  <div style="font-size: 0.72rem; font-weight: 700; color: #18181B; display: flex; align-items: center; gap: 0.35rem;">
+                    <span class="ghost-status-dot"></span>
+                    <span>Chronos Engine Telemetry</span>
+                  </div>
+                  <span style="font-size: 0.65rem; color: #10B981; font-family: var(--font-terminal);">Active Auto-Pilot</span>
+                </div>
+                <div class="telemetry-console-box" id="arenaTelemetryBox">
+                  <div class="telemetry-line">
+                    <span class="telemetry-time">09:32:01</span>
+                    <span class="telemetry-tag">[SCAN]</span>
+                    <span>7 tokenized books evaluated. Residual drift detected.</span>
+                  </div>
+                  <div class="telemetry-line">
+                    <span class="telemetry-time">09:32:15</span>
+                    <span class="telemetry-tag" style="color: #D97706;">[SIGNAL]</span>
+                    <span id="telemetrySignalLine">rNVDA dislocation (|Z|=2.24σ) exceeds 2.00σ threshold.</span>
+                  </div>
+                  <div class="telemetry-line">
+                    <span class="telemetry-time">09:32:30</span>
+                    <span class="telemetry-tag">[EXEC]</span>
+                    <span>Position capacity: 3 of 5 trades deployed. Capital protected.</span>
+                  </div>
+                  <div class="telemetry-line">
+                    <span class="telemetry-time">09:32:45</span>
+                    <span class="telemetry-tag" style="color: #3B82F6;">[WAIT]</span>
+                    <span>Convergence target locked for Monday 08:30 EST pre-market.</span>
+                  </div>
+                </div>
               </div>
             </div>
-
-            <!-- Candlestick / Line Canvas -->
-            <canvas id="appCandleCanvas"></canvas>
           </div>
 
-          <!-- Right: Strategy Execution & Risk Control Panel -->
-          <div class="execution-panel-card">
-            <div class="execution-header">
-              <span class="execution-title">STRATEGY EXECUTION</span>
-              <span class="badge-pill-green" style="font-size: 0.7rem; font-family: var(--font-terminal);">NET 0.10% TAKER</span>
-            </div>
-
-            <!-- Signal Decision Banner -->
-            <div class="signal-banner">
-              <div class="signal-banner-title">
-                <span id="signalActionTitle">SHORT OVERBOUGHT DRIFT</span>
-                <span id="signalZScoreBadge" style="color: var(--color-amber);">Z = +2.24σ</span>
+          <!-- RIGHT COLUMN: Strategy Specification & Sizing Card -->
+          <div class="arena-card" style="display: flex; flex-direction: column; gap: 0.85rem;">
+            <!-- Signal Header -->
+            <div style="padding-bottom: 0.75rem; border-bottom: 1px solid #EEE9DF;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                <span class="overview-kpi-badge green" id="signalActionTitle" style="font-size: 0.70rem; font-weight: 700;">SHORT OVERBOUGHT DRIFT</span>
+                <span id="signalZScoreBadge" style="font-family: var(--font-terminal); font-size: 0.72rem; color: #D97706; font-weight: 600;">Z = +2.24σ (Entry ≥ 2.0σ)</span>
               </div>
-              <div class="signal-banner-desc" id="signalExplanationText">
+              <div id="signalExplanationText" style="font-size: 0.72rem; color: #52525B; line-height: 1.45;">
                 Retail buyers pushed $rNVDA +3.42% above Friday institutional settlement while Nasdaq is shuttered. Strategy deploys counter-positioning into Monday pre-market convergence.
               </div>
             </div>
 
             <!-- Execution Mode Switcher -->
-            <div class="mode-switcher">
-              <button class="mode-switcher-btn active" id="btnAutoMode" onclick="setExecutionMode('AUTO')">
-                Autonomous Auto-Pilot
-              </button>
-              <button class="mode-switcher-btn" id="btnManualMode" onclick="setExecutionMode('MANUAL')">
-                Manual Allocation
-              </button>
+            <div class="ghost-mode-segmented" style="width: 100%; display: grid; grid-template-columns: 1fr 1fr;">
+              <button class="ghost-mode-btn active" id="btnAutoMode" style="text-align: center; padding: 0.35rem;" onclick="setExecutionMode('AUTO')">Autonomous Auto-Pilot</button>
+              <button class="ghost-mode-btn" id="btnManualMode" style="text-align: center; padding: 0.35rem;" onclick="setExecutionMode('MANUAL')">Manual Order</button>
             </div>
 
-            <!-- Position Allocation Input -->
-            <div class="collateral-box">
-              <div class="collateral-header">
-                <span style="font-weight: 600;">Position Allocation (USDT)</span>
-                <span style="color: var(--color-grey-muted); font-family: var(--font-terminal);">Wallet Avail: <strong id="availBalanceDisplay" style="color: #000;">$50,000.00</strong></span>
+            <!-- Sizing Input -->
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem; font-size: 0.72rem;">
+                <span style="font-weight: 600; color: #18181B;">Position Collateral (USDT)</span>
+                <span style="color: #71717A; font-family: var(--font-terminal);">Avail: <strong id="availBalanceDisplay" style="color: #18181B;">$50,000.00</strong></span>
               </div>
-              <input type="number" id="collateralInput" class="collateral-input-field" value="2500" oninput="recalcExecution()">
+              <input type="number" id="collateralInput" class="collateral-input-field" value="2500" oninput="recalcExecution()" style="width: 100%; padding: 0.45rem 0.65rem; border: 1px solid #EEE9DF; border-radius: 8px; font-family: var(--font-terminal); font-size: 0.85rem; background: #FAF8F5;">
               
-              <div class="collateral-presets">
-                <button class="preset-chip" onclick="setCollateral(500, this)">$500</button>
-                <button class="preset-chip" onclick="setCollateral(1000, this)">$1,000</button>
-                <button class="preset-chip active" onclick="setCollateral(2500, this)">$2,500</button>
-                <button class="preset-chip" onclick="setCollateralMax()">MAX (25%)</button>
+              <div style="display: flex; gap: 0.35rem; margin-top: 0.45rem;">
+                <button class="btn-compact-back" style="flex: 1; justify-content: center; padding: 0.25rem 0;" onclick="setCollateral(500, this)">$500</button>
+                <button class="btn-compact-back" style="flex: 1; justify-content: center; padding: 0.25rem 0;" onclick="setCollateral(1000, this)">$1,000</button>
+                <button class="btn-compact-back" style="flex: 1; justify-content: center; padding: 0.25rem 0; background: #18181B; color: #FFF; border-color: #18181B;" onclick="setCollateral(2500, this)">$2,500</button>
+                <button class="btn-compact-back" style="flex: 1; justify-content: center; padding: 0.25rem 0;" onclick="setCollateralMax()">MAX 25%</button>
               </div>
             </div>
 
-            <!-- Execution Breakdown -->
-            <div style="border-top: 1px dashed rgba(0,0,0,0.14); padding-top: 0.85rem; margin-bottom: 1.25rem;">
-              <div class="calc-row">
-                <span>Contracts Allocated:</span>
-                <strong id="calcContractsDisplay">18.82 rNVDA</strong>
+            <!-- Trade Projections Grid -->
+            <div style="background: #FAF8F5; border: 1px solid #EEE9DF; border-radius: 8px; padding: 0.65rem 0.75rem; display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.70rem; font-family: var(--font-terminal);">
+              <div style="display: flex; justify-content: space-between;">
+                <span style="color: #71717A;">Contracts Allocated:</span>
+                <strong id="calcContractsDisplay" style="color: #18181B;">18.82 rNVDA</strong>
               </div>
-              <div class="calc-row">
-                <span>Convergence Target:</span>
-                <strong id="calcTargetPriceDisplay">$128.40 (Friday Anchor)</strong>
+              <div style="display: flex; justify-content: space-between;">
+                <span style="color: #71717A;">Convergence Target:</span>
+                <strong id="calcTargetPriceDisplay" style="color: #18181B;">$128.40 (Friday Anchor)</strong>
               </div>
-              <div class="calc-row">
-                <span>Expected Profit:</span>
-                <strong id="calcExpectedProfit" style="color: var(--color-green);">+$85.50 (+3.42%)</strong>
+              <div style="display: flex; justify-content: space-between;">
+                <span style="color: #71717A;">Expected Profit:</span>
+                <strong id="calcExpectedProfit" style="color: #10B981;">+$85.50 (+3.42%)</strong>
               </div>
-              <div class="calc-row">
-                <span>Dynamic Stop Loss:</span>
-                <strong id="calcStopLossDisplay" style="color: var(--color-red);">-$52.50 (-2.10%)</strong>
+              <div style="display: flex; justify-content: space-between;">
+                <span style="color: #71717A;">Dynamic Stop Loss:</span>
+                <strong id="calcStopLossDisplay" style="color: #EF4444;">-$52.50 (-2.10%)</strong>
               </div>
-              <div class="calc-row">
-                <span>Cash Sweep Time:</span>
-                <strong style="color: #000;">Monday 08:30 EST (100% USDT)</strong>
+              <div style="display: flex; justify-content: space-between; border-top: 1px dashed #DDD; padding-top: 0.35rem;">
+                <span style="color: #71717A;">Cash Unwind:</span>
+                <strong style="color: #18181B;">Monday 08:30 EST (100% Cash)</strong>
               </div>
             </div>
 
-            <button class="btn-execute-big" id="mainExecuteBtn" onclick="executeTradeOrder()">
-              <span id="executeBtnText">ACTIVATE AUTONOMOUS STRATEGY</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            <!-- Weekend 5-Trade Architecture Quota Status -->
+            <div style="background: #FFFFFF; border: 1px solid #EEE9DF; border-radius: 8px; padding: 0.55rem 0.75rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.25rem;">
+                <span style="font-size: 0.68rem; color: #71717A; font-family: var(--font-terminal);">Weekend Cap Quota</span>
+                <span style="font-size: 0.68rem; font-weight: 700; color: #10B981; font-family: var(--font-terminal);">3 / 5 Deployed</span>
+              </div>
+              <div style="height: 4px; background: #EEE9DF; border-radius: 2px; overflow: hidden;">
+                <div style="width: 60%; height: 100%; background: #10B981; border-radius: 2px;"></div>
+              </div>
+              <div style="font-size: 0.65rem; color: #71717A; margin-top: 0.35rem;">
+                Trades execute sequentially when mathematical drift clears (|Z| ≥ 2.0σ).
+              </div>
+            </div>
+
+            <!-- Action Button -->
+            <button class="ghost-mode-btn" id="mainExecuteBtn" onclick="executeTradeOrder()" style="background: #18181B; color: #FFFFFF; border: 1px solid #18181B; padding: 0.55rem; font-size: 0.78rem; font-weight: 600; width: 100%; border-radius: 9999px; text-align: center; cursor: pointer;">
+              <span id="executeBtnText">Deploy Weekend Counter-Trade</span>
             </button>
-            <div style="text-align: center; font-size: 0.74rem; color: var(--color-grey-muted); margin-top: 0.5rem; font-family: var(--font-terminal);">
-              Chronos automatically rebalances into 100% USDT cash at Monday market open.
-            </div>
-            <div id="activePositionContainer" style="margin-top: 0.75rem;"></div>
+
+            <div id="activePositionContainer" style="margin-top: 0.25rem;"></div>
           </div>
         </div>
       </div>
@@ -4100,7 +4423,7 @@ img, svg, video, canvas {
       <!-- VIEW 2: COGNITIVE SELF-AUDITOR (100% Human-Readable for Non-Devs) -->
       <div id="viewAuditor" style="display: none;">
         <div class="breadcrumb-row">
-          <span class="preset-chip" onclick="switchView('arena', document.getElementById('tabArena'))" style="border-radius: 20px; padding: 0.32rem 0.85rem; font-weight: 600; cursor: pointer;">← Back to Trading Arena</span>
+          <button class="btn-compact-back" onclick="switchView('overview')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg><span>Back to Overview</span></button>
           <div style="font-family: var(--font-terminal); font-size: 0.76rem; color: var(--color-grey-muted);">Chronos Cognitive Brain • Closed-Loop Learning</div>
         </div>
 
@@ -4140,7 +4463,7 @@ img, svg, video, canvas {
       <!-- VIEW 3: TRADE LEDGER -->
       <div id="viewLedger" style="display: none;">
         <div class="breadcrumb-row">
-          <span class="preset-chip" onclick="switchView('arena', document.getElementById('tabArena'))" style="border-radius: 20px; padding: 0.32rem 0.85rem; font-weight: 600; cursor: pointer;">← Back to Trading Arena</span>
+          <button class="btn-compact-back" onclick="switchView('overview')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg><span>Back to Overview</span></button>
           <div style="font-family: var(--font-terminal); font-size: 0.76rem; color: var(--color-grey-muted);">Wallet-Scoped Audited Ledger</div>
         </div>
 
@@ -4184,7 +4507,7 @@ img, svg, video, canvas {
       <!-- VIEW 4: SETTINGS & GATEWAY PAGE -->
       <div id="viewSettings" style="display: none;">
         <div class="breadcrumb-row">
-          <span class="preset-chip" onclick="switchView('arena', document.getElementById('tabArena'))" style="border-radius: 20px; padding: 0.32rem 0.85rem; font-weight: 600; cursor: pointer;">← Back to Trading Arena</span>
+          <button class="btn-compact-back" onclick="switchView('overview')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg><span>Back to Overview</span></button>
           <div style="font-family: var(--font-terminal); font-size: 0.76rem; color: var(--color-grey-muted);">System Configuration & API Vault</div>
         </div>
 
@@ -4921,6 +5244,7 @@ img, svg, video, canvas {
         this.currentAddress = null;
         localStorage.removeItem("chronos_active_wallet");
         this.renderHeaderWallet();
+        this.syncActiveView();
       },
 
       renderHeaderWallet() {
@@ -4932,6 +5256,22 @@ img, svg, video, canvas {
       syncActiveView() {
         const d = this.getCurrentData();
         if (!d) return;
+
+        // Dynamic Sidebar Wallet Synchronization
+        const uLabel = document.getElementById("ghostSidebarUserLabel");
+        const bLabel = document.getElementById("ghostSidebarBoundLabel");
+        const sDot = document.getElementById("ghostSidebarStatusDot");
+        if (this.currentAddress) {
+          const shortAddr = this.currentAddress.slice(0, 6) + "..." + this.currentAddress.slice(-4);
+          if (uLabel) uLabel.textContent = shortAddr;
+          if (bLabel) bLabel.textContent = "Bound: " + shortAddr;
+          if (sDot) { sDot.style.color = "#10B981"; sDot.textContent = "●"; }
+        } else {
+          if (uLabel) uLabel.textContent = "Sandbox Mode";
+          if (bLabel) bLabel.textContent = "No Wallet Connected";
+          if (sDot) { sDot.style.color = "#F59E0B"; sDot.textContent = "●"; }
+        }
+
 
         // Arena displays
         const balStr = `$${d.paperBalance.toLocaleString('en-US', {minimumFractionDigits: 2})}`;
@@ -6146,36 +6486,103 @@ img, svg, video, canvas {
     function selectMarket(sym) {
       selectedSymbol = sym;
       window.selectedSymbol = sym;
+      
+      // Update active state across arena asset selector cards
+      document.querySelectorAll(".arena-asset-card").forEach(card => {
+        if (card.getAttribute("data-symbol") === sym) {
+          card.classList.add("active");
+        } else {
+          card.classList.remove("active");
+        }
+      });
+
+      // Update telemetry line with new market alert
+      const telEl = document.getElementById("telemetrySignalLine");
+      const m = markets[sym];
+      if (telEl && m) {
+        telEl.textContent = `${sym} dislocation (|Z|=${m.z_score > 0 ? '+' : ''}${m.z_score.toFixed(2)}σ) with ${m.drift_pct > 0 ? '+' : ''}${m.drift_pct.toFixed(2)}% weekend move.`;
+      }
+
+      // Update orderbook simulation values for this market
+      updateArenaOrderbook(sym);
+
       renderSidebar();
       updateMarketView();
       drawCandleChart();
     }
 
+    function updateArenaOrderbook(sym) {
+      const m = markets[sym];
+      if (!m) return;
+      const ob = document.getElementById("arenaOrderbookBody");
+      if (!ob) return;
+      const p = m.spot_price;
+      ob.innerHTML = `
+        <tr><td class="ob-ask-price">$${(p * 1.004).toFixed(2)}</td><td>142.5</td><td>$${(p * 1.004 * 142.5).toFixed(0)}</td></tr>
+        <tr><td class="ob-ask-price">$${(p * 1.002).toFixed(2)}</td><td>85.0</td><td>$${(p * 1.002 * 85).toFixed(0)}</td></tr>
+        <tr><td class="ob-ask-price">$${(p * 1.0005).toFixed(2)}</td><td>210.2</td><td>$${(p * 1.0005 * 210.2).toFixed(0)}</td></tr>
+        <tr style="border-top: 1px dashed #EEE9DF; border-bottom: 1px dashed #EEE9DF; background: #FAF8F5;">
+          <td style="font-weight: 700; color: #09090B;">$${p.toFixed(2)}</td>
+          <td colspan="2" style="text-align: right; color: #10B981; font-weight: 600;">Spread: $${(p * 0.001).toFixed(2)}</td>
+        </tr>
+        <tr><td class="ob-bid-price">$${(p * 0.9995).toFixed(2)}</td><td>95.4</td><td>$${(p * 0.9995 * 95.4).toFixed(0)}</td></tr>
+        <tr><td class="ob-bid-price">$${(p * 0.998).toFixed(2)}</td><td>180.0</td><td>$${(p * 0.998 * 180).toFixed(0)}</td></tr>
+        <tr><td class="ob-bid-price">$${(p * 0.996).toFixed(2)}</td><td>320.5</td><td>$${(p * 0.996 * 320.5).toFixed(0)}</td></tr>
+      `;
+    }
+
     function updateMarketView() {
       const m = markets[selectedSymbol];
+      if (!m) return;
       const d = ChronosWalletStore.getCurrentData();
       const currentZThreshold = (d && d.strategyConfig && d.strategyConfig[`${m.symbol}_z_entry`]) || 2.0;
 
-      document.getElementById("breadcrumbPathDisplay").textContent = `${m.company} (${m.symbol})`;
-      document.getElementById("marketTitleDisplay").textContent = `${m.company} (${m.symbol})`;
+      const bp = document.getElementById("breadcrumbPathDisplay");
+      if (bp) bp.textContent = `${m.company} (${m.symbol})`;
+
+      const mt = document.getElementById("marketTitleDisplay");
+      if (mt) mt.textContent = `${m.company} (${m.symbol})`;
+
       const headerLogo = document.getElementById("marketHeaderTokenLogo");
       if (headerLogo && typeof TOKEN_LOGOS !== "undefined") {
         headerLogo.src = TOKEN_LOGOS[m.symbol] || "assets/tokens/nvda.svg";
       }
-      document.getElementById("symbolDisplay").textContent = `${m.symbol}/USDT`;
-      document.getElementById("chartPriceDisplay").textContent = `$${m.spot_price.toFixed(2)}`;
+
+      const sd = document.getElementById("symbolDisplay");
+      if (sd) sd.textContent = `${m.symbol}/USDT`;
+
+      const cpd = document.getElementById("chartPriceDisplay");
+      if (cpd) cpd.textContent = `$${m.spot_price.toFixed(2)}`;
       
       const driftSign = m.drift_pct > 0 ? "+" : "";
-      document.getElementById("chartDriftBadge").textContent = `${driftSign}${m.drift_pct.toFixed(2)}% Drift`;
-      document.getElementById("chartDriftBadge").className = m.drift_pct > 0 ? "badge-pill-green" : "badge-pill-gold";
+      const driftBadge = document.getElementById("chartDriftBadge");
+      if (driftBadge) {
+        driftBadge.textContent = `${driftSign}${m.drift_pct.toFixed(2)}% Drift`;
+        driftBadge.className = m.drift_pct > 0 ? "asset-card-drift green" : "asset-card-drift gold";
+      }
 
-      document.getElementById("strikeBarrierDisplay").textContent = `$${m.anchor_price.toFixed(2)}`;
-      document.getElementById("anchorStatusSubtext").textContent = `Prev Close Anchor: $${m.anchor_price.toFixed(2)} (${m.regime})`;
-      document.getElementById("statusAnchorDisplay").textContent = `$${m.anchor_price.toFixed(2)} USD`;
+      const sAnchor = document.getElementById("statusAnchorDisplay");
+      if (sAnchor) sAnchor.textContent = `$${m.anchor_price.toFixed(2)} USD`;
 
-      document.getElementById("signalActionTitle").textContent = m.action;
-      document.getElementById("signalZScoreBadge").textContent = `Z = ${m.z_score > 0 ? '+' : ''}${m.z_score.toFixed(2)}σ (Entry ≥ ${currentZThreshold}σ)`;
-      document.getElementById("signalExplanationText").textContent = m.thesis;
+      const sat = document.getElementById("signalActionTitle");
+      if (sat) sat.textContent = m.action;
+
+      const szb = document.getElementById("signalZScoreBadge");
+      if (szb) szb.textContent = `Z = ${m.z_score > 0 ? '+' : ''}${m.z_score.toFixed(2)}σ (Entry ≥ ${currentZThreshold}σ)`;
+
+      const set = document.getElementById("signalExplanationText");
+      if (set) set.textContent = m.thesis;
+
+      // Update 24h High, Low, and Volume
+      const candles = (candlesData && candlesData[selectedSymbol]) || [];
+      if (candles.length) {
+        const highs = candles.map(c => c.high);
+        const lows = candles.map(c => c.low);
+        const hEl = document.getElementById("stat24hHigh");
+        if (hEl) hEl.textContent = "$" + Math.max(...highs).toFixed(2);
+        const lEl = document.getElementById("stat24hLow");
+        if (lEl) lEl.textContent = "$" + Math.min(...lows).toFixed(2);
+      }
 
       recalcExecution();
     }
