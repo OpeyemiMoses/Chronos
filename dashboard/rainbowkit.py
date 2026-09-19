@@ -178,40 +178,42 @@ RAINBOWKIT_CSS = """
    AUTHENTIC RAINBOWKIT DESIGN SYSTEM
    -------------------------------------------------------------------------- */
 
-/* Header Disconnected Button - Stylized Editorial Design */
+/* Header Disconnected Button - Stylized Ultra-Compact Editorial Design */
 .rk-connect-btn {
   background: #18181B;
   color: #FFFFFF;
   font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
-  font-size: 0.74rem;
+  font-size: 0.68rem;
   font-weight: 600;
   letter-spacing: 0.02em;
-  padding: 0.42rem 0.95rem;
+  padding: 0.26rem 0.68rem;
+  height: 26px;
+  box-sizing: border-box;
   border-radius: 9999px;
   border: 1px solid #27272A;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  gap: 0.35rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
 }
 .rk-connect-btn:hover {
   background: #27272A;
   border-color: #3F3F46;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
 }
 .rk-connect-btn:active {
   transform: scale(0.98);
 }
 .rk-rainbow-dot {
-  width: 7px;
-  height: 7px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: #10B981;
-  box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
+  box-shadow: 0 0 5px rgba(16, 185, 129, 0.6);
   display: inline-block;
 }
 
@@ -219,7 +221,7 @@ RAINBOWKIT_CSS = """
 .rk-connected-group {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   user-select: none;
 }
 .rk-pill-chain {
@@ -227,14 +229,16 @@ RAINBOWKIT_CSS = """
   color: #18181B;
   border: 1px solid #EEE9DF;
   border-radius: 9999px;
-  padding: 0.35rem 0.75rem;
+  padding: 0.22rem 0.55rem;
+  height: 26px;
+  box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
-  font-size: 0.74rem;
+  font-size: 0.68rem;
   font-weight: 600;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.3rem;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
   transition: all 0.15s ease;
 }
@@ -247,11 +251,13 @@ RAINBOWKIT_CSS = """
   color: #18181B;
   border: 1px solid #EEE9DF;
   border-radius: 9999px;
-  padding: 0.35rem 0.65rem 0.35rem 0.85rem;
+  padding: 0.22rem 0.55rem 0.22rem 0.65rem;
+  height: 26px;
+  box-sizing: border-box;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
+  gap: 0.35rem;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
   transition: all 0.15s ease;
 }

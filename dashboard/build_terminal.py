@@ -2874,11 +2874,13 @@ html_template = f"""<!DOCTYPE html>
       window.activeView = view || "overview";
       const vOverview = document.getElementById("viewOverview");
       const vArena = document.getElementById("viewArena");
+      const vTrades = document.getElementById("viewTrades");
       const vAuditor = document.getElementById("viewAuditor");
       const vLedger = document.getElementById("viewLedger");
       const vSettings = document.getElementById("viewSettings");
       if (vOverview) vOverview.style.display = (view === "overview" || !view) ? "block" : "none";
       if (vArena) vArena.style.display = view === "arena" ? "block" : "none";
+      if (vTrades) vTrades.style.display = view === "trades" ? "block" : "none";
       if (vAuditor) vAuditor.style.display = view === "auditor" ? "block" : "none";
       if (vLedger) vLedger.style.display = view === "ledger" ? "block" : "none";
       if (vSettings) vSettings.style.display = view === "settings" ? "block" : "none";
@@ -2888,6 +2890,7 @@ html_template = f"""<!DOCTYPE html>
       const navMap = {{
         overview: "navItemOverview",
         arena: "navItemArena",
+        trades: "navItemTrades",
         auditor: "navItemAuditor",
         ledger: "navItemLedger",
         settings: "navItemSettings"
@@ -2960,7 +2963,7 @@ html_template = f"""<!DOCTYPE html>
             <span class="ghost-nav-text">Trading Arena</span>
           </div>
 
-          <div class="ghost-nav-item" id="navItemTrades" onclick="openTradeReasoningModal('POS-194671')">
+          <div class="ghost-nav-item" id="navItemTrades" onclick="switchView('trades', this)">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
             <span class="ghost-nav-text">5-Trade Strategy</span>
             <span class="ghost-nav-badge" style="background: rgba(16, 185, 129, 0.2); color: #34D399;">3/5</span>
@@ -3112,20 +3115,20 @@ html_template = f"""<!DOCTYPE html>
             </div>
           </div>
 
-          <!-- Card 4: Capital Protection & Cash Sleep -->
+          <!-- Card 4: Risk Protocol & Weekday Cash Sweep -->
           <div class="overview-kpi-card">
             <div class="overview-kpi-top">
               <div class="overview-kpi-icon">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
               </div>
-              <span class="overview-kpi-badge green">Zero-Loss Guarantee</span>
+              <span class="overview-kpi-badge green">Cash Sweep Protocol</span>
             </div>
             <div class="overview-kpi-mid">
-              <div class="overview-kpi-big protect">100% Protected</div>
+              <div class="overview-kpi-big">100% Cash Unwind</div>
             </div>
             <div class="overview-kpi-bottom">
-              <span>Weekday Cash Sweep</span>
-              <span>Zero Overnight Equity Beta</span>
+              <span>Monday Pre-Market Exit</span>
+              <span>Zero Equity Beta Held Weekdays</span>
             </div>
           </div>
         </div>
@@ -3136,7 +3139,7 @@ html_template = f"""<!DOCTYPE html>
           <div class="overview-main-card">
             <div>
               <h2 class="overview-card-h2">Your Autonomous Weekend Position is Active</h2>
-              <p class="overview-card-desc">Trades are placed sequentially only when statistical drift clears (|Z| ≥ 2.0σ). Maximum 5 trades per weekend to guarantee capital protection.</p>
+              <p class="overview-card-desc">Trades are placed sequentially only when statistical drift clears (|Z| ≥ 2.0σ). Maximum 5 trades per weekend to enforce disciplined portfolio risk sizing.</p>
 
               <div class="overview-inner-callout">
                 <div class="inner-callout-header">
@@ -3616,6 +3619,24 @@ html_template = f"""<!DOCTYPE html>
               <button class="ghost-mode-btn" id="btnManualMode" style="text-align: center; padding: 0.35rem;" onclick="setExecutionMode('MANUAL')">Manual Order</button>
             </div>
 
+            <!-- Manual Order Direction Choice (User Decision: BUY or SELL) -->
+            <div id="manualDirectionContainer" style="display: none; background: #FAF8F5; border: 1px solid #EEE9DF; border-radius: 8px; padding: 0.55rem; margin-top: 0.2rem;">
+              <div style="font-size: 0.68rem; font-family: var(--font-terminal); color: #71717A; margin-bottom: 0.35rem; display: flex; justify-content: space-between;">
+                <span>MANUAL ORDER DIRECTION</span>
+                <span>Your Decision</span>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem;">
+                <button type="button" class="btn-side-choice buy" id="btnSideBuy" onclick="setManualTradeSide('BUY')" style="display: flex; align-items: center; justify-content: center; gap: 0.35rem; padding: 0.38rem; border-radius: 6px; font-size: 0.72rem; font-weight: 700; border: 1px solid #EEE9DF; background: #FFF; color: #059669; cursor: pointer; transition: all 0.15s ease;">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+                  <span>BUY / LONG</span>
+                </button>
+                <button type="button" class="btn-side-choice sell active" id="btnSideSell" onclick="setManualTradeSide('SELL')" style="display: flex; align-items: center; justify-content: center; gap: 0.35rem; padding: 0.38rem; border-radius: 6px; font-size: 0.72rem; font-weight: 700; border: 1px solid #EF4444; background: #EF4444; color: #FFF; cursor: pointer; transition: all 0.15s ease;">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                  <span>SELL / SHORT</span>
+                </button>
+              </div>
+            </div>
+
             <!-- Sizing Input -->
             <div>
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem; font-size: 0.72rem;">
@@ -3676,6 +3697,234 @@ html_template = f"""<!DOCTYPE html>
             </button>
 
             <div id="activePositionContainer" style="margin-top: 0.25rem;"></div>
+          </div>
+        </div>
+      </div>
+
+            <!-- VIEW 5: DEDICATED 5-TRADE WEEKEND PORTFOLIO PAGE -->
+      <div id="viewTrades" style="display: none;">
+        <!-- Top Context Row -->
+        <div class="breadcrumb-row" style="margin-bottom: 0.85rem;">
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <button class="btn-compact-back" onclick="switchView('overview')">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+              <span>Overview</span>
+            </button>
+            <div style="display: flex; align-items: center; gap: 0.4rem; font-family: var(--font-terminal); font-size: 0.72rem; color: #71717A;">
+              <span class="ghost-status-dot"></span>
+              <span>5-TRADE SEQUENTIAL ARCHITECTURE</span>
+              <span style="color: #D4CEBF;">/</span>
+              <span style="color: #18181B; font-weight: 600;">Active Weekend Portfolio (3/5 Deployed)</span>
+            </div>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 0.65rem;">
+            <button class="ghost-mode-btn" onclick="switchView('arena')" style="padding: 0.28rem 0.75rem; font-size: 0.70rem; background: #18181B; color: #FFF; border-radius: 9999px;">+ Trade in Arena</button>
+          </div>
+        </div>
+
+        <!-- Page Header -->
+        <div style="margin-bottom: 1.15rem;">
+          <h1 class="market-title" style="margin-bottom: 0.35rem;">Active 5-Trade Weekend Portfolio</h1>
+          <p class="market-subtitle">
+            Maximum 5 trades permitted per weekend. Trades deploy sequentially only when individual statistical dislocation clears (|Z| ≥ 2.0σ), sized via risk-parity volatility weighting, and cash-settled into 100% USDT at Monday institutional pre-market open.
+          </p>
+        </div>
+
+        <!-- Metric KPI Strip for 5-Trade Portfolio -->
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin-bottom: 1.25rem;">
+          <div class="overview-kpi-card">
+            <div class="overview-kpi-top">
+              <span style="font-family: var(--font-terminal); font-size: 0.68rem; color: #71717A;">CAPACITY QUOTA</span>
+              <span class="overview-kpi-badge green">3 / 5 Active</span>
+            </div>
+            <div class="overview-kpi-mid"><div class="overview-kpi-big">3 Trades</div></div>
+            <div class="overview-kpi-bottom"><span>2 Available Slots</span><span>Sequential Gate Active</span></div>
+          </div>
+
+          <div class="overview-kpi-card">
+            <div class="overview-kpi-top">
+              <span style="font-family: var(--font-terminal); font-size: 0.68rem; color: #71717A;">DEPLOYED MARGIN</span>
+              <span class="overview-kpi-badge">$2.5k / Slot</span>
+            </div>
+            <div class="overview-kpi-mid"><div class="overview-kpi-big">$7,500.00</div></div>
+            <div class="overview-kpi-bottom"><span>Allocated Capital</span><span>25% Single-Stock Cap</span></div>
+          </div>
+
+          <div class="overview-kpi-card">
+            <div class="overview-kpi-top">
+              <span style="font-family: var(--font-terminal); font-size: 0.68rem; color: #71717A;">UNREALIZED ALPHA</span>
+              <span class="overview-kpi-badge green">+4.84% Implied</span>
+            </div>
+            <div class="overview-kpi-mid"><div class="overview-kpi-big" style="color: #10B981;">+$363.00</div></div>
+            <div class="overview-kpi-bottom"><span>Net of Bitget Taker Fees</span><span>Convergence Target</span></div>
+          </div>
+
+          <div class="overview-kpi-card">
+            <div class="overview-kpi-top">
+              <span style="font-family: var(--font-terminal); font-size: 0.68rem; color: #71717A;">CASH UNWIND</span>
+              <span class="overview-kpi-badge">08:30 EST</span>
+            </div>
+            <div class="overview-kpi-mid"><div class="overview-kpi-big">Monday Open</div></div>
+            <div class="overview-kpi-bottom"><span>100% USDT Settlement</span><span>Zero Equity Held Weekdays</span></div>
+          </div>
+        </div>
+
+        <!-- 5-Slot Portfolio Cards Grid -->
+        <div style="display: flex; flex-direction: column; gap: 0.85rem; margin-bottom: 1.5rem;">
+          <!-- Slot 1: rNVDA Active -->
+          <div class="arena-card" style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr auto; gap: 1rem; align-items: center;">
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <div style="position: relative;">
+                <img src="assets/tokens/nvda.svg" style="width: 32px; height: 32px; border-radius: 6px; background: #FFF;" alt="NVDA">
+                <span style="position: absolute; bottom: -2px; right: -2px; width: 8px; height: 8px; border-radius: 50%; background: #10B981; border: 2px solid #FFF;"></span>
+              </div>
+              <div>
+                <div style="display: flex; align-items: center; gap: 0.4rem;">
+                  <strong style="font-size: 0.88rem; color: #18181B;">rNVDA</strong>
+                  <span class="overview-kpi-badge green" style="font-size: 0.65rem;">SHORT DISLOCATION</span>
+                  <span style="font-family: var(--font-terminal); font-size: 0.68rem; color: #D97706;">Z = +2.24σ</span>
+                </div>
+                <div style="font-size: 0.68rem; color: #71717A;">NVIDIA Corp • Dislocation: +3.42% Retail Move</div>
+              </div>
+            </div>
+
+            <div>
+              <div style="font-size: 0.65rem; color: #71717A; font-family: var(--font-terminal);">ENTRY / ANCHOR</div>
+              <div style="font-family: var(--font-terminal); font-size: 0.80rem; font-weight: 700; color: #18181B;">$132.80 <span style="color: #71717A; font-weight: 400;">→ $128.40</span></div>
+            </div>
+
+            <div>
+              <div style="font-size: 0.65rem; color: #71717A; font-family: var(--font-terminal);">POSITION SIZE</div>
+              <div style="font-family: var(--font-terminal); font-size: 0.80rem; font-weight: 700; color: #18181B;">$2,500.00 <span style="color: #71717A; font-weight: 400;">(18.82 units)</span></div>
+            </div>
+
+            <div>
+              <div style="font-size: 0.65rem; color: #71717A; font-family: var(--font-terminal);">EXPECTED PROFIT</div>
+              <div style="font-family: var(--font-terminal); font-size: 0.80rem; font-weight: 700; color: #10B981;">+$85.50 (+3.42%)</div>
+            </div>
+
+            <button class="btn-compact-back" onclick="openTradeReasoningModal('POS-194671')" style="padding: 0.35rem 0.85rem; background: #18181B; color: #FFF; border-color: #18181B;">
+              <span>View Thesis Modal →</span>
+            </button>
+          </div>
+
+          <!-- Slot 2: rTSLA Active -->
+          <div class="arena-card" style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr auto; gap: 1rem; align-items: center;">
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <div style="position: relative;">
+                <img src="assets/tokens/tsla.svg" style="width: 32px; height: 32px; border-radius: 6px; background: #FFF;" alt="TSLA">
+                <span style="position: absolute; bottom: -2px; right: -2px; width: 8px; height: 8px; border-radius: 50%; background: #10B981; border: 2px solid #FFF;"></span>
+              </div>
+              <div>
+                <div style="display: flex; align-items: center; gap: 0.4rem;">
+                  <strong style="font-size: 0.88rem; color: #18181B;">rTSLA</strong>
+                  <span class="overview-kpi-badge green" style="font-size: 0.65rem;">SHORT DISLOCATION</span>
+                  <span style="font-family: var(--font-terminal); font-size: 0.68rem; color: #D97706;">Z = +2.65σ</span>
+                </div>
+                <div style="font-size: 0.68rem; color: #71717A;">Tesla Inc • Dislocation: +4.20% Retail Move</div>
+              </div>
+            </div>
+
+            <div>
+              <div style="font-size: 0.65rem; color: #71717A; font-family: var(--font-terminal);">ENTRY / ANCHOR</div>
+              <div style="font-family: var(--font-terminal); font-size: 0.80rem; font-weight: 700; color: #18181B;">$253.52 <span style="color: #71717A; font-weight: 400;">→ $248.00</span></div>
+            </div>
+
+            <div>
+              <div style="font-size: 0.65rem; color: #71717A; font-family: var(--font-terminal);">POSITION SIZE</div>
+              <div style="font-family: var(--font-terminal); font-size: 0.80rem; font-weight: 700; color: #18181B;">$2,500.00 <span style="color: #71717A; font-weight: 400;">(9.67 units)</span></div>
+            </div>
+
+            <div>
+              <div style="font-size: 0.65rem; color: #71717A; font-family: var(--font-terminal);">EXPECTED PROFIT</div>
+              <div style="font-family: var(--font-terminal); font-size: 0.80rem; font-weight: 700; color: #10B981;">+$104.75 (+4.20%)</div>
+            </div>
+
+            <button class="btn-compact-back" onclick="openTradeReasoningModal('POS-194672')" style="padding: 0.35rem 0.85rem; background: #18181B; color: #FFF; border-color: #18181B;">
+              <span>View Thesis Modal →</span>
+            </button>
+          </div>
+
+          <!-- Slot 3: rMSTR Active -->
+          <div class="arena-card" style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr auto; gap: 1rem; align-items: center;">
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <div style="position: relative;">
+                <img src="assets/tokens/mstr.svg" style="width: 32px; height: 32px; border-radius: 6px; background: #FFF;" alt="MSTR">
+                <span style="position: absolute; bottom: -2px; right: -2px; width: 8px; height: 8px; border-radius: 50%; background: #10B981; border: 2px solid #FFF;"></span>
+              </div>
+              <div>
+                <div style="display: flex; align-items: center; gap: 0.4rem;">
+                  <strong style="font-size: 0.88rem; color: #18181B;">rMSTR</strong>
+                  <span class="overview-kpi-badge green" style="font-size: 0.65rem;">SHORT DISLOCATION</span>
+                  <span style="font-family: var(--font-terminal); font-size: 0.68rem; color: #D97706;">Z = +3.48σ</span>
+                </div>
+                <div style="font-size: 0.68rem; color: #71717A;">MicroStrategy • Dislocation: +6.92% Retail Move</div>
+              </div>
+            </div>
+
+            <div>
+              <div style="font-size: 0.65rem; color: #71717A; font-family: var(--font-terminal);">ENTRY / ANCHOR</div>
+              <div style="font-family: var(--font-terminal); font-size: 0.80rem; font-weight: 700; color: #18181B;">$312.41 <span style="color: #71717A; font-weight: 400;">→ $292.20</span></div>
+            </div>
+
+            <div>
+              <div style="font-size: 0.65rem; color: #71717A; font-family: var(--font-terminal);">POSITION SIZE</div>
+              <div style="font-family: var(--font-terminal); font-size: 0.80rem; font-weight: 700; color: #18181B;">$2,500.00 <span style="color: #71717A; font-weight: 400;">(8.00 units)</span></div>
+            </div>
+
+            <div>
+              <div style="font-size: 0.65rem; color: #71717A; font-family: var(--font-terminal);">EXPECTED PROFIT</div>
+              <div style="font-family: var(--font-terminal); font-size: 0.80rem; font-weight: 700; color: #10B981;">+$172.75 (+6.92%)</div>
+            </div>
+
+            <button class="btn-compact-back" onclick="openTradeReasoningModal('POS-194673')" style="padding: 0.35rem 0.85rem; background: #18181B; color: #FFF; border-color: #18181B;">
+              <span>View Thesis Modal →</span>
+            </button>
+          </div>
+
+          <!-- Slot 4: Available Quota -->
+          <div class="arena-card" style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr auto; gap: 1rem; align-items: center; border: 1px dashed #D4CEBF; background: #FAF8F5;">
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <div style="width: 32px; height: 32px; border-radius: 6px; background: #EEE9DF; display: flex; align-items: center; justify-content: center; font-family: var(--font-terminal); font-size: 0.75rem; color: #71717A; font-weight: 700;">#4</div>
+              <div>
+                <div style="display: flex; align-items: center; gap: 0.4rem;">
+                  <strong style="font-size: 0.84rem; color: #71717A;">Slot #4 · Available Quota</strong>
+                  <span class="overview-kpi-badge" style="background: #FFF; font-size: 0.65rem;">SCANNING</span>
+                </div>
+                <div style="font-size: 0.68rem; color: #71717A;">Evaluating $rCOIN dislocation (3.10σ) on Bitget UTA orderbook</div>
+              </div>
+            </div>
+
+            <div style="font-size: 0.70rem; color: #71717A;">Target: $206.80 Anchor</div>
+            <div style="font-size: 0.70rem; color: #71717A;">Unallocated: $2,500.00</div>
+            <div style="font-size: 0.70rem; color: #71717A;">Status: Sequential Gate</div>
+
+            <button class="btn-compact-back" onclick="switchView('arena'); selectMarket('rCOIN');" style="padding: 0.35rem 0.85rem;">
+              <span>Deploy in Arena →</span>
+            </button>
+          </div>
+
+          <!-- Slot 5: Preserved Reserve Buffer -->
+          <div class="arena-card" style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr auto; gap: 1rem; align-items: center; border: 1px dashed #D4CEBF; background: #FAF8F5;">
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <div style="width: 32px; height: 32px; border-radius: 6px; background: #EEE9DF; display: flex; align-items: center; justify-content: center; font-family: var(--font-terminal); font-size: 0.75rem; color: #71717A; font-weight: 700;">#5</div>
+              <div>
+                <div style="display: flex; align-items: center; gap: 0.4rem;">
+                  <strong style="font-size: 0.84rem; color: #71717A;">Slot #5 · Capital Reserve Buffer</strong>
+                  <span class="overview-kpi-badge" style="background: #FFF; font-size: 0.65rem;">RESERVED</span>
+                </div>
+                <div style="font-size: 0.68rem; color: #71717A;">Risk-parity capital protection. Preserves cash buffer against weekend volatility.</div>
+              </div>
+            </div>
+
+            <div style="font-size: 0.70rem; color: #71717A;">Target: Cash Preservation</div>
+            <div style="font-size: 0.70rem; color: #71717A;">Reserve: $2,500.00</div>
+            <div style="font-size: 0.70rem; color: #71717A;">Status: Standby</div>
+
+            <button class="btn-compact-back" onclick="switchView('arena');" style="padding: 0.35rem 0.85rem;">
+              <span>Open Arena →</span>
+            </button>
           </div>
         </div>
       </div>
@@ -5597,17 +5846,84 @@ html_template = f"""<!DOCTYPE html>
       document.getElementById("calcStopLossDisplay").textContent = `-$${{stopLoss.toFixed(2)}} (${{m.stop_loss}})`;
     }}
 
+        // Manual Trade Side Selection (User's Decision: BUY or SELL)
+    let manualTradeSide = "SELL";
+
+    function setManualTradeSide(side) {{
+      manualTradeSide = side;
+      const bBuy = document.getElementById("btnSideBuy");
+      const bSell = document.getElementById("btnSideSell");
+      const sat = document.getElementById("signalActionTitle");
+      const execBtn = document.getElementById("mainExecuteBtn");
+      const m = markets[selectedSymbol];
+
+      if (side === "BUY") {{
+        if (bBuy) {{
+          bBuy.style.background = "#10B981";
+          bBuy.style.color = "#FFFFFF";
+          bBuy.style.borderColor = "#10B981";
+        }}
+        if (bSell) {{
+          bSell.style.background = "#FFFFFF";
+          bSell.style.color = "#EF4444";
+          bSell.style.borderColor = "#EEE9DF";
+        }}
+        if (sat) {{
+          sat.textContent = "MANUAL BUY / LONG ORDER";
+          sat.className = "overview-kpi-badge green";
+        }}
+        if (execBtn) {{
+          execBtn.style.background = "#10B981";
+          execBtn.style.borderColor = "#10B981";
+          const txt = document.getElementById("executeBtnText");
+          if (txt) txt.textContent = `Deploy Manual BUY Order ($${{selectedSymbol}})`;
+        }}
+      }} else {{
+        if (bSell) {{
+          bSell.style.background = "#EF4444";
+          bSell.style.color = "#FFFFFF";
+          bSell.style.borderColor = "#EF4444";
+        }}
+        if (bBuy) {{
+          bBuy.style.background = "#FFFFFF";
+          bBuy.style.color = "#059669";
+          bBuy.style.borderColor = "#EEE9DF";
+        }}
+        if (sat) {{
+          sat.textContent = "MANUAL SELL / SHORT ORDER";
+          sat.className = "overview-kpi-badge gold";
+        }}
+        if (execBtn) {{
+          execBtn.style.background = "#18181B";
+          execBtn.style.borderColor = "#18181B";
+          const txt = document.getElementById("executeBtnText");
+          if (txt) txt.textContent = `Deploy Manual SELL Order ($${{selectedSymbol}})`;
+        }}
+      }}
+      recalcExecution();
+    }}
+
     function setExecutionMode(mode) {{
       executionMode = mode;
-      document.getElementById("btnAutoMode").classList.toggle("active", mode === "AUTO");
-      document.getElementById("btnManualMode").classList.toggle("active", mode === "MANUAL");
+      const bAuto = document.getElementById("btnAutoMode");
+      const bManual = document.getElementById("btnManualMode");
+      if (bAuto) bAuto.classList.toggle("active", mode === "AUTO");
+      if (bManual) bManual.classList.toggle("active", mode === "MANUAL");
+
+      const dirWrap = document.getElementById("manualDirectionContainer");
+      const execBtn = document.getElementById("mainExecuteBtn");
+      const execText = document.getElementById("executeBtnText");
 
       if (mode === "AUTO") {{
-        document.getElementById("executeBtnText").textContent = "ACTIVATE AUTONOMOUS STRATEGY";
-        document.getElementById("autoStatusBar").style.display = "flex";
+        if (dirWrap) dirWrap.style.display = "none";
+        if (execText) execText.textContent = "ACTIVATE AUTONOMOUS STRATEGY";
+        if (execBtn) {{
+          execBtn.style.background = "#18181B";
+          execBtn.style.borderColor = "#18181B";
+        }}
       }} else {{
-        document.getElementById("executeBtnText").textContent = "DISPATCH MANUAL REBALANCE ORDER";
-        document.getElementById("autoStatusBar").style.display = "none";
+        if (dirWrap) dirWrap.style.display = "block";
+        setManualTradeSide(manualTradeSide || "SELL");
       }}
     }}
 
@@ -5734,16 +6050,18 @@ html_template = f"""<!DOCTYPE html>
       ctx.fillText("$" + minP.toFixed(2), 5, chartBottom);
     }}
 
-    // Switch Views (Overview, Arena, Auditor, Ledger, Settings)
+    // Switch Views (Overview, Arena, Trades, Auditor, Ledger, Settings)
     function switchView(view, tabEl) {{
       window.activeView = view || "overview";
       const vOverview = document.getElementById("viewOverview");
       const vArena = document.getElementById("viewArena");
+      const vTrades = document.getElementById("viewTrades");
       const vAuditor = document.getElementById("viewAuditor");
       const vLedger = document.getElementById("viewLedger");
       const vSettings = document.getElementById("viewSettings");
       if (vOverview) vOverview.style.display = (view === "overview" || !view) ? "block" : "none";
       if (vArena) vArena.style.display = view === "arena" ? "block" : "none";
+      if (vTrades) vTrades.style.display = view === "trades" ? "block" : "none";
       if (vAuditor) vAuditor.style.display = view === "auditor" ? "block" : "none";
       if (vLedger) vLedger.style.display = view === "ledger" ? "block" : "none";
       if (vSettings) vSettings.style.display = view === "settings" ? "block" : "none";
@@ -5752,6 +6070,7 @@ html_template = f"""<!DOCTYPE html>
       const navMap = {{
         overview: "navItemOverview",
         arena: "navItemArena",
+        trades: "navItemTrades",
         auditor: "navItemAuditor",
         ledger: "navItemLedger",
         settings: "navItemSettings"
