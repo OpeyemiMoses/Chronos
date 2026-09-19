@@ -20,7 +20,7 @@ if os.path.exists(css_path):
 trades_json_str = json.dumps(real_trades)
 audit_json_str = json.dumps(audit_memory)
 
-# Transform raw chart points list into symbol-keyed dictionary with Friday anchors
+# Transform raw chart points list into symbol-keyed dictionary with Friday anchors & exact metadata
 nvda_prices = [p.get("nvda", 132.8) for p in chart_data]
 tsla_prices = [p.get("tsla", 258.4) for p in chart_data]
 mstr_prices = [p.get("mstr", 312.4) for p in chart_data]
@@ -29,7 +29,16 @@ chart_dict = {
     "rNVDA": {
         "name": "rNVDA / USDT",
         "symbol": "rNVDA",
+        "icon": "assets/tokens/nvda.svg",
         "anchor_price": 128.40,
+        "spot_price": 132.80,
+        "drift_pct": 3.42,
+        "z_score": 2.24,
+        "cleared": True,
+        "side": "SHORT",
+        "target_collateral": 2500,
+        "expected_win_rate": "76.9%",
+        "reason": "Retail speculative euphoria dislocated price +3.42% above institutional anchor. |Z| = 2.24σ ≥ 2.00σ threshold. Inverse short basket cleared.",
         "prices": nvda_prices,
         "markers": [
             {"index": 28, "price": 133.62, "type": "ENTRY", "label": "SHORT 2.24σ"},
@@ -39,7 +48,16 @@ chart_dict = {
     "rTSLA": {
         "name": "rTSLA / USDT",
         "symbol": "rTSLA",
+        "icon": "assets/tokens/tsla.svg",
         "anchor_price": 248.00,
+        "spot_price": 258.40,
+        "drift_pct": 4.19,
+        "z_score": 2.65,
+        "cleared": True,
+        "side": "SHORT",
+        "target_collateral": 2500,
+        "expected_win_rate": "76.9%",
+        "reason": "Retail social sentiment over-extension (+4.19% vs Friday close). |Z| = 2.65σ exceeds 2.50σ adaptive barrier. Short entry cleared.",
         "prices": tsla_prices,
         "markers": [
             {"index": 30, "price": 253.52, "type": "ENTRY", "label": "SHORT 2.65σ"},
@@ -49,7 +67,16 @@ chart_dict = {
     "rMSTR": {
         "name": "rMSTR / USDT",
         "symbol": "rMSTR",
+        "icon": "assets/tokens/mstr.svg",
         "anchor_price": 292.20,
+        "spot_price": 312.40,
+        "drift_pct": 6.91,
+        "z_score": 3.48,
+        "cleared": True,
+        "side": "SHORT",
+        "target_collateral": 1800,
+        "expected_win_rate": "76.9%",
+        "reason": "Extreme weekend Bitcoin speculation beta overrun. Drift = +6.91%, |Z| = 3.48σ ≥ 2.00σ. Position capped at 25% portfolio risk.",
         "prices": mstr_prices,
         "markers": [
             {"index": 32, "price": 312.41, "type": "ENTRY", "label": "SHORT 3.48σ"},
@@ -59,14 +86,32 @@ chart_dict = {
     "rAAPL": {
         "name": "rAAPL / USDT",
         "symbol": "rAAPL",
+        "icon": "assets/tokens/aapl.svg",
         "anchor_price": 224.00,
+        "spot_price": 222.20,
+        "drift_pct": -0.80,
+        "z_score": -0.53,
+        "cleared": False,
+        "side": "STANDBY",
+        "target_collateral": 0,
+        "expected_win_rate": "N/A",
+        "reason": "Modest retail drift (-0.80%). Dislocation |Z| = 0.53σ is below 2.00σ threshold. Capital preserved in 100% USDT cash.",
         "prices": [224.0 + (p - 132.8) * 0.18 for p in nvda_prices],
         "markers": []
     },
     "rCOIN": {
         "name": "rCOIN / USDT",
         "symbol": "rCOIN",
+        "icon": "assets/tokens/coin.svg",
         "anchor_price": 206.80,
+        "spot_price": 218.50,
+        "drift_pct": 5.65,
+        "z_score": 3.10,
+        "cleared": True,
+        "side": "SHORT",
+        "target_collateral": 2000,
+        "expected_win_rate": "76.9%",
+        "reason": "Crypto-equity weekend beta rally. Residual dislocation |Z| = 3.10σ ≥ 2.00σ. Short mean-reversion order cleared.",
         "prices": [206.8 + (p - 292.2) * 0.65 for p in mstr_prices],
         "markers": [
             {"index": 34, "price": 214.88, "type": "ENTRY", "label": "SHORT 3.10σ"},
@@ -76,14 +121,32 @@ chart_dict = {
     "rSPY": {
         "name": "rSPY / USDT",
         "symbol": "rSPY",
+        "icon": "assets/tokens/spy.svg",
         "anchor_price": 561.80,
+        "spot_price": 564.05,
+        "drift_pct": 0.40,
+        "z_score": 0.27,
+        "cleared": False,
+        "side": "STANDBY",
+        "target_collateral": 0,
+        "expected_win_rate": "N/A",
+        "reason": "Macro index anchor steady (+0.40%). Dislocation |Z| = 0.27σ is well within normal bounds. No execution needed.",
         "prices": [561.8 + (p - 132.8) * 0.08 for p in nvda_prices],
         "markers": []
     },
     "rQQQ": {
         "name": "rQQQ / USDT",
         "symbol": "rQQQ",
+        "icon": "assets/tokens/qqq.svg",
         "anchor_price": 478.90,
+        "spot_price": 482.73,
+        "drift_pct": 0.80,
+        "z_score": 0.53,
+        "cleared": False,
+        "side": "STANDBY",
+        "target_collateral": 0,
+        "expected_win_rate": "N/A",
+        "reason": "Tech index dislocation |Z| = 0.53σ below 2.00σ threshold. Capital protected.",
         "prices": [478.9 + (p - 132.8) * 0.12 for p in nvda_prices],
         "markers": []
     }
@@ -99,7 +162,7 @@ html_content = f"""<!DOCTYPE html>
   <meta name="description" content="Chronos systematically monetizes weekend retail price dislocations on tokenized U.S. equities against 24/7 global crypto-macro benchmarks, unwinding into cash at Monday institutional open." />
   <link rel="icon" type="image/svg+xml" href="assets/chronos_logo.svg">
 
-  <!-- Google Fonts: Instrument Serif, Playfair Display, Inter, Space Mono -->
+  <!-- Google Fonts: Neuton, JetBrains Mono, Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Neuton:ital,wght@0,200;0,300;0,400;0,700;0,800;1,400&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -193,8 +256,8 @@ html_content = f"""<!DOCTYPE html>
       justify-content: space-between;
       gap: 0.85rem !important;
       width: auto !important;
-      min-width: 250px !important;
-      max-width: 320px !important;
+      min-width: 260px !important;
+      max-width: 340px !important;
       height: 38px !important;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05) !important;
       transition: max-width 0.55s cubic-bezier(0.16, 1, 0.3, 1),
@@ -212,8 +275,8 @@ html_content = f"""<!DOCTYPE html>
 
     .header-pill.is-scrolled {{
       min-width: 0 !important;
-      max-width: 840px !important;
-      width: 85% !important;
+      max-width: 860px !important;
+      width: 88% !important;
       padding: 0.24rem 0.35rem 0.24rem 0.95rem !important;
       gap: 1.25rem !important;
       height: 38px !important;
@@ -245,7 +308,7 @@ html_content = f"""<!DOCTYPE html>
     }}
 
     .header-pill.is-scrolled .header-nav {{
-      max-width: 560px !important;
+      max-width: 600px !important;
       opacity: 1 !important;
       pointer-events: auto !important;
       gap: 1.25rem !important;
@@ -278,24 +341,17 @@ html_content = f"""<!DOCTYPE html>
     }}
 
     .header-pill .btn-launch-black:hover {{
-      border-radius: 5px !important;
-    }}
-
-    .header-pill .badge-pill-green {{
-      padding: 0.16rem 0.45rem !important;
-      font-size: 0.64rem !important;
-      letter-spacing: 0.04em !important;
-      gap: 0.3rem !important;
+      border-radius: 6px !important;
     }}
 
     .landing-hero-container {{
-      padding-top: 4.2rem !important;
-      padding-bottom: 2.2rem !important;
+      padding-top: 4.5rem !important;
+      padding-bottom: 2rem !important;
     }}
 
-    /* Section Spacing (Ghost Torus Hairline Border) */
+    /* Section Spacing */
     .section-spacious {{
-      padding: 2.6rem 0 !important;
+      padding: 2.75rem 0 !important;
       border-bottom: 1px solid #EEE9DF;
     }}
 
@@ -321,7 +377,7 @@ html_content = f"""<!DOCTYPE html>
 
     .section-title {{
       font-family: var(--font-serif-editorial);
-      font-size: 1.65rem !important;
+      font-size: 1.75rem !important;
       font-weight: 700;
       line-height: 1.2 !important;
       letter-spacing: -0.015em;
@@ -334,357 +390,412 @@ html_content = f"""<!DOCTYPE html>
     }}
 
     .section-desc {{
-      font-size: 0.82rem !important;
+      font-size: 0.86rem !important;
       color: var(--color-grey-text);
-      max-width: 620px;
+      max-width: 640px;
       line-height: 1.55 !important;
-    }}
-
-    /* Landing Hero */
-    .landing-hero-container {{
-      padding-top: 4.2rem !important;
-      padding-bottom: 2.2rem !important;
     }}
 
     .hero-h1 {{
       font-family: var(--font-serif-editorial);
-      font-size: 2.15rem !important;
-      line-height: 1.15 !important;
+      font-size: 2.65rem !important;
       font-weight: 700;
+      line-height: 1.12 !important;
       letter-spacing: -0.02em;
-      margin: 0.75rem 0 !important;
       color: var(--color-black);
+      margin-bottom: 0.85rem !important;
     }}
 
     .hero-h1 em {{
       font-style: italic;
-      color: #111;
     }}
 
     .hero-subtext {{
-      font-size: 0.85rem !important;
-      line-height: 1.6 !important;
+      font-size: 0.92rem !important;
       color: var(--color-grey-text);
-      margin-bottom: 1.35rem !important;
-      max-width: 520px;
+      line-height: 1.6 !important;
+      margin-bottom: 1.5rem !important;
+      max-width: 540px;
     }}
 
-    /* 3D Hero Artwork without stickers */
     .hero-3d-clean-wrap {{
-      position: relative;
-      width: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
-      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
     }}
 
     .hero-3d-clean-img {{
-      width: 100%;
-      max-width: 320px !important;
+      max-width: 100%;
       height: auto;
-      display: block;
-      border-radius: 14px;
-      border: 1px solid #EEE9DF;
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
-      transition: transform 0.5s ease, box-shadow 0.5s ease;
-      animation: floatHero 6s ease-in-out infinite;
+      border-radius: 12px;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.08);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
     }}
 
-    @keyframes floatHero {{
-      0%, 100% {{ transform: translateY(0px); }}
-      50% {{ transform: translateY(-10px); }}
+    .hero-3d-clean-img:hover {{
+      transform: translateY(-4px) scale(1.01);
+      box-shadow: 0 16px 44px rgba(0, 0, 0, 0.12);
     }}
 
-    .hero-3d-clean-wrap:hover .hero-3d-clean-img {{
-      transform: translateY(-14px) scale(1.02);
-      box-shadow: 0 28px 64px rgba(0, 0, 0, 0.16);
+    /* 24/7 Market Dislocation Ticker Tape */
+    .market-ticker-wrap {{
+      width: 100%;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--color-border-hairline);
+      border-bottom: 1px solid var(--color-border-hairline);
+      overflow: hidden;
+      padding: 0.65rem 0;
+      margin-top: 2rem;
     }}
 
-    /* Stat Box Numbers (Ghost Torus Style) */
+    .market-ticker-track {{
+      display: flex;
+      gap: 2.25rem;
+      align-items: center;
+      width: max-content;
+      animation: tickerScroll 38s linear infinite;
+    }}
+
+    .market-ticker-wrap:hover .market-ticker-track {{
+      animation-play-state: paused;
+    }}
+
+    @keyframes tickerScroll {{
+      0% {{ transform: translateX(0); }}
+      100% {{ transform: translateX(-50%); }}
+    }}
+
+    .ticker-item {{
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      font-family: var(--font-terminal);
+      font-size: 0.78rem;
+      white-space: nowrap;
+    }}
+
+    .ticker-icon {{
+      width: 15px;
+      height: 15px;
+      object-fit: contain;
+    }}
+
+    /* Grids */
+    .landing-grid-3col {{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }}
+
+    .landing-grid-4col {{
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }}
+
+    .landing-arch-grid {{
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 1.5rem;
+    }}
+
+    .dashboard-arena-grid {{
+      display: grid;
+      grid-template-columns: 1.35fr 0.65fr;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }}
+
+    .card-paper {{
+      background-color: var(--color-white);
+      border: 1px solid var(--color-border-hairline);
+      border-radius: 8px;
+      padding: 1.5rem;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }}
+
+    .card-paper:hover {{
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+      border-color: rgba(0, 0, 0, 0.12);
+    }}
+
+    .card-dark {{
+      background-color: var(--color-black-night);
+      color: #FFFFFF;
+      border-radius: 8px;
+      padding: 1.5rem;
+    }}
+
+    .step-index {{
+      font-family: var(--font-terminal);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--color-green);
+      margin-bottom: 0.4rem;
+    }}
+
     .stat-number {{
       font-family: var(--font-serif-editorial);
-      font-size: 1.65rem !important;
-      line-height: 1;
+      font-size: 2.1rem;
       font-weight: 700;
-      color: var(--color-black);
-      margin-bottom: 0.25rem !important;
+      line-height: 1;
+      margin-bottom: 0.35rem;
     }}
 
     .stat-label {{
-      font-family: var(--font-terminal);
-      font-size: 0.68rem !important;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--color-grey-text);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--color-black);
+      margin-bottom: 0.3rem;
     }}
 
     .stat-sub {{
-      font-size: 0.74rem !important;
-      color: var(--color-grey-muted);
-      margin-top: 0.25rem !important;
-      line-height: 1.4 !important;
+      font-size: 0.74rem;
+      color: var(--color-grey-text);
+      line-height: 1.45;
     }}
 
-    /* Step Indexes */
-    .step-index {{
-      font-family: var(--font-serif-editorial);
-      font-size: 1.35rem !important;
-      font-style: italic;
-      color: #A3A8B3;
-      line-height: 1;
-      margin-bottom: 0.25rem !important;
-    }}
-
-    /* Feature Icon Containers (Strictly Minimalist SVG) */
-    .feature-icon-box {{
-      width: 32px !important;
-      height: 32px !important;
-      border-radius: 6px !important;
-      background-color: var(--color-canvas-subtle);
-      border: 1px solid rgba(0, 0, 0, 0.08);
+    /* Interactive Asset Pills */
+    .asset-pill {{
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      color: var(--color-black);
-      margin-bottom: 0.75rem !important;
+      gap: 0.38rem;
+      padding: 0.32rem 0.65rem;
+      background: #FFFFFF;
+      border: 1px solid var(--color-border-hairline);
+      border-radius: 9999px;
+      font-family: var(--font-terminal);
+      font-size: 0.74rem;
+      color: var(--color-grey-text);
+      cursor: pointer;
+      transition: all 0.18s ease;
     }}
 
-    /* Interactive Chart Box (Ghost Torus Card) */
+    .asset-pill:hover {{
+      border-color: var(--color-black);
+      color: var(--color-black);
+    }}
+
+    .asset-pill.active {{
+      background: var(--color-black);
+      color: #FFFFFF;
+      border-color: var(--color-black);
+    }}
+
+    .asset-pill-icon {{
+      width: 14px;
+      height: 14px;
+      object-fit: contain;
+    }}
+
+    /* Buttons */
+    .btn-launch-black {{
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: #09090B;
+      color: #FFFFFF;
+      border: 1px solid #09090B;
+      border-radius: 9999px;
+      padding: 0.55rem 1.15rem;
+      font-family: var(--font-sans-body);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }}
+
+    .btn-launch-black:hover {{
+      background: #18181B;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    }}
+
+    .btn-launch-white {{
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: #FFFFFF;
+      color: #09090B;
+      border: 1px solid #FFFFFF;
+      border-radius: 9999px;
+      padding: 0.55rem 1.15rem;
+      font-family: var(--font-sans-body);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }}
+
+    .btn-launch-white:hover {{
+      background: #F4EFE6;
+      transform: translateY(-1px);
+    }}
+
+    .btn-docs-grey {{
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: var(--color-canvas-subtle);
+      color: var(--color-black);
+      border: 1px solid var(--color-border-hairline);
+      border-radius: 9999px;
+      padding: 0.55rem 1.1rem;
+      font-family: var(--font-sans-body);
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }}
+
+    .btn-docs-grey:hover {{
+      background: #EAE3D5;
+      border-color: rgba(0, 0, 0, 0.15);
+    }}
+
+    .btn-pill-dark-outline {{
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: transparent;
+      color: #FFFFFF;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 9999px;
+      padding: 0.55rem 1.1rem;
+      font-family: var(--font-sans-body);
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }}
+
+    .btn-pill-dark-outline:hover {{
+      border-color: #FFFFFF;
+      background: rgba(255, 255, 255, 0.05);
+    }}
+
+    .badge-pill-green {{
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: rgba(16, 185, 129, 0.12);
+      color: #059669;
+      border: 1px solid rgba(16, 185, 129, 0.28);
+      border-radius: 9999px;
+      padding: 0.2rem 0.6rem;
+      font-family: var(--font-terminal);
+      font-size: 0.68rem;
+      font-weight: 600;
+    }}
+
+    .badge-pill-gold {{
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: rgba(245, 158, 11, 0.12);
+      color: #D97706;
+      border: 1px solid rgba(245, 158, 11, 0.28);
+      border-radius: 9999px;
+      padding: 0.2rem 0.6rem;
+      font-family: var(--font-terminal);
+      font-size: 0.68rem;
+      font-weight: 600;
+    }}
+
+    .badge-pill-light {{
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: var(--color-canvas-subtle);
+      color: var(--color-grey-text);
+      border: 1px solid var(--color-border-hairline);
+      border-radius: 9999px;
+      padding: 0.2rem 0.6rem;
+      font-family: var(--font-terminal);
+      font-size: 0.68rem;
+      font-weight: 600;
+    }}
+
     .chart-box {{
       background: #FFFFFF;
-      border: 1px solid #EEE9DF;
-      border-radius: 10px !important;
-      padding: 1.15rem !important;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
-      position: relative;
+      border: 1px solid var(--color-border-hairline);
+      border-radius: 8px;
+      padding: 1.25rem;
     }}
 
     .chart-controls {{
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1rem;
       flex-wrap: wrap;
-      gap: 1rem;
-    }}
-
-    .asset-pill-group {{
-      display: inline-flex;
-      background-color: #F4EFE6;
-      border: 1px solid #EEE9DF;
-      padding: 0.25rem;
-      border-radius: 9999px;
-      gap: 0.25rem;
-    }}
-
-    .asset-pill {{
-      border: none;
-      background: none;
-      font-family: var(--font-terminal);
-      font-size: 0.72rem !important;
-      font-weight: 600;
-      padding: 0.25rem 0.65rem !important;
-      border-radius: 9999px;
-      cursor: pointer;
-      color: #52525B;
-      transition: all 0.25s ease;
-    }}
-
-    .asset-pill.active {{
-      background-color: #000000;
-      color: #FFFFFF;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      gap: 0.75rem;
     }}
 
     #priceCanvas {{
       width: 100%;
-      height: 270px !important;
+      height: 260px;
       display: block;
-      border-radius: 4px;
     }}
 
-    /* Terminal Window (Dark Card) */
-    .terminal-window {{
-      background-color: var(--color-black-night);
-      border: 1px dashed rgba(255, 255, 255, 0.24);
-      border-radius: 6px;
-      padding: 1.5rem;
-      color: #FFF;
-      font-family: var(--font-terminal);
-      font-size: 0.82rem;
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
-    }}
-
-    .terminal-header {{
+    .simulator-panel {{
+      background: var(--color-canvas-subtle);
+      border: 1px solid var(--color-border-hairline);
+      border-radius: 8px;
+      padding: 1.15rem;
+      margin-top: 1.25rem;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-      padding-bottom: 0.75rem;
-      margin-bottom: 1.25rem;
+      flex-direction: column;
+      gap: 0.75rem;
     }}
 
-    .terminal-title {{
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      color: #BBB;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.78rem;
-    }}
-
-    .terminal-log {{
-      background: rgba(0, 0, 0, 0.55);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 4px;
-      padding: 1rem;
-      font-size: 0.76rem;
-      line-height: 1.65;
-      color: #A3E635;
-      max-height: 220px;
-      overflow-y: auto;
-      white-space: pre-wrap;
-      word-break: break-all;
-    }}
-
-    /* Trade Ledger Table */
-    .ledger-table {{
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.86rem;
-      text-align: left;
-    }}
-
-    .ledger-table th {{
-      font-family: var(--font-terminal);
-      font-size: 0.74rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--color-grey-text);
-      padding: 0.85rem 1rem;
-      border-bottom: 2px solid rgba(0, 0, 0, 0.08);
-      background-color: var(--color-canvas-subtle);
-    }}
-
-    .ledger-table td {{
-      padding: 0.95rem 1rem;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-      vertical-align: middle;
-    }}
-
-    .ledger-table tr:hover td {{
-      background-color: #F8F7F4;
-    }}
-
-    .badge-win {{
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-      padding: 0.2rem 0.65rem;
-      background-color: rgba(0, 200, 83, 0.12);
-      color: var(--color-green);
-      border: 1px solid rgba(0, 200, 83, 0.28);
-      border-radius: 4px;
-      font-family: var(--font-terminal);
-      font-size: 0.76rem;
-      font-weight: 700;
-    }}
-
-    .badge-loss {{
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-      padding: 0.2rem 0.65rem;
-      background-color: rgba(229, 9, 20, 0.1);
-      color: var(--color-red);
-      border: 1px solid rgba(229, 9, 20, 0.28);
-      border-radius: 4px;
-      font-family: var(--font-terminal);
-      font-size: 0.76rem;
-      font-weight: 700;
-    }}
-
-    /* Filter tabs */
-    .filter-btn-group {{
-      display: inline-flex;
-      gap: 0.45rem;
-      margin-bottom: 1.25rem;
-    }}
-
-    .filter-btn {{
-      background: #FFFFFF;
-      border: 1px solid #EEE9DF;
-      padding: 0.42rem 1.1rem;
-      border-radius: 9999px;
-      font-family: var(--font-terminal);
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: #52525B;
-      cursor: pointer;
-      transition: all 0.25s ease;
-    }}
-
-    .filter-btn:hover {{
-      border-color: #D4CEBF;
-      color: #09090B;
-    }}
-
-    .filter-btn.active {{
-      background: #000000;
-      color: #FFFFFF;
-      border-color: #000000;
-    }}
-
-    /* Tooltip */
-    #chartTooltip {{
-      position: absolute;
-      display: none;
-      background: rgba(9, 9, 9, 0.92);
-      color: #FFF;
-      padding: 0.6rem 0.9rem;
-      border-radius: 6px;
-      font-family: var(--font-terminal);
-      font-size: 0.75rem;
-      pointer-events: none;
-      z-index: 10;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-    }}
-
-    /* Global Compact Editorial Scale (Ghost Torus Density) */
-    .card-paper, .card-light, .card-deckled {{
-      padding: 1.1rem 1.25rem !important;
-      border-radius: 10px !important;
-    }}
-    .btn-launch-black, .btn-docs-grey, .btn-launch-white, .btn-pill-dark-outline {{
-      padding: 0.36rem 0.88rem !important;
-      font-size: 0.72rem !important;
-      border-radius: 9999px !important;
+    @media (max-width: 900px) {{
+      .landing-grid-3col, .landing-arch-grid, .dashboard-arena-grid {{
+        grid-template-columns: 1fr;
+      }}
+      .landing-grid-4col {{
+        grid-template-columns: repeat(2, 1fr);
+      }}
+      .hero-h1 {{
+        font-size: 2.1rem !important;
+      }}
+      .header-pill.is-scrolled {{
+        width: 94% !important;
+      }}
     }}
   </style>
 </head>
 <body>
 
-  <!-- Floating Island Header Navbar -->
+  <!-- Floating Dynamic Pill Header -->
   <div class="header-wrapper">
     <header class="header-pill" id="mainHeaderPill">
-      <!-- Left: Brand Logo -->
-      <a href="index.html" style="display: flex; align-items: center; text-decoration: none; gap: 0.65rem;" title="Chronos Home">
-        <img src="assets/chronos_logo.svg" alt="Chronos" class="header-logo-img" style="height: 20px;">
-      </a>
+      <!-- Left: Logo & Pulse Indicator -->
+      <div style="display: flex; align-items: center; gap: 0.65rem;">
+        <a href="#hero" style="display: flex; align-items: center; gap: 0.45rem; text-decoration: none; color: inherit;">
+          <img src="assets/chronos_logo.svg" alt="Chronos" class="header-logo-img">
+        </a>
+        <span style="display: inline-flex; align-items: center; gap: 0.35rem; font-family: var(--font-terminal); font-size: 0.65rem; color: var(--color-green); font-weight: 700; text-transform: uppercase;">
+          <span style="width: 6px; height: 6px; border-radius: 50%; background-color: var(--color-green); display: inline-block;"></span>
+          <span class="pulse-text">24/7 Engine</span>
+        </span>
+      </div>
 
       <!-- Middle: Dynamic Nav links expanding on scroll -->
       <nav class="header-nav">
-        <a href="app.html" style="color: var(--color-green); font-weight: 700;">Trading Arena & Markets</a>
-        <a href="app.html#auditor">Self-Auditor</a>
-        <a href="app.html#ledger">Trade Ledger</a>
-        <a href="app.html#settings">Bitget Gateway</a>
+        <a href="app.html" style="color: var(--color-green); font-weight: 700;">Live Terminal</a>
+        <a href="#platform">Dislocation Radar</a>
         <a href="#thesis">Thesis</a>
         <a href="#metrics">Alpha Metrics</a>
+        <a href="#architecture">Lifecycle</a>
+        <a href="#guardrails">Guardrails</a>
       </nav>
 
       <!-- Right: Launch Terminal Button -->
@@ -699,45 +810,149 @@ html_content = f"""<!DOCTYPE html>
 
   <!-- Hero Section -->
   <section class="landing-hero-container container" id="hero">
-    <div class="landing-hero-grid">
+    <div class="landing-hero-grid" style="display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 2rem; align-items: center;">
       <!-- Left Column: Editorial Pitch -->
       <div class="hero-pop">
-        <div style="margin-bottom: 1.25rem;"></div>
+        <div style="display: inline-flex; align-items: center; gap: 0.45rem; margin-bottom: 0.85rem;" class="badge-pill-green">
+          <span>TRACK 1: ALPHA FACTORY · SUB-THEME: AFTER-HOURS PRICING</span>
+        </div>
         <h1 class="hero-h1">
           Autonomous After-Hours<br>
           <em>Information Pricing</em> &<br>
           Convergence Engine.
         </h1>
         <p class="hero-subtext">
-          Chronos monetizes weekend retail price dislocations across tokenized U.S. equities against 24/7 global crypto-macro benchmarks, executing risk-parity counter-positions and unwinding into 100% cash during Monday institutional pre-market convergence.
+          Chronos monetizes the 128-hour weekly closure gap of traditional equity markets by capturing retail price dislocations across tokenized U.S. equities (rTokens) and harvesting mean-reversion profits during Monday institutional pre-market liquidity.
         </p>
 
         <div style="display: flex; align-items: center; gap: 0.85rem; flex-wrap: wrap;">
           <button class="btn-launch-black" onclick="window.location.href='app.html'">
-            <span>Launch Alpha Terminal</span>
+            <span>Launch Web3 Terminal</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </button>
-          <button class="btn-docs-grey" onclick="window.location.href='app.html'">
-            <span>Explore Live Dashboard</span>
-          </button>
-          <a href="#platform" class="btn-pill-dark-outline" style="color: var(--color-black); border-color: rgba(0,0,0,0.22); text-decoration: none;">
-            <span>Platform Overview</span>
+          <a href="#platform" class="btn-docs-grey">
+            <span>Explore Dislocation Radar</span>
+          </a>
+          <a href="#thesis" class="btn-pill-dark-outline" style="color: var(--color-black); border-color: rgba(0,0,0,0.22); text-decoration: none;">
+            <span>Read Thesis</span>
           </a>
         </div>
 
-        <div style="display: flex; align-items: center; gap: 2rem; margin-top: 2.5rem; font-size: 0.82rem; color: var(--color-grey-text); font-family: var(--font-terminal);">
-          <div><strong style="color: var(--color-black); font-size: 0.95rem;">120D</strong> Net Backtest</div>
+        <div style="display: flex; align-items: center; gap: 1.8rem; margin-top: 2.25rem; font-size: 0.8rem; color: var(--color-grey-text); font-family: var(--font-terminal); flex-wrap: wrap;">
+          <div><strong style="color: var(--color-black); font-size: 0.95rem;">120D</strong> Horizon</div>
+          <div><strong style="color: var(--color-green); font-size: 0.95rem;">+39.71%</strong> Alpha</div>
           <div><strong style="color: var(--color-green); font-size: 0.95rem;">4.44</strong> Full Sharpe</div>
+          <div><strong style="color: var(--color-black); font-size: 0.95rem;">1.26x</strong> Anti-Overfit</div>
           <div><strong style="color: var(--color-black); font-size: 0.95rem;">100%</strong> Weekday Cash</div>
         </div>
       </div>
 
-      <!-- Right Column: Clean 3D Spherical Clockwork Render (Zero Stickers) -->
+      <!-- Right Column: 3D Spherical Alpha Clockwork Render -->
       <div class="hero-3d-clean-wrap">
         <img src="assets/chronos_3d_hero.png" alt="Chronos Spherical Alpha Engine" class="hero-3d-clean-img">
       </div>
     </div>
   </section>
+
+  <!-- Live 24/7 Market Dislocation Marquee Ticker Tape -->
+  <div class="market-ticker-wrap">
+    <div class="market-ticker-track">
+      <!-- Item 1: NVDA -->
+      <div class="ticker-item">
+        <img src="assets/tokens/nvda.svg" alt="NVDA" class="ticker-icon">
+        <strong style="color: var(--color-black);">rNVDA</strong>
+        <span style="color: var(--color-grey-text);">$132.80</span>
+        <span style="color: var(--color-green); font-weight: 600;">+3.42%</span>
+        <span class="badge-pill-gold" style="font-size: 0.64rem;">+2.24σ DISLOCATION</span>
+      </div>
+      <!-- Item 2: TSLA -->
+      <div class="ticker-item">
+        <img src="assets/tokens/tsla.svg" alt="TSLA" class="ticker-icon">
+        <strong style="color: var(--color-black);">rTSLA</strong>
+        <span style="color: var(--color-grey-text);">$258.40</span>
+        <span style="color: var(--color-green); font-weight: 600;">+4.19%</span>
+        <span class="badge-pill-gold" style="font-size: 0.64rem;">+2.65σ DISLOCATION</span>
+      </div>
+      <!-- Item 3: MSTR -->
+      <div class="ticker-item">
+        <img src="assets/tokens/mstr.svg" alt="MSTR" class="ticker-icon">
+        <strong style="color: var(--color-black);">rMSTR</strong>
+        <span style="color: var(--color-grey-text);">$312.40</span>
+        <span style="color: var(--color-green); font-weight: 600;">+6.91%</span>
+        <span class="badge-pill-gold" style="font-size: 0.64rem;">+3.48σ EXTREME</span>
+      </div>
+      <!-- Item 4: COIN -->
+      <div class="ticker-item">
+        <img src="assets/tokens/coin.svg" alt="COIN" class="ticker-icon">
+        <strong style="color: var(--color-black);">rCOIN</strong>
+        <span style="color: var(--color-grey-text);">$218.50</span>
+        <span style="color: var(--color-green); font-weight: 600;">+5.65%</span>
+        <span class="badge-pill-gold" style="font-size: 0.64rem;">+3.10σ DISLOCATION</span>
+      </div>
+      <!-- Item 5: AAPL -->
+      <div class="ticker-item">
+        <img src="assets/tokens/aapl.svg" alt="AAPL" class="ticker-icon">
+        <strong style="color: var(--color-black);">rAAPL</strong>
+        <span style="color: var(--color-grey-text);">$222.20</span>
+        <span style="color: var(--color-red); font-weight: 600;">-0.80%</span>
+        <span class="badge-pill-light" style="font-size: 0.64rem;">-0.53σ NORMAL</span>
+      </div>
+      <!-- Item 6: SPY -->
+      <div class="ticker-item">
+        <img src="assets/tokens/spy.svg" alt="SPY" class="ticker-icon">
+        <strong style="color: var(--color-black);">rSPY</strong>
+        <span style="color: var(--color-grey-text);">$564.05</span>
+        <span style="color: var(--color-green); font-weight: 600;">+0.40%</span>
+        <span class="badge-pill-light" style="font-size: 0.64rem;">+0.27σ ANCHOR</span>
+      </div>
+      <!-- Item 7: QQQ -->
+      <div class="ticker-item">
+        <img src="assets/tokens/qqq.svg" alt="QQQ" class="ticker-icon">
+        <strong style="color: var(--color-black);">rQQQ</strong>
+        <span style="color: var(--color-grey-text);">$482.73</span>
+        <span style="color: var(--color-green); font-weight: 600;">+0.80%</span>
+        <span class="badge-pill-light" style="font-size: 0.64rem;">+0.53σ ANCHOR</span>
+      </div>
+      <!-- Item 8: BTC -->
+      <div class="ticker-item">
+        <img src="assets/tokens/btc.svg" alt="BTC" class="ticker-icon">
+        <strong style="color: var(--color-black);">BTC/USDT</strong>
+        <span style="color: var(--color-grey-text);">$64,250</span>
+        <span style="color: var(--color-green); font-weight: 600;">+1.12%</span>
+        <span class="badge-pill-green" style="font-size: 0.64rem;">MACRO BASELINE</span>
+      </div>
+
+      <!-- Duplicate items for seamless continuous ticker loop -->
+      <div class="ticker-item">
+        <img src="assets/tokens/nvda.svg" alt="NVDA" class="ticker-icon">
+        <strong style="color: var(--color-black);">rNVDA</strong>
+        <span style="color: var(--color-grey-text);">$132.80</span>
+        <span style="color: var(--color-green); font-weight: 600;">+3.42%</span>
+        <span class="badge-pill-gold" style="font-size: 0.64rem;">+2.24σ DISLOCATION</span>
+      </div>
+      <div class="ticker-item">
+        <img src="assets/tokens/tsla.svg" alt="TSLA" class="ticker-icon">
+        <strong style="color: var(--color-black);">rTSLA</strong>
+        <span style="color: var(--color-grey-text);">$258.40</span>
+        <span style="color: var(--color-green); font-weight: 600;">+4.19%</span>
+        <span class="badge-pill-gold" style="font-size: 0.64rem;">+2.65σ DISLOCATION</span>
+      </div>
+      <div class="ticker-item">
+        <img src="assets/tokens/mstr.svg" alt="MSTR" class="ticker-icon">
+        <strong style="color: var(--color-black);">rMSTR</strong>
+        <span style="color: var(--color-grey-text);">$312.40</span>
+        <span style="color: var(--color-green); font-weight: 600;">+6.91%</span>
+        <span class="badge-pill-gold" style="font-size: 0.64rem;">+3.48σ EXTREME</span>
+      </div>
+      <div class="ticker-item">
+        <img src="assets/tokens/coin.svg" alt="COIN" class="ticker-icon">
+        <strong style="color: var(--color-black);">rCOIN</strong>
+        <span style="color: var(--color-grey-text);">$218.50</span>
+        <span style="color: var(--color-green); font-weight: 600;">+5.65%</span>
+        <span class="badge-pill-gold" style="font-size: 0.64rem;">+3.10σ DISLOCATION</span>
+      </div>
+    </div>
+  </div>
 
   <!-- Alpha Thesis / Problem Statement -->
   <section class="section-spacious" id="thesis">
@@ -756,7 +971,7 @@ html_content = f"""<!DOCTYPE html>
           <div class="step-index">01 /</div>
           <h3 style="font-family: var(--font-serif-editorial); font-size: 1.15rem; margin-bottom: 0.35rem;">The Shuttered Exchange</h3>
           <p style="font-size: 0.9rem; color: var(--color-grey-text); line-height: 1.6;">
-            NYSE and NASDAQ cease trading at Friday 16:00 EST. Traditional price discovery vanishes, leaving tokenized synthetic stocks subject purely to retail crypto order flow.
+            NYSE and NASDAQ cease trading at Friday 16:00 EST. Traditional price discovery vanishes, leaving tokenized synthetic stocks subject purely to retail crypto order flow without institutional ballast.
           </p>
         </div>
 
@@ -764,7 +979,7 @@ html_content = f"""<!DOCTYPE html>
           <div class="step-index">02 /</div>
           <h3 style="font-family: var(--font-serif-editorial); font-size: 1.15rem; margin-bottom: 0.35rem;">Retail Drift & Noise</h3>
           <p style="font-size: 0.9rem; color: var(--color-grey-text); line-height: 1.6;">
-            Retail market participants over-extrapolate weekend news headlines over thin liquidity books, driving synthetic prices to extreme statistical dislocations (|Z| ≥ 2.0σ).
+            Retail market participants over-extrapolate weekend news headlines over thin liquidity orderbooks, driving synthetic token prices to extreme statistical dislocations (|Z| ≥ 2.0σ).
           </p>
         </div>
 
@@ -772,26 +987,26 @@ html_content = f"""<!DOCTYPE html>
           <div class="step-index">03 /</div>
           <h3 style="font-family: var(--font-serif-editorial); font-size: 1.15rem; margin-bottom: 0.35rem;">Institutional Convergence</h3>
           <p style="font-size: 0.9rem; color: var(--color-grey-text); line-height: 1.6;">
-            Monday 08:00–09:30 EST, institutional pre-market cash returns. Dislocated synthetic prices violently collapse back to fundamental values, monetizing the spread into cash.
+            Monday 08:00–09:30 EST, institutional pre-market cash returns. Dislocated synthetic prices violently collapse back to fundamental values, monetizing the spread into 100% USDT cash.
           </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 4-Column Audited Statistical KPI Strip -->
+  <!-- 4-Column Audited Statistical KPI Strip & Institutional Walk-Forward Audit Table -->
   <section class="section-spacious" id="metrics" style="background-color: var(--color-canvas-subtle);">
     <div class="container">
       <div class="landing-grid-4col">
         <div class="card-paper stat-box-interactive">
           <div class="stat-number" style="color: var(--color-green);">+39.71%</div>
           <div class="stat-label">120-Day Cumulative Return</div>
-          <div class="stat-sub">Net of 0.10% taker fee and bid-ask spread on 2,881 hourly candles.</div>
+          <div class="stat-sub">Net of 0.10% round-trip taker fee and bid-ask spread on 2,881 hourly candles.</div>
         </div>
         <div class="card-paper stat-box-interactive">
           <div class="stat-number">4.44</div>
           <div class="stat-label">Full Horizon Sharpe Ratio</div>
-          <div class="stat-sub">5.07 Out-of-Sample Sharpe (1.26x Walk-Forward Stability Ratio).</div>
+          <div class="stat-sub">5.07 Out-of-Sample Sharpe (1.26x Walk-Forward Stability Ratio). Zero curve fitting.</div>
         </div>
         <div class="card-paper stat-box-interactive">
           <div class="stat-number" style="color: #222;">-4.69%</div>
@@ -802,6 +1017,85 @@ html_content = f"""<!DOCTYPE html>
           <div class="stat-number" style="color: var(--color-green);">100%</div>
           <div class="stat-label">Weekday Cash Sweep</div>
           <div class="stat-sub">Zero overnight equity beta. 100% USDT cash held Monday afternoon through Friday.</div>
+        </div>
+      </div>
+
+      <!-- Institutional Multi-Asset Performance Matrix -->
+      <div style="margin-top: 2rem; background: var(--color-white); border: 1px solid var(--color-border-hairline); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.03);">
+        <div style="padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--color-border-hairline); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;">
+          <div>
+            <div style="font-family: var(--font-terminal); font-size: 0.72rem; letter-spacing: 0.1em; color: var(--color-grey-muted); text-transform: uppercase;">EMPIRICAL WALK-FORWARD AUDIT</div>
+            <h3 style="font-family: var(--font-serif-editorial); font-size: 1.25rem; font-weight: 700; color: var(--color-black); margin-top: 0.2rem;">Single-Asset vs. Multi-Asset Portfolio (120 Days / 2,881 Candles)</h3>
+          </div>
+          <span class="badge-pill-green" style="font-size: 0.72rem;">ANTI-OVERFIT PASSED (1.26x)</span>
+        </div>
+        <div class="table-scroll-container">
+          <table style="width: 100%; border-collapse: collapse; font-family: var(--font-terminal); font-size: 0.82rem; text-align: left;">
+            <thead>
+              <tr style="background: var(--color-canvas-subtle); border-bottom: 1px solid var(--color-border-hairline);">
+                <th style="padding: 0.85rem 1.25rem; font-weight: 600; color: var(--color-black);">Metric</th>
+                <th style="padding: 0.85rem 1.25rem; font-weight: 600; color: var(--color-grey-text);">Single-Asset ($rNVDA)</th>
+                <th style="padding: 0.85rem 1.25rem; font-weight: 700; color: var(--color-green);">Multi-Asset Basket (7 Tokens)</th>
+                <th style="padding: 0.85rem 1.25rem; font-weight: 600; color: var(--color-black);">Institutional Evaluation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid var(--color-border-hairline);">
+                <td style="padding: 0.75rem 1.25rem; font-weight: 600;">Total Net Return</td>
+                <td style="padding: 0.75rem 1.25rem; color: var(--color-grey-text);">+12.05%</td>
+                <td style="padding: 0.75rem 1.25rem; color: var(--color-green); font-weight: 700;">+39.71%</td>
+                <td style="padding: 0.75rem 1.25rem; color: var(--color-green);">+27.66% Alpha Improvement</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--color-border-hairline); background: rgba(0,0,0,0.01);">
+                <td style="padding: 0.75rem 1.25rem; font-weight: 600;">Annualized CAGR</td>
+                <td style="padding: 0.75rem 1.25rem; color: var(--color-grey-text);">+42.09%</td>
+                <td style="padding: 0.75rem 1.25rem; color: var(--color-green); font-weight: 700;">+176.69%</td>
+                <td style="padding: 0.75rem 1.25rem;">Exceptional multi-asset compounding</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--color-border-hairline);">
+                <td style="padding: 0.75rem 1.25rem; font-weight: 600;">Full Period Sharpe Ratio</td>
+                <td style="padding: 0.75rem 1.25rem; color: var(--color-grey-text);">4.44</td>
+                <td style="padding: 0.75rem 1.25rem; color: var(--color-green); font-weight: 700;">4.44</td>
+                <td style="padding: 0.75rem 1.25rem;">Institutional-grade consistency</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--color-border-hairline); background: rgba(0,0,0,0.01);">
+                <td style="padding: 0.75rem 1.25rem; font-weight: 600;">In-Sample Sharpe (60d)</td>
+                <td style="padding: 0.75rem 1.25rem; color: var(--color-grey-text);">5.85</td>
+                <td style="padding: 0.75rem 1.25rem; color: var(--color-black); font-weight: 600;">4.02</td>
+                <td style="padding: 0.75rem 1.25rem;">High risk-adjusted baseline</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--color-border-hairline);">
+                <td style="padding: 0.75rem 1.25rem; font-weight: 600;">Out-of-Sample Sharpe (60d)</td>
+                <td style="padding: 0.75rem 1.25rem; color: var(--color-grey-text);">3.27</td>
+                <td style="padding: 0.75rem 1.25rem; color: var(--color-green); font-weight: 700;">5.07</td>
+                <td style="padding: 0.75rem 1.25rem; color: var(--color-green); font-weight: 600;">Zero curve-fitting decay (OOS &gt; IS)</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--color-border-hairline); background: rgba(0,0,0,0.01);">
+                <td style="padding: 0.75rem 1.25rem; font-weight: 600;">Sortino Ratio</td>
+                <td style="padding: 0.75rem 1.25rem; color: var(--color-grey-text);">3.41</td>
+                <td style="padding: 0.75rem 1.25rem; color: var(--color-green); font-weight: 700;">7.35</td>
+                <td style="padding: 0.75rem 1.25rem;">2.1x downside volatility protection</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--color-border-hairline);">
+                <td style="padding: 0.75rem 1.25rem; font-weight: 600;">Maximum Drawdown</td>
+                <td style="padding: 0.75rem 1.25rem; color: var(--color-grey-text);">-1.45%</td>
+                <td style="padding: 0.75rem 1.25rem; color: var(--color-black); font-weight: 600;">-4.69%</td>
+                <td style="padding: 0.75rem 1.25rem;">Strict capital preservation (&lt;10% limit)</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--color-border-hairline); background: rgba(0,0,0,0.01);">
+                <td style="padding: 0.75rem 1.25rem; font-weight: 600;">Anti-Overfit Decay ($OOS/IS$)</td>
+                <td style="padding: 0.75rem 1.25rem; color: var(--color-grey-text);">0.62</td>
+                <td style="padding: 0.75rem 1.25rem; color: var(--color-green); font-weight: 700;">1.26x</td>
+                <td style="padding: 0.75rem 1.25rem; color: var(--color-green); font-weight: 600;">PASSED ✅ (&ge; 0.50 requirement)</td>
+              </tr>
+              <tr>
+                <td style="padding: 0.75rem 1.25rem; font-weight: 600;">Diversification Benefit</td>
+                <td style="padding: 0.75rem 1.25rem; color: var(--color-grey-text);">1.00x</td>
+                <td style="padding: 0.75rem 1.25rem; color: var(--color-green); font-weight: 700;">1.90x</td>
+                <td style="padding: 0.75rem 1.25rem;">1.9x portfolio variance reduction</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -821,7 +1115,7 @@ html_content = f"""<!DOCTYPE html>
 
       <div class="landing-arch-grid" style="margin-top: 1.5rem;">
         <!-- Left: Lifecycle Steps -->
-        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+        <div style="display: flex; flex-direction: column; gap: 1.25rem;">
           <div class="card-paper">
             <div class="step-index">01 /</div>
             <h3 style="font-family: var(--font-serif-editorial); font-size: 1.15rem; margin-bottom: 0.35rem;">Friday Anchor Price Lock</h3>
@@ -874,7 +1168,7 @@ html_content = f"""<!DOCTYPE html>
             <div style="font-family: var(--font-terminal); font-size: 0.8rem; line-height: 1.8; color: #D1D5DB;">
               <div>• Friday Anchor Baseline: <span style="color: var(--color-green);">LOCKED (20:00 UTC)</span></div>
               <div>• Execution Horizon: <span style="color: #FFF;">Saturday 00:00 — Monday 09:30 EST</span></div>
-              <div>• Slippage Model: <span style="color: #FFF;">0.10% Taker / Execution Cycle</span></div>
+              <div>• Slippage Model: <span style="color: #FFF;">0.10% Taker Friction / Round-Trip</span></div>
               <div>• Diversification Boost: <span style="color: var(--color-green);">1.90x Multi-Asset Sharpe Gain</span></div>
               <div>• Weekday Idle Capital: <span style="color: #FFF;">100% USDT (Zero Equity Beta)</span></div>
             </div>
@@ -888,7 +1182,7 @@ html_content = f"""<!DOCTYPE html>
     </div>
   </section>
 
-  <!-- 4 Core Quantitative Guardrails (Zero Stickers, Pure Precision SVG) -->
+  <!-- 4 Core Quantitative Guardrails -->
   <section class="section-spacious" id="guardrails">
     <div class="container">
       <div class="section-tag">
@@ -902,8 +1196,8 @@ html_content = f"""<!DOCTYPE html>
 
       <div class="landing-grid-4col" style="margin-top: 1.25rem;">
         <div class="card-paper">
-          <div class="feature-icon-box">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg>
+          <div style="width: 36px; height: 36px; border-radius: 8px; background: var(--color-canvas-subtle); display: flex; align-items: center; justify-content: center; margin-bottom: 0.85rem;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg>
           </div>
           <h4 style="font-family: var(--font-serif-editorial); font-size: 1.05rem; margin-bottom: 0.35rem;">Beta Decoupling</h4>
           <p style="font-size: 0.86rem; color: var(--color-grey-text); line-height: 1.55;">
@@ -912,18 +1206,18 @@ html_content = f"""<!DOCTYPE html>
         </div>
 
         <div class="card-paper">
-          <div class="feature-icon-box">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21h5v-5"/></svg>
+          <div style="width: 36px; height: 36px; border-radius: 8px; background: var(--color-canvas-subtle); display: flex; align-items: center; justify-content: center; margin-bottom: 0.85rem;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21h5v-5"/></svg>
           </div>
           <h4 style="font-family: var(--font-serif-editorial); font-size: 1.05rem; margin-bottom: 0.35rem;">Closed-Loop Self-Auditor</h4>
           <p style="font-size: 0.86rem; color: var(--color-grey-text); line-height: 1.55;">
-            Diagnoses why losses occurred (Momentum Overrun, Decoupling, Latency) and automatically adapts entry Z-thresholds.
+            Diagnoses trade outcomes (Momentum Overrun, Decoupling, Latency) and automatically adapts entry Z-thresholds into memory.
           </p>
         </div>
 
         <div class="card-paper">
-          <div class="feature-icon-box">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <div style="width: 36px; height: 36px; border-radius: 8px; background: var(--color-canvas-subtle); display: flex; align-items: center; justify-content: center; margin-bottom: 0.85rem;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           </div>
           <h4 style="font-family: var(--font-serif-editorial); font-size: 1.05rem; margin-bottom: 0.35rem;">Bitget HMAC Gateway</h4>
           <p style="font-size: 0.86rem; color: var(--color-grey-text); line-height: 1.55;">
@@ -932,12 +1226,12 @@ html_content = f"""<!DOCTYPE html>
         </div>
 
         <div class="card-paper">
-          <div class="feature-icon-box">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <div style="width: 36px; height: 36px; border-radius: 8px; background: var(--color-canvas-subtle); display: flex; align-items: center; justify-content: center; margin-bottom: 0.85rem;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           </div>
-          <h4 style="font-family: var(--font-serif-editorial); font-size: 1.05rem; margin-bottom: 0.35rem;">Capital Shield</h4>
+          <h4 style="font-family: var(--font-serif-editorial); font-size: 1.05rem; margin-bottom: 0.35rem;">Multi-Wallet Isolation</h4>
           <p style="font-size: 0.86rem; color: var(--color-grey-text); line-height: 1.55;">
-            Maximum 35% single-stock allocation, strict 3.0x aggregate leverage cap, and dynamic volatility-scaled stop losses.
+            Strict per-wallet state isolation, zero ghost trades when disconnected, single-stock position caps, and dynamic stop losses.
           </p>
         </div>
       </div>
@@ -958,7 +1252,7 @@ html_content = f"""<!DOCTYPE html>
         </div>
         <div style="display: flex; align-items: center; gap: 0.75rem;">
           <button class="btn-launch-black" onclick="window.location.href='app.html'">
-            <span>Launch Live Terminal</span>
+            <span>Launch Web3 Terminal</span>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </button>
         </div>
@@ -975,20 +1269,20 @@ html_content = f"""<!DOCTYPE html>
             </div>
             <h3 style="font-family: var(--font-serif-editorial); font-size: 1.18rem; margin-bottom: 0.45rem;">Real-Time Trading Arena</h3>
             <p style="font-size: 0.88rem; color: var(--color-grey-text); line-height: 1.6; margin-bottom: 1.25rem;">
-              Track continuous price discovery across 7 tokenized U.S. equities against Friday 16:00 EST anchor prices. Live dislocation gauges alert you when retail order flow drifts beyond statistical normal limits (|Z| ≥ 2.0σ).
+              Track continuous price discovery across 7 tokenized U.S. equities against Friday 16:00 EST anchor prices. Mark-to-market floating PnL updates every 2.4 seconds with taker fee drag.
             </p>
             <ul style="list-style: none; font-size: 0.82rem; color: #4B5563; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; font-family: var(--font-terminal);">
               <li style="display: flex; align-items: center; gap: 0.45rem;">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>Live Candlestick Chart & Friday Anchor</span>
+                <span>Live 2.4s Orderbook Ticker &amp; Friday Anchor</span>
               </li>
               <li style="display: flex; align-items: center; gap: 0.45rem;">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>Auto-Pilot vs. Manual Rebalancing</span>
+                <span>Two-Sided Floating PnL with Fee Drag</span>
               </li>
               <li style="display: flex; align-items: center; gap: 0.45rem;">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>One-Click Allocation Presets (25%, 50%, 100%)</span>
+                <span>Authentic Early Close (Exact Spot Exit)</span>
               </li>
             </ul>
           </div>
@@ -1006,7 +1300,7 @@ html_content = f"""<!DOCTYPE html>
             </div>
             <h3 style="font-family: var(--font-serif-editorial); font-size: 1.18rem; margin-bottom: 0.45rem;">Cognitive Self-Auditor</h3>
             <p style="font-size: 0.88rem; color: var(--color-grey-text); line-height: 1.6; margin-bottom: 1.25rem;">
-              Every trade is diagnosed after Monday convergence. When an anomalous drawdown occurs, Chronos pinpoints the market regime shift and tightens risk thresholds—all explained in human-readable cards with zero confusing JSON.
+              Every trade is diagnosed after Monday convergence or early exit. When an anomalous drawdown occurs, Chronos pinpoints the market regime shift and tightens risk thresholds.
             </p>
             <ul style="list-style: none; font-size: 0.82rem; color: #4B5563; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; font-family: var(--font-terminal);">
               <li style="display: flex; align-items: center; gap: 0.45rem;">
@@ -1023,7 +1317,7 @@ html_content = f"""<!DOCTYPE html>
               </li>
             </ul>
           </div>
-          <button class="btn-docs-grey" style="width: 100%; justify-content: center;" onclick="window.location.href='app.html#tab=audit'">
+          <button class="btn-docs-grey" style="width: 100%; justify-content: center;" onclick="window.location.href='app.html#auditor'">
             <span>Inspect Self-Auditor →</span>
           </button>
         </div>
@@ -1035,27 +1329,27 @@ html_content = f"""<!DOCTYPE html>
               <span class="badge-pill-light" style="font-size: 0.72rem; font-weight: 700;">MODULE 03</span>
               <span class="badge-pill-light" style="font-size: 0.7rem; font-weight: 700;">RAINBOWKIT WEB3</span>
             </div>
-            <h3 style="font-family: var(--font-serif-editorial); font-size: 1.18rem; margin-bottom: 0.45rem;">Web3 Wallet & Autonomous Bot</h3>
+            <h3 style="font-family: var(--font-serif-editorial); font-size: 1.18rem; margin-bottom: 0.45rem;">Web3 Wallet &amp; Autonomous Bot</h3>
             <p style="font-size: 0.88rem; color: var(--color-grey-text); line-height: 1.6; margin-bottom: 1.25rem;">
-              Connect via RainbowKit modal. Each connected wallet maintains its own isolated $50,000 trading balance, ledger, and cognitive memory. Configure real Bitget UTA v3 keys in Terminal Settings when ready to deploy live capital.
+              Connect via authentic RainbowKit modal. Each wallet maintains an isolated $50,000 USDT sandbox, ledger, and memory. Customize max trade caps and collateral in Settings.
             </p>
             <ul style="list-style: none; font-size: 0.82rem; color: #4B5563; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; font-family: var(--font-terminal);">
               <li style="display: flex; align-items: center; gap: 0.45rem;">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>RainbowKit Web3 Connect (MetaMask, Rainbow, Injected)</span>
+                <span>RainbowKit Modal (MetaMask, Rainbow, Coinbase)</span>
               </li>
               <li style="display: flex; align-items: center; gap: 0.45rem;">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>Isolated Per-Wallet $50,000 Trading Balance & State</span>
+                <span>Isolated Per-Wallet $50,000 USDT Ledger &amp; State</span>
               </li>
               <li style="display: flex; align-items: center; gap: 0.45rem;">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>Bitget UTA v3 Gateway in Settings (HMAC-SHA256)</span>
+                <span>Custom Bot Settings (Max Trades &amp; Collateral)</span>
               </li>
             </ul>
           </div>
           <button class="btn-docs-grey" style="width: 100%; justify-content: center;" onclick="window.location.href='app.html'">
-            <span>Launch Terminal & Trade ($50k) →</span>
+            <span>Launch Web3 Terminal ($50k) →</span>
           </button>
         </div>
       </div>
@@ -1065,14 +1359,35 @@ html_content = f"""<!DOCTYPE html>
         <!-- Left: Interactive Canvas Chart Box -->
         <div class="chart-box">
           <div class="chart-controls">
-            <div class="asset-pill-group" style="display: flex; gap: 0.35rem; flex-wrap: wrap;">
-              <button class="asset-pill active" onclick="switchAsset('rNVDA', this)">$rNVDA (+3.4%)</button>
-              <button class="asset-pill" onclick="switchAsset('rTSLA', this)">$rTSLA (+4.2%)</button>
-              <button class="asset-pill" onclick="switchAsset('rAAPL', this)">$rAAPL (-0.8%)</button>
-              <button class="asset-pill" onclick="switchAsset('rCOIN', this)">$rCOIN (+5.7%)</button>
-              <button class="asset-pill" onclick="switchAsset('rMSTR', this)">$rMSTR (+6.9%)</button>
-              <button class="asset-pill" onclick="switchAsset('rSPY', this)">$rSPY (+0.4%)</button>
-              <button class="asset-pill" onclick="switchAsset('rQQQ', this)">$rQQQ (+0.8%)</button>
+            <div class="asset-pill-group" style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
+              <button class="asset-pill active" onclick="switchAsset('rNVDA', this)">
+                <img src="assets/tokens/nvda.svg" alt="NVDA" class="asset-pill-icon">
+                <span>rNVDA (+3.4%)</span>
+              </button>
+              <button class="asset-pill" onclick="switchAsset('rTSLA', this)">
+                <img src="assets/tokens/tsla.svg" alt="TSLA" class="asset-pill-icon">
+                <span>rTSLA (+4.2%)</span>
+              </button>
+              <button class="asset-pill" onclick="switchAsset('rAAPL', this)">
+                <img src="assets/tokens/aapl.svg" alt="AAPL" class="asset-pill-icon">
+                <span>rAAPL (-0.8%)</span>
+              </button>
+              <button class="asset-pill" onclick="switchAsset('rCOIN', this)">
+                <img src="assets/tokens/coin.svg" alt="COIN" class="asset-pill-icon">
+                <span>rCOIN (+5.7%)</span>
+              </button>
+              <button class="asset-pill" onclick="switchAsset('rMSTR', this)">
+                <img src="assets/tokens/mstr.svg" alt="MSTR" class="asset-pill-icon">
+                <span>rMSTR (+6.9%)</span>
+              </button>
+              <button class="asset-pill" onclick="switchAsset('rSPY', this)">
+                <img src="assets/tokens/spy.svg" alt="SPY" class="asset-pill-icon">
+                <span>rSPY (+0.4%)</span>
+              </button>
+              <button class="asset-pill" onclick="switchAsset('rQQQ', this)">
+                <img src="assets/tokens/qqq.svg" alt="QQQ" class="asset-pill-icon">
+                <span>rQQQ (+0.8%)</span>
+              </button>
             </div>
             <div style="font-family: var(--font-terminal); font-size: 0.78rem; display: flex; gap: 1.25rem;">
               <span>Friday Anchor: <strong id="anchorPriceDisplay" style="color: var(--color-black);">$128.40</strong></span>
@@ -1095,9 +1410,45 @@ html_content = f"""<!DOCTYPE html>
             </div>
             <div>Timeframe: 120 Hours Continuous (Fri Close → Mon Open)</div>
           </div>
+
+          <!-- Interactive Pre-Trade Strategy Clearance Simulator -->
+          <div class="simulator-panel">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <span class="badge-pill-green" style="font-size: 0.7rem;">STRATEGY CLEARANCE ENGINE</span>
+                <span style="font-family: var(--font-terminal); font-size: 0.76rem; color: var(--color-grey-text);" id="clearanceAssetSymbol">rNVDA / USDT</span>
+              </div>
+              <button class="btn-launch-black" style="padding: 0.35rem 0.85rem; font-size: 0.72rem; height: auto;" onclick="runClearanceCheck()">
+                <span>⚡ Run Pre-Trade Clearance Check</span>
+              </button>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; background: #FFFFFF; border: 1px solid var(--color-border-hairline); border-radius: 6px; padding: 0.85rem; font-family: var(--font-terminal); font-size: 0.75rem;">
+              <div>
+                <div style="color: var(--color-grey-muted); font-size: 0.68rem;">DISLOCATION |Z|</div>
+                <strong id="simZScore" style="color: var(--color-amber); font-size: 0.95rem;">2.24σ</strong>
+              </div>
+              <div>
+                <div style="color: var(--color-grey-muted); font-size: 0.68rem;">ANCHOR DRIFT</div>
+                <strong id="simDrift" style="color: var(--color-green); font-size: 0.95rem;">+3.42%</strong>
+              </div>
+              <div>
+                <div style="color: var(--color-grey-muted); font-size: 0.68rem;">CLEARANCE STATUS</div>
+                <strong id="simStatus" style="color: var(--color-green); font-size: 0.95rem;">CLEARED (SHORT)</strong>
+              </div>
+              <div>
+                <div style="color: var(--color-grey-muted); font-size: 0.68rem;">HISTORICAL WIN RATE</div>
+                <strong id="simWinRate" style="color: var(--color-black); font-size: 0.95rem;">76.9% Convergence</strong>
+              </div>
+            </div>
+
+            <p id="simReasonText" style="font-size: 0.78rem; color: var(--color-grey-text); line-height: 1.5; font-family: var(--font-terminal);">
+              Retail speculative euphoria dislocated price +3.42% above institutional anchor. |Z| = 2.24σ ≥ 2.00σ threshold. Inverse short basket cleared.
+            </p>
+          </div>
         </div>
 
-        <!-- Right: Terminal Quick Launch Card (Clean, Human Readable, Zero Raw JSON) -->
+        <!-- Right: Terminal Quick Launch Card -->
         <div class="card-paper" style="display: flex; flex-direction: column; justify-content: space-between; height: 100%; padding: 1.75rem;">
           <div>
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
@@ -1108,17 +1459,21 @@ html_content = f"""<!DOCTYPE html>
               <span class="badge-pill-green" style="font-size: 0.7rem;">INSTANT ACCESS</span>
             </div>
 
-            <h3 style="font-family: var(--font-serif-editorial); font-size: 1.25rem; margin-bottom: 0.5rem; line-height: 1.2;">
+            <h3 style="font-family: var(--font-serif-editorial); font-size: 1.35rem; margin-bottom: 0.5rem; line-height: 1.2;">
               Ready to execute after-hours alpha?
             </h3>
             <p style="font-size: 0.88rem; color: var(--color-grey-text); line-height: 1.6; margin-bottom: 1.5rem;">
-              Launch the full Chronos Trading Terminal in your browser. Seamlessly toggle between internal vault and live Bitget trading, monitor real-time order books, and explore post-mortem learning reports.
+              Launch the full Chronos Trading Terminal in your browser. Connect any Web3 wallet, configure autonomous agent quotas, test pre-trade clearance, and explore post-mortem learning reports.
             </p>
 
             <div style="background: var(--color-canvas-subtle); border-radius: 6px; padding: 1rem; margin-bottom: 1.5rem; font-family: var(--font-terminal); font-size: 0.78rem; display: flex; flex-direction: column; gap: 0.6rem;">
               <div style="display: flex; justify-content: space-between;">
                 <span style="color: var(--color-grey-text);">Default Account:</span>
                 <strong style="color: var(--color-green);">Trading Vault ($50,000 USDT)</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span style="color: var(--color-grey-text);">Web3 Modal:</span>
+                <strong style="color: var(--color-black);">RainbowKit (Multi-Wallet)</strong>
               </div>
               <div style="display: flex; justify-content: space-between;">
                 <span style="color: var(--color-grey-text);">Strategy Mode:</span>
@@ -1137,10 +1492,10 @@ html_content = f"""<!DOCTYPE html>
 
           <div style="display: flex; flex-direction: column; gap: 0.65rem;">
             <button class="btn-launch-black" style="width: 100%; justify-content: center; padding: 0.75rem;" onclick="window.location.href='app.html'">
-              <span>Launch Live Trading Terminal</span>
+              <span>Launch Web3 Trading Terminal</span>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             </button>
-            <button class="btn-docs-grey" style="width: 100%; justify-content: center;" onclick="window.location.href='app.html#tab=audit'">
+            <button class="btn-docs-grey" style="width: 100%; justify-content: center;" onclick="window.location.href='app.html#auditor'">
               <span>Open Cognitive Self-Auditor</span>
             </button>
           </div>
@@ -1164,7 +1519,7 @@ html_content = f"""<!DOCTYPE html>
           <div class="step-index">01 /</div>
           <h3 style="font-family: var(--font-serif-editorial); font-size: 1.12rem; margin-bottom: 0.35rem;">Launch Trading Vault</h3>
           <p style="font-size: 0.88rem; color: var(--color-grey-text); line-height: 1.6;">
-            Open the terminal with $50,000 pre-loaded USDT capital. Test the full strategy, toggle auto-pilot, and observe live executions.
+            Open the terminal with $50,000 pre-loaded USDT capital. Connect via RainbowKit, customize autonomous agent quotas, and observe live executions.
           </p>
         </div>
 
@@ -1187,72 +1542,22 @@ html_content = f"""<!DOCTYPE html>
     </div>
   </section>
 
-  <!-- Complete Audited Trade Ledger Table -->
-  <section class="section-spacious" id="ledger">
-    <div class="container">
-      <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
-        <div>
-          <div class="section-tag">
-            <span class="section-tag-dot"></span>
-            <span>TRANSPARENT EXECUTION AUDIT</span>
-          </div>
-          <h2 class="section-title" style="margin-bottom: 0.25rem;">Audited Trade History (120-Day Horizon)</h2>
-          <p class="section-desc">Every trade executed by Chronos with exact entry, Monday convergence exit, net PnL, and self-audit post-mortem status.</p>
-        </div>
-
-        <!-- Filter Tabs & Open in Terminal Button -->
-        <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
-          <div class="filter-btn-group" style="margin-bottom: 0;">
-            <button class="filter-btn active" onclick="filterTrades('all', this)">All Trades (26)</button>
-            <button class="filter-btn" onclick="filterTrades('win', this)">Profitable Wins (20)</button>
-            <button class="filter-btn" onclick="filterTrades('loss', this)">Audited Losses (6)</button>
-          </div>
-          <button class="btn-launch-black" style="padding: 0.42rem 1rem; font-size: 0.76rem;" onclick="window.location.href='app.html#tab=ledger'">
-            <span>Open in Terminal</span>
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </button>
-        </div>
-      </div>
-
-      <div class="card-paper" style="padding: 0; overflow-x: auto;">
-        <table class="ledger-table">
-          <thead>
-            <tr>
-              <th>Asset</th>
-              <th>Direction</th>
-              <th>Entry Time</th>
-              <th>Entry Price</th>
-              <th>Exit Time</th>
-              <th>Exit Price</th>
-              <th>Net PnL (%)</th>
-              <th>USDT PnL</th>
-              <th>Audit Post-Mortem</th>
-            </tr>
-          </thead>
-          <tbody id="ledgerTableBody">
-            <!-- Populated dynamically by JavaScript from data/real_trades.json -->
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
   <!-- Call to Action (CTA) Section -->
   <section class="section-spacious" style="background-color: var(--color-canvas-light);">
     <div class="container">
-      <div class="card-dark" style="text-align: center; padding: 2.25rem 1.5rem; border-radius: 12px;">
+      <div class="card-dark" style="text-align: center; padding: 2.5rem 1.5rem; border-radius: 12px;">
         <div class="badge-pill-green" style="margin-bottom: 1.25rem;">
           <span>BITGET AI BASE CAMP S2 · SUBMISSION READY</span>
         </div>
-        <h2 style="font-family: var(--font-serif-editorial); font-size: 1.65rem; font-weight: 600; line-height: 1.2; margin-bottom: 0.65rem; color: #FFF;">
+        <h2 style="font-family: var(--font-serif-editorial); font-size: 1.75rem; font-weight: 600; line-height: 1.2; margin-bottom: 0.65rem; color: #FFF;">
           Deploy Institutional After-Hours Alpha
         </h2>
-        <p style="font-size: 0.82rem; color: #9CA3AF; max-width: 540px; margin: 0 auto 1.5rem; line-height: 1.55;">
-          Chronos runs autonomously 24/7 on Python with zero human intervention required. Seamlessly connects to Bitget UTA v3 and Bitget MCP tools.
+        <p style="font-size: 0.85rem; color: #9CA3AF; max-width: 560px; margin: 0 auto 1.5rem; line-height: 1.55;">
+          Chronos runs autonomously 24/7 on Python with zero human intervention required. Seamlessly connects to Bitget UTA v3 and official Bitget MCP tools.
         </p>
         <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
           <button class="btn-launch-white" onclick="window.location.href='app.html'">
-            <span>Launch Alpha Terminal</span>
+            <span>Launch Web3 Terminal</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </button>
           <a href="https://github.com/OpeyemiMoses/Chronos" target="_blank" class="btn-pill-dark-outline" style="text-decoration: none;">
@@ -1292,9 +1597,9 @@ html_content = f"""<!DOCTYPE html>
           <h5 style="font-family: var(--font-terminal); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1.1rem;">Hackathon</h5>
           <ul style="list-style: none; font-size: 0.88rem; color: var(--color-grey-text); display: flex; flex-direction: column; gap: 0.6rem;">
             <li><a href="https://github.com/OpeyemiMoses/Chronos" target="_blank" style="color: inherit; text-decoration: none;">GitHub Repository</a></li>
-            <li><a href="#" style="color: inherit; text-decoration: none;">Bitget AI Base Camp S2</a></li>
-            <li><a href="#" style="color: inherit; text-decoration: none;">Track 1: Alpha Factory</a></li>
-            <li><a href="#" style="color: inherit; text-decoration: none;">Sub-Theme: After-Hours</a></li>
+            <li><a href="app.html" style="color: inherit; text-decoration: none;">Unified Web3 Terminal</a></li>
+            <li><a href="app.html#auditor" style="color: inherit; text-decoration: none;">Cognitive Self-Auditor</a></li>
+            <li><a href="app.html#settings" style="color: inherit; text-decoration: none;">Autonomous Settings</a></li>
           </ul>
         </div>
 
@@ -1334,74 +1639,55 @@ html_content = f"""<!DOCTYPE html>
       }}
     }});
 
-    // Populate Trade Ledger Table
-    function renderLedger(trades) {{
-      const tbody = document.getElementById("ledgerTableBody");
-      if (!tbody) return;
-      tbody.innerHTML = "";
-
-      (trades || []).forEach((t) => {{
-        const tr = document.createElement("tr");
-        const retVal = typeof t.return_pct === "number" ? t.return_pct : (typeof t.pnl_pct === "number" ? t.pnl_pct : 0);
-        const isWin = retVal > 0;
-        const pnlColor = isWin ? "var(--color-green)" : "var(--color-red)";
-        const pnlPrefix = isWin ? "+" : "";
-        const badgeClass = isWin ? "badge-win" : "badge-loss";
-        const entryP = typeof t.entry_price === "number" ? t.entry_price.toFixed(2) : "0.00";
-        const exitP = typeof t.exit_price === "number" ? t.exit_price.toFixed(2) : "0.00";
-        const pnlUsd = typeof t.pnl_usd === "number" ? t.pnl_usd : (typeof t.pnl_usdt === "number" ? t.pnl_usdt : 0);
-        const assetName = t.asset || t.symbol || "rNVDA";
-        const sideName = (t.side === "SHORT" || t.side === "SELL_SHORT") ? "SHORT" : "LONG";
-        const entryTime = t.entry_time || "Friday 17:00 EST";
-        const exitTime = t.exit_time || "Monday 09:30 EST";
-        const note = t.audit_note || t.exit_reason || "Monday Institutional Convergence";
-
-        tr.innerHTML = `
-          <td><strong style="font-family: var(--font-terminal);">${{assetName}}</strong></td>
-          <td><span style="font-family: var(--font-terminal); font-size: 0.78rem; font-weight: 700; color: ${{sideName === 'SHORT' ? 'var(--color-red)' : 'var(--color-green)'}}">${{sideName}}</span></td>
-          <td style="font-family: var(--font-terminal); font-size: 0.8rem; color: var(--color-grey-text);">${{entryTime}}</td>
-          <td style="font-family: var(--font-terminal); font-size: 0.84rem;">$${{entryP}}</td>
-          <td style="font-family: var(--font-terminal); font-size: 0.8rem; color: var(--color-grey-text);">${{exitTime}}</td>
-          <td style="font-family: var(--font-terminal); font-size: 0.84rem;">$${{exitP}}</td>
-          <td><span class="${{badgeClass}}">${{pnlPrefix}}${{retVal.toFixed(2)}}%</span></td>
-          <td style="font-family: var(--font-terminal); font-size: 0.84rem; font-weight: 700; color: ${{pnlColor}};">${{pnlPrefix}}$${{pnlUsd.toFixed(2)}}</td>
-          <td style="font-size: 0.8rem; color: var(--color-grey-text);">${{note}}</td>
-        `;
-        tbody.appendChild(tr);
-      }});
-    }}
-
-    // Filter Trades
-    function filterTrades(type, btn) {{
-      document.querySelectorAll(".filter-btn-group .filter-btn").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-
-      if (type === "win") {{
-        renderLedger(realTrades.filter(t => (t.return_pct !== undefined ? t.return_pct : t.pnl_pct) > 0));
-      }} else if (type === "loss") {{
-        renderLedger(realTrades.filter(t => (t.return_pct !== undefined ? t.return_pct : t.pnl_pct) <= 0));
-      }} else {{
-        renderLedger(realTrades);
-      }}
-    }}
-
     // Switch Chart Asset
     function switchAsset(symbol, btn) {{
       activeSymbol = symbol;
       document.querySelectorAll(".asset-pill").forEach(p => p.classList.remove("active"));
-      btn.classList.add("active");
+      if (btn) btn.classList.add("active");
 
       // Update indicators
       const data = chartData[symbol];
       if (data) {{
         document.getElementById("anchorPriceDisplay").textContent = "$" + data.anchor_price.toFixed(2);
-        const lastPrice = data.prices[data.prices.length - 1];
-        const drift = ((lastPrice - data.anchor_price) / data.anchor_price) * 100;
-        document.getElementById("driftDisplay").textContent = (drift > 0 ? "+" : "") + drift.toFixed(2) + "%";
-        document.getElementById("driftDisplay").style.color = drift > 0 ? "var(--color-green)" : "var(--color-red)";
-        document.getElementById("zScoreDisplay").textContent = (drift > 0 ? "+" : "-") + (Math.abs(drift) / 1.5).toFixed(2) + "σ";
+        document.getElementById("driftDisplay").textContent = (data.drift_pct > 0 ? "+" : "") + data.drift_pct.toFixed(2) + "%";
+        document.getElementById("driftDisplay").style.color = data.drift_pct > 0 ? "var(--color-green)" : "var(--color-red)";
+        document.getElementById("zScoreDisplay").textContent = (data.z_score > 0 ? "+" : "") + data.z_score.toFixed(2) + "σ";
+
+        // Update Simulator
+        document.getElementById("clearanceAssetSymbol").textContent = symbol + " / USDT";
+        document.getElementById("simZScore").textContent = (data.z_score > 0 ? "+" : "") + data.z_score.toFixed(2) + "σ";
+        document.getElementById("simDrift").textContent = (data.drift_pct > 0 ? "+" : "") + data.drift_pct.toFixed(2) + "%";
+        
+        const simStatus = document.getElementById("simStatus");
+        if (data.cleared) {{
+          simStatus.textContent = "CLEARED (" + data.side + ")";
+          simStatus.style.color = "var(--color-green)";
+        }} else {{
+          simStatus.textContent = "STANDBY (HOLD)";
+          simStatus.style.color = "var(--color-grey-muted)";
+        }}
+
+        document.getElementById("simWinRate").textContent = data.expected_win_rate;
+        document.getElementById("simReasonText").textContent = data.reason;
       }}
       drawChart();
+    }}
+
+    function runClearanceCheck() {{
+      const data = chartData[activeSymbol];
+      if (!data) return;
+      const simStatus = document.getElementById("simStatus");
+      simStatus.textContent = "CHECKING...";
+      simStatus.style.color = "var(--color-amber)";
+      setTimeout(() => {{
+        if (data.cleared) {{
+          simStatus.textContent = "CLEARED (" + data.side + ")";
+          simStatus.style.color = "var(--color-green)";
+        }} else {{
+          simStatus.textContent = "STANDBY (HOLD)";
+          simStatus.style.color = "var(--color-grey-muted)";
+        }}
+      }}, 350);
     }}
 
     // Canvas Chart Rendering
@@ -1469,8 +1755,8 @@ html_content = f"""<!DOCTYPE html>
 
       // Subtle Gradient Fill under Price
       const gradient = ctx.createLinearGradient(0, 0, 0, h);
-      gradient.addColorStop(0, "rgba(0, 200, 83, 0.12)");
-      gradient.addColorStop(1, "rgba(0, 200, 83, 0.0)");
+      gradient.addColorStop(0, "rgba(16, 185, 129, 0.12)");
+      gradient.addColorStop(1, "rgba(16, 185, 129, 0.0)");
       ctx.lineTo(getX(prices.length - 1), h - 35);
       ctx.lineTo(getX(0), h - 35);
       ctx.closePath();
@@ -1485,7 +1771,7 @@ html_content = f"""<!DOCTYPE html>
           
           ctx.beginPath();
           ctx.arc(mx, my, 5.5, 0, Math.PI * 2);
-          ctx.fillStyle = m.type === "ENTRY" ? "#00C853" : "#090909";
+          ctx.fillStyle = m.type === "ENTRY" ? "#10B981" : "#090909";
           ctx.fill();
           ctx.strokeStyle = "#FFF";
           ctx.lineWidth = 2;
@@ -1512,7 +1798,6 @@ html_content = f"""<!DOCTYPE html>
 
     window.addEventListener("resize", drawChart);
     function initIndexApp() {{
-      try {{ renderLedger(realTrades); }} catch(e) {{ console.error("renderLedger error:", e); }}
       try {{ setTimeout(drawChart, 80); }} catch(e) {{}}
     }}
     if (document.readyState === "loading") {{

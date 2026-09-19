@@ -1090,13 +1090,14 @@ RAINBOWKIT_JS = '''
       }).join("");
     }
 
-    // Master Header Widget Renderer (Only mounted in Terminal app.html)
+    // Master Header Widget Renderer
+    // When the official RainbowKit React bundle is loaded, it manages the container DOM itself.
+    // This function is only used as a fallback when the bundle is absent.
     function renderRainbowHeader() {
-      if (window.__rkMounted || document.querySelector('[data-rk]')) {
-        return;
-      }
+      // If the React bundle has already rendered [data-rk] into the container, do not overwrite it.
       const container = document.getElementById("rainbowkitHeaderContainer");
       if (!container) return;
+      if (container.querySelector('[data-rk]') || window.__rkMounted) return;
 
       const addr = ChronosWalletStore.currentAddress;
       if (!addr) {

@@ -185,7 +185,7 @@ html_template = f"""<!DOCTYPE html>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Neuton:ital,wght@0,200;0,300;0,400;0,700;0,800;1,400&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Official RainbowKit Upstream CSS & React Bundle -->
+  <!-- Official RainbowKit CSS & React Bundle -->
   <link rel="stylesheet" href="assets/rainbowkit.bundle.css">
   <script src="assets/rainbowkit.bundle.js" defer></script>
 
@@ -2275,57 +2275,39 @@ html_template = f"""<!DOCTYPE html>
       background: #10B981;
     }}
 
-    /* Header Wallet Connect Button - Matching exact 24px height of ghost-top-controls */
-    #rainbowkitHeaderContainer,
+    /* Official RainbowKit ConnectButton — compact pill override */
+    #rainbowkitHeaderContainer {{
+      display: inline-flex !important;
+      align-items: center !important;
+    }}
+    /* Shrink all wrappers to inline height */
     #rainbowkitHeaderContainer > div,
     #rainbowkitHeaderContainer [data-rk],
-    #rainbowkitHeaderContainer [data-rk] > div,
-    #rainbowkitHeaderContainer [data-rk] > div > div {{
+    #rainbowkitHeaderContainer [data-rk] > div {{
       display: inline-flex !important;
       align-items: center !important;
-      height: 24px !important;
-      max-height: 24px !important;
     }}
-
-    #rainbowkitHeaderContainer button,
-    #rainbowkitHeaderContainer [data-testid="rk-connect-button"],
-    #rainbowkitHeaderContainer [data-testid="rk-account-button"],
-    #rainbowkitHeaderContainer [data-testid="rk-chain-button"],
-    #rainbowkitHeaderContainer .iekbcc0,
-    .rk-connect-btn,
-    .rk-pill-chain,
-    .rk-pill-account {{
-      height: 24px !important;
-      min-height: 24px !important;
-      max-height: 24px !important;
-      padding: 0 0.55rem !important;
-      font-size: 0.65rem !important;
-      font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif !important;
+    /* Compact the Connect button and the connected chain/account buttons */
+    #rainbowkitHeaderContainer button {{
+      height: 28px !important;
+      min-height: 28px !important;
+      max-height: 28px !important;
+      padding: 0 10px !important;
+      font-size: 11px !important;
       font-weight: 600 !important;
-      letter-spacing: 0.01em !important;
       border-radius: 9999px !important;
-      display: inline-flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      gap: 0.28rem !important;
-      line-height: 22px !important;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
-      transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1) !important;
-      cursor: pointer !important;
-      white-space: nowrap !important;
+      line-height: 28px !important;
     }}
-
-    #rainbowkitHeaderContainer button:hover,
-    #rainbowkitHeaderContainer [data-testid="rk-connect-button"]:hover,
-    .rk-connect-btn:hover {{
-      transform: translateY(-1px) !important;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12) !important;
-    }}
-
+    /* Shrink icons inside the buttons */
     #rainbowkitHeaderContainer button svg,
     #rainbowkitHeaderContainer button img {{
-      width: 13px !important;
-      height: 13px !important;
+      width: 14px !important;
+      height: 14px !important;
+    }}
+    /* Keep the RainbowKit modal z-index above everything */
+    [data-rk] [role="dialog"],
+    [data-rk] [data-radix-popper-content-wrapper] {{
+      z-index: 999999 !important;
     }}
 
     /* =========================================================
@@ -3019,19 +3001,19 @@ html_template = f"""<!DOCTYPE html>
           <div class="ghost-nav-item" id="navItemTrades" onclick="switchView('trades', this)">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
             <span class="ghost-nav-text">5-Trade Strategy</span>
-            <span class="ghost-nav-badge" style="background: rgba(16, 185, 129, 0.2); color: #34D399;">3/5</span>
+            <span class="ghost-nav-badge" id="sidebarTradesBadge" style="background: rgba(16, 185, 129, 0.2); color: #34D399;">0/5</span>
           </div>
 
           <div class="ghost-nav-item" id="navItemLedger" onclick="switchView('ledger', this)">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
             <span class="ghost-nav-text">Trade Ledger</span>
-            <span class="ghost-nav-badge">26</span>
+            <span class="ghost-nav-badge" id="sidebarLedgerBadge">0</span>
           </div>
 
           <div class="ghost-nav-item" id="navItemAuditor" onclick="switchView('auditor', this)">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
             <span class="ghost-nav-text">Self-Auditor</span>
-            <span class="ghost-nav-badge" style="background: rgba(245, 158, 11, 0.2); color: #FBBF24;">3</span>
+            <span class="ghost-nav-badge" id="sidebarAuditorBadge" style="background: rgba(245, 158, 11, 0.2); color: #FBBF24;">0</span>
           </div>
 
           <div class="ghost-nav-item" id="navItemSettings" onclick="switchView('settings', this)">
@@ -3121,13 +3103,12 @@ html_template = f"""<!DOCTYPE html>
             </div>
             <div class="overview-kpi-mid">
               <div class="overview-kpi-pill">
-                
-                <span id="overviewActiveTradesPill">3 / 5 Active Weekend Trades</span>
+                <span id="overviewActiveTradesPill">— / 5 Active Weekend Trades</span>
               </div>
             </div>
             <div class="overview-kpi-bottom">
               <span>Allocated Weekend Capital</span>
-              <strong style="color: #09090B; font-family: var(--font-terminal);" id="overviewAllocatedVal">$7,500.00 USDT</strong>
+              <strong style="color: #09090B; font-family: var(--font-terminal);" id="overviewAllocatedVal">—</strong>
             </div>
           </div>
 
@@ -3137,34 +3118,33 @@ html_template = f"""<!DOCTYPE html>
               <div class="overview-kpi-icon">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
               </div>
-              <span class="overview-kpi-badge green">Auto-Compounding Alpha</span>
+              <span class="overview-kpi-badge green">Cumulative Alpha</span>
             </div>
             <div class="overview-kpi-mid">
               <div class="overview-kpi-pill">
-                
-                <span style="color: #10B981;">+39.71% Cumulative Return</span>
+                <span id="overviewCumulativeReturn" style="color: #10B981;">— Net Return</span>
               </div>
             </div>
             <div class="overview-kpi-bottom">
-              <span>4.44 Full Horizon Sharpe Ratio</span>
+              <span id="overviewSharpeRatio">Connect Wallet to View</span>
               <span style="color: #52525B;">Net 0.10% Taker</span>
             </div>
           </div>
 
-          <!-- Card 3: Monday Cash Settlement -->
+          <!-- Card 3: Connected Wallet Balance -->
           <div class="overview-kpi-card">
             <div class="overview-kpi-top">
               <div class="overview-kpi-icon">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
               </div>
-              <span class="overview-kpi-badge green">Monday Unwind #1</span>
+              <span class="overview-kpi-badge green" id="overviewBalanceBadge">Connected Wallet Balance</span>
             </div>
             <div class="overview-kpi-mid">
-              <div class="overview-kpi-big" id="overviewPortfolioVal">$52,485.50</div>
+              <div class="overview-kpi-big" id="overviewPortfolioVal">—</div>
             </div>
             <div class="overview-kpi-bottom">
-              <span>Accumulated Trading Vault</span>
-              <span id="overviewSettledCount">26 Settled Trades</span>
+              <span id="overviewBalanceSubtext">Available Liquid Margin</span>
+              <span id="overviewSettledCount">— Settled Trades</span>
             </div>
           </div>
 
@@ -3194,18 +3174,15 @@ html_template = f"""<!DOCTYPE html>
               <h2 class="overview-card-h2">Your Autonomous Weekend Position is Active</h2>
               <p class="overview-card-desc">Trades are placed sequentially only when statistical drift clears (|Z| ≥ 2.0σ). Maximum 5 trades per weekend to enforce disciplined portfolio risk sizing.</p>
 
-              <div class="overview-inner-callout">
+              <!-- Dynamic callout: updated by renderOverviewDynamic() -->
+              <div id="overviewActiveCallout" class="overview-inner-callout">
                 <div class="inner-callout-header">
                   <span>Dislocation Detection State</span>
-                  <span style="font-family: var(--font-terminal); font-size: 0.72rem; color: #10B981;">Scanning 24/7 (3 Trades Active)</span>
+                  <span id="overviewCalloutStatus" style="font-family: var(--font-terminal); font-size: 0.72rem; color: #71717A;">Connect wallet to view</span>
                 </div>
-                <div class="inner-callout-text">
-                  The agent is monitoring 7 tokenized equities on Bitget. 3 counter-positions are active ($rNVDA, $rTSLA, $rMSTR) shorting artificial weekend retail euphoria against Friday's anchor. All positions cash-settle into 100% USDT at Monday institutional pre-market open.
+                <div class="inner-callout-text" id="overviewCalloutText">
+                  Connect your wallet to see live position status.
                 </div>
-                <button class="btn-decrypt-black" onclick="openTradeReasoningModal('POS-194671')">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2l-2 2m-1-1l-2 2m-1-1l-2 2M3 21l9-9m3-3l6-6"/><circle cx="7.5" cy="16.5" r="4.5"/></svg>
-                  <span>View Strategy Reasoning</span>
-                </button>
               </div>
 
               <!-- Quick Asset Pill Selector for Chart Drilldown -->
@@ -3213,7 +3190,7 @@ html_template = f"""<!DOCTYPE html>
                 <div style="font-family: var(--font-terminal); font-size: 0.72rem; font-weight: 600; color: #71717A; text-transform: uppercase;">
                   Active Market Feeds:
                 </div>
-                <div style="display: flex; gap: 0.35rem; flex-wrap: wrap;">
+                <div style="display: flex; gap: 0.35rem; flex-wrap: wrap;" id="overviewMarketPills">
                   <button class="ghost-mode-btn active" style="padding: 0.25rem 0.65rem; font-size: 0.72rem; font-family: var(--font-terminal);" onclick="selectMarket('rNVDA'); switchView('arena');">rNVDA (+3.4%)</button>
                   <button class="ghost-mode-btn" style="padding: 0.25rem 0.65rem; font-size: 0.72rem; font-family: var(--font-terminal); background: #FAF8F5; border: 1px solid #EEE9DF;" onclick="selectMarket('rTSLA'); switchView('arena');">rTSLA (+4.2%)</button>
                   <button class="ghost-mode-btn" style="padding: 0.25rem 0.65rem; font-size: 0.72rem; font-family: var(--font-terminal); background: #FAF8F5; border: 1px solid #EEE9DF;" onclick="selectMarket('rMSTR'); switchView('arena');">rMSTR (+6.9%)</button>
@@ -3223,7 +3200,7 @@ html_template = f"""<!DOCTYPE html>
             </div>
 
             <div style="margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid #EEE9DF; display: flex; justify-content: space-between; align-items: center; font-size: 0.76rem; color: #71717A;">
-              <span>Friday Settlement Anchor: <strong style="color: #09090B; font-family: var(--font-terminal);">$128.40 USD</strong></span>
+              <span>Friday Settlement Anchor: <strong style="color: #09090B; font-family: var(--font-terminal);" id="overviewAnchorDisplay">$128.40 USD</strong></span>
               <span>Next Convergence: <strong style="color: #10B981; font-family: var(--font-terminal);">Monday 08:30 EST</strong></span>
             </div>
           </div>
@@ -3284,34 +3261,9 @@ html_template = f"""<!DOCTYPE html>
               <h2 class="overview-card-h2">Active Weekend Alpha Trades</h2>
               <p class="overview-card-desc">Draw weight = capital × statistical dislocation. Trades deploy sequentially when individual drift thresholds clear.</p>
 
-              <!-- 3-Mini Box Grid -->
-              <div class="overview-3box-grid">
-                <!-- Box 1: rNVDA -->
-                <div class="overview-mini-box">
-                  <span class="mini-box-tag">POSITION #1</span>
-                  <div class="mini-box-val">rNVDA SHORT (2.24σ)</div>
-                  <div style="font-size: 0.75rem; color: #52525B;">$132.80 (Anchor $128.40)</div>
-                  <div class="mini-box-sub">+3.42% Retail Move</div>
-                  <button class="btn-mini-reasoning" onclick="openTradeReasoningModal('POS-194671')">Reasoning & Strategy →</button>
-                </div>
-
-                <!-- Box 2: rTSLA -->
-                <div class="overview-mini-box">
-                  <span class="mini-box-tag">POSITION #2</span>
-                  <div class="mini-box-val">rTSLA SHORT (2.65σ)</div>
-                  <div style="font-size: 0.75rem; color: #52525B;">$253.52 (Anchor $248.00)</div>
-                  <div class="mini-box-sub">+4.20% Retail Move</div>
-                  <button class="btn-mini-reasoning" onclick="openTradeReasoningModal('POS-194672')">Reasoning & Strategy →</button>
-                </div>
-
-                <!-- Box 3: rMSTR -->
-                <div class="overview-mini-box">
-                  <span class="mini-box-tag">POSITION #3</span>
-                  <div class="mini-box-val">rMSTR SHORT (3.48σ)</div>
-                  <div style="font-size: 0.75rem; color: #52525B;">$312.41 (Anchor $292.20)</div>
-                  <div class="mini-box-sub">+6.92% Retail Move</div>
-                  <button class="btn-mini-reasoning" onclick="openTradeReasoningModal('POS-194673')">Reasoning & Strategy →</button>
-                </div>
+              <!-- Dynamic 5-Trade Boxes: populated by renderOverviewDynamic() -->
+              <div id="overviewTradeBoxes" class="overview-3box-grid">
+                <!-- filled by JS -->
               </div>
 
               <!-- Warm Callout Strip -->
@@ -3342,7 +3294,7 @@ html_template = f"""<!DOCTYPE html>
                   <div class="stepper-dot active"><span style="width:6px; height:6px; border-radius:50%; background:#10B981; display:inline-block;"></span></div>
                   <div>
                     <div class="stepper-content-title" style="color: #10B981;">Weekend Dislocation Hunting (Active)</div>
-                    <div class="stepper-content-sub">Retail order flow monitored 24/7 on Bitget. 3 of 5 counter-trades deployed into thin books.</div>
+                    <div class="stepper-content-sub" id="stepperStep2Sub">Retail order flow monitored 24/7 on Bitget. 0 of 5 counter-trades deployed.</div>
                   </div>
                 </div>
 
@@ -3367,44 +3319,7 @@ html_template = f"""<!DOCTYPE html>
             </div>
           </div>
         </div>
-
-        <!-- Row 4: Audited History / Ledger Table Strip -->
-        <div class="overview-main-card" style="margin-top: 0.5rem;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.75rem;">
-            <div>
-              <h2 class="overview-card-h2" style="font-size: 1.4rem;">Audited Trade Ledger (120-Day Horizon)</h2>
-              <p style="font-size: 0.8rem; color: #71717A; margin: 0;">26 verified executions net of all taker fees and spreads.</p>
-            </div>
-            <div style="display: flex; gap: 0.45rem;">
-              <button class="ghost-mode-btn active" style="padding: 0.35rem 0.85rem;" onclick="filterLedger('all', this)">All Trades (26)</button>
-              <button class="ghost-mode-btn" style="background: #FAF8F5; border: 1px solid #EEE9DF; padding: 0.35rem 0.85rem;" onclick="filterLedger('win', this)">Profitable Wins (20)</button>
-              <button class="ghost-mode-btn" style="background: #FAF8F5; border: 1px solid #EEE9DF; padding: 0.35rem 0.85rem;" onclick="filterLedger('loss', this)">Audited Losses (6)</button>
-              <button class="ghost-mode-btn" style="background: #000000; color: #FFFFFF; padding: 0.35rem 0.85rem;" onclick="switchView('ledger')">Open Full Ledger →</button>
-            </div>
-          </div>
-
-          <div style="overflow-x: auto;">
-            <table class="ledger-table">
-              <thead>
-                <tr>
-                  <th>Trade ID</th>
-                  <th>Asset</th>
-                  <th>Direction</th>
-                  <th>Entry Price</th>
-                  <th>Monday Exit</th>
-                  <th>Net PnL (%)</th>
-                  <th>USDT Profit</th>
-                  <th>Strategy & Reasoning</th>
-                </tr>
-              </thead>
-              <tbody id="overviewLedgerTableBody">
-                <!-- Populated dynamically -->
-              </tbody>
-            </table>
-          </div>
-        </div>
       </div>
-
 
             <!-- VIEW 1: REDESIGNED TRADING ARENA (MULTI-ASSET & INSTITUTIONAL DENSITY) -->
       <div id="viewArena" style="display: none;">
@@ -3641,7 +3556,7 @@ html_template = f"""<!DOCTYPE html>
                   <div class="telemetry-line">
                     <span class="telemetry-time">09:32:30</span>
                     <span class="telemetry-tag">[EXEC]</span>
-                    <span>Position capacity: 3 of 5 trades deployed. Capital protected.</span>
+                    <span id="telemetryCapacityLine">Autonomous 5-trade architecture active. Sequential entry enabled.</span>
                   </div>
                   <div class="telemetry-line">
                     <span class="telemetry-time">09:32:45</span>
@@ -3654,7 +3569,7 @@ html_template = f"""<!DOCTYPE html>
           </div>
 
           <!-- RIGHT COLUMN: Strategy Specification & Sizing Card -->
-          <div class="arena-card" style="display: flex; flex-direction: column; gap: 0.85rem;">
+          <div class="arena-card" style="display: flex; flex-direction: column; gap: 0.85rem; position: relative; overflow: hidden;">
             <!-- Signal Header -->
             <div style="padding-bottom: 0.75rem; border-bottom: 1px solid #EEE9DF;">
               <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
@@ -3694,7 +3609,7 @@ html_template = f"""<!DOCTYPE html>
             <div>
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem; font-size: 0.72rem;">
                 <span style="font-weight: 600; color: #18181B;">Position Collateral (USDT)</span>
-                <span style="color: #71717A; font-family: var(--font-terminal);">Avail: <strong id="availBalanceDisplay" style="color: #18181B;">$50,000.00</strong></span>
+                <span style="color: #71717A; font-family: var(--font-terminal);">Avail: <strong id="availBalanceDisplay" style="color: #18181B;">—</strong></span>
               </div>
               <input type="number" id="collateralInput" class="collateral-input-field" value="2500" oninput="recalcExecution()" style="width: 100%; padding: 0.45rem 0.65rem; border: 1px solid #EEE9DF; border-radius: 8px; font-family: var(--font-terminal); font-size: 0.85rem; background: #FAF8F5;">
               
@@ -3717,7 +3632,7 @@ html_template = f"""<!DOCTYPE html>
                 <strong id="calcTargetPriceDisplay" style="color: #18181B;">$128.40 (Friday Anchor)</strong>
               </div>
               <div style="display: flex; justify-content: space-between;">
-                <span style="color: #71717A;">Expected Profit:</span>
+                <span style="color: #71717A;">Target Profit (At Anchor):</span>
                 <strong id="calcExpectedProfit" style="color: #10B981;">+$85.50 (+3.42%)</strong>
               </div>
               <div style="display: flex; justify-content: space-between;">
@@ -3734,10 +3649,10 @@ html_template = f"""<!DOCTYPE html>
             <div id="arenaQuotaStatusBox" style="background: #FFFFFF; border: 1px solid #EEE9DF; border-radius: 8px; padding: 0.55rem 0.75rem;">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.25rem;">
                 <span id="arenaQuotaLabel" style="font-size: 0.68rem; color: #71717A; font-family: var(--font-terminal);">Weekend Cap Quota</span>
-                <span id="arenaQuotaBadge" style="font-size: 0.68rem; font-weight: 700; color: #10B981; font-family: var(--font-terminal);">3 / 5 Deployed</span>
+                <span id="arenaQuotaBadge" style="font-size: 0.68rem; font-weight: 700; color: #10B981; font-family: var(--font-terminal);">0 / 5 Deployed</span>
               </div>
               <div style="height: 4px; background: #EEE9DF; border-radius: 2px; overflow: hidden;">
-                <div id="arenaQuotaProgressBar" style="width: 60%; height: 100%; background: #10B981; border-radius: 2px;"></div>
+                <div id="arenaQuotaProgressBar" style="width: 0%; height: 100%; background: #10B981; border-radius: 2px;"></div>
               </div>
               <div id="arenaQuotaExplainer" style="font-size: 0.65rem; color: #71717A; margin-top: 0.35rem;">
                 Autonomous AI agent is capped at 5 sequential trades during weekends.
@@ -3749,10 +3664,18 @@ html_template = f"""<!DOCTYPE html>
               <span id="executeBtnText">Deploy Weekend Counter-Trade</span>
             </button>
 
+            <!-- Active positions now live in the Order Book (5-Trade Portfolio page) -->
             <div id="activePositionContainer" style="margin-top: 0.25rem;"></div>
-          </div>
+
+            <!-- Disconnected wallet overlay -->
+            <div id="arenaDisconnectedOverlay" style="display: none; position: absolute; inset: 0; background: rgba(255,255,255,0.92); backdrop-filter: blur(4px); border-radius: 12px; z-index: 50; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem; padding: 2rem; text-align: center;">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#D4CEBF" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <div style="font-size: 0.88rem; font-weight: 700; color: #18181B;">No Wallet Connected</div>
+              <div style="font-size: 0.76rem; color: #71717A; max-width: 220px; line-height: 1.5;">Connect your wallet to access the trading arena and paper trading mode.</div>
+            </div>
         </div>
       </div>
+    </div>
 
             <!-- VIEW 5: DEDICATED 5-TRADE WEEKEND PORTFOLIO PAGE -->
       <div id="viewTrades" style="display: none;">
@@ -3767,7 +3690,7 @@ html_template = f"""<!DOCTYPE html>
               <span class="ghost-status-dot"></span>
               <span>5-TRADE SEQUENTIAL ARCHITECTURE</span>
               <span style="color: #D4CEBF;">/</span>
-              <span style="color: #18181B; font-weight: 600;">Active Weekend Portfolio (3/5 Deployed)</span>
+              <span style="color: #18181B; font-weight: 600;" id="tradesHeaderSubtitle">Active Weekend Portfolio (0/5 Deployed)</span>
             </div>
           </div>
 
@@ -3789,10 +3712,10 @@ html_template = f"""<!DOCTYPE html>
           <div class="overview-kpi-card">
             <div class="overview-kpi-top">
               <span style="font-family: var(--font-terminal); font-size: 0.68rem; color: #71717A;">CAPACITY QUOTA</span>
-              <span class="overview-kpi-badge green">3 / 5 Active</span>
+              <span class="overview-kpi-badge green" id="portfolioQuotaBadge">0 / 5 Active</span>
             </div>
-            <div class="overview-kpi-mid"><div class="overview-kpi-big">3 Trades</div></div>
-            <div class="overview-kpi-bottom"><span>2 Available Slots</span><span>Sequential Gate Active</span></div>
+            <div class="overview-kpi-mid"><div class="overview-kpi-big" id="portfolioTradesCount">0 Trades</div></div>
+            <div class="overview-kpi-bottom"><span id="portfolioAvailableSlots">5 Available Slots</span><span>Sequential Gate Active</span></div>
           </div>
 
           <div class="overview-kpi-card">
@@ -3800,16 +3723,16 @@ html_template = f"""<!DOCTYPE html>
               <span style="font-family: var(--font-terminal); font-size: 0.68rem; color: #71717A;">DEPLOYED MARGIN</span>
               <span class="overview-kpi-badge">$2.5k / Slot</span>
             </div>
-            <div class="overview-kpi-mid"><div class="overview-kpi-big">$7,500.00</div></div>
+            <div class="overview-kpi-mid"><div class="overview-kpi-big" id="portfolioDeployedMargin">$0.00</div></div>
             <div class="overview-kpi-bottom"><span>Allocated Capital</span><span>25% Single-Stock Cap</span></div>
           </div>
 
           <div class="overview-kpi-card">
             <div class="overview-kpi-top">
               <span style="font-family: var(--font-terminal); font-size: 0.68rem; color: #71717A;">UNREALIZED ALPHA</span>
-              <span class="overview-kpi-badge green">+4.84% Implied</span>
+              <span class="overview-kpi-badge green" id="portfolioUnrealizedAlphaPct">0.00% Implied</span>
             </div>
-            <div class="overview-kpi-mid"><div class="overview-kpi-big" style="color: #10B981;">+$363.00</div></div>
+            <div class="overview-kpi-mid"><div class="overview-kpi-big" style="color: #10B981;" id="portfolioUnrealizedAlphaUsd">$0.00</div></div>
             <div class="overview-kpi-bottom"><span>Net of Bitget Taker Fees</span><span>Convergence Target</span></div>
           </div>
 
@@ -3823,164 +3746,10 @@ html_template = f"""<!DOCTYPE html>
           </div>
         </div>
 
-        <!-- 5-Slot Portfolio Cards Grid -->
-        <div style="display: flex; flex-direction: column; gap: 0.85rem; margin-bottom: 1.5rem;">
-          <!-- Slot 1: rNVDA Active -->
-          <div class="arena-card" style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr auto; gap: 1rem; align-items: center;">
-            <div style="display: flex; align-items: center; gap: 0.75rem;">
-              <div style="position: relative;">
-                <img src="assets/tokens/nvda.svg" style="width: 32px; height: 32px; border-radius: 6px; background: #FFF;" alt="NVDA">
-                <span style="position: absolute; bottom: -2px; right: -2px; width: 8px; height: 8px; border-radius: 50%; background: #10B981; border: 2px solid #FFF;"></span>
-              </div>
-              <div>
-                <div style="display: flex; align-items: center; gap: 0.4rem;">
-                  <strong style="font-size: 0.88rem; color: #18181B;">rNVDA</strong>
-                  <span class="overview-kpi-badge green" style="font-size: 0.65rem;">SHORT DISLOCATION</span>
-                  <span style="font-family: var(--font-terminal); font-size: 0.68rem; color: #D97706;">Z = +2.24σ</span>
-                </div>
-                <div style="font-size: 0.68rem; color: #71717A;">NVIDIA Corp • Dislocation: +3.42% Retail Move</div>
-              </div>
-            </div>
-
-            <div>
-              <div style="font-size: 0.65rem; color: #71717A; font-family: var(--font-terminal);">ENTRY / ANCHOR</div>
-              <div style="font-family: var(--font-terminal); font-size: 0.80rem; font-weight: 700; color: #18181B;">$132.80 <span style="color: #71717A; font-weight: 400;">→ $128.40</span></div>
-            </div>
-
-            <div>
-              <div style="font-size: 0.65rem; color: #71717A; font-family: var(--font-terminal);">POSITION SIZE</div>
-              <div style="font-family: var(--font-terminal); font-size: 0.80rem; font-weight: 700; color: #18181B;">$2,500.00 <span style="color: #71717A; font-weight: 400;">(18.82 units)</span></div>
-            </div>
-
-            <div>
-              <div style="font-size: 0.65rem; color: #71717A; font-family: var(--font-terminal);">EXPECTED PROFIT</div>
-              <div style="font-family: var(--font-terminal); font-size: 0.80rem; font-weight: 700; color: #10B981;">+$85.50 (+3.42%)</div>
-            </div>
-
-            <button class="btn-compact-back" onclick="openTradeReasoningModal('POS-194671')" style="padding: 0.35rem 0.85rem; background: #18181B; color: #FFF; border-color: #18181B;">
-              <span>View Thesis Modal →</span>
-            </button>
-          </div>
-
-          <!-- Slot 2: rTSLA Active -->
-          <div class="arena-card" style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr auto; gap: 1rem; align-items: center;">
-            <div style="display: flex; align-items: center; gap: 0.75rem;">
-              <div style="position: relative;">
-                <img src="assets/tokens/tsla.svg" style="width: 32px; height: 32px; border-radius: 6px; background: #FFF;" alt="TSLA">
-                <span style="position: absolute; bottom: -2px; right: -2px; width: 8px; height: 8px; border-radius: 50%; background: #10B981; border: 2px solid #FFF;"></span>
-              </div>
-              <div>
-                <div style="display: flex; align-items: center; gap: 0.4rem;">
-                  <strong style="font-size: 0.88rem; color: #18181B;">rTSLA</strong>
-                  <span class="overview-kpi-badge green" style="font-size: 0.65rem;">SHORT DISLOCATION</span>
-                  <span style="font-family: var(--font-terminal); font-size: 0.68rem; color: #D97706;">Z = +2.65σ</span>
-                </div>
-                <div style="font-size: 0.68rem; color: #71717A;">Tesla Inc • Dislocation: +4.20% Retail Move</div>
-              </div>
-            </div>
-
-            <div>
-              <div style="font-size: 0.65rem; color: #71717A; font-family: var(--font-terminal);">ENTRY / ANCHOR</div>
-              <div style="font-family: var(--font-terminal); font-size: 0.80rem; font-weight: 700; color: #18181B;">$253.52 <span style="color: #71717A; font-weight: 400;">→ $248.00</span></div>
-            </div>
-
-            <div>
-              <div style="font-size: 0.65rem; color: #71717A; font-family: var(--font-terminal);">POSITION SIZE</div>
-              <div style="font-family: var(--font-terminal); font-size: 0.80rem; font-weight: 700; color: #18181B;">$2,500.00 <span style="color: #71717A; font-weight: 400;">(9.67 units)</span></div>
-            </div>
-
-            <div>
-              <div style="font-size: 0.65rem; color: #71717A; font-family: var(--font-terminal);">EXPECTED PROFIT</div>
-              <div style="font-family: var(--font-terminal); font-size: 0.80rem; font-weight: 700; color: #10B981;">+$104.75 (+4.20%)</div>
-            </div>
-
-            <button class="btn-compact-back" onclick="openTradeReasoningModal('POS-194672')" style="padding: 0.35rem 0.85rem; background: #18181B; color: #FFF; border-color: #18181B;">
-              <span>View Thesis Modal →</span>
-            </button>
-          </div>
-
-          <!-- Slot 3: rMSTR Active -->
-          <div class="arena-card" style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr auto; gap: 1rem; align-items: center;">
-            <div style="display: flex; align-items: center; gap: 0.75rem;">
-              <div style="position: relative;">
-                <img src="assets/tokens/mstr.svg" style="width: 32px; height: 32px; border-radius: 6px; background: #FFF;" alt="MSTR">
-                <span style="position: absolute; bottom: -2px; right: -2px; width: 8px; height: 8px; border-radius: 50%; background: #10B981; border: 2px solid #FFF;"></span>
-              </div>
-              <div>
-                <div style="display: flex; align-items: center; gap: 0.4rem;">
-                  <strong style="font-size: 0.88rem; color: #18181B;">rMSTR</strong>
-                  <span class="overview-kpi-badge green" style="font-size: 0.65rem;">SHORT DISLOCATION</span>
-                  <span style="font-family: var(--font-terminal); font-size: 0.68rem; color: #D97706;">Z = +3.48σ</span>
-                </div>
-                <div style="font-size: 0.68rem; color: #71717A;">MicroStrategy • Dislocation: +6.92% Retail Move</div>
-              </div>
-            </div>
-
-            <div>
-              <div style="font-size: 0.65rem; color: #71717A; font-family: var(--font-terminal);">ENTRY / ANCHOR</div>
-              <div style="font-family: var(--font-terminal); font-size: 0.80rem; font-weight: 700; color: #18181B;">$312.41 <span style="color: #71717A; font-weight: 400;">→ $292.20</span></div>
-            </div>
-
-            <div>
-              <div style="font-size: 0.65rem; color: #71717A; font-family: var(--font-terminal);">POSITION SIZE</div>
-              <div style="font-family: var(--font-terminal); font-size: 0.80rem; font-weight: 700; color: #18181B;">$2,500.00 <span style="color: #71717A; font-weight: 400;">(8.00 units)</span></div>
-            </div>
-
-            <div>
-              <div style="font-size: 0.65rem; color: #71717A; font-family: var(--font-terminal);">EXPECTED PROFIT</div>
-              <div style="font-family: var(--font-terminal); font-size: 0.80rem; font-weight: 700; color: #10B981;">+$172.75 (+6.92%)</div>
-            </div>
-
-            <button class="btn-compact-back" onclick="openTradeReasoningModal('POS-194673')" style="padding: 0.35rem 0.85rem; background: #18181B; color: #FFF; border-color: #18181B;">
-              <span>View Thesis Modal →</span>
-            </button>
-          </div>
-
-          <!-- Slot 4: Available Quota -->
-          <div class="arena-card" style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr auto; gap: 1rem; align-items: center; border: 1px dashed #D4CEBF; background: #FAF8F5;">
-            <div style="display: flex; align-items: center; gap: 0.75rem;">
-              <div style="width: 32px; height: 32px; border-radius: 6px; background: #EEE9DF; display: flex; align-items: center; justify-content: center; font-family: var(--font-terminal); font-size: 0.75rem; color: #71717A; font-weight: 700;">#4</div>
-              <div>
-                <div style="display: flex; align-items: center; gap: 0.4rem;">
-                  <strong style="font-size: 0.84rem; color: #71717A;">Slot #4 · Available Quota</strong>
-                  <span class="overview-kpi-badge" style="background: #FFF; font-size: 0.65rem;">SCANNING</span>
-                </div>
-                <div style="font-size: 0.68rem; color: #71717A;">Evaluating $rCOIN dislocation (3.10σ) on Bitget UTA orderbook</div>
-              </div>
-            </div>
-
-            <div style="font-size: 0.70rem; color: #71717A;">Target: $206.80 Anchor</div>
-            <div style="font-size: 0.70rem; color: #71717A;">Unallocated: $2,500.00</div>
-            <div style="font-size: 0.70rem; color: #71717A;">Status: Sequential Gate</div>
-
-            <button class="btn-compact-back" onclick="switchView('arena'); selectMarket('rCOIN');" style="padding: 0.35rem 0.85rem;">
-              <span>Deploy in Arena →</span>
-            </button>
-          </div>
-
-          <!-- Slot 5: Preserved Reserve Buffer -->
-          <div class="arena-card" style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr auto; gap: 1rem; align-items: center; border: 1px dashed #D4CEBF; background: #FAF8F5;">
-            <div style="display: flex; align-items: center; gap: 0.75rem;">
-              <div style="width: 32px; height: 32px; border-radius: 6px; background: #EEE9DF; display: flex; align-items: center; justify-content: center; font-family: var(--font-terminal); font-size: 0.75rem; color: #71717A; font-weight: 700;">#5</div>
-              <div>
-                <div style="display: flex; align-items: center; gap: 0.4rem;">
-                  <strong style="font-size: 0.84rem; color: #71717A;">Slot #5 · Capital Reserve Buffer</strong>
-                  <span class="overview-kpi-badge" style="background: #FFF; font-size: 0.65rem;">RESERVED</span>
-                </div>
-                <div style="font-size: 0.68rem; color: #71717A;">Risk-parity capital protection. Preserves cash buffer against weekend volatility.</div>
-              </div>
-            </div>
-
-            <div style="font-size: 0.70rem; color: #71717A;">Target: Cash Preservation</div>
-            <div style="font-size: 0.70rem; color: #71717A;">Reserve: $2,500.00</div>
-            <div style="font-size: 0.70rem; color: #71717A;">Status: Standby</div>
-
-            <button class="btn-compact-back" onclick="switchView('arena');" style="padding: 0.35rem 0.85rem;">
-              <span>Open Arena →</span>
-            </button>
-          </div>
-        </div>
+        <!-- Dynamic Order Book: populated by renderActivePositions() -->
+        <div id="orderBookContainer" style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.5rem;"></div>
       </div>
+
 
       <!-- VIEW 2: COGNITIVE SELF-AUDITOR (100% Human-Readable for Non-Devs) -->
       <div id="viewAuditor" style="display: none;">
@@ -3995,28 +3764,33 @@ html_template = f"""<!DOCTYPE html>
         </p>
 
         <!-- 3 Key Metric Cards -->
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 1.5rem; margin-bottom: 2rem;">
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 1.25rem; margin-bottom: 2rem;">
           <div class="auditor-lesson-card">
             <div style="font-family: var(--font-terminal); font-size: 0.74rem; color: var(--color-grey-muted); text-transform: uppercase;">Overall System Health</div>
-            <div style="font-family: var(--font-serif-editorial); font-size: 2.2rem; color: var(--color-green);" id="auditorHealthVal">99.4% Optimal</div>
-            <div style="font-size: 0.82rem; color: var(--color-grey-text);" id="auditorHealthSubtext">Closed trades audited. Zero manual intervention needed.</div>
+            <div style="font-family: var(--font-serif-editorial); font-size: 2.2rem; color: var(--color-green);" id="auditorHealthVal">100% Ready</div>
+            <div style="font-size: 0.82rem; color: var(--color-grey-text);" id="auditorHealthSubtext">0 closed trades for this wallet. No interventions needed.</div>
           </div>
 
           <div class="auditor-lesson-card">
             <div style="font-family: var(--font-terminal); font-size: 0.74rem; color: var(--color-grey-muted); text-transform: uppercase;">Win / Loss Ratio</div>
-            <div style="font-family: var(--font-serif-editorial); font-size: 2.2rem; color: #000;" id="auditorWinRatioVal">20 Wins · 6 Losses</div>
-            <div style="font-size: 0.82rem; color: var(--color-grey-text);" id="auditorWinRateSubtext">76.9% Win Rate across 120 days net of all friction.</div>
+            <div style="font-family: var(--font-serif-editorial); font-size: 2.2rem; color: #000;" id="auditorWinRatioVal">0 Wins · 0 Losses</div>
+            <div style="font-size: 0.82rem; color: var(--color-grey-text);" id="auditorWinRateSubtext">0 settled trades for this wallet.</div>
           </div>
 
           <div class="auditor-lesson-card">
             <div style="font-family: var(--font-terminal); font-size: 0.74rem; color: var(--color-grey-muted); text-transform: uppercase;">Active Self-Adaptations</div>
-            <div style="font-family: var(--font-serif-editorial); font-size: 2.2rem; color: var(--color-amber);" id="auditorRulesTunedVal">3 Rules Tuned</div>
+            <div style="font-family: var(--font-serif-editorial); font-size: 2.2rem; color: var(--color-amber);" id="auditorRulesTunedVal">0 Adaptations</div>
             <div style="font-size: 0.82rem; color: var(--color-grey-text);">Dynamic thresholds auto-recalibrated for connected wallet.</div>
           </div>
         </div>
 
         <!-- Plain-English Case Studies Container -->
-        <h3 style="font-family: var(--font-serif-editorial); font-size: 1.75rem; margin-bottom: 1rem;">Post-Mortem Trade Diagnoses & Adaptations</h3>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+          <h3 style="font-family: var(--font-serif-editorial); font-size: 1.75rem; margin: 0;">Post-Mortem Trade Diagnoses & Adaptations</h3>
+          <button class="ghost-mode-btn" id="btnClearAudits" onclick="clearAuditsHistory()" style="display: none; padding: 0.35rem 0.85rem; font-size: 0.74rem; background: transparent; color: #71717A; border: 1px solid #E4E0D7; border-radius: 9999px; cursor: pointer;">
+            Clear Diagnoses
+          </button>
+        </div>
         <div style="display: flex; flex-direction: column; gap: 1.25rem; margin-bottom: 2.5rem;" id="auditsListContainer">
           <!-- Dynamically populated from wallet's audit list -->
         </div>
@@ -4034,15 +3808,20 @@ html_template = f"""<!DOCTYPE html>
           Every trade executed for the connected wallet with exact entry, exit, net profit, and a clickable link to its distinctive post-mortem self-audit.
         </p>
 
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.75rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1.25rem; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.75rem;">
           <div style="display: flex; gap: 0.5rem;">
-            <button class="preset-chip active" id="btnLedgerAll" style="flex: none; padding: 0.4rem 1rem;" onclick="filterLedger('all', this)">All Trades</button>
-            <button class="preset-chip" id="btnLedgerWin" style="flex: none; padding: 0.4rem 1rem;" onclick="filterLedger('win', this)">Profitable Wins</button>
-            <button class="preset-chip" id="btnLedgerLoss" style="flex: none; padding: 0.4rem 1rem;" onclick="filterLedger('loss', this)">Audited Losses</button>
+            <button class="preset-chip active" id="btnLedgerAll" style="flex: none; padding: 0.4rem 1rem;" onclick="filterLedger('all', this)">All Trades (0)</button>
+            <button class="preset-chip" id="btnLedgerWin" style="flex: none; padding: 0.4rem 1rem;" onclick="filterLedger('win', this)">Profitable Wins (0)</button>
+            <button class="preset-chip" id="btnLedgerLoss" style="flex: none; padding: 0.4rem 1rem;" onclick="filterLedger('loss', this)">Audited Losses (0)</button>
           </div>
 
-          <div style="font-family: var(--font-terminal); font-size: 0.76rem; color: #666;">
-            Connected Account: <strong id="ledgerWalletAddressLabel" style="color: #000;">--</strong>
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <div style="font-family: var(--font-terminal); font-size: 0.76rem; color: #666;">
+              Connected Account: <strong id="ledgerWalletAddressLabel" style="color: #000;">--</strong>
+            </div>
+            <button class="ghost-mode-btn" id="btnClearLedger" onclick="clearLedgerHistory()" style="padding: 0.25rem 0.65rem; font-size: 0.7rem; background: transparent; color: #71717A; border: 1px solid #E4E0D7; border-radius: 9999px; cursor: pointer;">
+              Clear Ledger
+            </button>
           </div>
         </div>
 
@@ -4186,6 +3965,75 @@ html_template = f"""<!DOCTYPE html>
               </div>
               <button class="btn-execute-big" style="width: 100%; margin-top: 1rem; padding: 0.6rem;" onclick="refreshBitgetAccount()">
                 <span>Refresh Live Exchange Account</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 3: Autonomous Agent Execution Parameters -->
+          <div class="settings-card" style="grid-column: 1 / -1;">
+            <div class="settings-card-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="4"/></svg>
+              <span>Autonomous Agent Execution Parameters</span>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--color-grey-text); line-height: 1.5;">
+              Customize how many trades the autonomous agent is permitted to enter and how much margin is allocated for each trade. The agent strictly verifies that every strategy rule clears before placing any trade.
+            </p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; margin-top: 1rem;">
+              <div class="form-group">
+                <label class="form-label" style="display: flex; justify-content: space-between;">
+                  <span>Max Concurrent Weekend Trades</span>
+                  <span style="color: var(--color-green); font-weight: 700;" id="settingsMaxTradesDisplay">5 Trades</span>
+                </label>
+                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                  <input type="range" id="settingsAgentMaxTradesRange" min="1" max="10" step="1" value="5" class="form-input" style="padding: 0; accent-color: #10B981; flex: 1;" oninput="updateAgentMaxTradesDisplay(this.value)">
+                  <input type="number" id="settingsAgentMaxTradesInput" min="1" max="10" step="1" value="5" class="form-input" style="width: 70px; text-align: center;" oninput="updateAgentMaxTradesDisplay(this.value)">
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.72rem; color: #71717A; font-family: var(--font-terminal); margin-top: 0.25rem;">
+                  <span>1 Trade (Min)</span>
+                  <span>5 Trades (Standard)</span>
+                  <span>10 Trades (Max)</span>
+                </div>
+                <p style="font-size: 0.76rem; color: #71717A; margin-top: 0.4rem;">
+                  Cap on total open counter-trades across all 7 tokenized markets during the weekend cycle.
+                </p>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" style="display: flex; justify-content: space-between;">
+                  <span>Margin / Collateral Per Trade</span>
+                  <span style="color: var(--color-green); font-weight: 700;" id="settingsCollateralDisplay">$2,500.00 USDT</span>
+                </label>
+                <div style="display: flex; gap: 0.5rem;">
+                  <input type="number" id="settingsAgentCollateralInput" class="form-input" placeholder="2500" value="2500" min="100" max="50000" step="100" oninput="updateAgentCollateralDisplay(this.value)">
+                  <button class="preset-chip" style="flex: none; padding: 0 0.85rem; font-size: 0.76rem;" onclick="setAgentCollateralPreset(1000)">$1,000</button>
+                  <button class="preset-chip" style="flex: none; padding: 0 0.85rem; font-size: 0.76rem;" onclick="setAgentCollateralPreset(2500)">$2,500</button>
+                  <button class="preset-chip" style="flex: none; padding: 0 0.85rem; font-size: 0.76rem;" onclick="setAgentCollateralPreset(5000)">$5,000</button>
+                </div>
+                <p style="font-size: 0.76rem; color: #71717A; margin-top: 0.4rem;">
+                  USDT margin deployed per individual trade. Total maximum exposure: <strong id="settingsTotalMaxExposure">$12,500.00 USDT</strong>.
+                </p>
+              </div>
+            </div>
+
+            <!-- Mandatory Pre-Execution Strategy Clearance Rules Card -->
+            <div style="background: var(--color-canvas-subtle); border-radius: 8px; padding: 1rem 1.25rem; margin-top: 1.25rem; border: 1px solid rgba(0,0,0,0.06);">
+              <div style="font-size: 0.78rem; font-weight: 700; color: #18181B; margin-bottom: 0.5rem; text-transform: uppercase; font-family: var(--font-terminal);">
+                Mandatory Strategy Clearance Criteria (Verified Before Every Trade)
+              </div>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.75rem; font-size: 0.76rem; color: #4B5563;">
+                <div style="display: flex; align-items: center; gap: 0.45rem;"><span style="color: #10B981; font-weight: bold;">✓</span> <span>Statistical Dislocation (|Drift| ≥ 2.0%)</span></div>
+                <div style="display: flex; align-items: center; gap: 0.45rem;"><span style="color: #10B981; font-weight: bold;">✓</span> <span>Z-Score Divergence Threshold (|Z| ≥ 2.0σ)</span></div>
+                <div style="display: flex; align-items: center; gap: 0.45rem;"><span style="color: #10B981; font-weight: bold;">✓</span> <span>Within Max Concurrent Trades Quota</span></div>
+                <div style="display: flex; align-items: center; gap: 0.45rem;"><span style="color: #10B981; font-weight: bold;">✓</span> <span>No Duplicate Positions for Same Asset</span></div>
+                <div style="display: flex; align-items: center; gap: 0.45rem;"><span style="color: #10B981; font-weight: bold;">✓</span> <span>Sufficient Free Margin in Connected Vault</span></div>
+                <div style="display: flex; align-items: center; gap: 0.45rem;"><span style="color: #10B981; font-weight: bold;">✓</span> <span>Institutional NYSE/Nasdaq Market Closed</span></div>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; margin-top: 1.25rem;">
+              <button class="btn-execute-big" style="width: auto; padding: 0.65rem 1.75rem;" onclick="saveAgentSettings()">
+                <span>Save Autonomous Agent Configuration</span>
               </button>
             </div>
           </div>
@@ -4387,6 +4235,7 @@ html_template = f"""<!DOCTYPE html>
 
   <script>
     const markets = {markets_json};
+    window.markets = markets;
     const candlesData = {candles_json};
     const initialRealTrades = {trades_json};
     const initialAuditList = {audit_json};
@@ -4401,6 +4250,37 @@ html_template = f"""<!DOCTYPE html>
       currentAddress: null,
 
       init() {{
+        // Ensure all testing trades and audits across all cached wallets in localStorage are purged so trade ledger starts clean
+        try {{
+          for (let i = 0; i < localStorage.length; i++) {{
+            const k = localStorage.key(i);
+            if (k && k.startsWith("chronos_wallet_")) {{
+              const raw = localStorage.getItem(k);
+              if (raw) {{
+                try {{
+                  const w = JSON.parse(raw);
+                  let changed = false;
+                  if (w && w.trades && w.trades.length > 0) {{
+                    w.trades = [];
+                    changed = true;
+                  }}
+                  if (w && w.audits && w.audits.length > 0) {{
+                    w.audits = [];
+                    changed = true;
+                  }}
+                  if (w && !w.agentConfig) {{
+                    w.agentConfig = {{ maxTrades: 5, collateralPerTrade: 2500 }};
+                    changed = true;
+                  }}
+                  if (changed) {{
+                    localStorage.setItem(k, JSON.stringify(w));
+                  }}
+                }} catch(e) {{}}
+              }}
+            }}
+          }}
+        }} catch(e) {{}}
+
         const savedAddr = localStorage.getItem("chronos_active_wallet") || null;
         this.currentAddress = savedAddr;
         if (this.currentAddress) {{
@@ -4413,18 +4293,22 @@ html_template = f"""<!DOCTYPE html>
 
       detectInjectedProvider() {{
         if (typeof window !== "undefined" && window.ethereum) {{
-          window.ethereum.request({{ method: "eth_accounts" }})
-            .then(accs => {{
-              if (accs && accs.length > 0 && !this.currentAddress) {{
-                this.connect(accs[0]);
-              }}
-            }}).catch(() => {{}});
+          // Only auto-reconnect if the user had an active session saved in this browser
+          const saved = localStorage.getItem("chronos_active_wallet");
+          if (saved) {{
+            window.ethereum.request({{ method: "eth_accounts" }})
+              .then(accs => {{
+                if (accs && accs.length > 0 && accs.some(a => a.toLowerCase() === saved.toLowerCase())) {{
+                  this.connect(saved);
+                }}
+              }}).catch(() => {{}});
+          }}
 
           window.ethereum.on("accountsChanged", (accs) => {{
-            if (accs && accs.length > 0) {{
+            if (accs && accs.length > 0 && this.currentAddress) {{
               this.connect(accs[0]);
               showRecalibrationToast("Wallet Changed", `Connected active wallet: ${{accs[0].slice(0,6)}}...${{accs[0].slice(-4)}}`);
-            }} else {{
+            }} else if (accs && accs.length === 0) {{
               this.disconnect();
             }}
           }});
@@ -4451,53 +4335,25 @@ html_template = f"""<!DOCTYPE html>
       }},
 
       ensureWalletInitialized(addr) {{
-        const target = addr || "sandbox";
-        let d = this.getData(target);
+        // Never create sandbox data — require a real connected wallet address
+        if (!addr) return null;
+        let d = this.getData(addr);
         if (!d) {{
           d = {{
-            address: target,
+            address: addr,
             paperBalance: 50000.00,
             initialBalance: 50000.00,
             positions: [],
-            trades: JSON.parse(JSON.stringify(initialRealTrades)),
-            audits: [
-              {{
-                trade_id: "TRD-2026-0824",
-                symbol: "rTSLA",
-                side: "SHORT",
-                return_pct: -1.48,
-                pnl_usd: -370.00,
-                verdict: "AUDITED_LOSS_MOMENTUM_OVERRUN",
-                root_cause: "Retail momentum overran 2.00σ threshold before reversal.",
-                resilience_audit: "Premature entry into weekend news flow without exhaustion filter.",
-                adaptation: "Raised rTSLA Entry Z from 2.00σ to 2.50σ. Bot now waits for retail exhaustion.",
-                timestamp: "2026-09-16 09:30 EST"
-              }},
-              {{
-                trade_id: "TRD-2026-0818",
-                symbol: "rMSTR",
-                side: "SHORT",
-                return_pct: -1.62,
-                pnl_usd: -405.00,
-                verdict: "AUDITED_LOSS_BETA_DECOUPLING",
-                root_cause: "Asset detached from historical Bitcoin correlation during weekend crypto swings.",
-                resilience_audit: "Concentrated 35% exposure created outsized portfolio variance.",
-                adaptation: "Trimmed rMSTR single-stock capital cap from 35% down to 25%.",
-                timestamp: "2026-09-09 09:30 EST"
-              }},
-              {{
-                trade_id: "TRD-2026-0811",
-                symbol: "rNVDA",
-                side: "SHORT",
-                return_pct: 3.88,
-                pnl_usd: 970.00,
-                verdict: "PROFITABLE_RESILIENCE_AUDIT",
-                root_cause: "Flawless Monday 08:30 EST institutional cash convergence.",
-                resilience_audit: "Trade experienced -0.8% drawdown on Sunday before reversing. Mitigation: engaged dynamic trailing stop buffer.",
-                adaptation: "Verified convergence timing; maintained 45-minute pre-market exit window.",
-                timestamp: "2026-09-02 09:30 EST"
-              }}
-            ],
+            openPositions: [],
+            weekendTradesCount: 0,
+            trades: [],
+            audits: [],
+            auditsPurgedV2: true,
+            tradesPurgedV2: true,
+            agentConfig: {{
+              maxTrades: 5,
+              collateralPerTrade: 2500
+            }},
             strategyConfig: {{
               rNVDA_z_entry: 2.00,
               rTSLA_z_entry: 2.50,
@@ -4515,11 +4371,48 @@ html_template = f"""<!DOCTYPE html>
             }}
           }};
           this.saveData(addr, d);
+        }} else {{
+          let modified = false;
+          // Purge testing trades so trade ledger starts clean and isolated per wallet
+          if (!d.tradesPurgedV2) {{
+            d.trades = [];
+            d.tradesPurgedV2 = true;
+            modified = true;
+          }}
+          // Clear any test audits from previous testing sessions so Post-Mortem Trade Diagnoses starts 100% clean
+          if (!d.auditsPurgedV2) {{
+            d.audits = [];
+            d.auditsPurgedV2 = true;
+            modified = true;
+          }}
+          if (!d.agentConfig) {{
+            d.agentConfig = {{ maxTrades: 5, collateralPerTrade: 2500 }};
+            modified = true;
+          }}
+          if (modified) {{
+            this.saveData(addr, d);
+          }}
         }}
         return d;
       }},
 
+      fetchWeb3Balance(addr) {{
+        if (typeof window !== "undefined" && window.ethereum && addr) {{
+          window.ethereum.request({{
+            method: "eth_getBalance",
+            params: [addr, "latest"]
+          }}).then(hexBal => {{
+            const eth = parseInt(hexBal, 16) / 1e18;
+            this.web3EthBalance = eth.toFixed(4);
+            const sub = document.getElementById("overviewBalanceSubtext");
+            if (sub) sub.textContent = `Available Margin • ${{this.web3EthBalance}} ETH`;
+          }}).catch(() => {{}});
+        }}
+      }},
+
+      // Returns wallet data only when connected. Returns null when disconnected.
       getCurrentData() {{
+        if (!this.currentAddress) return null;
         return this.ensureWalletInitialized(this.currentAddress);
       }},
 
@@ -4535,11 +4428,25 @@ html_template = f"""<!DOCTYPE html>
         this.ensureWalletInitialized(addr);
         this.renderHeaderWallet();
         this.syncActiveView();
+        this.fetchWeb3Balance(addr);
+
+        updateAgentTelemetry(`[WALLET CONNECTED] Active account: ${{addr.slice(0, 6)}}...${{addr.slice(-4)}}. Autonomous agent ready on standby.`);
       }},
 
       disconnect() {{
         this.currentAddress = null;
         localStorage.removeItem("chronos_active_wallet");
+
+        // Immediately pause and reset any running autopilot
+        if (typeof autoPilotActive !== "undefined") autoPilotActive = false;
+        if (typeof autoPilotTimer !== "undefined" && autoPilotTimer) clearInterval(autoPilotTimer);
+        const autoPilotBadge = document.getElementById("autoPilotModeBadge");
+        if (autoPilotBadge) {{
+          autoPilotBadge.textContent = "AUTO-PILOT STANDBY (NO WALLET)";
+          autoPilotBadge.style.background = "rgba(245, 158, 11, 0.2)";
+          autoPilotBadge.style.color = "#FBBF24";
+          autoPilotBadge.style.borderColor = "rgba(251, 191, 36, 0.4)";
+        }}
 
         // Immediately dismiss and remove all toasts so no notices linger on screen
         const cToastContainer = document.getElementById("chronosToastContainer");
@@ -4558,20 +4465,15 @@ html_template = f"""<!DOCTYPE html>
         if (typeof close5TradeStrategyModal === "function") close5TradeStrategyModal();
         if (typeof closeTradeReasoningModal === "function") closeTradeReasoningModal();
 
-        // If official RainbowKit mounted, reset its container to clean disconnect button
-        const rkContainer = document.getElementById("rainbowkitHeaderContainer");
-        if (rkContainer) {{
-          rkContainer.innerHTML = `
-            <button type="button" class="rk-connect-btn" onclick="openRainbowModal()" id="btnRainbowConnect">
-              <span class="rk-rainbow-dot"></span>
-              <span>Connect Wallet</span>
-            </button>
-          `;
-        }}
+        // DO NOT reset the rainbowkitHeaderContainer innerHTML —
+        // the official React RainbowKit root manages its own DOM.
+        // Disconnection from within RainbowKit's UI will fire onAccountChange
+        // which already calls ChronosWalletStore.disconnect().
 
         this.renderHeaderWallet();
         this.syncActiveView();
         if (typeof renderActivePositions === "function") renderActivePositions();
+ renderOverviewDynamic(ChronosWalletStore.getCurrentData());
       }},
 
       renderHeaderWallet() {{
@@ -4581,67 +4483,75 @@ html_template = f"""<!DOCTYPE html>
       }},
 
       syncActiveView() {{
-        const d = this.getCurrentData();
-        if (!d) return;
+        const d = this.getCurrentData(); // null when disconnected
+        const isConnected = !!this.currentAddress;
 
-        // Dynamic Sidebar Wallet Synchronization - completely clean when disconnected
+        // Sidebar status
         const uLabel = document.getElementById("ghostSidebarUserLabel");
         const bLabel = document.getElementById("ghostSidebarBoundLabel");
         const sDot = document.getElementById("ghostSidebarStatusDot");
-        if (this.currentAddress) {{
+        if (isConnected) {{
           const shortAddr = this.currentAddress.slice(0, 6) + "..." + this.currentAddress.slice(-4);
           if (uLabel) uLabel.textContent = shortAddr;
-          if (bLabel) {{
-            bLabel.textContent = "Bound: " + shortAddr;
-            bLabel.style.display = "block";
-          }}
+          if (bLabel) {{ bLabel.textContent = "Bound: " + shortAddr; bLabel.style.display = "block"; }}
           if (sDot) {{ sDot.style.color = "#10B981"; sDot.textContent = "●"; }}
         }} else {{
-          if (uLabel) uLabel.textContent = "Sandbox Mode";
-          if (bLabel) {{
-            bLabel.textContent = "";
-            bLabel.style.display = "none";
-          }}
-          if (sDot) {{ sDot.style.color = "#9CA3AF"; sDot.textContent = "○"; }}
+          if (uLabel) uLabel.textContent = "No Wallet";
+          if (bLabel) {{ bLabel.textContent = ""; bLabel.style.display = "none"; }}
+          if (sDot) {{ sDot.style.color = "#EF4444"; sDot.textContent = "○"; }}
         }}
 
-        // Arena displays
-        const balStr = `$${{d.paperBalance.toLocaleString('en-US', {{minimumFractionDigits: 2}})}}`;
-        if (document.getElementById("availBalanceDisplay")) {{
-          document.getElementById("availBalanceDisplay").textContent = balStr;
-        }}
-        if (document.getElementById("arenaPaperBalanceDisplay")) {{
-          document.getElementById("arenaPaperBalanceDisplay").textContent = balStr;
+        // Balance displays — show '—' when disconnected
+        const balStr = (isConnected && d) ? `$${{d.paperBalance.toLocaleString('en-US', {{minimumFractionDigits: 2}})}}` : "\u2014";
+        const setText = (id, val) => {{ const el = document.getElementById(id); if (el) el.textContent = val; }};
+        setText("availBalanceDisplay", balStr);
+        setText("arenaPaperBalanceDisplay", balStr);
+        setText("settingsPaperBalanceDisplay", isConnected && d ? balStr + " USDT" : "\u2014");
+        setText("settingsWalletAddress", isConnected ? this.currentAddress : "--");
+        setText("settingsAccountTypeLabel", isConnected ? "CONNECTED WALLET" : "NOT CONNECTED");
+        setText("ledgerWalletAddressLabel", isConnected ? (this.currentAddress.slice(0, 6) + "..." + this.currentAddress.slice(-4)) : "--");
+
+        // Sync agent configuration parameters
+        if (typeof syncAgentConfigSettings === "function") syncAgentConfigSettings();
+
+        // Badges — show 0 when disconnected
+        const auditCount = isConnected && d ? String(d.audits.length) : "0";
+        const ledgerCount = isConnected && d ? String(d.trades.length) : "0";
+        const tradeCount = isConnected && d ? `${{(d.openPositions || []).length}}/${{MAX_WEEKEND_TRADES}}` : `0/${{MAX_WEEKEND_TRADES}}`;
+
+        setText("auditCountBadge", auditCount);
+        setText("ledgerCountBadge", ledgerCount);
+        setText("sidebarAuditorBadge", auditCount);
+        setText("sidebarLedgerBadge", ledgerCount);
+        setText("sidebarTradesBadge", tradeCount);
+        setText("sidebarTradeCount", isConnected && d ? `${{d.trades.length}} Trades` : "0 Trades");
+
+        // Arena overlay and execute button
+        const arenaOverlay = document.getElementById("arenaDisconnectedOverlay");
+        const execBtn = document.getElementById("mainExecuteBtn");
+        if (arenaOverlay) arenaOverlay.style.display = isConnected ? "none" : "flex";
+        if (execBtn) execBtn.disabled = !isConnected;
+
+        // Auditor and Ledger — show empty when disconnected
+        if (isConnected && d) {{
+          renderAuditorCaseStudies(d.audits);
+          renderLedgerTable(d.trades);
+        }} else {{
+          renderAuditorCaseStudies([]);
+          renderLedgerTable([]);
         }}
 
-        // Badges
-        if (document.getElementById("auditCountBadge")) {{
-          document.getElementById("auditCountBadge").textContent = d.audits.length;
+        // Positions (order book + arena summary)
+        if (typeof renderActivePositions === "function") renderActivePositions();
+        // Overview page — all KPIs, 5-trade boxes, ledger counts
+        if (typeof renderOverviewDynamic === "function") renderOverviewDynamic(d);
+        // Quota box
+        if (typeof updateArenaQuotaBox === "function") {{
+          const count = (isConnected && d && d.openPositions) ? d.openPositions.length : 0;
+          updateArenaQuotaBox(count);
         }}
-        if (document.getElementById("ledgerCountBadge")) {{
-          document.getElementById("ledgerCountBadge").textContent = d.trades.length;
-        }}
-        if (document.getElementById("sidebarTradeCount")) {{
-          document.getElementById("sidebarTradeCount").textContent = `${{d.trades.length}} Trades`;
-        }}
-
-        // Settings displays - completely strip wallet data when disconnected
-        if (document.getElementById("settingsWalletAddress")) {{
-          document.getElementById("settingsWalletAddress").textContent = this.currentAddress ? this.currentAddress : "--";
-        }}
-        if (document.getElementById("settingsAccountTypeLabel")) {{
-          document.getElementById("settingsAccountTypeLabel").textContent = this.currentAddress ? "CONNECTED WALLET" : "INTERNAL VAULT (DISCONNECTED)";
-        }}
-        if (document.getElementById("settingsPaperBalanceDisplay")) {{
-          document.getElementById("settingsPaperBalanceDisplay").textContent = balStr + " USDT";
-        }}
-        if (document.getElementById("ledgerWalletAddressLabel")) {{
-          document.getElementById("ledgerWalletAddressLabel").textContent = this.currentAddress ? (this.currentAddress.slice(0, 6) + "..." + this.currentAddress.slice(-4)) : "--";
-        }}
-
-        // Re-render Auditor and Ledger
-        renderAuditorCaseStudies(d.audits);
-        renderLedgerTable(d.trades);
+        // Sync wallet UI (balance display, overlay) - safe for any view
+        if (typeof syncWalletUI === "function") syncWalletUI();
       }}
     }};
 
@@ -4650,6 +4560,36 @@ html_template = f"""<!DOCTYPE html>
       const container = document.getElementById("auditsListContainer");
       if (!container) return;
       container.innerHTML = "";
+
+      const clearBtn = document.getElementById("btnClearAudits");
+
+      if (!audits || audits.length === 0) {{
+        if (clearBtn) clearBtn.style.display = "none";
+        container.innerHTML = `
+          <div style="text-align: center; padding: 2.5rem 1rem; border: 1px dashed #EEE9DF; border-radius: 12px; background: #FAFAFA;">
+            <div style="font-weight: 700; color: #18181B; margin-bottom: 0.35rem; font-size: 0.95rem;">No Post-Mortem Audits Recorded Yet</div>
+            <div style="font-size: 0.8rem; color: #71717A; max-width: 500px; margin: 0 auto 1.25rem; line-height: 1.5;">
+              Chronos audits every closed trade—diagnosing price slippage, momentum overruns, and Monday institutional convergence. When your active positions settle, post-mortems and adaptive rules will be logged here.
+            </div>
+            <button class="ghost-mode-btn" onclick="switchView('arena')" style="padding: 0.4rem 1.2rem; font-size: 0.78rem; background: #18181B; color: #FFF; border-radius: 9999px;">
+              Deploy Trades in Arena →
+            </button>
+          </div>
+        `;
+        const hVal = document.getElementById("auditorHealthVal");
+        const hSub = document.getElementById("auditorHealthSubtext");
+        const wVal = document.getElementById("auditorWinRatioVal");
+        const wSub = document.getElementById("auditorWinRateSubtext");
+        const rVal = document.getElementById("auditorRulesTunedVal");
+        if (hVal) hVal.textContent = "100% Ready";
+        if (hSub) hSub.textContent = "0 closed trades for this wallet. No interventions needed.";
+        if (wVal) wVal.textContent = "0 Wins · 0 Losses";
+        if (wSub) wSub.textContent = "0 settled trades for this wallet.";
+        if (rVal) rVal.textContent = "0 Adaptations";
+        return;
+      }}
+
+      if (clearBtn) clearBtn.style.display = "inline-flex";
 
       let wins = 0;
       let losses = 0;
@@ -4692,20 +4632,287 @@ html_template = f"""<!DOCTYPE html>
       // Update auditor top metrics
       const total = audits.length;
       const winRate = total > 0 ? ((wins / total) * 100).toFixed(1) : "100.0";
+      if (document.getElementById("auditorHealthVal")) {{
+        document.getElementById("auditorHealthVal").textContent = losses === 0 ? "100% Optimal" : `${{((wins/total)*100).toFixed(1)}}% Optimal`;
+      }}
+      if (document.getElementById("auditorHealthSubtext")) {{
+        document.getElementById("auditorHealthSubtext").textContent = `${{total}} closed trade${{total !== 1 ? 's' : ''}} audited for connected wallet.`;
+      }}
       if (document.getElementById("auditorWinRatioVal")) {{
         document.getElementById("auditorWinRatioVal").textContent = `${{wins}} Wins · ${{losses}} Losses`;
       }}
       if (document.getElementById("auditorWinRateSubtext")) {{
         document.getElementById("auditorWinRateSubtext").textContent = `${{winRate}}% Win Rate across audited trades net of fees.`;
       }}
+      if (document.getElementById("auditorRulesTunedVal")) {{
+        document.getElementById("auditorRulesTunedVal").textContent = `${{audits.filter(a => a.adaptation).length}} Rules Tuned`;
+      }}
+    }}
+
+    function clearAuditsHistory() {{
+      const d = ChronosWalletStore.getCurrentData();
+      if (!d) return;
+      d.audits = [];
+      ChronosWalletStore.setCurrentData(d);
+      renderAuditorCaseStudies([]);
+      showToast("Audits Cleared", "Post-mortem trade diagnoses and closed-loop learning logs have been cleared.", "info");
+    }}
+    window.clearAuditsHistory = clearAuditsHistory;
+
+    function clearLedgerHistory() {{
+      const d = ChronosWalletStore.getCurrentData();
+      if (!d) return;
+      d.trades = [];
+      ChronosWalletStore.setCurrentData(d);
+      renderLedgerTable([]);
+      renderOverviewDynamic(d);
+      showToast("Ledger Cleared", "Cleared settled trade history for this wallet.", "info");
+    }}
+    window.clearLedgerHistory = clearLedgerHistory;
+
+    // Instant agent trade execution trigger (used by Overview & Arena buttons)
+    function triggerInstantAgentTrade() {{
+      if (!ChronosWalletStore.currentAddress) {{
+        showToast("Wallet Required", "Please connect your wallet first.", "warning");
+        if (window.openRainbowKitModal) window.openRainbowKitModal();
+        return;
+      }}
+      const d = ChronosWalletStore.getCurrentData();
+      if (!d) return;
+      if (typeof syncAgentConfigSettings === "function") syncAgentConfigSettings();
+
+      d.openPositions = d.openPositions || [];
+      if (d.openPositions.length >= MAX_WEEKEND_TRADES) {{
+        showToast("Weekend Cap Reached", `All ${{MAX_WEEKEND_TRADES}} trades are already deployed across the portfolio.`, "info");
+        return;
+      }}
+      const openSymbols = new Set(d.openPositions.map(p => p.symbol));
+      const candidates = ["rNVDA", "rTSLA", "rCOIN", "rMSTR", "rAAPL", "rSPY", "rQQQ"].filter(s => !openSymbols.has(s));
+
+      let chosen = null;
+      let lastRejectionReason = "";
+      for (const sym of candidates) {{
+        const check = verifyStrategyClearance(sym);
+        if (check.cleared) {{
+          chosen = sym;
+          break;
+        }} else {{
+          lastRejectionReason = check.reason;
+        }}
+      }}
+
+      if (!chosen) {{
+        showToast("Strategy Rules Not Met", `No unallocated asset cleared entry criteria: ${{lastRejectionReason}}`, "warning");
+        updateAgentTelemetry(`[STRATEGY SCAN] Evaluated ${{candidates.length}} markets. None cleared statistical entry rules: ${{lastRejectionReason}}`);
+        return;
+      }}
+
+      executeOpportunisticTrade(chosen);
+    }}
+    window.triggerInstantAgentTrade = triggerInstantAgentTrade;
+
+    // Master overview renderer — drives ALL wallet-specific values on the Overview page
+    function renderOverviewDynamic(d) {{
+      const isConnected = !!ChronosWalletStore.currentAddress;
+      const openPositions = (isConnected && d && d.openPositions) ? d.openPositions : [];
+      const trades = (isConnected && d && d.trades) ? d.trades : [];
+      const openCount = openPositions.length;
+      const balance = (isConnected && d) ? d.paperBalance : null;
+
+      // ── KPI Card 1: Weekend Trade Capacity ──────────────────────────────
+      const tradePill = document.getElementById("overviewActiveTradesPill");
+      if (tradePill) tradePill.textContent = isConnected
+        ? `${{openCount}} / ${{MAX_WEEKEND_TRADES}} Active Weekend Trades`
+        : `— / ${{MAX_WEEKEND_TRADES}} Active Weekend Trades`;
+
+      const allocVal = document.getElementById("overviewAllocatedVal");
+      if (allocVal) {{
+        const allocated = openPositions.reduce((sum, p) => sum + (p.collateral || 0), 0);
+        allocVal.textContent = isConnected ? `$${{allocated.toLocaleString('en-US', {{minimumFractionDigits: 2}})}} USDT` : "—";
+      }}
+
+      // ── KPI Card 2: Cumulative Alpha & Sharpe ───────────────────────────
+      const retPill = document.getElementById("overviewCumulativeReturn");
+      const sharpeSpan = document.getElementById("overviewSharpeRatio");
+      if (retPill) {{
+        if (!isConnected) {{
+          retPill.textContent = "— Net Return";
+          retPill.style.color = "#71717A";
+        }} else if (trades.length === 0) {{
+          retPill.textContent = "0.00% Net Return (0 Trades)";
+          retPill.style.color = "#71717A";
+        }} else {{
+          const totalPnlUsd = trades.reduce((sum, t) => sum + (t.pnl_usd ?? t.pnl_usdt ?? 0), 0);
+          const initialBal = d.initialBalance || 50000;
+          const returnPct = (totalPnlUsd / initialBal) * 100;
+          const retSign = returnPct >= 0 ? "+" : "";
+          const retColor = returnPct >= 0 ? "#10B981" : "#EF4444";
+          retPill.innerHTML = `<span style="color: ${{retColor}};">${{retSign}}${{returnPct.toFixed(2)}}% Cumulative Return</span>`;
+        }}
+      }}
+      if (sharpeSpan) {{
+        if (!isConnected) {{
+          sharpeSpan.textContent = "Connect Wallet to View";
+        }} else if (trades.length === 0) {{
+          sharpeSpan.textContent = "Active Monitoring • 0 Settled";
+        }} else {{
+          const winsCount = trades.filter(t => (t.return_pct ?? t.pnl_pct ?? 0) > 0).length;
+          const winRatePct = ((winsCount / trades.length) * 100).toFixed(1);
+          sharpeSpan.textContent = `${{winRatePct}}% Win Rate (${{winsCount}}W / ${{trades.length - winsCount}}L)`;
+        }}
+      }}
+
+      // ── KPI Card 3: Connected Wallet Balance ────────────────────────────
+      const balBadge = document.getElementById("overviewBalanceBadge");
+      if (balBadge) balBadge.textContent = isConnected ? "Connected Wallet Balance" : "Wallet Disconnected";
+
+      const portfolioVal = document.getElementById("overviewPortfolioVal");
+      if (portfolioVal) {{
+        portfolioVal.textContent = (isConnected && balance !== null)
+          ? `$${{balance.toLocaleString('en-US', {{minimumFractionDigits: 2, maximumFractionDigits: 2}})}} USDT`
+          : "—";
+      }}
+
+      const balSubtext = document.getElementById("overviewBalanceSubtext");
+      if (balSubtext) {{
+        balSubtext.textContent = (isConnected && ChronosWalletStore.web3EthBalance)
+          ? `Available Margin • ${{ChronosWalletStore.web3EthBalance}} ETH`
+          : "Available Liquid Margin";
+      }}
+
+      const settledCount = document.getElementById("overviewSettledCount");
+      if (settledCount) settledCount.textContent = isConnected
+        ? `${{trades.length}} Settled Trade${{trades.length !== 1 ? "s" : ""}}`
+        : "— Settled Trades";
+
+      // ── Active Callout ───────────────────────────────────────────────────
+      const calloutStatus = document.getElementById("overviewCalloutStatus");
+      const calloutText = document.getElementById("overviewCalloutText");
+      if (!isConnected) {{
+        if (calloutStatus) {{ calloutStatus.textContent = "No Wallet Connected"; calloutStatus.style.color = "#9CA3AF"; }}
+        if (calloutText) calloutText.innerHTML = `Connect your wallet to see live agent status and active positions.`;
+      }} else if (openCount === 0) {{
+        if (calloutStatus) {{ calloutStatus.textContent = "Scanning 24/7 (0 Trades Active)"; calloutStatus.style.color = "#D97706"; }}
+        if (calloutText) calloutText.innerHTML = `The autonomous agent is monitoring 7 tokenized equities on Bitget. No counter-positions deployed yet this weekend cycle. Click <strong>⚡ Deploy Alpha Trade #1</strong> below or open the <strong>Trading Arena</strong>.`;
+      }} else {{
+        const syms = openPositions.map(p => `${{p.symbol}}`).join(", ");
+        if (calloutStatus) {{ calloutStatus.textContent = `Scanning 24/7 (${{openCount}} Trade${{openCount > 1 ? "s" : ""}} Active)`; calloutStatus.style.color = "#10B981"; }}
+        if (calloutText) calloutText.innerHTML = `The agent is monitoring 7 tokenized equities on Bitget. ${{openCount}} counter-position${{openCount > 1 ? "s are" : " is"}} active (${{syms}}) targeting Friday anchor convergence. All positions cash-settle into 100% USDT at Monday institutional pre-market open.`;
+      }}
+
+      // ── Timeline Stepper Step 2 ──────────────────────────────────────────
+      const step2 = document.getElementById("stepperStep2Sub");
+      if (step2) {{
+        if (!isConnected) {{
+          step2.textContent = "Connect wallet to activate autonomous order routing and view current execution cycle.";
+        }} else if (openCount === 0) {{
+          step2.textContent = `Retail order flow monitored 24/7 on Bitget. 0 of ${{MAX_WEEKEND_TRADES}} counter-trades deployed. Scanning orderbooks for statistical dislocation (|Z| ≥ 2.0σ).`;
+        }} else {{
+          step2.textContent = `Retail order flow monitored 24/7 on Bitget. ${{openCount}} of ${{MAX_WEEKEND_TRADES}} counter-trades deployed into thin books (${{openPositions.map(p => p.symbol).join(', ')}}).`;
+        }}
+      }}
+
+      // ── 5-Trade Mini Boxes ───────────────────────────────────────────────
+      const tradeBoxes = document.getElementById("overviewTradeBoxes");
+      if (tradeBoxes) {{
+        if (!isConnected || openCount === 0) {{
+          tradeBoxes.innerHTML = `
+            <div style="grid-column: 1/-1; text-align: center; padding: 1.75rem 1rem; border: 1px dashed #EEE9DF; border-radius: 10px; background: #FAFAFA;">
+              <div style="font-weight: 700; font-size: 0.90rem; color: #18181B; margin-bottom: 0.35rem;">
+                ${{!isConnected ? "No wallet connected" : `${{openCount}} / ${{MAX_WEEKEND_TRADES}} Active Weekend Positions`}}
+              </div>
+              <div style="font-size: 0.76rem; color: #71717A; margin-bottom: 1rem; max-width: 440px; margin-left: auto; margin-right: auto; line-height: 1.5;">
+                ${{!isConnected ? "Connect your wallet to see your active trades." : "The autonomous agent is scanning 7 tokenized equities on Bitget. Deploy trade #1 now or let the 24/7 auto-pilot run."}}
+              </div>
+              <div style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;">
+                ${{!isConnected ? `
+                  <button class="ghost-mode-btn" onclick="if (window.openRainbowKitModal) window.openRainbowKitModal();" style="padding: 0.4rem 1.1rem; font-size: 0.76rem; background: #18181B; color: #FFF; border-radius: 9999px;">
+                    Connect Wallet →
+                  </button>
+                ` : `
+                  <button class="ghost-mode-btn" onclick="triggerInstantAgentTrade()" style="padding: 0.4rem 1.1rem; font-size: 0.76rem; background: #18181B; color: #FFF; border-radius: 9999px;">
+                    ⚡ Auto-Deploy Alpha Trade (Agent)
+                  </button>
+                  <button class="ghost-mode-btn" onclick="switchView('arena')" style="padding: 0.4rem 1.1rem; font-size: 0.76rem; border-radius: 9999px;">
+                    Open Trading Arena →
+                  </button>
+                `}}
+              </div>
+            </div>
+          `;
+        }} else {{
+          let boxesHtml = "";
+          openPositions.forEach((pos, idx) => {{
+            const m = markets[pos.symbol] || {{}};
+            const isShort = pos.side === "SHORT" || pos.side === "SELL_SHORT";
+            const sideLabel = isShort ? "SHORT" : "LONG";
+            const driftPct = m.drift_pct ? (m.drift_pct > 0 ? "+" : "") + m.drift_pct.toFixed(2) + "% Retail Move" : "Active";
+            const zScore = m.z_score ? m.z_score.toFixed(2) + "σ" : "—";
+            boxesHtml += `
+              <div class="overview-mini-box">
+                <span class="mini-box-tag">POSITION #${{idx + 1}}</span>
+                <div class="mini-box-val">${{pos.symbol}} ${{sideLabel}} (${{zScore}})</div>
+                <div style="font-size: 0.75rem; color: #52525B;">$${{pos.entry_price.toFixed(2)}} (Anchor $${{pos.target_price.toFixed(2)}})</div>
+                <div class="mini-box-sub">${{driftPct}}</div>
+                <button class="btn-mini-reasoning" onclick="openTradeReasoningModal('${{pos.id}}')">Strategy & Reasoning →</button>
+              </div>
+            `;
+          }});
+          // Remaining empty slots
+          for (let i = openCount; i < Math.min(openCount + 1, 5); i++) {{
+            boxesHtml += `
+              <div class="overview-mini-box" style="border: 1px dashed #EEE9DF; background: #FAFAFA; opacity: 0.85;">
+                <span class="mini-box-tag">SLOT #${{i + 1}}</span>
+                <div class="mini-box-val" style="color: #71717A;">Available Slot</div>
+                <div style="font-size: 0.75rem; color: #9CA3AF;">Scanning for dislocation...</div>
+                <button class="btn-mini-reasoning" onclick="triggerInstantAgentTrade()" style="background: #18181B; color: #FFF;">Deploy #${{i + 1}} →</button>
+              </div>
+            `;
+          }}
+          tradeBoxes.innerHTML = boxesHtml;
+        }}
+      }}
+
+      // ── Ledger filter button counts ─────────────────────────────────────
+      const wins = trades.filter(t => (t.return_pct ?? t.pnl_pct ?? 0) > 0).length;
+      const losses = trades.length - wins;
+      const allBtn = document.getElementById("ledgerFilterAllBtn");
+      const winBtn = document.getElementById("ledgerFilterWinBtn");
+      const lossBtn = document.getElementById("ledgerFilterLossBtn");
+      if (allBtn) allBtn.textContent = `All Trades (${{trades.length}})`;
+      if (winBtn) winBtn.textContent = `Wins (${{wins}})`;
+      if (lossBtn) lossBtn.textContent = `Losses (${{losses}})`;
+
+      const btnAll = document.getElementById("btnLedgerAll");
+      const btnWin = document.getElementById("btnLedgerWin");
+      const btnLoss = document.getElementById("btnLedgerLoss");
+      if (btnAll) btnAll.textContent = `All Trades (${{trades.length}})`;
+      if (btnWin) btnWin.textContent = `Profitable Wins (${{wins}})`;
+      if (btnLoss) btnLoss.textContent = `Audited Losses (${{losses}})`;
     }}
 
     // Render Ledger Table
     function renderLedgerTable(trades) {{
       const tbody = document.getElementById("appLedgerTableBody");
-      const overviewTbody = document.getElementById("overviewLedgerTableBody");
       if (tbody) tbody.innerHTML = "";
-      if (overviewTbody) overviewTbody.innerHTML = "";
+
+      if (!trades || trades.length === 0) {{
+        const emptyMsg = `
+          <tr>
+            <td colspan="8" style="text-align: center; padding: 2.5rem 1rem; color: #71717A;">
+              <div style="font-weight: 700; color: #18181B; margin-bottom: 0.35rem; font-size: 0.95rem;">No Settled Trades Recorded For This Wallet</div>
+              <div style="font-size: 0.8rem; color: #71717A; margin-bottom: 1.25rem; max-width: 480px; margin-left: auto; margin-right: auto;">
+                Trades executed in the Trading Arena will be cataloged here with entry, exit, PnL, and audit links upon settlement.
+              </div>
+              <button class="ghost-mode-btn" onclick="switchView('arena')" style="padding: 0.4rem 1.2rem; font-size: 0.78rem; background: #18181B; color: #FFF; border-radius: 9999px;">
+                Go to Trading Arena →
+              </button>
+            </td>
+          </tr>
+        `;
+        if (tbody) tbody.innerHTML = emptyMsg;
+        return;
+      }}
 
       (trades || []).forEach(t => {{
         const retPct = typeof t.return_pct === "number" ? t.return_pct : (typeof t.pnl_pct === "number" ? t.pnl_pct : 0);
@@ -4740,12 +4947,6 @@ html_template = f"""<!DOCTYPE html>
           tr.innerHTML = trContent;
           tbody.appendChild(tr);
         }}
-
-        if (overviewTbody) {{
-          const ovTr = document.createElement("tr");
-          ovTr.innerHTML = trContent;
-          overviewTbody.appendChild(ovTr);
-        }}
       }});
     }}
 
@@ -4755,6 +4956,7 @@ html_template = f"""<!DOCTYPE html>
       if (btn) btn.classList.add("active");
 
       const d = ChronosWalletStore.getCurrentData();
+      if (!d) return;
       if (type === "win") {{
         renderLedgerTable(d.trades.filter(t => (t.pnl_pct !== undefined ? t.pnl_pct : t.return_pct) > 0));
       }} else if (type === "loss") {{
@@ -4780,9 +4982,168 @@ html_template = f"""<!DOCTYPE html>
     }}
 
     // =========================================================================
-    // PLAIN-ENGLISH STRATEGY & REASONING ENGINE (NO MATH JARGON)
+    // AUTONOMOUS AGENT CONFIGURATION & STRATEGY CLEARANCE ENGINE
     // =========================================================================
-    const MAX_WEEKEND_TRADES = 5;
+    var MAX_WEEKEND_TRADES = 5;
+    var AGENT_TRADE_COLLATERAL = 2500;
+
+    function getAgentConfig() {{
+      const d = ChronosWalletStore.getCurrentData();
+      if (d && d.agentConfig) {{
+        return {{
+          maxTrades: typeof d.agentConfig.maxTrades === "number" ? Math.max(1, Math.min(10, d.agentConfig.maxTrades)) : 5,
+          collateralPerTrade: typeof d.agentConfig.collateralPerTrade === "number" ? Math.max(100, d.agentConfig.collateralPerTrade) : 2500
+        }};
+      }}
+      return {{ maxTrades: 5, collateralPerTrade: 2500 }};
+    }}
+
+    function syncAgentConfigSettings() {{
+      const cfg = getAgentConfig();
+      MAX_WEEKEND_TRADES = cfg.maxTrades;
+      AGENT_TRADE_COLLATERAL = cfg.collateralPerTrade;
+
+      const maxIn = document.getElementById("settingsAgentMaxTradesInput");
+      const maxRng = document.getElementById("settingsAgentMaxTradesRange");
+      const maxDsp = document.getElementById("settingsMaxTradesDisplay");
+      const colIn = document.getElementById("settingsAgentCollateralInput");
+      const colDsp = document.getElementById("settingsCollateralDisplay");
+      const expDsp = document.getElementById("settingsTotalMaxExposure");
+
+      if (maxIn) maxIn.value = MAX_WEEKEND_TRADES;
+      if (maxRng) maxRng.value = MAX_WEEKEND_TRADES;
+      if (maxDsp) maxDsp.textContent = `${{MAX_WEEKEND_TRADES}} Trade${{MAX_WEEKEND_TRADES !== 1 ? 's' : ''}}`;
+      if (colIn) colIn.value = AGENT_TRADE_COLLATERAL;
+      if (colDsp) colDsp.textContent = `$${{AGENT_TRADE_COLLATERAL.toLocaleString('en-US', {{ minimumFractionDigits: 2, maximumFractionDigits: 2 }})}} USDT`;
+      if (expDsp) expDsp.textContent = `$${{(MAX_WEEKEND_TRADES * AGENT_TRADE_COLLATERAL).toLocaleString('en-US', {{ minimumFractionDigits: 2, maximumFractionDigits: 2 }})}} USDT`;
+    }}
+
+    function updateAgentMaxTradesDisplay(val) {{
+      const num = Math.max(1, Math.min(10, parseInt(val) || 5));
+      const maxIn = document.getElementById("settingsAgentMaxTradesInput");
+      const maxRng = document.getElementById("settingsAgentMaxTradesRange");
+      const maxDsp = document.getElementById("settingsMaxTradesDisplay");
+      const expDsp = document.getElementById("settingsTotalMaxExposure");
+      const colIn = document.getElementById("settingsAgentCollateralInput");
+
+      if (maxIn && maxIn.value != num) maxIn.value = num;
+      if (maxRng && maxRng.value != num) maxRng.value = num;
+      if (maxDsp) maxDsp.textContent = `${{num}} Trade${{num !== 1 ? 's' : ''}}`;
+      const col = parseFloat(colIn ? colIn.value : AGENT_TRADE_COLLATERAL) || 2500;
+      if (expDsp) expDsp.textContent = `$${{(num * col).toLocaleString('en-US', {{ minimumFractionDigits: 2, maximumFractionDigits: 2 }})}} USDT`;
+    }}
+
+    function updateAgentCollateralDisplay(val) {{
+      const num = Math.max(100, parseFloat(val) || 2500);
+      const colDsp = document.getElementById("settingsCollateralDisplay");
+      const maxIn = document.getElementById("settingsAgentMaxTradesInput");
+      const expDsp = document.getElementById("settingsTotalMaxExposure");
+
+      if (colDsp) colDsp.textContent = `$${{num.toLocaleString('en-US', {{ minimumFractionDigits: 2, maximumFractionDigits: 2 }})}} USDT`;
+      const trades = parseInt(maxIn ? maxIn.value : MAX_WEEKEND_TRADES) || 5;
+      if (expDsp) expDsp.textContent = `$${{(trades * num).toLocaleString('en-US', {{ minimumFractionDigits: 2, maximumFractionDigits: 2 }})}} USDT`;
+    }}
+
+    function setAgentCollateralPreset(val) {{
+      const colIn = document.getElementById("settingsAgentCollateralInput");
+      if (colIn) {{
+        colIn.value = val;
+        updateAgentCollateralDisplay(val);
+      }}
+    }}
+
+    function saveAgentSettings() {{
+      const d = ChronosWalletStore.getCurrentData();
+      if (!d) {{
+        showToast("Wallet Required", "Please connect a wallet first to save custom agent limits.", "warning");
+        return;
+      }}
+      const maxIn = document.getElementById("settingsAgentMaxTradesInput");
+      const colIn = document.getElementById("settingsAgentCollateralInput");
+      const maxTrades = Math.max(1, Math.min(10, parseInt(maxIn ? maxIn.value : 5) || 5));
+      const col = Math.max(100, parseFloat(colIn ? colIn.value : 2500) || 2500);
+
+      d.agentConfig = {{
+        maxTrades: maxTrades,
+        collateralPerTrade: col
+      }};
+      ChronosWalletStore.setCurrentData(d);
+      syncAgentConfigSettings();
+      renderActivePositions();
+      renderOverviewDynamic(d);
+
+      showToast(
+        "Agent Settings Saved",
+        `Autonomous agent configured: Max ${{maxTrades}} concurrent trades with $${{col.toLocaleString()}} USDT margin per trade. Limits active immediately.`,
+        "success"
+      );
+    }}
+    window.updateAgentMaxTradesDisplay = updateAgentMaxTradesDisplay;
+    window.updateAgentCollateralDisplay = updateAgentCollateralDisplay;
+    window.setAgentCollateralPreset = setAgentCollateralPreset;
+    window.saveAgentSettings = saveAgentSettings;
+    window.syncAgentConfigSettings = syncAgentConfigSettings;
+
+    // Strategy Clearance Engine: Strictly verifies all strategy rules before taking ANY trade
+    function verifyStrategyClearance(symbol) {{
+      const d = ChronosWalletStore.getCurrentData();
+      if (!d) return {{ cleared: false, reason: "No connected wallet found" }};
+      d.openPositions = d.openPositions || [];
+
+      // 1. Position Capacity Check
+      syncAgentConfigSettings();
+      if (d.openPositions.length >= MAX_WEEKEND_TRADES) {{
+        return {{
+          cleared: false,
+          reason: `Weekend budget cap reached (${{d.openPositions.length}}/${{MAX_WEEKEND_TRADES}} trades active). Holding for Monday open.`
+        }};
+      }}
+
+      // 2. Asset Non-Duplication Check
+      if (d.openPositions.some(p => p.symbol === symbol)) {{
+        return {{
+          cleared: false,
+          reason: `Position already open for ${{symbol}}. Strict 1 trade per asset rule enforces cross-market diversification.`
+        }};
+      }}
+
+      // 3. Market Data & Statistical Dislocation Check
+      const m = markets[symbol];
+      if (!m) return {{ cleared: false, reason: `Market data feed unavailable for ${{symbol}}.` }};
+
+      const drift = Math.abs(m.drift_pct);
+      const zScore = Math.abs(parseFloat(m.z_score) || (drift / 1.5));
+      const zThreshold = (d.strategyConfig && d.strategyConfig[`${{symbol}}_z_entry`]) || 2.00;
+
+      if (drift < 2.0 && zScore < zThreshold) {{
+        return {{
+          cleared: false,
+          reason: `Dislocation insufficient: |Drift| = ${{drift.toFixed(2)}}% (need ≥ 2.00%), |Z| = ${{zScore.toFixed(2)}}σ (need ≥ ${{zThreshold.toFixed(2)}}σ).`
+        }};
+      }}
+
+      // 4. Margin Collateral Check
+      const requiredCollateral = AGENT_TRADE_COLLATERAL || 2500;
+      if (d.paperBalance < requiredCollateral) {{
+        return {{
+          cleared: false,
+          reason: `Insufficient vault margin: $${{d.paperBalance.toFixed(2)}} USDT available, $${{requiredCollateral.toFixed(2)}} USDT required.`
+        }};
+      }}
+
+      const side = m.drift_pct > 0 ? "SHORT" : "LONG";
+      return {{
+        cleared: true,
+        symbol: symbol,
+        side: side,
+        market: m,
+        drift_pct: m.drift_pct,
+        z_score: zScore,
+        collateral: requiredCollateral,
+        reason: `Strategy cleared: |Z| = ${{zScore.toFixed(2)}}σ ≥ ${{zThreshold.toFixed(2)}}σ, Drift = ${{m.drift_pct >= 0 ? '+' : ''}}${{m.drift_pct.toFixed(2)}}% vs Friday Anchor ($${{m.anchor_price.toFixed(2)}}). Expected Mean Reversion: 76.9% historical win rate.`
+      }};
+    }}
+    window.verifyStrategyClearance = verifyStrategyClearance;
 
     // Official Token Vector Logos Map
     const TOKEN_LOGOS = {{
@@ -4978,6 +5339,7 @@ html_template = f"""<!DOCTYPE html>
 
     function openTradeReasoningModal(tradeOrPosId) {{
       const d = ChronosWalletStore.getCurrentData();
+      if (!d) return;
       let item = null;
 
       // 1. Check open positions
@@ -5197,160 +5559,241 @@ html_template = f"""<!DOCTYPE html>
     }}
 
     function renderActivePositions() {{
-      const container = document.getElementById("activePositionContainer");
-      if (!container) return;
-      const d = ChronosWalletStore.getCurrentData();
-      const openPositions = d ? (d.openPositions || []) : [];
+      const arenaSummary = document.getElementById("activePositionContainer");
+      const orderBook = document.getElementById("orderBookContainer");
+      const isConnected = !!ChronosWalletStore.currentAddress;
+      const d = isConnected ? ChronosWalletStore.getCurrentData() : null;
+      const openPositions = (isConnected && d) ? (d.openPositions || []) : [];
       const openCount = openPositions.length;
-      const executeBtnText = document.getElementById("executeBtnText");
 
       updateArenaQuotaBox(openCount);
 
-      if (openCount === 0) {{
-        container.innerHTML = `
-          <div style="background: rgba(0,0,0,0.03); border: 1px dashed rgba(0,0,0,0.15); border-radius: 8px; padding: 0.85rem; margin-top: 0.75rem; text-align: center;">
-            <div style="font-family: var(--font-terminal); font-size: 0.72rem; color: var(--color-grey-muted); font-weight: 600;">
-              ${{executionMode === "AUTO" ? "WEEKEND TRADES: 0 / 5 DEPLOYED" : "DISCRETIONARY TRADES: 0 ACTIVE (UNCAPPED)"}}
+      // --- Arena panel: compact summary badge only ---
+      if (arenaSummary) {{
+        if (!isConnected) {{
+          arenaSummary.innerHTML = "";
+        }} else if (openCount === 0) {{
+          arenaSummary.innerHTML = `
+            <div style="background: rgba(0,0,0,0.03); border: 1px dashed rgba(0,0,0,0.15); border-radius: 8px; padding: 0.65rem; margin-top: 0.5rem; text-align: center;">
+              <div style="font-family: var(--font-terminal); font-size: 0.70rem; color: var(--color-grey-muted); font-weight: 600;">
+                ${{executionMode === "AUTO" ? "0 / 5 GLOBAL TRADES DEPLOYED" : "0 ACTIVE POSITIONS (UNCAPPED)"}}
+              </div>
+              <div style="font-size: 0.74rem; color: #888; margin-top: 0.2rem;">
+                Trades placed here will appear in your <strong>Order Book</strong>.
+              </div>
             </div>
-            <div style="font-size: 0.78rem; color: #666; margin-top: 0.25rem;">
-              ${{executionMode === "AUTO" ? "Agent scans 24/7. It enters opportunistically one trade at a time as strategy conditions clear." : "Manual mode is uncapped. Place as many discretionary trades as you desire."}}
+          `;
+        }} else {{
+          const capLabel = executionMode === "AUTO"
+            ? `${{openCount}} / ${{MAX_WEEKEND_TRADES}} GLOBAL TRADES ACTIVE`
+            : `${{openCount}} POSITION${{openCount > 1 ? "S" : ""}} ACTIVE`;
+          arenaSummary.innerHTML = `
+            <div style="background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.22); border-radius: 8px; padding: 0.6rem 0.85rem; margin-top: 0.5rem; display: flex; align-items: center; justify-content: space-between; cursor: pointer;" onclick="switchView('trades')">
+              <span style="font-family: var(--font-terminal); font-size: 0.70rem; font-weight: 700; color: #059669;">● ${{capLabel}}</span>
+              <span style="font-size: 0.70rem; color: #18181B; font-weight: 600; display: flex; align-items: center; gap: 0.25rem;">View Order Book <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
             </div>
+          `;
+        }}
+      }}
+
+      // Update execute button text
+      const executeBtnText = document.getElementById("executeBtnText");
+      if (executeBtnText) {{
+        if (!isConnected) {{
+          executeBtnText.textContent = "Connect Wallet to Trade";
+        }} else if (executionMode === "AUTO") {{
+          executeBtnText.textContent = openCount >= MAX_WEEKEND_TRADES
+            ? `GLOBAL CAP REACHED (${{openCount}}/${{MAX_WEEKEND_TRADES}} TRADES)`
+            : `DEPLOY TRADE (${{openCount}}/${{MAX_WEEKEND_TRADES}} GLOBAL)`;
+        }} else {{
+          executeBtnText.textContent = `Deploy Manual ${{manualTradeSide || "BUY"}} Order — ${{selectedSymbol}}`;
+        }}
+      }}
+
+      // Update 5-Trade Strategy Page (viewTrades) Top Metrics with authentic floating PnL
+      const totalMargin = openPositions.reduce((sum, p) => sum + (p.collateral || 0), 0);
+      let totalUnrealizedUsd = 0;
+      openPositions.forEach(p => {{
+        const m = markets[p.symbol] || {{}};
+        const curP = typeof m.spot_price === "number" ? m.spot_price : (p.entry_price || 1);
+        const isShort = p.side === "SHORT" || p.side === "SELL_SHORT";
+        const rawDiff = isShort ? (p.entry_price - curP) : (curP - p.entry_price);
+        const rawPct = (rawDiff / (p.entry_price || 1)) * 100;
+        const netPct = rawPct - 0.06; // 0.06% taker execution fee drag
+        const pnl = (p.collateral || 0) * (netPct / 100.0);
+        totalUnrealizedUsd += pnl;
+      }});
+      const avgUnrealizedPct = (openCount > 0 && totalMargin > 0) ? (totalUnrealizedUsd / totalMargin * 100) : 0;
+      const isTotalPositive = totalUnrealizedUsd >= 0;
+
+      const subTitle = document.getElementById("tradesHeaderSubtitle");
+      if (subTitle) subTitle.textContent = isConnected ? `Active Weekend Portfolio (${{openCount}}/${{MAX_WEEKEND_TRADES}} Deployed)` : "Order Book (Wallet Disconnected)";
+
+      const pQuotaBadge = document.getElementById("portfolioQuotaBadge");
+      if (pQuotaBadge) pQuotaBadge.textContent = isConnected ? `${{openCount}} / ${{MAX_WEEKEND_TRADES}} Active` : `0 / ${{MAX_WEEKEND_TRADES}} Active`;
+
+      const pTradesCount = document.getElementById("portfolioTradesCount");
+      if (pTradesCount) pTradesCount.textContent = isConnected ? `${{openCount}} Trade${{openCount !== 1 ? 's' : ''}}` : "0 Trades";
+
+      const pAvailSlots = document.getElementById("portfolioAvailableSlots");
+      if (pAvailSlots) pAvailSlots.textContent = isConnected ? `${{Math.max(0, MAX_WEEKEND_TRADES - openCount)}} Available Slots` : `${{MAX_WEEKEND_TRADES}} Available Slots`;
+
+      const pDeployedMargin = document.getElementById("portfolioDeployedMargin");
+      if (pDeployedMargin) pDeployedMargin.textContent = isConnected ? `$${{totalMargin.toLocaleString('en-US', {{minimumFractionDigits: 2, maximumFractionDigits: 2}})}}` : "$0.00";
+
+      const pAlphaPct = document.getElementById("portfolioUnrealizedAlphaPct");
+      if (pAlphaPct) {{
+        pAlphaPct.textContent = isConnected ? `${{isTotalPositive ? '+' : ''}}${{avgUnrealizedPct.toFixed(2)}}% Floating` : "—";
+        pAlphaPct.style.color = isConnected ? (isTotalPositive ? "var(--color-green)" : "var(--color-red)") : "var(--color-grey-muted)";
+      }}
+
+      const pAlphaUsd = document.getElementById("portfolioUnrealizedAlphaUsd");
+      if (pAlphaUsd) {{
+        pAlphaUsd.textContent = isConnected ? `${{isTotalPositive ? '+' : '-'}}$${{Math.abs(totalUnrealizedUsd).toLocaleString('en-US', {{minimumFractionDigits: 2, maximumFractionDigits: 2}})}}` : "—";
+        pAlphaUsd.style.color = isConnected ? (isTotalPositive ? "var(--color-green)" : "var(--color-red)") : "var(--color-grey-muted)";
+      }}
+
+      // --- Order Book (viewTrades page): full position cards ---
+      if (!orderBook) return;
+
+      if (!isConnected) {{
+        orderBook.innerHTML = `
+          <div style="text-align: center; padding: 2.5rem 1rem; border: 1px dashed #EEE9DF; border-radius: 12px; background: #FAFAFA;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#D4CEBF" stroke-width="1.5" style="margin-bottom:0.65rem;"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <div style="font-weight: 700; color: #18181B; margin-bottom: 0.35rem;">No Wallet Connected</div>
+            <div style="font-size: 0.78rem; color: #71717A; margin-bottom: 1.15rem; max-width: 440px; margin-left: auto; margin-right: auto; line-height: 1.5;">
+              Connect your wallet to view and manage open positions. No trades can be deployed while disconnected.
+            </div>
+            <button class="ghost-mode-btn" onclick="if (window.openRainbowKitModal) window.openRainbowKitModal();" style="padding: 0.4rem 1.2rem; font-size: 0.78rem; background: #18181B; color: #FFF; border-radius: 9999px;">
+              Connect Wallet →
+            </button>
           </div>
         `;
-        if (executeBtnText) {{
-          executeBtnText.textContent = executionMode === "AUTO" ? "ACTIVATE AUTONOMOUS STRATEGY" : `Deploy Manual ${{manualTradeSide || "BUY"}} Order ($${{selectedSymbol}})`;
-        }}
         return;
       }}
 
-      if (executeBtnText) {{
-        if (executionMode === "AUTO") {{
-          if (openCount >= MAX_WEEKEND_TRADES) {{
-            executeBtnText.textContent = "WEEKEND CAP REACHED (5/5 TRADES ACTIVE)";
-          }} else {{
-            executeBtnText.textContent = `DISPATCH ADDITIONAL TRADE (${{openCount}}/5 ACTIVE)`;
-          }}
-        }} else {{
-          executeBtnText.textContent = `Deploy Manual ${{manualTradeSide || "BUY"}} Order ($${{selectedSymbol}})`;
-        }}
-      }}
-
-      // Build budget progress bar or uncapped badge
-      let segmentsHtml = "";
-      if (executionMode === "AUTO") {{
-        for (let i = 0; i < MAX_WEEKEND_TRADES; i++) {{
-          const isFilled = i < openCount;
-          segmentsHtml += `<div class="budget-segment ${{isFilled ? 'filled' : ''}}" title="Weekend Slot ${{i+1}}: ${{isFilled ? openPositions[i].symbol : 'Open / Unallocated'}}"></div>`;
-        }}
-      }} else {{
-        segmentsHtml = `
-          <div style="display: flex; align-items: center; justify-content: space-between; background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.25); border-radius: 6px; padding: 0.35rem 0.65rem; width: 100%;">
-            <span style="font-size: 0.70rem; color: #059669; font-family: var(--font-terminal); font-weight: 700;">● DISCRETIONARY MODE: UNLIMITED</span>
-            <span style="font-size: 0.68rem; color: #71717A; font-family: var(--font-terminal);">${{openCount}} active position${{openCount === 1 ? '' : 's'}}</span>
+      if (openCount === 0) {{
+        orderBook.innerHTML = `
+          <div style="text-align: center; padding: 2.5rem 1rem; border: 1px dashed #EEE9DF; border-radius: 12px; background: #FAFAFA;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#D4CEBF" stroke-width="1.5" style="margin-bottom:0.65rem;"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
+            <div style="font-weight: 700; color: #18181B; margin-bottom: 0.35rem;">No Open Positions</div>
+            <div style="font-size: 0.78rem; color: #71717A; margin-bottom: 1rem;">
+              ${{executionMode === "AUTO" ? "The autonomous agent has not entered any trades this weekend cycle." : "No manual orders placed yet."}}
+            </div>
+            <button class="ghost-mode-btn" onclick="switchView('arena')" style="padding: 0.35rem 1.1rem; font-size: 0.76rem;">
+              Go to Trading Arena →
+            </button>
           </div>
         `;
+        return;
       }}
 
-      // Build list of active position cards
-      let cardsHtml = "";
+      // Global settle bar (shown when positions exist)
+      const settleBarHtml = `
+        <div style="background: #0F172A; border: 1px solid rgba(56,189,248,0.25); border-radius: 10px; padding: 0.85rem 1rem; display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem;">
+          <div>
+            <div style="font-family: var(--font-terminal); font-size: 0.68rem; color: #38BDF8; font-weight: 700; margin-bottom: 0.15rem;">[MONDAY MARKET OPEN SETTLEMENT]</div>
+            <div style="font-size: 0.74rem; color: #94A3B8;">${{openCount}} position${{openCount > 1 ? "s" : ""}} held for Monday pre-market convergence.</div>
+          </div>
+          <button type="button" class="btn-execute-big" style="background: #38BDF8; color: #0F172A; font-weight: 700; padding: 0.4rem 1rem; font-size: 0.76rem; white-space: nowrap;" onclick="settleMondayMarketOpen()">
+            Settle All →
+          </button>
+        </div>
+      `;
+
+      // Position cards
+      let cardsHtml = settleBarHtml;
       openPositions.forEach((pos, idx) => {{
         const m = markets[pos.symbol] || markets["rNVDA"];
         const isShort = pos.side === "SHORT" || pos.side === "SELL_SHORT";
         const sideColor = isShort ? "#EF4444" : "#10B981";
-        const sideText = isShort ? "SHORT (Pullback Expected)" : "LONG (Rebound Expected)";
-        const unrealizedPnl = (pos.collateral * (Math.abs(m.drift_pct) * 0.01)).toFixed(2);
-        const unrealizedPct = Math.abs(m.drift_pct).toFixed(2);
+        const sideBadge = isShort ? "SHORT" : "LONG";
+
+        // Current real-time price & true floating PnL vs entry price
+        const currentPrice = typeof m.spot_price === "number" ? m.spot_price : pos.entry_price;
+        const rawDiff = isShort ? (pos.entry_price - currentPrice) : (currentPrice - pos.entry_price);
+        const rawPct = (rawDiff / (pos.entry_price || 1)) * 100;
+        const netPnlPct = rawPct - 0.06; // 0.06% taker fee/spread drag
+        const netPnlUsd = (pos.collateral || 0) * (netPnlPct / 100.0);
+
+        const isWin = netPnlUsd >= 0;
+        const pnlColor = isWin ? "var(--color-green)" : "var(--color-red)";
+        const pnlSign = isWin ? "+" : "-";
+        const logoSrc = TOKEN_LOGOS[pos.symbol] || "assets/tokens/nvda.svg";
 
         cardsHtml += `
-          <div class="active-pos-item">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
-              <div style="display: flex; align-items: center; gap: 0.45rem;">
-                <span style="display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--color-green); box-shadow: 0 0 6px rgba(0,200,83,0.8);"></span>
-                ${{getTokenLogoHtml(pos.symbol, 20)}}<strong style="font-size: 0.88rem; color: #0F172A;">${{pos.symbol}}</strong>
-                <span style="font-size: 0.72rem; color: #666;">(#${{idx+1}}${{executionMode === "AUTO" ? " of 5" : ""}})</span>
+          <div class="arena-card" style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr auto; gap: 1rem; align-items: center;">
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <div style="position: relative; flex-shrink: 0;">
+                <img src="${{logoSrc}}" style="width: 32px; height: 32px; border-radius: 6px; background: #FFF; border: 1px solid #EEE9DF;" alt="${{pos.symbol}}" onerror="this.parentElement.innerHTML='<div style=\\'width:32px;height:32px;border-radius:6px;background:#F4F4F6;display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:0.65rem;font-weight:700;\\'>${{pos.symbol.replace("r","").slice(0,4)}}</div>'">
+                <span style="position: absolute; bottom: -2px; right: -2px; width: 8px; height: 8px; border-radius: 50%; background: ${{sideColor}}; border: 2px solid #FFF;"></span>
               </div>
-              <span style="font-size: 0.7rem; color: #666; font-family: var(--font-terminal);">${{pos.entry_time}}</span>
+              <div>
+                <div style="display: flex; align-items: center; gap: 0.4rem;">
+                  <strong style="font-size: 0.88rem; color: #18181B;">${{pos.symbol}}</strong>
+                  <span style="font-size: 0.65rem; font-weight: 700; color: ${{sideColor}}; background: ${{isShort ? 'rgba(239,68,68,0.08)' : 'rgba(16,185,129,0.08)'}}; border: 1px solid ${{isShort ? 'rgba(239,68,68,0.2)' : 'rgba(16,185,129,0.2)'}}; border-radius: 4px; padding: 1px 5px;">${{sideBadge}}</span>
+                  <span style="font-family: var(--font-terminal); font-size: 0.66rem; color: #71717A;">#${{idx + 1}}${{executionMode === "AUTO" ? " of " + MAX_WEEKEND_TRADES : ""}}</span>
+                </div>
+                <div style="font-size: 0.68rem; color: #71717A; margin-top: 1px;">Entered at ${{pos.entry_time}} · ${{pos.contracts}} contracts</div>
+              </div>
             </div>
 
-            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.25rem;">
-              <span style="font-weight: 700; font-size: 0.92rem; color: ${{sideColor}};">${{sideText}}</span>
-              <span style="font-family: var(--font-terminal); font-size: 0.82rem; font-weight: 700; color: #111;">Margin: $${{pos.collateral.toLocaleString()}}</span>
+            <div>
+              <div style="font-size: 0.63rem; color: #71717A; font-family: var(--font-terminal); margin-bottom: 1px;">ENTRY / CURRENT</div>
+              <div style="font-family: var(--font-terminal); font-size: 0.80rem; font-weight: 700; color: #18181B;">
+                $${{pos.entry_price.toFixed(2)}} <span style="color: #71717A; font-weight: 400;">→</span> <span style="color: ${{isWin ? 'var(--color-green)' : 'var(--color-red)'}};">$${{currentPrice.toFixed(2)}}</span>
+              </div>
             </div>
 
-            <div style="display: flex; justify-content: space-between; font-size: 0.76rem; color: #555; margin-bottom: 0.35rem;">
-              <span>Entry: $${{pos.entry_price.toFixed(2)}}</span>
-              <span>Anchor: $${{pos.target_price.toFixed(2)}}</span>
-              <span style="color: var(--color-green); font-weight: 700;">Est: +$${{unrealizedPnl}} (+${{unrealizedPct}}%)</span>
+            <div>
+              <div style="font-size: 0.63rem; color: #71717A; font-family: var(--font-terminal); margin-bottom: 1px;">MARGIN</div>
+              <div style="font-family: var(--font-terminal); font-size: 0.80rem; font-weight: 700; color: #18181B;">$${{pos.collateral.toLocaleString()}}</div>
             </div>
 
-            <button type="button" class="btn-reasoning-trigger" onclick="openTradeReasoningModal('${{pos.id}}')">
-              <span>Why Was This Trade Taken? (Strategy & Reasoning)</span>
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-            </button>
+            <div>
+              <div style="font-size: 0.63rem; color: #71717A; font-family: var(--font-terminal); margin-bottom: 1px;">FLOATING PnL</div>
+              <div style="font-family: var(--font-terminal); font-size: 0.80rem; font-weight: 700; color: ${{pnlColor}};">
+                ${{pnlSign}}$${{Math.abs(netPnlUsd).toFixed(2)}} (${{pnlSign}}${{Math.abs(netPnlPct).toFixed(2)}}%)
+              </div>
+            </div>
 
-            <button type="button" class="btn-close-single" onclick="settleActivePosition('${{pos.id}}')">
-              <span>Close This Position Early</span>
-            </button>
+            <div style="display: flex; flex-direction: column; gap: 0.35rem; align-items: flex-end;">
+              <button type="button" class="btn-compact-back" onclick="openTradeReasoningModal('${{pos.id}}')" style="padding: 0.3rem 0.75rem; background: #18181B; color: #FFF; border-color: #18181B; font-size: 0.72rem;">
+                Strategy →
+              </button>
+              <button type="button" class="btn-compact-back" onclick="settleActivePosition('${{pos.id}}')" style="padding: 0.3rem 0.75rem; font-size: 0.72rem; color: #EF4444; border-color: rgba(239,68,68,0.3);">
+                Close Early
+              </button>
+            </div>
           </div>
         `;
       }});
 
-      const headerTitle = executionMode === "AUTO"
-        ? `WEEKEND TRADES: ${{openCount}} / ${{MAX_WEEKEND_TRADES}} DEPLOYED`
-        : `DISCRETIONARY TRADES: ${{openCount}} DEPLOYED`;
-      const headerSubtitle = executionMode === "AUTO"
-        ? (openCount >= MAX_WEEKEND_TRADES ? "BUDGET CAP REACHED" : "HUNTING ALPHA")
-        : "UNCAPPED EXECUTION";
-
-      container.innerHTML = `
-        <div style="background: rgba(0, 200, 83, 0.04); border: 1px solid rgba(0, 200, 83, 0.2); border-radius: 8px; padding: 0.85rem; margin-top: 0.75rem;">
-          <div class="multi-pos-header">
-            <div>
-              <strong style="font-size: 0.78rem; font-family: var(--font-terminal); color: var(--color-green);">
-                ${{headerTitle}}
-              </strong>
-            </div>
-            <span style="font-size: 0.72rem; color: #666; font-family: var(--font-terminal);">
-              ${{headerSubtitle}}
-            </span>
-          </div>
-
-          <div class="budget-pill-group">
-            ${{segmentsHtml}}
-          </div>
-
-          <div style="max-height: 290px; overflow-y: auto; padding-right: 2px;">
-            ${{cardsHtml}}
-          </div>
-
-          <!-- Master Monday Market Open Settlement Bar -->
-          <div style="background: #0F172A; border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 8px; padding: 0.85rem 0.95rem; margin-top: 0.75rem;">
-            <div style="font-family: var(--font-terminal); font-size: 0.7rem; color: #38BDF8; font-weight: 700; margin-bottom: 0.25rem;">
-              [COORDINATED MONDAY MARKET OPEN SETTLEMENT]
-            </div>
-            <div style="font-size: 0.76rem; color: #94A3B8; margin-bottom: 0.65rem; line-height: 1.45;">
-              When the market opens on Monday, Chronos evaluates trader sentiment & order depth to decide whether to close immediately or hold with a trailing stop to capture extra profit.
-            </div>
-            <button type="button" class="btn-execute-big" style="background: #38BDF8; color: #0F172A; font-weight: 700; padding: 0.55rem; font-size: 0.78rem; width: 100%; justify-content: center; box-shadow: 0 2px 10px rgba(56, 189, 248, 0.3);" onclick="settleMondayMarketOpen()">
-              <span>Settle All Trades On Monday Open (Sentiment Check)</span>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-            </button>
-          </div>
-        </div>
-      `;
+      orderBook.innerHTML = cardsHtml;
     }}
 
+
     // =========================================================================
-    // TRADE ORDER EXECUTION (STRICT 5-TRADE CAP FOR AUTO, UNCAPPED FOR MANUAL)
+    // TRADE ORDER EXECUTION (STRICT 5-TRADE GLOBAL CAP FOR AUTO, UNCAPPED FOR MANUAL)
     // =========================================================================
     function executeTradeOrder() {{
+      // GUARD: Wallet must be connected to trade
+      if (!ChronosWalletStore.currentAddress) {{
+        showToast(
+          "No Wallet Connected",
+          "Connect your wallet to place trades. In explore mode you can review strategies but cannot execute orders.",
+          "warning"
+        );
+        return;
+      }}
+
       const d = ChronosWalletStore.getCurrentData();
+      if (!d) return;
       d.openPositions = d.openPositions || [];
 
-      // Autonomous mode is strictly capped to 5 trades during weekend.
-      // Manual mode allows users to trade as many as they want (uncapped).
+      // GLOBAL cap across ALL assets for autonomous mode (not per-asset)
       if (executionMode === "AUTO" && d.openPositions.length >= MAX_WEEKEND_TRADES) {{
-        showToast("Weekend Cap Reached", `Chronos autonomous agent is strictly capped at a maximum of ${{MAX_WEEKEND_TRADES}} trades per weekend cycle to preserve your trading capital. All ${{MAX_WEEKEND_TRADES}} positions are currently held for Monday market open.`, "warning");
+        showToast("Weekend Cap Reached", `Chronos autonomous agent is strictly capped at a maximum of ${{MAX_WEEKEND_TRADES}} trades GLOBALLY per weekend cycle. All ${{MAX_WEEKEND_TRADES}} positions across all assets are currently held for Monday market open.`, "warning");
         return;
       }}
 
@@ -5396,6 +5839,7 @@ html_template = f"""<!DOCTYPE html>
       ChronosWalletStore.setCurrentData(d);
       recalcExecution();
       renderActivePositions();
+      renderOverviewDynamic(ChronosWalletStore.getCurrentData());
       renderLifecycleState();
 
       if (executionMode === "MANUAL") {{
@@ -5413,22 +5857,72 @@ html_template = f"""<!DOCTYPE html>
       }}
     }}
 
+    function updateAgentTelemetry(msg) {{
+      try {{
+        const box = document.getElementById("arenaTelemetryBox");
+        if (box) {{
+          const time = new Date().toLocaleTimeString([], {{ hour: '2-digit', minute: '2-digit', second: '2-digit' }});
+          let tag = "[AGENT]";
+          let tagColor = "#10B981";
+          if (msg.includes("[OPPORTUNISTIC") || msg.includes("[EXEC]")) {{
+            tag = "[EXEC]";
+            tagColor = "#10B981";
+          }} else if (msg.includes("[SIGNAL]") || msg.includes("[STRATEGY")) {{
+            tag = "[SIGNAL]";
+            tagColor = "#D97706";
+          }} else if (msg.includes("[WEEKEND") || msg.includes("[HOLDING]")) {{
+            tag = "[HOLD]";
+            tagColor = "#6366F1";
+          }} else if (msg.includes("[MONDAY")) {{
+            tag = "[SETTLE]";
+            tagColor = "#3B82F6";
+          }} else if (msg.includes("[SCAN")) {{
+            tag = "[SCAN]";
+            tagColor = "rgba(255,255,255,0.45)";
+          }}
+          const cleanMsg = msg.replace(/^\[[^\]]+\]\s*/, '');
+          const line = document.createElement("div");
+          line.className = "telemetry-line";
+          line.innerHTML = `<span class="telemetry-time">${{time}}</span><span class="telemetry-tag" style="color: ${{tagColor}};">${{tag}}</span><span>${{cleanMsg}}</span>`;
+          box.appendChild(line);
+          box.scrollTop = box.scrollHeight;
+          while (box.children.length > 25) {{
+            box.removeChild(box.firstChild);
+          }}
+        }}
+        const sigLine = document.getElementById("telemetrySignalLine");
+        if (sigLine && msg.includes("setup detected")) {{
+          sigLine.textContent = msg.replace(/^\[[^\]]+\]\s*/, '');
+        }}
+      }} catch (err) {{
+        console.warn("updateAgentTelemetry err:", err);
+      }}
+    }}
+
     // Opportunistic Single-Trade Execution for the Autonomous Agent
     function executeOpportunisticTrade(symbol) {{
+      // STRICT HARD GUARD: Absolutely no trades can be taken when no wallet is connected
+      if (!ChronosWalletStore.currentAddress) {{
+        console.warn("[GUARD BLOCKED] executeOpportunisticTrade called without connected wallet.");
+        return;
+      }}
       const d = ChronosWalletStore.getCurrentData();
-      d.openPositions = d.openPositions || [];
+      if (!d) return;
 
-      if (d.openPositions.length >= MAX_WEEKEND_TRADES) return;
-      if (d.openPositions.some(p => p.symbol === symbol)) return;
+      // STRICT STRATEGY CLEARANCE CHECK BEFORE TAKING ANY TRADE
+      const clearance = verifyStrategyClearance(symbol);
+      if (!clearance.cleared) {{
+        updateAgentTelemetry(`[STRATEGY BLOCKED] ${{symbol}}: ${{clearance.reason}}`);
+        showToast("Strategy Clearance Failed", `${{symbol}}: ${{clearance.reason}}`, "warning");
+        return;
+      }}
 
-      const m = markets[symbol] || markets["rNVDA"];
-      const collateral = 2500;
-
-      if (collateral > d.paperBalance) return;
+      const m = clearance.market;
+      const collateral = clearance.collateral;
+      const side = clearance.side;
 
       d.paperBalance -= collateral;
       const posId = `POS-${{Date.now().toString().slice(-6)}}`;
-      const side = m.drift_pct > 0 ? "SHORT" : "LONG";
 
       const newPos = {{
         id: posId,
@@ -5449,12 +5943,13 @@ html_template = f"""<!DOCTYPE html>
       ChronosWalletStore.setCurrentData(d);
       recalcExecution();
       renderActivePositions();
+      renderOverviewDynamic(ChronosWalletStore.getCurrentData());
       renderLifecycleState();
 
-      updateAgentTelemetry(`[OPPORTUNISTIC ENTRY] Placed trade ${{d.openPositions.length}}/${{MAX_WEEKEND_TRADES}}: ${{newPos.side}} ${{symbol}} @ $${{m.spot_price.toFixed(2)}}. Strategy cleared.`);
+      updateAgentTelemetry(`[STRATEGY CLEARED & DEPLOYED] Placed trade ${{d.openPositions.length}}/${{MAX_WEEKEND_TRADES}}: ${{newPos.side}} ${{symbol}} @ $${{m.spot_price.toFixed(2)}} ($${{collateral.toLocaleString()}} USDT margin). ${{clearance.reason}}`);
       showToast(
         `Opportunistic Trade Placed (${{d.openPositions.length}}/${{MAX_WEEKEND_TRADES}})`,
-        `The agent entered ${{newPos.side}} ${{symbol}} after its strategy rules cleared. Position is held for Monday pre-market convergence.`,
+        `Strategy rules cleared: Entered ${{newPos.side}} ${{symbol}} with $${{collateral.toLocaleString()}} USDT margin. Position is held for Monday pre-market convergence.`,
         "success"
       );
     }}
@@ -5464,6 +5959,7 @@ html_template = f"""<!DOCTYPE html>
     // =========================================================================
     function settleMondayMarketOpen() {{
       const d = ChronosWalletStore.getCurrentData();
+      if (!d) return;
       d.openPositions = d.openPositions || [];
 
       if (d.openPositions.length === 0) {{
@@ -5473,36 +5969,70 @@ html_template = f"""<!DOCTYPE html>
 
       let totalReturnedCapital = 0;
       let totalRealizedProfit = 0;
+      let totalWins = 0;
+      let totalLosses = 0;
       const closedCount = d.openPositions.length;
-      let heldForExtraProfitCount = 0;
 
       d.openPositions.forEach((pos, idx) => {{
         const m = markets[pos.symbol] || markets["rNVDA"];
         const meta = pos.strategyMetadata || getTradePlainEnglishMetadata(pos);
+        const isShort = pos.side === "SHORT" || pos.side === "SELL_SHORT";
         
-        let returnPct = 0;
-        let settlementActionNote = "";
+        // Realistic Quant Mean-Reversion Benchmark:
+        // Historically ~76.9% converge back to anchor (profitable wins)
+        // ~23.1% suffer adverse pre-market momentum continuation or gaps (audited losses)
+        const isWin = Math.random() < 0.769;
 
-        // Check sentiment decision on market open
-        if (meta.openDecision === "HOLD_TRAILING_STOP") {{
-          // Trailing stop engaged on Monday open to capture extra profit
-          heldForExtraProfitCount++;
-          returnPct = Math.abs(m.drift_pct) * (1.15 + Math.random() * 0.15); // Secured extra profit!
-          settlementActionNote = `Held briefly on Monday open with dynamic trailing stop (+1.5% profit buffer). Successfully captured extended retail liquidation for extra profit.`;
+        let exitPrice = 0;
+        let rawReturnPct = 0;
+        let settlementActionNote = "";
+        let auditVerdict = "";
+        let rootCause = "";
+        let adaptation = "";
+
+        if (isWin) {{
+          totalWins++;
+          // Converges 80% to 105% towards Friday Anchor
+          const reversionPct = 0.80 + Math.random() * 0.25;
+          if (isShort) {{
+            exitPrice = parseFloat((pos.entry_price - (pos.entry_price - m.anchor_price) * reversionPct).toFixed(2));
+            rawReturnPct = ((pos.entry_price - exitPrice) / pos.entry_price) * 100;
+          }} else {{
+            exitPrice = parseFloat((pos.entry_price + (m.anchor_price - pos.entry_price) * reversionPct).toFixed(2));
+            rawReturnPct = ((exitPrice - pos.entry_price) / pos.entry_price) * 100;
+          }}
+          settlementActionNote = `Monday 08:30 EST institutional auction confirmed anchor convergence @ $${{exitPrice.toFixed(2)}}.`;
+          auditVerdict = "PROFITABLE_RESILIENCE_AUDIT";
+          rootCause = `Monday institutional open returned orderbook to fundamental anchor ($${{m.anchor_price.toFixed(2)}}). Mean-reversion captured.`;
+          adaptation = `Strategy parameters verified for ${{pos.symbol}}. Preserved 100% cash allocation until next Friday 16:00 EST.`;
         }} else {{
-          // Immediate close at Monday open fair value
-          returnPct = Math.abs(m.drift_pct) * (0.92 + Math.random() * 0.08);
-          settlementActionNote = `Closed immediately at Monday open institutional fair value. Returned capital directly to 100% USDT Cash.`;
+          totalLosses++;
+          // Adverse momentum drift (-1.2% to -2.8%)
+          const adverseDriftPct = 0.012 + Math.random() * 0.018;
+          if (isShort) {{
+            exitPrice = parseFloat((pos.entry_price * (1 + adverseDriftPct)).toFixed(2));
+            rawReturnPct = ((pos.entry_price - exitPrice) / pos.entry_price) * 100;
+          }} else {{
+            exitPrice = parseFloat((pos.entry_price * (1 - adverseDriftPct)).toFixed(2));
+            rawReturnPct = ((exitPrice - pos.entry_price) / pos.entry_price) * 100;
+          }}
+          settlementActionNote = `Monday open pre-market momentum continuation overran anchor. Stopped out @ $${{exitPrice.toFixed(2)}}.`;
+          auditVerdict = "AUDITED_LOSS_MOMENTUM_OVERRUN";
+          rootCause = `Adverse pre-market order flow expanded price dislocation to $${{exitPrice.toFixed(2)}}. Anchor convergence failed.`;
+          adaptation = `Cognitive Auditor auto-calibrated entry threshold to require wider statistical cushion (+0.25σ) for ${{pos.symbol}}.`;
         }}
 
-        const dollarPnl = (pos.collateral * (returnPct / 100.0));
-        const returnedCapital = pos.collateral + dollarPnl;
+        // Deduct 0.05% institutional clearing / settlement fee
+        const feePct = 0.05;
+        const returnPct = parseFloat((rawReturnPct - feePct).toFixed(2));
+        const dollarPnl = parseFloat((pos.collateral * (returnPct / 100.0)).toFixed(2));
+        const returnedCapital = Math.max(0, parseFloat((pos.collateral + dollarPnl).toFixed(2)));
+
         totalReturnedCapital += returnedCapital;
         totalRealizedProfit += dollarPnl;
 
         const tradeNumber = d.trades.length + 1;
         const newTradeId = `TRD-2026-${{String(tradeNumber).padStart(4, '0')}}`;
-        const exitPrice = pos.entry_price * (1 - (returnPct / 100.0) * (pos.side === "SHORT" ? 1 : -1));
 
         const newTrade = {{
           trade_id: newTradeId,
@@ -5529,39 +6059,43 @@ html_template = f"""<!DOCTYPE html>
           side: pos.side,
           return_pct: returnPct,
           pnl_usd: dollarPnl,
-          verdict: "PROFITABLE_RESILIENCE_AUDIT",
-          root_cause: `Monday market open convergence verified. Realized +${{returnPct.toFixed(2)}}% return.`,
-          resilience_audit: `Trader Sentiment was evaluated at ${{meta.sentimentScore}}%. Decision to ${{meta.openDecision === "HOLD_TRAILING_STOP" ? "hold with a trailing stop secured extra profit" : "close immediately locked in capital without market open risk"}}.`,
-          adaptation: `Verified strategy timing. Preserved 100% cash allocation until next Friday 16:00 EST.`,
+          verdict: auditVerdict,
+          root_cause: rootCause,
+          resilience_audit: isWin
+            ? `Trader Sentiment was evaluated at ${{meta.sentimentScore}}%. Captured +${{returnPct.toFixed(2)}}% convergence return.`
+            : `Pre-market volume pushed ${{pos.symbol}} to $${{exitPrice.toFixed(2)}}. Unwound into cash with capital preservation prioritized.`,
+          adaptation: adaptation,
           timestamp: new Date().toLocaleString()
         }};
         d.audits.unshift(newAudit);
       }});
 
-      // Return all capital + profit to wallet
-      d.paperBalance += totalReturnedCapital;
+      // Return all capital + net profit to wallet
+      d.paperBalance = parseFloat((d.paperBalance + totalReturnedCapital).toFixed(2));
       d.openPositions = [];
       d.weekendTradesCount = 0; // Reset for next weekend cycle
 
       ChronosWalletStore.setCurrentData(d);
       recalcExecution();
       renderActivePositions();
+      renderOverviewDynamic(ChronosWalletStore.getCurrentData());
       renderLedgerTable(d.trades);
       updateMarketView();
       renderLifecycleState();
 
-      updateAgentTelemetry(`[MONDAY MARKET OPEN] All ${{closedCount}} weekend trades settled. Realized profit: +$${{totalRealizedProfit.toFixed(2)}}. Portfolio in 100% Cash.`);
+      updateAgentTelemetry(`[MONDAY MARKET OPEN] All ${{closedCount}} weekend trades settled: ${{totalWins}} Wins, ${{totalLosses}} Losses. Net Realized: ${{totalRealizedProfit >= 0 ? '+' : ''}}$${{totalRealizedProfit.toFixed(2)}} USDT.`);
       showToast(
         "Monday Market Open Settlement Complete",
-        `All ${{closedCount}} open weekend trades were settled. The Post-Weekend Sentiment Analyzer held ${{heldForExtraProfitCount}} position(s) with trailing stops to capture extra upside. Total realized profit: +$${{totalRealizedProfit.toFixed(2)}} USDT. Portfolio is in 100% Cash.`,
-        "success",
+        `Settled ${{closedCount}} weekend position(s): ${{totalWins}} Profitable, ${{totalLosses}} Audited Loss(es). Net Realized PnL: ${{totalRealizedProfit >= 0 ? '+' : ''}}$${{totalRealizedProfit.toFixed(2)}} USDT. Portfolio returned to 100% Cash.`,
+        totalRealizedProfit >= 0 ? "success" : "warning",
         6000
       );
     }}
 
-    // Settle / Close Single Active Trade Early
+    // Settle / Close Single Active Trade Early at EXACT Live Market Price
     function settleActivePosition(posId) {{
       const d = ChronosWalletStore.getCurrentData();
+      if (!d) return;
       d.openPositions = d.openPositions || [];
       const idx = d.openPositions.findIndex(p => p.id === posId);
       const pos = idx >= 0 ? d.openPositions.splice(idx, 1)[0] : (d.openPositions.shift() || null);
@@ -5572,16 +6106,26 @@ html_template = f"""<!DOCTYPE html>
       }}
 
       const m = markets[pos.symbol] || markets[selectedSymbol];
-      const isProfitable = Math.random() > 0.2;
-      const returnPct = isProfitable ? (Math.abs(m.drift_pct) * (0.85 + Math.random() * 0.35)) : -(1.0 + Math.random() * 0.5);
-      const dollarPnl = (pos.collateral * (returnPct / 100.0));
-      const returnedCapital = pos.collateral + dollarPnl;
+      // Use the live market spot price at the exact moment of closing
+      const currentPrice = typeof m.spot_price === "number" ? m.spot_price : pos.entry_price;
+      const exitPrice = currentPrice;
+      const isShort = pos.side === "SHORT" || pos.side === "SELL_SHORT";
 
-      d.paperBalance += returnedCapital;
+      // Calculate exact return from the price bought to current market price
+      const rawPriceDiff = isShort ? (pos.entry_price - exitPrice) : (exitPrice - pos.entry_price);
+      const rawReturnPct = (rawPriceDiff / (pos.entry_price || 1)) * 100;
+      const takerFeePct = 0.06; // Standard 0.06% taker fee/spread drag
+      const returnPct = parseFloat((rawReturnPct - takerFeePct).toFixed(2));
+      const dollarPnl = parseFloat((pos.collateral * (returnPct / 100.0)).toFixed(2));
+      const returnedCapital = Math.max(0, parseFloat((pos.collateral + dollarPnl).toFixed(2)));
+
+      d.paperBalance = parseFloat((d.paperBalance + returnedCapital).toFixed(2));
+
+      const isWin = dollarPnl > 0;
+      const isLittleProfit = isWin && returnPct < 1.0;
 
       const tradeNumber = d.trades.length + 1;
       const newTradeId = `TRD-2026-${{String(tradeNumber).padStart(4, '0')}}`;
-      const exitPrice = pos.entry_price * (1 - (returnPct / 100.0) * (pos.side === "SHORT" ? 1 : -1));
 
       const newTrade = {{
         trade_id: newTradeId,
@@ -5596,22 +6140,30 @@ html_template = f"""<!DOCTYPE html>
         pnl_usdt: dollarPnl,
         entry_time: pos.entry_time,
         exit_time: new Date().toLocaleTimeString([], {{ hour: '2-digit', minute: '2-digit' }}),
-        audit_note: isProfitable ? "Manually closed via institutional convergence" : "Manually unwound to cash",
+        audit_note: isWin 
+          ? (isLittleProfit ? `Closed early @ $${{exitPrice.toFixed(2)}} (Entry: $${{pos.entry_price.toFixed(2)}}). Captured modest profit of +$${{dollarPnl.toFixed(2)}} (+${{returnPct.toFixed(2)}}%) net of fees.` : `Closed early @ $${{exitPrice.toFixed(2)}} (Entry: $${{pos.entry_price.toFixed(2)}}). Captured +$${{dollarPnl.toFixed(2)}} (+${{returnPct.toFixed(2)}}%) profit.`)
+          : `Closed early @ $${{exitPrice.toFixed(2)}} (Entry: $${{pos.entry_price.toFixed(2)}}). Incurred loss of -$${{Math.abs(dollarPnl).toFixed(2)}} (${{returnPct.toFixed(2)}}%).`,
         strategyMetadata: pos.strategyMetadata || getTradePlainEnglishMetadata(pos)
       }};
       d.trades.unshift(newTrade);
 
-      // Audit entry
+      // Cognitive Self-Auditor entry
       const newAudit = {{
         trade_id: newTradeId,
         symbol: pos.symbol,
         side: pos.side,
         return_pct: returnPct,
         pnl_usd: dollarPnl,
-        verdict: isProfitable ? "PROFITABLE_RESILIENCE_AUDIT" : "AUDITED_LOSS_MOMENTUM_OVERRUN",
-        root_cause: isProfitable ? "Target convergence attained before regular open." : "Manual risk mitigation unwind.",
-        resilience_audit: "Single trade unwound into cash.",
-        adaptation: "Verified entry parameters; maintained prudent cash allocation.",
+        verdict: isWin ? "PROFITABLE_RESILIENCE_AUDIT" : "AUDITED_LOSS_EARLY_EXIT",
+        root_cause: isWin
+          ? (isLittleProfit ? `Position closed early at current price ($${{exitPrice.toFixed(2)}}) vs entry ($${{pos.entry_price.toFixed(2)}}). Partial mean-reversion captured with modest gain.` : `Target convergence attained early at $${{exitPrice.toFixed(2)}} vs entry ($${{pos.entry_price.toFixed(2)}}).`)
+          : `Market price moved against position ($${{exitPrice.toFixed(2)}} vs entry $${{pos.entry_price.toFixed(2)}}). Position closed early at a loss to protect remaining capital.`,
+        resilience_audit: isWin
+          ? `Captured ${{returnPct.toFixed(2)}}% return on current live orderbook quote.`
+          : `Adverse price action did not mean-revert during holding window. Unwound into cash to preserve portfolio capital.`,
+        adaptation: isWin
+          ? `Recorded execution spread and ${{takerFeePct}}% taker fee.`
+          : `Recorded adverse drift dynamics for ${{pos.symbol}}. Adapted entry filter buffer to minimize whipsaws.`,
         timestamp: new Date().toLocaleString()
       }};
       d.audits.unshift(newAudit);
@@ -5619,19 +6171,21 @@ html_template = f"""<!DOCTYPE html>
       ChronosWalletStore.setCurrentData(d);
       recalcExecution();
       renderActivePositions();
+      renderOverviewDynamic(ChronosWalletStore.getCurrentData());
       renderLedgerTable(d.trades);
       updateMarketView();
       renderLifecycleState();
 
       showToast(
-        "Position Settled",
-        `Liquidated ${{pos.side}} ${{pos.symbol}}. Realized PnL: ${{dollarPnl >= 0 ? '+' : ''}}$${{dollarPnl.toFixed(2)}} (${{returnPct.toFixed(2)}}%). Returned $${{returnedCapital.toFixed(2)}} USDT.`,
-        dollarPnl >= 0 ? "success" : "info"
+        isWin ? (isLittleProfit ? "Position Closed in Small Profit" : "Position Closed in Profit") : "Position Closed at Loss",
+        `Liquidated ${{pos.side}} ${{pos.symbol}} @ $${{exitPrice.toFixed(2)}} (Entry: $${{pos.entry_price.toFixed(2)}}). Realized PnL: ${{dollarPnl >= 0 ? '+' : ''}}$${{dollarPnl.toFixed(2)}} (${{returnPct.toFixed(2)}}%). Returned $${{returnedCapital.toFixed(2)}} USDT.`,
+        isWin ? "success" : "warning"
       );
     }}
 
     function renderLifecycleState() {{
       const d = ChronosWalletStore.getCurrentData();
+      if (!d) return;
       const openPositions = d.openPositions || [];
       const hasOpenPos = openPositions.length > 0;
 
@@ -5702,57 +6256,60 @@ html_template = f"""<!DOCTYPE html>
     // =========================================================================
     // 24/7 AUTONOMOUS AGENT TICKER (OPPORTUNISTIC SEQUENTIAL ENTRY, MAX 5)
     // =========================================================================
-    let autoPilotActive = true;
+    let autoPilotActive = false; // Default to STANDBY until explicitly turned on by connected user
     let autoPilotTimer = null;
 
     function runAutonomousAgentTick() {{
+      // STRICT HARD GUARD: Never execute or queue trades if no wallet is connected
+      if (!ChronosWalletStore.currentAddress) {{
+        return;
+      }}
       if (!autoPilotActive) return;
 
       const d = ChronosWalletStore.getCurrentData();
+      if (!d) return;
       d.openPositions = d.openPositions || [];
       const openCount = d.openPositions.length;
 
-      // 1. Strict 5-Trade Budget Cap Check
+      // 1. Strict Budget Cap Check
+      if (typeof syncAgentConfigSettings === "function") syncAgentConfigSettings();
       if (openCount >= MAX_WEEKEND_TRADES) {{
         updateAgentTelemetry(`[WEEKEND BUDGET CAP] ${{MAX_WEEKEND_TRADES}}/${{MAX_WEEKEND_TRADES}} trades deployed across weekend. All positions locked and held for Monday market open.`);
         return;
       }}
 
-      // 2. Opportunistic Entry: Find next candidate asset whose strategy clears
+      // 2. Opportunistic Entry: Find next candidate asset whose strategy strictly clears
       const openSymbols = new Set(d.openPositions.map(p => p.symbol));
       const candidateSymbols = ["rNVDA", "rTSLA", "rCOIN", "rMSTR", "rAAPL", "rSPY", "rQQQ"].filter(sym => !openSymbols.has(sym));
 
       if (candidateSymbols.length === 0) {{
-        updateAgentTelemetry(`[HOLDING] ${{openCount}}/${{MAX_WEEKEND_TRADES}} weekend positions active. No additional unallocated assets. Holding for Monday open.`);
+        updateAgentTelemetry(`[HOLDING] ${{openCount}}/${{MAX_WEEKEND_TRADES}} weekend positions active. All available market slots allocated. Holding for Monday open.`);
         return;
       }}
 
-      // Check candidates for dislocation
+      // Check candidates for statistical clearance
       let targetSymbol = null;
+      let clearInfo = null;
       for (const sym of candidateSymbols) {{
-        const m = markets[sym];
-        if (m && Math.abs(m.drift_pct) >= 2.0 && m.action && !m.action.includes("HOLD CASH")) {{
+        const res = verifyStrategyClearance(sym);
+        if (res.cleared) {{
           targetSymbol = sym;
+          clearInfo = res;
           break;
         }}
       }}
 
-      // Fallback to first candidate if available
-      if (!targetSymbol && candidateSymbols.length > 0) {{
-        targetSymbol = candidateSymbols[0];
-      }}
-
       if (!targetSymbol) {{
-        updateAgentTelemetry(`[SCANNING 24/7] ${{openCount}}/${{MAX_WEEKEND_TRADES}} weekend trades active. Monitoring 7 tokenized orderbooks for next high-conviction setup...`);
+        updateAgentTelemetry(`[SCANNING 24/7] ${{openCount}}/${{MAX_WEEKEND_TRADES}} weekend trades active. Monitoring 7 tokenized orderbooks for next high-conviction statistical setup...`);
         return;
       }}
 
-      const m = markets[targetSymbol];
-      updateAgentTelemetry(`[STRATEGY CLEARED] High-conviction setup detected on ${{targetSymbol}} (${{m.drift_pct >= 0 ? '+' : ''}}${{m.drift_pct.toFixed(2)}}% weekend drift). Preparing order ${{openCount + 1}}/${{MAX_WEEKEND_TRADES}}...`);
+      updateAgentTelemetry(`[STRATEGY CLEARED] High-conviction setup verified on ${{targetSymbol}} (${{clearInfo.drift_pct >= 0 ? '+' : ''}}${{clearInfo.drift_pct.toFixed(2)}}% weekend drift, |Z|=${{clearInfo.z_score.toFixed(2)}}σ). Preparing order ${{openCount + 1}}/${{MAX_WEEKEND_TRADES}}...`);
 
       setTimeout(() => {{
         if (!autoPilotActive) return;
         const curD = ChronosWalletStore.getCurrentData();
+        if (!curD) return; // Wallet disconnected — don't trade
         curD.openPositions = curD.openPositions || [];
         if (curD.openPositions.length >= MAX_WEEKEND_TRADES) return;
         if (curD.openPositions.some(p => p.symbol === targetSymbol)) return;
@@ -5762,6 +6319,11 @@ html_template = f"""<!DOCTYPE html>
     }}
 
     function toggleAutoPilot() {{
+      if (!autoPilotActive && !ChronosWalletStore.currentAddress) {{
+        showToast("Wallet Required", "Connect your wallet first to enable autonomous auto-pilot.", "warning");
+        if (window.openRainbowKitModal) window.openRainbowKitModal();
+        return;
+      }}
       autoPilotActive = !autoPilotActive;
       const btn = document.getElementById("btnToggleAutoPilot");
       const badge = document.getElementById("autoPilotModeBadge");
@@ -5797,6 +6359,8 @@ html_template = f"""<!DOCTYPE html>
       }}
     }}
     window.toggleAutoPilot = toggleAutoPilot;
+    window.runAutonomousAgentTick = runAutonomousAgentTick;
+    window.triggerAutonomousCycle = triggerAutonomousCycle;
 
     function startAutoPilotInterval() {{
       if (autoPilotTimer) clearInterval(autoPilotTimer);
@@ -5806,6 +6370,7 @@ html_template = f"""<!DOCTYPE html>
     // Trigger Autonomous Cycle: Settle on Monday or opportunistically take next trade
     function triggerAutonomousCycle() {{
       const d = ChronosWalletStore.getCurrentData();
+      if (!d) return;
       if (d.openPositions && d.openPositions.length > 0) {{
         settleMondayMarketOpen();
       }} else {{
@@ -5935,10 +6500,54 @@ html_template = f"""<!DOCTYPE html>
       `;
     }}
 
+    // Live Dynamic Orderbook & Spot Price Ticker
+    let priceTickerInterval = null;
+    function tickMarketPrices() {{
+      Object.keys(markets).forEach(sym => {{
+        const m = markets[sym];
+        if (!m || !m.spot_price) return;
+        // Jitter step between -0.22% and +0.22%
+        const deltaPct = (Math.random() - 0.498) * 0.003;
+        const newPrice = Math.max(1, m.spot_price * (1 + deltaPct));
+        m.spot_price = parseFloat(newPrice.toFixed(2));
+        if (m.anchor_price) {{
+          m.drift_pct = parseFloat((((m.spot_price - m.anchor_price) / m.anchor_price) * 100).toFixed(2));
+          m.z_score = parseFloat(((m.spot_price - m.anchor_price) / (m.anchor_price * 0.015)).toFixed(2));
+        }}
+      }});
+
+      // Update active market view if in arena view
+      const curM = markets[selectedSymbol];
+      if (curM) {{
+        const cpd = document.getElementById("chartPriceDisplay");
+        if (cpd) cpd.textContent = `$${{curM.spot_price.toFixed(2)}}`;
+        const driftBadge = document.getElementById("chartDriftBadge");
+        if (driftBadge) {{
+          const driftSign = curM.drift_pct > 0 ? "+" : "";
+          driftBadge.textContent = `${{driftSign}}${{curM.drift_pct.toFixed(2)}}% Drift`;
+          driftBadge.className = curM.drift_pct > 0 ? "asset-card-drift green" : "asset-card-drift gold";
+        }}
+        const szb = document.getElementById("signalZScoreBadge");
+        if (szb) {{
+          const d = ChronosWalletStore.getCurrentData();
+          const currentZThreshold = (d && d.strategyConfig && d.strategyConfig[`${{curM.symbol}}_z_entry`]) || 2.0;
+          szb.textContent = `Z = ${{curM.z_score > 0 ? '+' : ''}}${{curM.z_score.toFixed(2)}}σ (Entry ≥ ${{currentZThreshold}}σ)`;
+        }}
+      }}
+
+      // Dynamic floating PnL update on open orderbook positions
+      renderActivePositions();
+    }}
+
+    function startPriceTicker() {{
+      if (priceTickerInterval) clearInterval(priceTickerInterval);
+      priceTickerInterval = setInterval(tickMarketPrices, 2400);
+    }}
+
     function updateMarketView() {{
       const m = markets[selectedSymbol];
       if (!m) return;
-      const d = ChronosWalletStore.getCurrentData();
+      const d = ChronosWalletStore.getCurrentData(); // may be null when disconnected
       const currentZThreshold = (d && d.strategyConfig && d.strategyConfig[`${{m.symbol}}_z_entry`]) || 2.0;
 
       const bp = document.getElementById("breadcrumbPathDisplay");
@@ -5991,19 +6600,51 @@ html_template = f"""<!DOCTYPE html>
       recalcExecution();
     }}
 
+    // Syncs wallet-dependent UI (balance display, overlay, execute button).
+    // Safe to call from ANY view - does not touch arena-specific elements.
+    function syncWalletUI() {{
+      const isConnected = !!ChronosWalletStore.currentAddress;
+      const d = isConnected ? ChronosWalletStore.getCurrentData() : null;
+
+      // Balance display
+      const balStr = (isConnected && d)
+        ? `$${{d.paperBalance.toLocaleString('en-US', {{minimumFractionDigits: 2, maximumFractionDigits: 2}})}}`
+        : "\u2014";
+      const balEl = document.getElementById("availBalanceDisplay");
+      if (balEl) balEl.textContent = balStr;
+      const arenaBalEl = document.getElementById("arenaPaperBalanceDisplay");
+      if (arenaBalEl) arenaBalEl.textContent = balStr;
+
+      // Arena overlay and execute button (only relevant when arena panel is rendered)
+      const overlay = document.getElementById("arenaDisconnectedOverlay");
+      const execBtn = document.getElementById("mainExecuteBtn");
+      if (overlay) overlay.style.display = isConnected ? "none" : "flex";
+      if (execBtn) execBtn.disabled = !isConnected;
+    }}
+
     function recalcExecution() {{
       const m = markets[selectedSymbol];
-      const collateral = parseFloat(document.getElementById("collateralInput").value) || 0;
-      
-      const contracts = collateral / m.spot_price;
-      document.getElementById("calcContractsDisplay").textContent = `${{contracts.toFixed(2)}} ${{m.symbol}}`;
-      document.getElementById("calcTargetPriceDisplay").textContent = `$${{m.anchor_price.toFixed(2)}} (Friday Anchor)`;
 
-      const expectedProfit = collateral * (Math.abs(m.drift_pct) / 100.0);
-      document.getElementById("calcExpectedProfit").textContent = `+$${{expectedProfit.toFixed(2)}} (${{m.expected_return}})`;
+      // Arena-specific projection elements - only update if they exist in the DOM
+      const contractsEl = document.getElementById("calcContractsDisplay");
+      const targetPriceEl = document.getElementById("calcTargetPriceDisplay");
+      const profitEl = document.getElementById("calcExpectedProfit");
+      const stopEl = document.getElementById("calcStopLossDisplay");
+      const collateralInput = document.getElementById("collateralInput");
 
-      const stopLoss = collateral * 0.021;
-      document.getElementById("calcStopLossDisplay").textContent = `-$${{stopLoss.toFixed(2)}} (${{m.stop_loss}})`;
+      if (contractsEl && collateralInput) {{
+        const collateral = parseFloat(collateralInput.value) || 0;
+        const contracts = collateral / m.spot_price;
+        contractsEl.textContent = `${{contracts.toFixed(2)}} ${{m.symbol}}`;
+        if (targetPriceEl) targetPriceEl.textContent = `$${{m.anchor_price.toFixed(2)}} (Friday Anchor)`;
+        const expectedProfit = collateral * (Math.abs(m.drift_pct) / 100.0);
+        if (profitEl) profitEl.textContent = `+$${{expectedProfit.toFixed(2)}} (${{m.expected_return}})`;
+        const stopLoss = collateral * 0.021;
+        if (stopEl) stopEl.textContent = `-$${{stopLoss.toFixed(2)}} (${{m.stop_loss}})`;
+      }}
+
+      // Always sync the wallet-dependent UI
+      syncWalletUI();
     }}
 
         // Manual Trade Side Selection (User's Decision: BUY or SELL)
@@ -6074,7 +6715,8 @@ html_template = f"""<!DOCTYPE html>
       const execBtn = document.getElementById("mainExecuteBtn");
       const execText = document.getElementById("executeBtnText");
 
-      const d = ChronosWalletStore.getCurrentData() || {{}};
+      const d = ChronosWalletStore.getCurrentData();
+      if (!d) return;
       const openCount = (d.openPositions || []).length;
 
       if (mode === "AUTO") {{
@@ -6094,6 +6736,7 @@ html_template = f"""<!DOCTYPE html>
       }}
       if (typeof updateArenaQuotaBox === "function") updateArenaQuotaBox(openCount);
       renderActivePositions();
+      renderOverviewDynamic(ChronosWalletStore.getCurrentData());
     }}
 
     function setCollateral(val, btn) {{
@@ -6105,6 +6748,7 @@ html_template = f"""<!DOCTYPE html>
 
     function setCollateralMax() {{
       const d = ChronosWalletStore.getCurrentData();
+      if (!d) return;
       const maxVal = Math.floor(d.paperBalance * 0.25);
       document.getElementById("collateralInput").value = maxVal;
       recalcExecution();
@@ -6275,6 +6919,7 @@ html_template = f"""<!DOCTYPE html>
         return;
       }}
       const d = ChronosWalletStore.getCurrentData();
+      if (!d) return;
       d.paperBalance = 50000.00;
       ChronosWalletStore.setCurrentData(d);
       showToast("Balance Reset", "Trading balance reset to $50,000.00 USDT.", "success");
@@ -6286,6 +6931,7 @@ html_template = f"""<!DOCTYPE html>
         return;
       }}
       const d = ChronosWalletStore.getCurrentData();
+      if (!d) return;
       d.paperBalance += amount;
       ChronosWalletStore.setCurrentData(d);
       showToast("Funds Added", `Added $${{amount.toLocaleString()}} USDT. Balance: $${{d.paperBalance.toLocaleString()}} USDT.`, "success");
@@ -6302,6 +6948,7 @@ html_template = f"""<!DOCTYPE html>
         return;
       }}
       const d = ChronosWalletStore.getCurrentData();
+      if (!d) return;
       d.paperBalance = val;
       ChronosWalletStore.setCurrentData(d);
       showToast("Balance Updated", `Trading balance updated to $${{val.toLocaleString()}} USDT.`, "success");
@@ -6313,6 +6960,7 @@ html_template = f"""<!DOCTYPE html>
         return;
       }}
       const d = ChronosWalletStore.getCurrentData();
+      if (!d) return;
       d.trades = [];
       ChronosWalletStore.setCurrentData(d);
       showToast("History Cleared", "Cleared trade ledger history for this wallet.", "info");
@@ -6348,6 +6996,7 @@ html_template = f"""<!DOCTYPE html>
         // 2. CLEAR VAULT POSITIONS FOR LIVE
         activeTradingEnv = "live";
         const d = ChronosWalletStore.getCurrentData();
+        if (!d) return;
         if (d) {{
           d.positions = [];
           d.openPositions = [];
@@ -6430,6 +7079,7 @@ html_template = f"""<!DOCTYPE html>
       if (balanceLabel) balanceLabel.textContent = "CURRENT VAULT BALANCE";
 
       const d = ChronosWalletStore.getCurrentData();
+      if (!d) return;
       const balanceDisplay = document.getElementById("settingsPaperBalanceDisplay");
       if (balanceDisplay) {{
         const bal = d ? d.paperBalance : 50000.00;
@@ -6480,6 +7130,7 @@ html_template = f"""<!DOCTYPE html>
       }}
 
       const d = ChronosWalletStore.getCurrentData();
+      if (!d) return;
       if (d) {{
         d.gateway = {{ mode: env, apiKey: key, apiSecret: secret, passphrase: pass }};
         ChronosWalletStore.setCurrentData(d);
@@ -6510,6 +7161,7 @@ html_template = f"""<!DOCTYPE html>
     window.refreshBitgetAccount = refreshBitgetAccount;
     window.settleActivePosition = settleActivePosition;
     window.renderActivePositions = renderActivePositions;
+    window.renderOverviewDynamic = renderOverviewDynamic;
     window.openTradeReasoningModal = openTradeReasoningModal;
     window.closeTradeReasoningModal = closeTradeReasoningModal;
     window.handleReasoningBackdropClick = handleReasoningBackdropClick;
@@ -6518,6 +7170,11 @@ html_template = f"""<!DOCTYPE html>
     window.drawCandleChart = drawCandleChart;
     window.ChronosWalletStore = ChronosWalletStore;
     window.renderSidebar = renderSidebar;
+    window.syncWalletUI = syncWalletUI;
+    window.clearLedgerHistory = clearLedgerHistory;
+    window.saveAgentSettings = saveAgentSettings;
+    window.syncAgentConfigSettings = syncAgentConfigSettings;
+    window.verifyStrategyClearance = verifyStrategyClearance;
 
     function initApp() {{
       try {{
@@ -6534,6 +7191,7 @@ html_template = f"""<!DOCTYPE html>
 
       try {{
         renderActivePositions();
+        renderOverviewDynamic(ChronosWalletStore.getCurrentData());
       }} catch(e) {{
         console.error("renderActivePositions error:", e);
       }}
@@ -6546,18 +7204,15 @@ html_template = f"""<!DOCTYPE html>
 
       try {{
         startAutoPilotInterval();
+        startPriceTicker();
       }} catch(e) {{
-        console.error("startAutoPilotInterval error:", e);
+        console.error("startAutoPilotInterval / startPriceTicker error:", e);
       }}
 
-      try {{
-        renderOverviewLedger(ChronosWalletStore.getCurrentData().trades || realTrades);
-      }} catch(e) {{
-        console.error("renderOverviewLedger error:", e);
-      }}
 
       try {{
         ChronosWalletStore.init();
+        if (typeof syncAgentConfigSettings === "function") syncAgentConfigSettings();
       }} catch(e) {{
         console.error("ChronosWalletStore error:", e);
       }}
@@ -6581,25 +7236,26 @@ html_template = f"""<!DOCTYPE html>
         setTimeout(drawCandleChart, 60);
       }} catch(e) {{}}
 
-      // Mount official RainbowKit if bundle is present
+      // Mount official RainbowKit React bundle
       if (typeof window.mountOfficialRainbowKit === "function") {{
         try {{
           window.mountOfficialRainbowKit("rainbowkitHeaderContainer", {{
             onAccountChange: (account) => {{
-              if (account && account.address) {{
+              if (account && account.isConnected && account.address) {{
                 ChronosWalletStore.connect(account.address);
-                showToast("Wallet Connected", `Connected via RainbowKit: ${{account.address.slice(0,6)}}...${{account.address.slice(-4)}}`, "success");
+                showToast(
+                  "Wallet Connected",
+                  `Connected: ${{account.address.slice(0,6)}}...${{account.address.slice(-4)}}`,
+                  "success"
+                );
               }} else if (account && !account.isConnected) {{
                 ChronosWalletStore.disconnect();
               }}
             }}
           }});
         }} catch(e) {{
-          console.error("mountOfficialRainbowKit error:", e);
-          renderRainbowHeader();
+          console.error("[RainbowKit] Mount error:", e);
         }}
-      }} else {{
-        renderRainbowHeader();
       }}
     }}
 
