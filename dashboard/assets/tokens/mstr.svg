@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" rx="14" fill="#D9272E"/>
+  <!-- MicroStrategy Bold M -->
+  <path d="M16 19h7.8l8.2 14.6 8.2-14.6H48v26h-7.2V27.8l-8.8 15.2h-.4l-8.8-15.2V45H16V19z" fill="#FFFFFF"/>
+</svg>

@@ -1130,7 +1130,7 @@ html_template = f"""<!DOCTYPE html>
       border-color: #000;
     }}
 
-    /* Institutional Strategy & Reasoning Modal (Executive Two-Column Tabbed Redesign) */
+    /* Institutional Strategy & Reasoning Modal (Light Institutional Palette) */
     .trade-reasoning-overlay {{
       display: none;
       position: fixed;
@@ -1138,8 +1138,8 @@ html_template = f"""<!DOCTYPE html>
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(4, 7, 15, 0.88);
-      backdrop-filter: blur(16px);
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(12px);
       z-index: 10000;
       align-items: center;
       justify-content: center;
@@ -1151,77 +1151,80 @@ html_template = f"""<!DOCTYPE html>
     }}
 
     .trade-reasoning-card {{
-      background: #090D16;
-      color: #F8FAFC;
+      background: #FFFFFF;
+      color: #0F172A;
       border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid #E2E8F0;
       width: 100%;
       max-width: 960px;
       max-height: 90vh;
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      box-shadow: 0 40px 100px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.05);
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.22), 0 0 0 1px rgba(0, 0, 0, 0.05);
       animation: modalRise 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }}
 
     .trade-reasoning-header {{
       padding: 1.25rem 1.75rem;
-      background: #0D1220;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: #FFFFFF;
+      border-bottom: 1px solid #E2E8F0;
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 1rem;
     }}
 
-    .modal-asset-avatar {{
+    .modal-asset-avatar-wrap {{
       width: 44px;
       height: 44px;
       border-radius: 10px;
-      background: #1E293B;
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 800;
-      font-size: 0.88rem;
-      color: #38BDF8;
-      font-family: var(--font-terminal);
+      overflow: hidden;
       flex-shrink: 0;
+    }}
+
+    .modal-asset-avatar-wrap img, .modal-asset-avatar-wrap svg {{
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
     }}
 
     .trade-reasoning-tag {{
       font-family: var(--font-terminal);
       font-size: 0.68rem;
       letter-spacing: 0.08em;
-      color: #38BDF8;
+      color: #0284C7;
       margin-bottom: 0.2rem;
       font-weight: 700;
     }}
 
     .trade-reasoning-title {{
       font-family: var(--font-sans-body);
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       font-weight: 800;
-      color: #FFFFFF;
+      color: #0F172A;
       margin: 0;
       line-height: 1.2;
     }}
 
     .trade-reasoning-subtitle {{
-      font-size: 0.76rem;
-      color: #94A3B8;
+      font-size: 0.78rem;
+      color: #64748B;
       margin-top: 0.15rem;
       font-family: var(--font-terminal);
     }}
 
     .trade-reasoning-close {{
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #94A3B8;
-      width: 32px;
-      height: 32px;
+      background: #F1F5F9;
+      border: 1px solid #E2E8F0;
+      color: #64748B;
+      width: 34px;
+      height: 34px;
       border-radius: 8px;
       cursor: pointer;
       font-size: 1.1rem;
@@ -1233,14 +1236,14 @@ html_template = f"""<!DOCTYPE html>
     }}
 
     .trade-reasoning-close:hover {{
-      background: rgba(255, 255, 255, 0.18);
-      color: #FFFFFF;
+      background: #E2E8F0;
+      color: #0F172A;
     }}
 
     /* Split Two-Column Body */
     .reasoning-split-layout {{
       display: grid;
-      grid-template-columns: 310px 1fr;
+      grid-template-columns: 315px 1fr;
       min-height: 480px;
       overflow-y: auto;
       max-height: calc(90vh - 145px);
@@ -1248,8 +1251,8 @@ html_template = f"""<!DOCTYPE html>
 
     /* Left Sidebar: Execution Trajectory & Payout Specs */
     .reasoning-sidebar {{
-      background: #0C111E;
-      border-right: 1px solid rgba(255, 255, 255, 0.07);
+      background: #F8FAFC;
+      border-right: 1px solid #E2E8F0;
       padding: 1.4rem;
       display: flex;
       flex-direction: column;
@@ -1257,10 +1260,11 @@ html_template = f"""<!DOCTYPE html>
     }}
 
     .contract-spec-card {{
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
       border-radius: 10px;
       padding: 0.95rem 1rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
     }}
 
     .contract-type-badge {{
@@ -1270,34 +1274,35 @@ html_template = f"""<!DOCTYPE html>
       font-weight: 700;
       padding: 0.25rem 0.65rem;
       border-radius: 6px;
-      background: rgba(239, 68, 68, 0.16);
-      color: #F87171;
-      border: 1px solid rgba(239, 68, 68, 0.35);
+      background: #FEE2E2;
+      color: #DC2626;
+      border: 1px solid #FCA5A5;
       margin-bottom: 0.5rem;
     }}
 
     .contract-type-badge.long {{
-      background: rgba(52, 211, 153, 0.16);
-      color: #34D399;
-      border-color: rgba(52, 211, 153, 0.35);
+      background: #DCFCE7;
+      color: #16A34A;
+      border-color: #86EFAC;
     }}
 
     .contract-explainer-text {{
       font-size: 0.78rem;
-      color: #94A3B8;
-      line-height: 1.45;
+      color: #475569;
+      line-height: 1.5;
     }}
 
     .contract-explainer-text strong {{
-      color: #E2E8F0;
+      color: #0F172A;
     }}
 
     /* Trajectory Card */
     .trajectory-card {{
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.07);
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
       border-radius: 10px;
       padding: 1rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
     }}
 
     .trajectory-label {{
@@ -1320,22 +1325,23 @@ html_template = f"""<!DOCTYPE html>
       display: flex;
       align-items: center;
       gap: 0.45rem;
-      color: #94A3B8;
+      color: #475569;
+      font-weight: 600;
     }}
 
     .trajectory-dot {{
-      width: 7px;
-      height: 7px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
     }}
 
-    .trajectory-dot.entry {{ background: #38BDF8; box-shadow: 0 0 6px rgba(56, 189, 248, 0.8); }}
-    .trajectory-dot.target {{ background: #34D399; box-shadow: 0 0 6px rgba(52, 211, 153, 0.8); }}
+    .trajectory-dot.entry {{ background: #0284C7; box-shadow: 0 0 6px rgba(2, 132, 199, 0.4); }}
+    .trajectory-dot.target {{ background: #10B981; box-shadow: 0 0 6px rgba(16, 185, 129, 0.4); }}
 
     .trajectory-node-val {{
       font-family: var(--font-terminal);
       font-weight: 700;
-      color: #FFFFFF;
+      color: #0F172A;
     }}
 
     .trajectory-line-wrap {{
@@ -1348,29 +1354,30 @@ html_template = f"""<!DOCTYPE html>
     .trajectory-line {{
       width: 1px;
       height: 24px;
-      background: dashed rgba(255, 255, 255, 0.2);
+      border-left: 2px dashed #94A3B8;
     }}
 
     .trajectory-diff-badge {{
       font-family: var(--font-terminal);
       font-size: 0.72rem;
       font-weight: 700;
-      color: #FBBF24;
-      background: rgba(251, 191, 36, 0.12);
-      padding: 0.15rem 0.45rem;
+      color: #B45309;
+      background: #FEF3C7;
+      padding: 0.15rem 0.5rem;
       border-radius: 4px;
-      border: 1px solid rgba(251, 191, 36, 0.25);
+      border: 1px solid #FCD34D;
     }}
 
     /* Financial Summary Box */
     .financial-summary-box {{
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
       border-radius: 10px;
       padding: 0.85rem 1rem;
       display: flex;
       flex-direction: column;
       gap: 0.45rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
     }}
 
     .fin-row {{
@@ -1378,27 +1385,28 @@ html_template = f"""<!DOCTYPE html>
       justify-content: space-between;
       align-items: center;
       font-size: 0.78rem;
-      color: #94A3B8;
+      color: #64748B;
     }}
 
     .fin-row strong {{
       font-family: var(--font-terminal);
-      color: #FFFFFF;
+      color: #0F172A;
     }}
 
     .fin-row.highlight {{
       padding-top: 0.35rem;
       margin-top: 0.25rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      border-top: 1px solid #E2E8F0;
     }}
 
     .fin-row.highlight strong {{
       font-size: 0.88rem;
+      color: #059669;
     }}
 
     /* Right Main Panel: Tabs & Content */
     .reasoning-main-content {{
-      background: #090D16;
+      background: #FFFFFF;
       padding: 1.4rem 1.75rem;
       display: flex;
       flex-direction: column;
@@ -1408,33 +1416,33 @@ html_template = f"""<!DOCTYPE html>
       display: flex;
       gap: 0.45rem;
       padding-bottom: 1rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid #E2E8F0;
       margin-bottom: 1.25rem;
     }}
 
     .reasoning-tab-btn {{
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      color: #94A3B8;
+      background: #F1F5F9;
+      border: 1px solid #E2E8F0;
+      color: #475569;
       border-radius: 8px;
       padding: 0.5rem 0.95rem;
       font-size: 0.78rem;
       font-weight: 600;
       font-family: var(--font-sans-body);
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.15s ease;
     }}
 
     .reasoning-tab-btn:hover {{
-      background: rgba(255, 255, 255, 0.09);
-      color: #FFFFFF;
+      background: #E2E8F0;
+      color: #0F172A;
     }}
 
     .reasoning-tab-btn.active {{
-      background: #1E293B;
-      color: #38BDF8;
-      border-color: rgba(56, 189, 248, 0.4);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      background: #0F172A;
+      color: #FFFFFF;
+      border-color: #0F172A;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.2);
     }}
 
     /* Tab Panes */
@@ -1447,28 +1455,26 @@ html_template = f"""<!DOCTYPE html>
       display: block;
     }}
 
-    @keyframes fadeIn {{
-      from {{ opacity: 0; transform: translateY(4px); }}
-      to {{ opacity: 1; transform: translateY(0); }}
-    }}
-
     .pane-headline {{
       font-family: var(--font-sans-body);
       font-size: 1.05rem;
       font-weight: 700;
-      color: #FFFFFF;
+      color: #0F172A;
       margin: 0 0 0.85rem 0;
     }}
 
     .pane-quote-box {{
-      background: rgba(255, 255, 255, 0.03);
-      border-left: 3px solid #38BDF8;
+      background: #F8FAFC;
+      border-left: 4px solid #0284C7;
       border-radius: 0 8px 8px 0;
-      padding: 1rem 1.2rem;
-      font-size: 0.88rem;
-      line-height: 1.65;
-      color: #CBD5E1;
+      padding: 1rem 1.25rem;
+      font-size: 0.9rem;
+      line-height: 1.68;
+      color: #1E293B;
       margin-bottom: 1.2rem;
+      border-top: 1px solid #E2E8F0;
+      border-right: 1px solid #E2E8F0;
+      border-bottom: 1px solid #E2E8F0;
     }}
 
     .pane-feature-grid {{
@@ -1478,8 +1484,8 @@ html_template = f"""<!DOCTYPE html>
     }}
 
     .pane-feature-box {{
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
       border-radius: 8px;
       padding: 0.75rem 0.95rem;
     }}
@@ -1489,28 +1495,35 @@ html_template = f"""<!DOCTYPE html>
       font-size: 0.66rem;
       color: #64748B;
       text-transform: uppercase;
+      font-weight: 600;
     }}
 
     .pane-feature-val {{
       font-family: var(--font-terminal);
-      font-size: 0.95rem;
+      font-size: 1rem;
       font-weight: 700;
-      color: #FFFFFF;
+      color: #0F172A;
       margin-top: 0.2rem;
     }}
 
     .pane-model-card, .pane-adaptation-card, .pane-settlement-card {{
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
       border-radius: 10px;
       padding: 1.15rem 1.35rem;
       margin-bottom: 1rem;
     }}
 
+    .pane-adaptation-card {{
+      background: #FFFBEB;
+      border-color: #FDE68A;
+      border-left: 4px solid #F59E0B;
+    }}
+
     .sub-label {{
       font-family: var(--font-terminal);
       font-size: 0.68rem;
-      color: #38BDF8;
+      color: #0284C7;
       letter-spacing: 0.05em;
       font-weight: 700;
       margin-bottom: 0.25rem;
@@ -1518,21 +1531,22 @@ html_template = f"""<!DOCTYPE html>
 
     .pane-text {{
       font-size: 0.88rem;
-      line-height: 1.62;
-      color: #CBD5E1;
+      line-height: 1.65;
+      color: #334155;
       margin: 0;
     }}
 
     .pane-timing-alert {{
       margin-top: 1rem;
       padding: 0.85rem 1rem;
-      background: rgba(56, 189, 248, 0.08);
-      border: 1px solid rgba(56, 189, 248, 0.25);
+      background: #F0FDF4;
+      border: 1px solid #BBF7D0;
+      border-left: 4px solid #10B981;
       border-radius: 8px;
       display: flex;
       gap: 0.65rem;
       align-items: flex-start;
-      color: #38BDF8;
+      color: #166534;
     }}
 
     /* Sentiment Dashboard Card */
@@ -1546,58 +1560,59 @@ html_template = f"""<!DOCTYPE html>
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1rem;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
       border-radius: 10px;
       padding: 1.15rem 1.35rem;
     }}
 
     .sentiment-score-val {{
       font-family: var(--font-terminal);
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       font-weight: 800;
-      color: #F472B6;
+      color: #E11D48;
       margin: 0.2rem 0;
     }}
 
     .sentiment-status-pill {{
       display: inline-block;
       font-size: 0.72rem;
-      color: #F472B6;
-      background: rgba(244, 114, 182, 0.12);
-      padding: 0.15rem 0.5rem;
+      color: #E11D48;
+      background: #FFE4E6;
+      padding: 0.2rem 0.55rem;
       border-radius: 4px;
-      border: 1px solid rgba(244, 114, 182, 0.3);
-      font-weight: 600;
+      border: 1px solid #FECDD3;
+      font-weight: 700;
     }}
 
     .order-depth-val {{
       font-family: var(--font-terminal);
       font-size: 1.15rem;
       font-weight: 700;
-      color: #E2E8F0;
+      color: #0F172A;
       margin: 0.35rem 0 0.1rem 0;
     }}
 
     .sentiment-decision-card {{
-      background: rgba(16, 185, 129, 0.06);
-      border: 1px solid rgba(52, 211, 153, 0.25);
+      background: #F0FDF4;
+      border: 1px solid #86EFAC;
+      border-left: 4px solid #10B981;
       border-radius: 10px;
       padding: 1.15rem 1.35rem;
     }}
 
     .sentiment-decision-badge {{
       font-family: var(--font-terminal);
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: #34D399;
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: #15803D;
       margin-top: 0.25rem;
     }}
 
     .trade-reasoning-footer {{
-      padding: 1rem 1.75rem;
-      background: #0D1220;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 1.1rem 1.75rem;
+      background: #F8FAFC;
+      border-top: 1px solid #E2E8F0;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -1999,49 +2014,49 @@ html_template = f"""<!DOCTYPE html>
         <div class="sidebar-menu" id="marketsMenuList">
           <div class="sidebar-item active" id="market-item-rNVDA" onclick="selectMarket('rNVDA')">
             <div class="sidebar-item-left">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+              <img src="assets/tokens/nvda.svg" style="width: 16px; height: 16px; border-radius: 4px; object-fit: contain; margin-right: 6px;" alt="NVDA" />
               <span>rNVDA</span>
             </div>
             <span class="sidebar-item-metric" style="color: var(--color-amber);">+3.4%</span>
           </div>
           <div class="sidebar-item" id="market-item-rTSLA" onclick="selectMarket('rTSLA')">
             <div class="sidebar-item-left">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+              <img src="assets/tokens/tsla.svg" style="width: 16px; height: 16px; border-radius: 4px; object-fit: contain; margin-right: 6px;" alt="TSLA" />
               <span>rTSLA</span>
             </div>
             <span class="sidebar-item-metric" style="color: var(--color-amber);">+4.2%</span>
           </div>
           <div class="sidebar-item" id="market-item-rAAPL" onclick="selectMarket('rAAPL')">
             <div class="sidebar-item-left">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+              <img src="assets/tokens/aapl.svg" style="width: 16px; height: 16px; border-radius: 4px; object-fit: contain; margin-right: 6px;" alt="AAPL" />
               <span>rAAPL</span>
             </div>
             <span class="sidebar-item-metric" style="color: var(--color-grey-muted);">-0.8%</span>
           </div>
           <div class="sidebar-item" id="market-item-rCOIN" onclick="selectMarket('rCOIN')">
             <div class="sidebar-item-left">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+              <img src="assets/tokens/coin.svg" style="width: 16px; height: 16px; border-radius: 4px; object-fit: contain; margin-right: 6px;" alt="COIN" />
               <span>rCOIN</span>
             </div>
             <span class="sidebar-item-metric" style="color: var(--color-amber);">+5.7%</span>
           </div>
           <div class="sidebar-item" id="market-item-rMSTR" onclick="selectMarket('rMSTR')">
             <div class="sidebar-item-left">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+              <img src="assets/tokens/mstr.svg" style="width: 16px; height: 16px; border-radius: 4px; object-fit: contain; margin-right: 6px;" alt="MSTR" />
               <span>rMSTR</span>
             </div>
             <span class="sidebar-item-metric" style="color: var(--color-amber);">+6.9%</span>
           </div>
           <div class="sidebar-item" id="market-item-rSPY" onclick="selectMarket('rSPY')">
             <div class="sidebar-item-left">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+              <img src="assets/tokens/spy.svg" style="width: 16px; height: 16px; border-radius: 4px; object-fit: contain; margin-right: 6px;" alt="SPY" />
               <span>rSPY</span>
             </div>
             <span class="sidebar-item-metric" style="color: var(--color-grey-muted);">+0.4%</span>
           </div>
           <div class="sidebar-item" id="market-item-rQQQ" onclick="selectMarket('rQQQ')">
             <div class="sidebar-item-left">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+              <img src="assets/tokens/qqq.svg" style="width: 16px; height: 16px; border-radius: 4px; object-fit: contain; margin-right: 6px;" alt="QQQ" />
               <span>rQQQ</span>
             </div>
             <span class="sidebar-item-metric" style="color: var(--color-grey-muted);">+0.8%</span>
@@ -2056,7 +2071,7 @@ html_template = f"""<!DOCTYPE html>
         <div class="sidebar-menu">
           <div class="sidebar-item" style="cursor: default;">
             <div class="sidebar-item-left">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+              <img src="assets/tokens/btc.svg" style="width: 16px; height: 16px; border-radius: 4px; object-fit: contain; margin-right: 6px;" alt="BTC" />
               <span>BTC / USD Macro</span>
             </div>
             <span class="sidebar-item-metric" style="color: var(--color-green);">60D β 1.42</span>
@@ -2116,7 +2131,10 @@ html_template = f"""<!DOCTYPE html>
 
         <!-- Market Title Area -->
         <div class="market-header-area">
-          <h1 class="market-title" id="marketTitleDisplay">NVIDIA Corp ($rNVDA / USDT)</h1>
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 0.35rem;">
+            <img id="marketHeaderTokenLogo" src="assets/tokens/nvda.svg" style="width: 32px; height: 32px; border-radius: 8px; object-fit: contain; border: 1px solid #E2E8F0; background: #FFFFFF; padding: 2px;" alt="Token" />
+            <h1 class="market-title" id="marketTitleDisplay" style="margin: 0;">NVIDIA Corp ($rNVDA / USDT)</h1>
+          </div>
           <p class="market-subtitle" id="marketSubtitleDisplay">
             Systematic weekend mean-reversion model. Tracking residual pricing drift against Bitcoin crypto-macro benchmark to capture Monday institutional pre-market convergence.
           </p>
@@ -2551,7 +2569,7 @@ html_template = f"""<!DOCTYPE html>
       <!-- Top Bar Header -->
       <div class="trade-reasoning-header">
         <div style="display: flex; align-items: center; gap: 0.85rem;">
-          <div class="modal-asset-avatar" id="modalAssetAvatar">NVDA</div>
+          <div class="modal-asset-avatar-wrap" id="modalAssetAvatarWrap"><img id="modalAssetImg" src="assets/tokens/nvda.svg" alt="Token" onerror="this.style.display='none'"/></div>
           <div>
             <div class="trade-reasoning-tag">[INSTITUTIONAL STRATEGY SPECIFICATION]</div>
             <h2 id="modalTradeTitle" class="trade-reasoning-title">NVIDIA Corporation (rNVDA)</h2>
@@ -2652,11 +2670,11 @@ html_template = f"""<!DOCTYPE html>
                 </div>
                 <div class="pane-feature-box">
                   <div class="pane-feature-label">Weekend Trade Entry</div>
-                  <div class="pane-feature-val" id="paneFeatureEntry" style="color: #38BDF8;">$132.80</div>
+                  <div class="pane-feature-val" id="paneFeatureEntry" style="color: #0284C7;">$132.80</div>
                 </div>
                 <div class="pane-feature-box">
                   <div class="pane-feature-label">Unwarranted Retail Move</div>
-                  <div class="pane-feature-val" id="paneFeatureMove" style="color: #FBBF24;">+3.42%</div>
+                  <div class="pane-feature-val" id="paneFeatureMove" style="color: #B45309;">+3.42%</div>
                 </div>
               </div>
             </div>
@@ -2666,13 +2684,13 @@ html_template = f"""<!DOCTYPE html>
               <h3 class="pane-headline">Strategy Mechanics & Learning Evolution</h3>
               <div class="pane-model-card">
                 <div class="sub-label">CURRENT ALGORITHMIC MODEL</div>
-                <div style="font-weight: 700; color: #FFFFFF; font-size: 0.95rem; margin-bottom: 0.4rem;" id="paneCurrentStrategyName">Weekend Retail Drift Reversal (Risk-Managed)</div>
+                <div style="font-weight: 700; color: #0F172A; font-size: 0.95rem; margin-bottom: 0.4rem;" id="paneCurrentStrategyName">Weekend Retail Drift Reversal (Risk-Managed)</div>
                 <p class="pane-text" id="paneCurrentStrategyDesc"></p>
               </div>
               <div class="pane-adaptation-card">
-                <div class="sub-label" style="color: #FBBF24;">HOW THE AGENT ADAPTED FROM PAST TRADES</div>
-                <div style="font-weight: 700; color: #FFFFFF; font-size: 0.88rem; margin: 0.25rem 0;" id="panePrevStrategyName"></div>
-                <p class="pane-text" id="paneWhatChangedDesc" style="color: #CBD5E1;"></p>
+                <div class="sub-label" style="color: #B45309;">HOW THE AGENT ADAPTED FROM PAST TRADES</div>
+                <div style="font-weight: 700; color: #92400E; font-size: 0.88rem; margin: 0.25rem 0;" id="panePrevStrategyName"></div>
+                <p class="pane-text" id="paneWhatChangedDesc" style="color: #78350F;"></p>
               </div>
             </div>
 
@@ -2684,8 +2702,8 @@ html_template = f"""<!DOCTYPE html>
                 <div class="pane-timing-alert">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                   <div>
-                    <strong style="color: #FFFFFF; font-size: 0.85rem;">Why Settle Monday Pre-Market (08:00–09:30 EST)?</strong>
-                    <div style="color: #94A3B8; font-size: 0.82rem; margin-top: 0.2rem;" id="paneWhyMondayText"></div>
+                    <strong style="color: #14532D; font-size: 0.85rem;">Why Settle Monday Pre-Market (08:00–09:30 EST)?</strong>
+                    <div style="color: #166534; font-size: 0.82rem; margin-top: 0.2rem;" id="paneWhyMondayText"></div>
                   </div>
                 </div>
               </div>
@@ -2704,12 +2722,12 @@ html_template = f"""<!DOCTYPE html>
                   <div>
                     <div class="sub-label">ORDERBOOK DEPTH IMBALANCE</div>
                     <div class="order-depth-val" id="paneOrderDepthVal">2.4x Institutional Sell Wall</div>
-                    <div style="font-size: 0.74rem; color: #94A3B8; margin-top: 0.2rem;">Pre-Market Block Depth vs Retail Bids</div>
+                    <div style="font-size: 0.74rem; color: #64748B; margin-top: 0.2rem;">Pre-Market Block Depth vs Retail Bids</div>
                   </div>
                 </div>
 
                 <div class="sentiment-decision-card">
-                  <div class="sub-label" style="color: #34D399;">AGENT'S MARKET OPEN DECISION</div>
+                  <div class="sub-label" style="color: #15803D;">AGENT'S MARKET OPEN DECISION</div>
                   <div class="sentiment-decision-badge" id="paneOpenDecisionBadge">HOLD A LITTLE BIT (TRAILING STOP FOR EXTRA PROFIT)</div>
                   <p class="pane-text" id="paneDecisionReasonText" style="margin-top: 0.45rem;"></p>
                 </div>
@@ -2721,10 +2739,10 @@ html_template = f"""<!DOCTYPE html>
 
       <!-- Modal Footer -->
       <div class="trade-reasoning-footer">
-        <div style="font-family: var(--font-terminal); font-size: 0.72rem; color: #94A3B8;">
+        <div style="font-family: var(--font-terminal); font-size: 0.72rem; color: #64748B;">
           Chronos Autonomous Execution Engine • Strict 5-Trade Weekend Cap Enforced
         </div>
-        <button type="button" class="btn-execute-big" style="width: auto; padding: 0.5rem 1.45rem; font-size: 0.82rem; background: #38BDF8; color: #090D16; font-weight: 700; border-radius: 8px;" onclick="closeTradeReasoningModal()">
+        <button type="button" class="btn-execute-big" style="width: auto; padding: 0.5rem 1.45rem; font-size: 0.82rem; background: #0F172A; color: #FFFFFF; font-weight: 700; border-radius: 8px; border: 1px solid #0F172A;" onclick="closeTradeReasoningModal()">
           <span>Done / Close Window</span>
         </button>
       </div>
@@ -3014,7 +3032,7 @@ html_template = f"""<!DOCTYPE html>
         const tr = document.createElement("tr");
         tr.innerHTML = `
           <td><span style="font-family: var(--font-terminal); font-weight: 700;">#${{tradeId}}</span></td>
-          <td><strong>${{t.asset || t.symbol || 'rNVDA'}}</strong></td>
+          <td><div style="display: flex; align-items: center;">${{getTokenLogoHtml(t.asset || t.symbol || 'rNVDA', 20)}}<strong style="margin-left: 2px;">${{t.asset || t.symbol || 'rNVDA'}}</strong></div></td>
           <td><span style="color: ${{sideColor}}; font-weight: 700;">${{sideLabel}}</span></td>
           <td style="font-family: var(--font-terminal); font-size: 0.8rem;">$${{entryP}}</td>
           <td style="font-family: var(--font-terminal); font-size: 0.8rem;">$${{exitP}} (Monday Open)</td>
@@ -3022,7 +3040,7 @@ html_template = f"""<!DOCTYPE html>
           <td style="font-family: var(--font-terminal); font-weight: 700; color: ${{isWin ? 'var(--color-green)' : 'var(--color-red)'}};">${{isWin ? '+' : ''}}$${{pnlUsd.toFixed(2)}}</td>
           <td>
             <div style="display: flex; gap: 0.4rem; align-items: center;">
-              <button class="btn-audit-jump" onclick="openTradeReasoningModal('${{tradeId}}')" style="background: #0F172A; color: #38BDF8; border-color: rgba(56, 189, 248, 0.4);">
+              <button class="btn-audit-jump" onclick="openTradeReasoningModal('${{tradeId}}')" style="background: #F8FAFC; color: #0F172A; border-color: #CBD5E1; font-weight: 600;">
                 <span>Strategy & Reason</span>
               </button>
               <button class="btn-audit-jump" onclick="jumpToAudit('${{tradeId}}')">
@@ -3071,7 +3089,27 @@ html_template = f"""<!DOCTYPE html>
     // =========================================================================
     const MAX_WEEKEND_TRADES = 5;
 
-    const ASSET_PLAIN_REASONING = {{
+    // Official Token Vector Logos Map
+    const TOKEN_LOGOS = {{
+      "rNVDA": "assets/tokens/nvda.svg",
+      "rTSLA": "assets/tokens/tsla.svg",
+      "rAAPL": "assets/tokens/aapl.svg",
+      "rCOIN": "assets/tokens/coin.svg",
+      "rMSTR": "assets/tokens/mstr.svg",
+      "rSPY": "assets/tokens/spy.svg",
+      "rQQQ": "assets/tokens/qqq.svg",
+      "BTC": "assets/tokens/btc.svg"
+    }};
+
+    function getTokenLogoHtml(symbol, size = 20) {{
+      const src = TOKEN_LOGOS[symbol] || "assets/tokens/nvda.svg";
+      const fallback = (symbol || "EQ").replace('r', '').slice(0, 4);
+      return `<span style="display: inline-flex; align-items: center; justify-content: center; width: ${{size}}px; height: ${{size}}px; border-radius: 5px; overflow: hidden; background: #F8FAFC; border: 1px solid #E2E8F0; flex-shrink: 0; vertical-align: middle; margin-right: 6px;">` +
+        `<img src="${{src}}" alt="${{symbol}}" style="width: 100%; height: 100%; object-fit: contain;" onerror="this.onerror=null; this.parentElement.innerText='${{fallback}}';" />` +
+      `</span>`;
+    }}
+
+        const ASSET_PLAIN_REASONING = {{
       "rNVDA": {{
         company: "NVIDIA Corporation",
         whyOpened: "On Friday at 4:00 PM EST, institutional trading officially closed NVIDIA on Nasdaq at $128.40. Over the weekend while US exchanges were closed, retail traders on 24/7 crypto platforms bid up tokenized NVIDIA shares to $132.80 (+3.42%) on thin weekend liquidity without any real corporate news or earnings announcement. The agent detected this artificial weekend hype and entered a Short position because stock prices historically snap back to Friday's institutional closing price once regular Wall Street liquidity returns Monday morning.",
@@ -3262,7 +3300,23 @@ html_template = f"""<!DOCTYPE html>
         item = initialRealTrades.find(t => t.trade_id === tradeOrPosId);
       }}
 
-      // 4. Default fallback to current selected market
+      // 4. Check if tradeOrPosId is directly an asset symbol (e.g. 'rTSLA', 'rAAPL')
+      if (!item && markets && markets[tradeOrPosId]) {{
+        const m = markets[tradeOrPosId];
+        item = {{
+          id: `SPEC-${{m.symbol}}`,
+          symbol: m.symbol,
+          side: m.drift_pct > 0 ? "SHORT" : "LONG",
+          entry_price: m.spot_price,
+          target_price: m.anchor_price,
+          collateral: 2500,
+          contracts: (2500 / m.spot_price).toFixed(2),
+          entry_time: "Live Weekend Feed",
+          status: "ACTIVE"
+        }};
+      }}
+
+      // 5. Default fallback to current selected market
       if (!item) {{
         const m = markets[selectedSymbol] || markets["rNVDA"];
         item = {{
@@ -3283,8 +3337,11 @@ html_template = f"""<!DOCTYPE html>
       const displayId = item.trade_id || item.id || `POS-${{meta.symbol}}`;
 
       // Header Elements
-      const avatarEl = document.getElementById("modalAssetAvatar");
-      if (avatarEl) avatarEl.textContent = meta.symbol.replace('r', '');
+      const imgEl = document.getElementById("modalAssetImg");
+      if (imgEl) {{
+        imgEl.style.display = "block";
+        imgEl.src = (typeof TOKEN_LOGOS !== "undefined" && TOKEN_LOGOS[meta.symbol]) ? TOKEN_LOGOS[meta.symbol] : "assets/tokens/nvda.svg";
+      }}
 
       const titleEl = document.getElementById("modalTradeTitle");
       if (titleEl) titleEl.textContent = `${{meta.company}} (${{meta.symbol}})`;
@@ -3465,7 +3522,7 @@ html_template = f"""<!DOCTYPE html>
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
               <div style="display: flex; align-items: center; gap: 0.45rem;">
                 <span style="display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--color-green); box-shadow: 0 0 6px rgba(0,200,83,0.8);"></span>
-                <strong style="font-size: 0.85rem; color: #111;">${{pos.symbol}}</strong>
+                ${{getTokenLogoHtml(pos.symbol, 20)}}<strong style="font-size: 0.88rem; color: #0F172A;">${{pos.symbol}}</strong>
                 <span style="font-size: 0.72rem; color: #666;">(#${{idx+1}} of 5)</span>
               </div>
               <span style="font-size: 0.7rem; color: #666; font-family: var(--font-terminal);">${{pos.entry_time}}</span>
@@ -4054,9 +4111,10 @@ html_template = f"""<!DOCTYPE html>
 
         const driftSign = m.drift_pct > 0 ? "+" : "";
         const metricColor = Math.abs(m.z_score) >= 2.0 ? "var(--color-amber)" : "var(--color-grey-muted)";
+        const logoSrc = (typeof TOKEN_LOGOS !== "undefined" && TOKEN_LOGOS[sym]) ? TOKEN_LOGOS[sym] : "assets/tokens/nvda.svg";
         item.innerHTML = `
           <div class="sidebar-item-left">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+            <img src="${{logoSrc}}" style="width: 16px; height: 16px; border-radius: 4px; object-fit: contain; margin-right: 6px;" alt="${{sym}}" />
             <span>${{sym}}</span>
           </div>
           <span class="sidebar-item-metric" style="color: ${{metricColor}};">${{driftSign}}${{m.drift_pct.toFixed(1)}}%</span>
@@ -4080,6 +4138,10 @@ html_template = f"""<!DOCTYPE html>
 
       document.getElementById("breadcrumbPathDisplay").textContent = `${{m.company}} (${{m.symbol}})`;
       document.getElementById("marketTitleDisplay").textContent = `${{m.company}} (${{m.symbol}})`;
+      const headerLogo = document.getElementById("marketHeaderTokenLogo");
+      if (headerLogo && typeof TOKEN_LOGOS !== "undefined") {{
+        headerLogo.src = TOKEN_LOGOS[m.symbol] || "assets/tokens/nvda.svg";
+      }}
       document.getElementById("symbolDisplay").textContent = `${{m.symbol}}/USDT`;
       document.getElementById("chartPriceDisplay").textContent = `$${{m.spot_price.toFixed(2)}}`;
       
