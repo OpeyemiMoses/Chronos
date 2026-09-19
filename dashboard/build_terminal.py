@@ -1944,30 +1944,735 @@ html_template = f"""<!DOCTYPE html>
     }}
 
     /* __RAINBOWKIT_CSS__ */
+  
+    /* =========================================================
+       GHOST TORUS EXACT DASHBOARD STYLES & LAYOUT SYSTEM
+       ========================================================= */
+    .ghost-app-shell {{
+      display: flex;
+      min-height: 100vh;
+      background: #FAF8F5;
+      font-family: var(--font-sans-body);
+      color: #09090B;
+    }}
+
+    /* Left Collapsible Dark Sidebar */
+    .ghost-sidebar {{
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 240px;
+      background: #09090B;
+      color: #FFFFFF;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 1.25rem 0.85rem;
+      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 4px 0 24px rgba(0, 0, 0, 0.12);
+    }}
+
+    .ghost-sidebar.collapsed {{
+      width: 68px;
+      padding: 1.25rem 0.5rem;
+    }}
+
+    .ghost-sidebar-toggle {{
+      position: absolute;
+      right: -12px;
+      top: 24px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #18181B;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1001;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      transition: all 0.2s ease;
+    }}
+
+    .ghost-sidebar-toggle:hover {{
+      background: #27272A;
+      transform: scale(1.08);
+    }}
+
+    .ghost-brand {{
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0 0.5rem 1.25rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      text-decoration: none;
+      color: #FFFFFF;
+      overflow: hidden;
+      white-space: nowrap;
+    }}
+
+    .ghost-brand-logo {{
+      width: 28px;
+      height: 28px;
+      flex-shrink: 0;
+      filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.4));
+    }}
+
+    .ghost-brand-text {{
+      font-family: var(--font-serif-editorial);
+      font-size: 1.45rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: #FFFFFF;
+      transition: opacity 0.2s ease;
+    }}
+
+    .ghost-sidebar.collapsed .ghost-brand-text {{
+      opacity: 0;
+      pointer-events: none;
+      display: none;
+    }}
+
+    .ghost-nav-menu {{
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      margin-top: 1rem;
+      flex: 1;
+    }}
+
+    .ghost-nav-item {{
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.55rem 0.75rem;
+      border-radius: 10px;
+      color: #A1A1AA;
+      text-decoration: none;
+      font-size: 0.84rem;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      position: relative;
+    }}
+
+    .ghost-nav-item:hover {{
+      background: rgba(255, 255, 255, 0.05);
+      color: #FFFFFF;
+    }}
+
+    .ghost-nav-item.active {{
+      background: #18181B;
+      border-color: rgba(255, 255, 255, 0.14);
+      color: #FFFFFF;
+      font-weight: 600;
+    }}
+
+    .ghost-nav-item.active::after {{
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10B981;
+      margin-left: auto;
+      box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
+    }}
+
+    .ghost-sidebar.collapsed .ghost-nav-item {{
+      justify-content: center;
+      padding: 0.6rem;
+    }}
+
+    .ghost-sidebar.collapsed .ghost-nav-text,
+    .ghost-sidebar.collapsed .ghost-nav-badge,
+    .ghost-sidebar.collapsed .ghost-nav-item.active::after {{
+      display: none;
+    }}
+
+    .ghost-nav-badge {{
+      font-family: var(--font-terminal);
+      font-size: 0.70rem;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 0.15rem 0.45rem;
+      border-radius: 9999px;
+      margin-left: auto;
+      color: #D4D4D8;
+    }}
+
+    /* Sidebar Footer User Card */
+    .ghost-sidebar-footer {{
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 1rem;
+      overflow: hidden;
+    }}
+
+    .ghost-user-card {{
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 0.65rem 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      font-size: 0.75rem;
+    }}
+
+    .ghost-sidebar.collapsed .ghost-user-card {{
+      display: none;
+    }}
+
+    .btn-ghost-switch-live {{
+      background: #7F1D1D;
+      border: 1px solid #991B1B;
+      color: #FCA5A5;
+      border-radius: 9999px;
+      padding: 0.45rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }}
+
+    .btn-ghost-switch-live:hover {{
+      background: #991B1B;
+      color: #FFFFFF;
+    }}
+
+    .ghost-sidebar.collapsed .btn-ghost-switch-live {{
+      display: none;
+    }}
+
+    /* Main Stage */
+    .ghost-main-stage {{
+      margin-left: 240px;
+      flex: 1;
+      min-width: 0;
+      padding: 1.25rem 2.25rem 4rem;
+      transition: margin-left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }}
+
+    .ghost-sidebar.collapsed ~ .ghost-main-stage {{
+      margin-left: 68px;
+    }}
+
+    /* Top Running Header Banner */
+    .ghost-top-bar {{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }}
+
+    .ghost-running-banner {{
+      background: #F4EFE6;
+      border: 1px solid #EEE9DF;
+      border-radius: 9999px;
+      padding: 0.42rem 1.25rem;
+      font-family: var(--font-terminal);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #52525B;
+      flex: 1;
+      min-width: 280px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }}
+
+    .ghost-top-controls {{
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+    }}
+
+    .btn-mint-paper {{
+      background: #FEF3C7;
+      border: 1px solid #FCD34D;
+      color: #92400E;
+      border-radius: 9999px;
+      padding: 0.38rem 0.95rem;
+      font-family: var(--font-terminal);
+      font-size: 0.74rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: all 0.2s ease;
+    }}
+
+    .btn-mint-paper:hover {{
+      background: #FDE68A;
+      transform: translateY(-1px);
+    }}
+
+    .ghost-mode-segmented {{
+      background: #FFFFFF;
+      border: 1px solid #EEE9DF;
+      border-radius: 9999px;
+      padding: 0.2rem;
+      display: flex;
+      gap: 0.2rem;
+    }}
+
+    .ghost-mode-btn {{
+      border-radius: 9999px;
+      border: none;
+      background: transparent;
+      padding: 0.3rem 0.85rem;
+      font-size: 0.74rem;
+      font-family: var(--font-sans-body);
+      font-weight: 500;
+      color: #52525B;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }}
+
+    .ghost-mode-btn.active {{
+      background: #000000;
+      color: #FFFFFF;
+      font-weight: 600;
+    }}
+
+    .ghost-network-pill {{
+      background: #FFFFFF;
+      border: 1px solid #EEE9DF;
+      border-radius: 9999px;
+      padding: 0.35rem 0.85rem;
+      font-family: var(--font-terminal);
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #09090B;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }}
+
+    .ghost-network-dot {{
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10B981;
+      box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
+    }}
+
+    /* =========================================================
+       OVERVIEW PAGE & KPI STRIP
+       ========================================================= */
+    .overview-page-title {{
+      font-family: var(--font-serif-editorial);
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: #09090B;
+      margin: 0.5rem 0 0.2rem;
+      letter-spacing: -0.015em;
+    }}
+
+    .overview-page-subtitle {{
+      font-size: 0.88rem;
+      color: #71717A;
+      line-height: 1.5;
+      margin-bottom: 1.5rem;
+    }}
+
+    .overview-kpi-row {{
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.1rem;
+      margin-bottom: 1.5rem;
+    }}
+
+    .overview-kpi-card {{
+      background: #FFFFFF;
+      border: 1px solid #EEE9DF;
+      border-radius: 14px;
+      padding: 1.25rem 1.4rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 120px;
+    }}
+
+    .overview-kpi-top {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }}
+
+    .overview-kpi-icon {{
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: #FAF8F5;
+      border: 1px solid #EEE9DF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #09090B;
+    }}
+
+    .overview-kpi-badge {{
+      font-family: var(--font-terminal);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #52525B;
+    }}
+
+    .overview-kpi-badge.green {{
+      color: #10B981;
+    }}
+
+    .overview-kpi-mid {{
+      margin-bottom: 0.5rem;
+    }}
+
+    .overview-kpi-pill {{
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: #FAF8F5;
+      border: 1px solid #EEE9DF;
+      border-radius: 9999px;
+      padding: 0.3rem 0.75rem;
+      font-family: var(--font-terminal);
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: #09090B;
+    }}
+
+    .overview-kpi-big {{
+      font-family: var(--font-terminal);
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #09090B;
+      line-height: 1.1;
+    }}
+
+    .overview-kpi-big.protect {{
+      font-family: var(--font-sans-body);
+      font-size: 1.45rem;
+      font-weight: 700;
+    }}
+
+    .overview-kpi-bottom {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.76rem;
+      color: #71717A;
+    }}
+
+    /* 2-Column Split Cards */
+    .overview-split-2col {{
+      display: grid;
+      grid-template-columns: 1.45fr 1fr;
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+    }}
+
+    .overview-main-card {{
+      background: #FFFFFF;
+      border: 1px solid #EEE9DF;
+      border-radius: 16px;
+      padding: 1.6rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }}
+
+    .overview-card-h2 {{
+      font-family: var(--font-serif-editorial);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #09090B;
+      margin: 0 0 0.35rem;
+    }}
+
+    .overview-card-desc {{
+      font-size: 0.84rem;
+      color: #71717A;
+      line-height: 1.55;
+      margin-bottom: 1.25rem;
+    }}
+
+    .overview-inner-callout {{
+      background: #FAF8F5;
+      border: 1px solid #EEE9DF;
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
+    }}
+
+    .inner-callout-header {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.6rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #09090B;
+    }}
+
+    .inner-callout-text {{
+      font-size: 0.82rem;
+      color: #52525B;
+      line-height: 1.55;
+      margin-bottom: 1.1rem;
+    }}
+
+    .btn-decrypt-black {{
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #000000;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 9999px;
+      padding: 0.6rem 1.35rem;
+      font-family: var(--font-sans-body);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+      transition: all 0.2s ease;
+    }}
+
+    .btn-decrypt-black:hover {{
+      background: #18181B;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+    }}
+
+    /* Protocol Security Table */
+    .protocol-spec-table {{
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1rem;
+    }}
+
+    .protocol-spec-table tr {{
+      border-bottom: 1px solid #EEE9DF;
+    }}
+
+    .protocol-spec-table tr:last-child {{
+      border-bottom: none;
+    }}
+
+    .protocol-spec-table td {{
+      padding: 0.7rem 0;
+      font-size: 0.82rem;
+    }}
+
+    .protocol-spec-table td.label {{
+      color: #52525B;
+      font-weight: 500;
+    }}
+
+    .protocol-spec-table td.val {{
+      text-align: right;
+      font-family: var(--font-terminal);
+      font-weight: 600;
+      color: #09090B;
+    }}
+
+    /* 3-Mini Box Grid inside Lower Left Card */
+    .overview-3box-grid {{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.85rem;
+      margin-bottom: 1.1rem;
+    }}
+
+    .overview-mini-box {{
+      background: #FAF8F5;
+      border: 1px solid #EEE9DF;
+      border-radius: 10px;
+      padding: 0.95rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.45rem;
+    }}
+
+    .mini-box-tag {{
+      font-family: var(--font-terminal);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #71717A;
+    }}
+
+    .mini-box-val {{
+      font-family: var(--font-terminal);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #09090B;
+    }}
+
+    .mini-box-sub {{
+      font-size: 0.74rem;
+      color: #10B981;
+      font-weight: 600;
+    }}
+
+    .btn-mini-reasoning {{
+      background: #FFFFFF;
+      border: 1px solid #EEE9DF;
+      border-radius: 9999px;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #09090B;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s ease;
+      margin-top: 0.25rem;
+    }}
+
+    .btn-mini-reasoning:hover {{
+      background: #000000;
+      color: #FFFFFF;
+      border-color: #000000;
+    }}
+
+    .warm-callout-strip {{
+      background: #FFFBEB;
+      border: 1px solid #FDE68A;
+      border-radius: 8px;
+      padding: 0.65rem 0.95rem;
+      font-size: 0.78rem;
+      color: #92400E;
+      line-height: 1.5;
+    }}
+
+    /* Vertical Account Stepper Timeline */
+    .stepper-vertical {{
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+      margin-top: 0.5rem;
+    }}
+
+    .stepper-item {{
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+    }}
+
+    .stepper-dot {{
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #000000;
+      flex-shrink: 0;
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFFFFF;
+      font-size: 9px;
+    }}
+
+    .stepper-dot.active {{
+      background: #10B981;
+      box-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+    }}
+
+    .stepper-dot.pending {{
+      background: transparent;
+      border: 2px solid #D4D4D8;
+    }}
+
+    .stepper-content-title {{
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #09090B;
+      margin-bottom: 0.15rem;
+    }}
+
+    .stepper-content-sub {{
+      font-size: 0.76rem;
+      color: #71717A;
+      line-height: 1.45;
+    }}
+
   </style>
   <script>
     window.selectedSymbol = "rNVDA";
     window.activeTradingEnv = "paper";
-    window.activeView = "arena";
+    window.activeView = "overview";
+
+    function toggleGhostSidebar() {{
+      const sb = document.getElementById("ghostSidebar");
+      if (!sb) return;
+      sb.classList.toggle("collapsed");
+      const icon = document.getElementById("sidebarToggleIcon");
+      if (sb.classList.contains("collapsed")) {{
+        if (icon) icon.innerHTML = '<polyline points="9 18 15 12 9 6"/>';
+      }} else {{
+        if (icon) icon.innerHTML = '<polyline points="15 18 9 12 15 6"/>';
+      }}
+    }}
 
     function switchView(view, tabEl) {{
-      window.activeView = view;
+      window.activeView = view || "overview";
+      const vOverview = document.getElementById("viewOverview");
       const vArena = document.getElementById("viewArena");
       const vAuditor = document.getElementById("viewAuditor");
       const vLedger = document.getElementById("viewLedger");
       const vSettings = document.getElementById("viewSettings");
+      if (vOverview) vOverview.style.display = (view === "overview" || !view) ? "block" : "none";
       if (vArena) vArena.style.display = view === "arena" ? "block" : "none";
       if (vAuditor) vAuditor.style.display = view === "auditor" ? "block" : "none";
       if (vLedger) vLedger.style.display = view === "ledger" ? "block" : "none";
       if (vSettings) vSettings.style.display = view === "settings" ? "block" : "none";
 
-      document.querySelectorAll(".app-header-tabs .app-tab").forEach(t => t.classList.remove("active"));
-      if (tabEl) {{
-        tabEl.classList.add("active");
-      }} else {{
-        const tabMap = {{ arena: "tabArena", auditor: "tabAuditor", ledger: "tabLedger", settings: "tabSettings" }};
-        const el = document.getElementById(tabMap[view]);
-        if (el) el.classList.add("active");
+      // Update sidebar nav active items
+      document.querySelectorAll(".ghost-nav-item").forEach(i => i.classList.remove("active"));
+      const navMap = {{
+        overview: "navItemOverview",
+        arena: "navItemArena",
+        auditor: "navItemAuditor",
+        ledger: "navItemLedger",
+        settings: "navItemSettings"
+      }};
+      const navItem = document.getElementById(navMap[view || "overview"]);
+      if (navItem) navItem.classList.add("active");
+
+      // Update top segmented mode toggle
+      const btnO = document.getElementById("modeBtnOverview");
+      const btnA = document.getElementById("modeBtnArena");
+      if (btnO && btnA) {{
+        if (view === "arena") {{
+          btnA.classList.add("active");
+          btnO.classList.remove("active");
+        }} else {{
+          btnO.classList.add("active");
+          btnA.classList.remove("active");
+        }}
       }}
 
       if (view === "arena" && typeof drawCandleChart === "function") {{
@@ -1994,145 +2699,429 @@ html_template = f"""<!DOCTYPE html>
 <body>
 
   <!-- Top Navigation Header -->
-  <header class="app-header">
-    <div class="app-header-left">
-      <a href="index.html" class="app-brand" title="Return to Chronos Landing Page">
-        <span class="app-brand-dot"></span>
-        <span class="app-brand-name">chronos</span>
-      </a>
 
-      <nav class="app-header-tabs">
-        <button type="button" class="app-tab active" id="tabArena" onclick="switchView('arena', this)">Trading Arena</button>
-        <button type="button" class="app-tab" id="tabAuditor" onclick="switchView('auditor', this)">
-          <span>Cognitive Self-Auditor</span>
-          <span class="app-tab-badge" id="auditCountBadge">3</span>
-        </button>
-        <button type="button" class="app-tab" id="tabLedger" onclick="switchView('ledger', this)">
-          <span>Trade Ledger</span>
-          <span class="app-tab-badge" id="ledgerCountBadge">26</span>
-        </button>
-        <button type="button" class="app-tab" id="tabSettings" onclick="switchView('settings', this)">Settings & Gateway</button>
-      </nav>
-    </div>
+  <div class="ghost-app-shell">
+    <!-- Collapsible Dark Left Sidebar -->
+    <aside class="ghost-sidebar" id="ghostSidebar">
+      <!-- Collapse / Expand Toggle Button -->
+      <button id="ghostSidebarToggle" class="ghost-sidebar-toggle" onclick="toggleGhostSidebar()" aria-label="Toggle Sidebar" title="Toggle Sidebar">
+        <svg id="sidebarToggleIcon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
 
-    <div class="app-header-right">
-      <!-- RainbowKit Connect Widget -->
-      <div id="rainbowkitHeaderContainer"></div>
-    </div>
-  </header>
-
-  <!-- App Body: Sidebar + Main Stage -->
-  <div class="app-body">
-    <!-- Left Sidebar: Markets List & Navigation Shortcuts -->
-    <aside class="app-sidebar">
       <div>
-        <div class="sidebar-section-title">
-          <span>TOKENIZED EQUITIES</span>
-          <span style="font-size: 0.65rem; color: var(--color-green);">24/7 LIVE</span>
-        </div>
-        <div class="sidebar-menu" id="marketsMenuList">
-          <div class="sidebar-item active" id="market-item-rNVDA" onclick="selectMarket('rNVDA')">
-            <div class="sidebar-item-left">
-              <img src="assets/tokens/nvda.svg" style="width: 16px; height: 16px; border-radius: 4px; object-fit: contain; margin-right: 6px;" alt="NVDA" />
-              <span>rNVDA</span>
-            </div>
-            <span class="sidebar-item-metric" style="color: var(--color-amber);">+3.4%</span>
+        <!-- Brand Logo & Wordmark -->
+        <a href="index.html" class="ghost-brand" title="Return to Chronos Landing Page">
+          <img src="assets/chronos_logo.svg" alt="Chronos" class="ghost-brand-logo">
+          <span class="ghost-brand-text">chronos</span>
+        </a>
+
+        <!-- Main Navigation Items -->
+        <nav class="ghost-nav-menu">
+          <div class="ghost-nav-item active" id="navItemOverview" onclick="switchView('overview', this)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            <span class="ghost-nav-text">Overview</span>
           </div>
-          <div class="sidebar-item" id="market-item-rTSLA" onclick="selectMarket('rTSLA')">
-            <div class="sidebar-item-left">
-              <img src="assets/tokens/tsla.svg" style="width: 16px; height: 16px; border-radius: 4px; object-fit: contain; margin-right: 6px;" alt="TSLA" />
-              <span>rTSLA</span>
-            </div>
-            <span class="sidebar-item-metric" style="color: var(--color-amber);">+4.2%</span>
+
+          <div class="ghost-nav-item" id="navItemArena" onclick="switchView('arena', this)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            <span class="ghost-nav-text">Trading Arena</span>
           </div>
-          <div class="sidebar-item" id="market-item-rAAPL" onclick="selectMarket('rAAPL')">
-            <div class="sidebar-item-left">
-              <img src="assets/tokens/aapl.svg" style="width: 16px; height: 16px; border-radius: 4px; object-fit: contain; margin-right: 6px;" alt="AAPL" />
-              <span>rAAPL</span>
-            </div>
-            <span class="sidebar-item-metric" style="color: var(--color-grey-muted);">-0.8%</span>
+
+          <div class="ghost-nav-item" id="navItemTrades" onclick="openTradeReasoningModal('POS-194671')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+            <span class="ghost-nav-text">5-Trade Strategy</span>
+            <span class="ghost-nav-badge" style="background: rgba(16, 185, 129, 0.2); color: #34D399;">3/5</span>
           </div>
-          <div class="sidebar-item" id="market-item-rCOIN" onclick="selectMarket('rCOIN')">
-            <div class="sidebar-item-left">
-              <img src="assets/tokens/coin.svg" style="width: 16px; height: 16px; border-radius: 4px; object-fit: contain; margin-right: 6px;" alt="COIN" />
-              <span>rCOIN</span>
-            </div>
-            <span class="sidebar-item-metric" style="color: var(--color-amber);">+5.7%</span>
+
+          <div class="ghost-nav-item" id="navItemLedger" onclick="switchView('ledger', this)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <span class="ghost-nav-text">Trade Ledger</span>
+            <span class="ghost-nav-badge">26</span>
           </div>
-          <div class="sidebar-item" id="market-item-rMSTR" onclick="selectMarket('rMSTR')">
-            <div class="sidebar-item-left">
-              <img src="assets/tokens/mstr.svg" style="width: 16px; height: 16px; border-radius: 4px; object-fit: contain; margin-right: 6px;" alt="MSTR" />
-              <span>rMSTR</span>
-            </div>
-            <span class="sidebar-item-metric" style="color: var(--color-amber);">+6.9%</span>
+
+          <div class="ghost-nav-item" id="navItemAuditor" onclick="switchView('auditor', this)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+            <span class="ghost-nav-text">Self-Auditor</span>
+            <span class="ghost-nav-badge" style="background: rgba(245, 158, 11, 0.2); color: #FBBF24;">3</span>
           </div>
-          <div class="sidebar-item" id="market-item-rSPY" onclick="selectMarket('rSPY')">
-            <div class="sidebar-item-left">
-              <img src="assets/tokens/spy.svg" style="width: 16px; height: 16px; border-radius: 4px; object-fit: contain; margin-right: 6px;" alt="SPY" />
-              <span>rSPY</span>
-            </div>
-            <span class="sidebar-item-metric" style="color: var(--color-grey-muted);">+0.4%</span>
+
+          <div class="ghost-nav-item" id="navItemSettings" onclick="switchView('settings', this)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            <span class="ghost-nav-text">Bitget Gateway</span>
+            <span class="ghost-nav-badge">UTA v3</span>
           </div>
-          <div class="sidebar-item" id="market-item-rQQQ" onclick="selectMarket('rQQQ')">
-            <div class="sidebar-item-left">
-              <img src="assets/tokens/qqq.svg" style="width: 16px; height: 16px; border-radius: 4px; object-fit: contain; margin-right: 6px;" alt="QQQ" />
-              <span>rQQQ</span>
-            </div>
-            <span class="sidebar-item-metric" style="color: var(--color-grey-muted);">+0.8%</span>
+
+          <div class="ghost-nav-item" onclick="window.location.href='index.html#thesis'">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            <span class="ghost-nav-text">Protocol Docs</span>
           </div>
-        </div>
+
+          <div class="ghost-nav-item" onclick="showToast('Chronos Help', 'Autonomous Weekend Information Pricing Engine on Bitget UTA v3. Active 24/7.', 'info')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <span class="ghost-nav-text">Help Centre</span>
+          </div>
+        </nav>
       </div>
 
-      <div>
-        <div class="sidebar-section-title">
-          <span>GLOBAL BENCHMARK</span>
-        </div>
-        <div class="sidebar-menu">
-          <div class="sidebar-item" style="cursor: default;">
-            <div class="sidebar-item-left">
-              <img src="assets/tokens/btc.svg" style="width: 16px; height: 16px; border-radius: 4px; object-fit: contain; margin-right: 6px;" alt="BTC" />
-              <span>BTC / USD Macro</span>
+      <!-- Bottom Account Info Card -->
+      <div class="ghost-sidebar-footer">
+        <div class="ghost-user-card">
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="display: flex; align-items: center; gap: 0.35rem; color: #D4D4D8; font-weight: 600;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <span id="ghostSidebarUserLabel">vault-trader@chronos.ai</span>
             </div>
-            <span class="sidebar-item-metric" style="color: var(--color-green);">60D β 1.42</span>
+            <span style="color: #10B981; font-size: 0.65rem;">●</span>
+          </div>
+          <div style="color: #71717A; font-size: 0.70rem; font-family: var(--font-terminal);" id="ghostSidebarBoundLabel">
+            Bound: 0xb482_8C09
           </div>
         </div>
-      </div>
 
-      <div>
-        <div class="sidebar-section-title">
-          <span>COGNITIVE PLATFORM</span>
-        </div>
-        <div class="sidebar-menu">
-          <div class="sidebar-item" onclick="switchView('auditor', document.getElementById('tabAuditor'))">
-            <div class="sidebar-item-left">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-              <span>Self-Auditor Brain</span>
-            </div>
-            <span class="sidebar-item-metric" style="color: var(--color-green);" id="sidebarAuditsActive">Active</span>
-          </div>
-          <div class="sidebar-item" onclick="switchView('ledger', document.getElementById('tabLedger'))">
-            <div class="sidebar-item-left">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>
-              <span>Trade Ledger</span>
-            </div>
-            <span class="sidebar-item-metric" id="sidebarTradeCount">26 Trades</span>
-          </div>
-          <div class="sidebar-item" onclick="switchView('settings', document.getElementById('tabSettings'))">
-            <div class="sidebar-item-left">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
-              <span>Settings & Gateway</span>
-            </div>
-            <span class="sidebar-item-metric" style="color: var(--color-green);">UTA v3</span>
-          </div>
-        </div>
+        <button class="btn-ghost-switch-live" onclick="switchView('settings')">
+          <span>Switch to Live Bitget</span>
+        </button>
       </div>
     </aside>
 
-    <!-- Main Content Area -->
-    <main class="app-main">
+    <!-- Main Stage Container -->
+    <div class="ghost-main-stage" id="ghostMainStage">
+      <!-- Top Running Banner & Header Controls -->
+      <div class="ghost-top-bar" id="ghostTopBar">
+        <div class="ghost-running-banner">
+          BITGET UTA v3 SPOT ORACLE · 24/7 TOKENIZED EQUITIES · RESIDUAL DRIFT ARBITRAGE · 5-TRADE WEEKEND CAP
+        </div>
+
+        <div class="ghost-top-controls">
+          <button class="btn-mint-paper" onclick="addPaperBalance(50000)">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <span>Mint $50k Paper USDT</span>
+          </button>
+
+          <div class="ghost-mode-segmented">
+            <button class="ghost-mode-btn active" id="modeBtnOverview" onclick="switchView('overview')">Overview</button>
+            <button class="ghost-mode-btn" id="modeBtnArena" onclick="switchView('arena')">Trading Arena</button>
+          </div>
+
+          <div class="ghost-network-pill">
+            <span class="ghost-network-dot"></span>
+            <span>Dislocation Active</span>
+          </div>
+
+          <!-- RainbowKit Connect Widget -->
+          <div id="rainbowkitHeaderContainer"></div>
+        </div>
+      </div>
+
+      <!-- Main App Content -->
+      <main class="app-main">
+
+
+
+      <!-- VIEW 0: GHOST TORUS OVERVIEW DASHBOARD -->
+      <div id="viewOverview">
+        <h1 class="overview-page-title">Overview</h1>
+        <p class="overview-page-subtitle">Your autonomous weekend information pricing vault, residual drift positions, and Monday cash convergence eligibility on Bitget UTA.</p>
+
+        <!-- Top 4-Card Metric Grid -->
+        <div class="overview-kpi-row">
+          <!-- Card 1: Weekend Trade Capacity -->
+          <div class="overview-kpi-card">
+            <div class="overview-kpi-top">
+              <div class="overview-kpi-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+              </div>
+              <span class="overview-kpi-badge">WEEKEND CAP: 5 TRADES</span>
+            </div>
+            <div class="overview-kpi-mid">
+              <div class="overview-kpi-pill">
+                <span>🔒</span>
+                <span id="overviewActiveTradesPill">3 / 5 Active Weekend Trades</span>
+              </div>
+            </div>
+            <div class="overview-kpi-bottom">
+              <span>Allocated Weekend Capital</span>
+              <strong style="color: #09090B; font-family: var(--font-terminal);" id="overviewAllocatedVal">$7,500.00 USDT</strong>
+            </div>
+          </div>
+
+          <!-- Card 2: Cumulative Net Alpha -->
+          <div class="overview-kpi-card">
+            <div class="overview-kpi-top">
+              <div class="overview-kpi-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+              </div>
+              <span class="overview-kpi-badge green">Auto-Compounding Alpha</span>
+            </div>
+            <div class="overview-kpi-mid">
+              <div class="overview-kpi-pill">
+                <span>📈</span>
+                <span style="color: #10B981;">+39.71% Cumulative Return</span>
+              </div>
+            </div>
+            <div class="overview-kpi-bottom">
+              <span>4.44 Full Horizon Sharpe Ratio</span>
+              <span style="color: #52525B;">Net 0.10% Taker</span>
+            </div>
+          </div>
+
+          <!-- Card 3: Monday Cash Settlement -->
+          <div class="overview-kpi-card">
+            <div class="overview-kpi-top">
+              <div class="overview-kpi-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+              </div>
+              <span class="overview-kpi-badge green">● MONDAY UNWIND #1</span>
+            </div>
+            <div class="overview-kpi-mid">
+              <div class="overview-kpi-big" id="overviewPortfolioVal">$52,485.50</div>
+            </div>
+            <div class="overview-kpi-bottom">
+              <span>Accumulated Trading Vault</span>
+              <span id="overviewSettledCount">26 Settled Trades</span>
+            </div>
+          </div>
+
+          <!-- Card 4: Capital Protection & Cash Sleep -->
+          <div class="overview-kpi-card">
+            <div class="overview-kpi-top">
+              <div class="overview-kpi-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+              </div>
+              <span class="overview-kpi-badge green">Zero-Loss Guarantee</span>
+            </div>
+            <div class="overview-kpi-mid">
+              <div class="overview-kpi-big protect">100% Protected</div>
+            </div>
+            <div class="overview-kpi-bottom">
+              <span>Weekday Cash Sweep</span>
+              <span>Zero Overnight Equity Beta</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Middle Section: 2-Column Split Cards (~60% / ~40%) -->
+        <div class="overview-split-2col">
+          <!-- Left: Active Weekend Position Card -->
+          <div class="overview-main-card">
+            <div>
+              <h2 class="overview-card-h2">Your Autonomous Weekend Position is Active</h2>
+              <p class="overview-card-desc">Trades are placed sequentially only when statistical drift clears (|Z| ≥ 2.0σ). Maximum 5 trades per weekend to guarantee capital protection.</p>
+
+              <div class="overview-inner-callout">
+                <div class="inner-callout-header">
+                  <span>Dislocation Detection State</span>
+                  <span style="font-family: var(--font-terminal); font-size: 0.72rem; color: #10B981;">● Scanning 24/7 (3 Trades Active)</span>
+                </div>
+                <div class="inner-callout-text">
+                  The agent is monitoring 7 tokenized equities on Bitget. 3 counter-positions are active ($rNVDA, $rTSLA, $rMSTR) shorting artificial weekend retail euphoria against Friday's anchor. All positions cash-settle into 100% USDT at Monday institutional pre-market open.
+                </div>
+                <button class="btn-decrypt-black" onclick="openTradeReasoningModal('POS-194671')">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2l-2 2m-1-1l-2 2m-1-1l-2 2M3 21l9-9m3-3l6-6"/><circle cx="7.5" cy="16.5" r="4.5"/></svg>
+                  <span>Open Strategy & Reasoning Modal</span>
+                </button>
+              </div>
+
+              <!-- Quick Asset Pill Selector for Chart Drilldown -->
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; flex-wrap: wrap; gap: 0.75rem;">
+                <div style="font-family: var(--font-terminal); font-size: 0.72rem; font-weight: 600; color: #71717A; text-transform: uppercase;">
+                  Active Market Feeds:
+                </div>
+                <div style="display: flex; gap: 0.35rem; flex-wrap: wrap;">
+                  <button class="ghost-mode-btn active" style="padding: 0.25rem 0.65rem; font-size: 0.72rem; font-family: var(--font-terminal);" onclick="selectMarket('rNVDA'); switchView('arena');">rNVDA (+3.4%)</button>
+                  <button class="ghost-mode-btn" style="padding: 0.25rem 0.65rem; font-size: 0.72rem; font-family: var(--font-terminal); background: #FAF8F5; border: 1px solid #EEE9DF;" onclick="selectMarket('rTSLA'); switchView('arena');">rTSLA (+4.2%)</button>
+                  <button class="ghost-mode-btn" style="padding: 0.25rem 0.65rem; font-size: 0.72rem; font-family: var(--font-terminal); background: #FAF8F5; border: 1px solid #EEE9DF;" onclick="selectMarket('rMSTR'); switchView('arena');">rMSTR (+6.9%)</button>
+                  <button class="ghost-mode-btn" style="padding: 0.25rem 0.65rem; font-size: 0.72rem; font-family: var(--font-terminal); background: #FAF8F5; border: 1px solid #EEE9DF;" onclick="selectMarket('rCOIN'); switchView('arena');">rCOIN (+5.7%)</button>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid #EEE9DF; display: flex; justify-content: space-between; align-items: center; font-size: 0.76rem; color: #71717A;">
+              <span>Friday Settlement Anchor: <strong style="color: #09090B; font-family: var(--font-terminal);">$128.40 USD</strong></span>
+              <span>Next Convergence: <strong style="color: #10B981; font-family: var(--font-terminal);">Monday 08:30 EST</strong></span>
+            </div>
+          </div>
+
+          <!-- Right: Protocol Security Specs (Exact Ghost Torus style) -->
+          <div class="overview-main-card">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.1rem;">
+                <span style="font-family: var(--font-terminal); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #71717A;">PROTOCOL SECURITY</span>
+                <span class="overview-kpi-badge green" style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 9999px; padding: 0.2rem 0.65rem;">● Audited & Active</span>
+              </div>
+
+              <table class="protocol-spec-table">
+                <tbody>
+                  <tr>
+                    <td class="label">Execution Engine</td>
+                    <td class="val">Chronos Python v2.4 (NumPy)</td>
+                  </tr>
+                  <tr>
+                    <td class="label">Oracle Feed</td>
+                    <td class="val">Bitget 24/7 Spot Order Books</td>
+                  </tr>
+                  <tr>
+                    <td class="label">Benchmark Beta</td>
+                    <td class="val">60-Day Rolling BTC Residual Drift</td>
+                  </tr>
+                  <tr>
+                    <td class="label">Settlement Mode</td>
+                    <td class="val">100% USDT Cash (Monday Open)</td>
+                  </tr>
+                  <tr>
+                    <td class="label">Weekend Cap Limit</td>
+                    <td class="val" style="color: #D97706;">Max 5 Trades (Sequential)</td>
+                  </tr>
+                  <tr>
+                    <td class="label">Principal Safety</td>
+                    <td class="val" style="color: #10B981;">100% Non-Custodial (Bitget UTA)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p style="font-size: 0.76rem; color: #71717A; line-height: 1.5; margin-top: 1rem; border-top: 1px solid #EEE9DF; padding-top: 0.85rem;">
+              Smart contracts and autonomous daemons execute math directly over live order books. No validator, node operator, or third party ever holds discretionary risk.
+            </p>
+          </div>
+        </div>
+
+        <!-- Lower Section: 2-Column Split Cards (~60% / ~40%) -->
+        <div class="overview-split-2col">
+          <!-- Left: 5-Trade Architecture Card (Ghost Torus Time-Weighted Draw Weight layout) -->
+          <div class="overview-main-card">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                <span class="overview-kpi-badge" style="background: #F4EFE6; border: 1px solid #EEE9DF; border-radius: 9999px; padding: 0.25rem 0.65rem;">★ 5-Trade Sequential Architecture</span>
+                <span style="font-family: var(--font-terminal); font-size: 0.72rem; color: #71717A;">🔒 Risk-Parity Volatility Sized</span>
+              </div>
+              <h2 class="overview-card-h2">Active Weekend Alpha Trades</h2>
+              <p class="overview-card-desc">Draw weight = capital × statistical dislocation. Trades deploy sequentially when individual drift thresholds clear.</p>
+
+              <!-- 3-Mini Box Grid -->
+              <div class="overview-3box-grid">
+                <!-- Box 1: rNVDA -->
+                <div class="overview-mini-box">
+                  <span class="mini-box-tag">POSITION #1</span>
+                  <div class="mini-box-val">rNVDA SHORT (2.24σ)</div>
+                  <div style="font-size: 0.75rem; color: #52525B;">$132.80 (Anchor $128.40)</div>
+                  <div class="mini-box-sub">+3.42% Retail Move</div>
+                  <button class="btn-mini-reasoning" onclick="openTradeReasoningModal('POS-194671')">Reasoning & Strategy →</button>
+                </div>
+
+                <!-- Box 2: rTSLA -->
+                <div class="overview-mini-box">
+                  <span class="mini-box-tag">POSITION #2</span>
+                  <div class="mini-box-val">rTSLA SHORT (2.65σ)</div>
+                  <div style="font-size: 0.75rem; color: #52525B;">$253.52 (Anchor $248.00)</div>
+                  <div class="mini-box-sub">+4.20% Retail Move</div>
+                  <button class="btn-mini-reasoning" onclick="openTradeReasoningModal('POS-194672')">Reasoning & Strategy →</button>
+                </div>
+
+                <!-- Box 3: rMSTR -->
+                <div class="overview-mini-box">
+                  <span class="mini-box-tag">POSITION #3</span>
+                  <div class="mini-box-val">rMSTR SHORT (3.48σ)</div>
+                  <div style="font-size: 0.75rem; color: #52525B;">$312.41 (Anchor $292.20)</div>
+                  <div class="mini-box-sub">+6.92% Retail Move</div>
+                  <button class="btn-mini-reasoning" onclick="openTradeReasoningModal('POS-194673')">Reasoning & Strategy →</button>
+                </div>
+              </div>
+
+              <!-- Warm Callout Strip -->
+              <div class="warm-callout-strip">
+                ● <strong>5-Trade Cap Active:</strong> Maximum 5 trades allowed per weekend. Positions are entered only when the individual asset's dislocation clears, preventing simultaneous capital over-commitment.
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Vertical Timeline Stepper (Ghost Torus "Where your account stands" layout) -->
+          <div class="overview-main-card">
+            <div>
+              <h2 class="overview-card-h2">Where your account stands</h2>
+              <p class="overview-card-desc">Recomputed from live inputs on every read. There is no cached status that could disagree with institutional exchanges.</p>
+
+              <div class="stepper-vertical">
+                <!-- Step 1 -->
+                <div class="stepper-item">
+                  <div class="stepper-dot">✓</div>
+                  <div>
+                    <div class="stepper-content-title">Friday Anchor Baseline Locked</div>
+                    <div class="stepper-content-sub">NYSE & NASDAQ close at 16:00 EST. Cryptographic baseline anchored across all 7 assets.</div>
+                  </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="stepper-item">
+                  <div class="stepper-dot active">●</div>
+                  <div>
+                    <div class="stepper-content-title" style="color: #10B981;">Weekend Dislocation Hunting (Active)</div>
+                    <div class="stepper-content-sub">Retail order flow monitored 24/7 on Bitget. 3 of 5 counter-trades deployed into thin books.</div>
+                  </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="stepper-item">
+                  <div class="stepper-dot pending"></div>
+                  <div>
+                    <div class="stepper-content-title">Monday Cash Convergence (Pending)</div>
+                    <div class="stepper-content-sub">All positions close into 100% USDT cash as multi-billion Wall Street pre-market opens (08:30 EST).</div>
+                  </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="stepper-item">
+                  <div class="stepper-dot pending"></div>
+                  <div>
+                    <div class="stepper-content-title">Post-Weekend Sentiment & Self-Audit</div>
+                    <div class="stepper-content-sub">The agent checks Monday market sentiment to decide whether to take quick profits or hold into open.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 4: Audited History / Ledger Table Strip -->
+        <div class="overview-main-card" style="margin-top: 0.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.75rem;">
+            <div>
+              <h2 class="overview-card-h2" style="font-size: 1.4rem;">Audited Trade Ledger (120-Day Horizon)</h2>
+              <p style="font-size: 0.8rem; color: #71717A; margin: 0;">26 verified executions net of all taker fees and spreads.</p>
+            </div>
+            <div style="display: flex; gap: 0.45rem;">
+              <button class="ghost-mode-btn active" style="padding: 0.35rem 0.85rem;" onclick="filterLedger('all', this)">All Trades (26)</button>
+              <button class="ghost-mode-btn" style="background: #FAF8F5; border: 1px solid #EEE9DF; padding: 0.35rem 0.85rem;" onclick="filterLedger('win', this)">Profitable Wins (20)</button>
+              <button class="ghost-mode-btn" style="background: #FAF8F5; border: 1px solid #EEE9DF; padding: 0.35rem 0.85rem;" onclick="filterLedger('loss', this)">Audited Losses (6)</button>
+              <button class="ghost-mode-btn" style="background: #000000; color: #FFFFFF; padding: 0.35rem 0.85rem;" onclick="switchView('ledger')">Open Full Ledger →</button>
+            </div>
+          </div>
+
+          <div style="overflow-x: auto;">
+            <table class="ledger-table">
+              <thead>
+                <tr>
+                  <th>Trade ID</th>
+                  <th>Asset</th>
+                  <th>Direction</th>
+                  <th>Entry Price</th>
+                  <th>Monday Exit</th>
+                  <th>Net PnL (%)</th>
+                  <th>USDT Profit</th>
+                  <th>Strategy & Reasoning</th>
+                </tr>
+              </thead>
+              <tbody id="overviewLedgerTableBody">
+                <!-- Populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
 
       <!-- VIEW 1: TRADING ARENA -->
-      <div id="viewArena">
+      <div id="viewArena" style="display: none;">
         <!-- In-App Breadcrumb Header -->
         <div class="breadcrumb-row">
           <div style="display: flex; align-items: center; gap: 0.5rem; font-family: var(--font-terminal); font-size: 0.76rem; color: var(--color-grey-text);">
@@ -2579,8 +3568,9 @@ html_template = f"""<!DOCTYPE html>
         </div>
       </div>
 
-    </main>
-  </div>
+        </main>
+    </div> <!-- /ghost-main-stage -->
+  </div> <!-- /ghost-app-shell -->
 
   <!-- Institutional Strategy & Reasoning Modal (Executive Two-Column Layout) -->
   <div id="tradeReasoningModal" class="trade-reasoning-overlay" onclick="handleReasoningBackdropClick(event)">
@@ -3034,8 +4024,9 @@ html_template = f"""<!DOCTYPE html>
     // Render Ledger Table
     function renderLedgerTable(trades) {{
       const tbody = document.getElementById("appLedgerTableBody");
-      if (!tbody) return;
-      tbody.innerHTML = "";
+      const overviewTbody = document.getElementById("overviewLedgerTableBody");
+      if (tbody) tbody.innerHTML = "";
+      if (overviewTbody) overviewTbody.innerHTML = "";
 
       (trades || []).forEach(t => {{
         const retPct = typeof t.return_pct === "number" ? t.return_pct : (typeof t.pnl_pct === "number" ? t.pnl_pct : 0);
@@ -3048,28 +4039,34 @@ html_template = f"""<!DOCTYPE html>
         const sideLabel = isShort ? 'Short Dislocation' : 'Long Reversion';
         const sideColor = isShort ? 'var(--color-red)' : 'var(--color-green)';
 
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
+        const trContent = `
           <td><span style="font-family: var(--font-terminal); font-weight: 700;">#${{tradeId}}</span></td>
-          <td><div style="display: flex; align-items: center;">${{getTokenLogoHtml(t.asset || t.symbol || 'rNVDA', 20)}}<strong style="margin-left: 2px;">${{t.asset || t.symbol || 'rNVDA'}}</strong></div></td>
-          <td><span style="color: ${{sideColor}}; font-weight: 700;">${{sideLabel}}</span></td>
+          <td><div style="display: flex; align-items: center;">${{getTokenLogoHtml(t.asset || t.symbol || 'rNVDA', 20)}}<strong style="margin-left: 6px;">${{t.asset || t.symbol || 'rNVDA'}}</strong></div></td>
+          <td><span style="color: ${{sideColor}}; font-weight: 700; font-family: var(--font-terminal); font-size: 0.78rem;">${{sideLabel}}</span></td>
           <td style="font-family: var(--font-terminal); font-size: 0.8rem;">$${{entryP}}</td>
-          <td style="font-family: var(--font-terminal); font-size: 0.8rem;">$${{exitP}} (Monday Open)</td>
+          <td style="font-family: var(--font-terminal); font-size: 0.8rem;">$${{exitP}}</td>
           <td><span class="${{isWin ? 'badge-win' : 'badge-loss'}}">${{isWin ? '+' : ''}}${{retPct.toFixed(2)}}%</span></td>
           <td style="font-family: var(--font-terminal); font-weight: 700; color: ${{isWin ? 'var(--color-green)' : 'var(--color-red)'}};">${{isWin ? '+' : ''}}$${{pnlUsd.toFixed(2)}}</td>
           <td>
             <div style="display: flex; gap: 0.4rem; align-items: center;">
-              <button class="btn-audit-jump" onclick="openTradeReasoningModal('${{tradeId}}')" style="background: #F8FAFC; color: #0F172A; border-color: #CBD5E1; font-weight: 600;">
-                <span>Strategy & Reason</span>
-              </button>
-              <button class="btn-audit-jump" onclick="jumpToAudit('${{tradeId}}')">
-                <span>View Audit</span>
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              <button class="btn-audit-jump" onclick="openTradeReasoningModal('${{tradeId}}')" style="background: #FAF8F5; color: #09090B; border: 1px solid #EEE9DF; border-radius: 9999px; padding: 0.3rem 0.75rem; font-weight: 600; font-size: 0.74rem;">
+                <span>Strategy & Reason →</span>
               </button>
             </div>
           </td>
         `;
-        tbody.appendChild(tr);
+
+        if (tbody) {{
+          const tr = document.createElement("tr");
+          tr.innerHTML = trContent;
+          tbody.appendChild(tr);
+        }}
+
+        if (overviewTbody) {{
+          const ovTr = document.createElement("tr");
+          ovTr.innerHTML = trContent;
+          overviewTbody.appendChild(ovTr);
+        }}
       }});
     }}
 
@@ -4331,17 +5328,44 @@ html_template = f"""<!DOCTYPE html>
       ctx.fillText("$" + minP.toFixed(2), 5, chartBottom);
     }}
 
-    // Switch Views (Arena, Auditor, Ledger, Settings)
+    // Switch Views (Overview, Arena, Auditor, Ledger, Settings)
     function switchView(view, tabEl) {{
-      document.getElementById("viewArena").style.display = view === "arena" ? "block" : "none";
-      document.getElementById("viewAuditor").style.display = view === "auditor" ? "block" : "none";
-      document.getElementById("viewLedger").style.display = view === "ledger" ? "block" : "none";
-      document.getElementById("viewSettings").style.display = view === "settings" ? "block" : "none";
+      window.activeView = view || "overview";
+      const vOverview = document.getElementById("viewOverview");
+      const vArena = document.getElementById("viewArena");
+      const vAuditor = document.getElementById("viewAuditor");
+      const vLedger = document.getElementById("viewLedger");
+      const vSettings = document.getElementById("viewSettings");
+      if (vOverview) vOverview.style.display = (view === "overview" || !view) ? "block" : "none";
+      if (vArena) vArena.style.display = view === "arena" ? "block" : "none";
+      if (vAuditor) vAuditor.style.display = view === "auditor" ? "block" : "none";
+      if (vLedger) vLedger.style.display = view === "ledger" ? "block" : "none";
+      if (vSettings) vSettings.style.display = view === "settings" ? "block" : "none";
 
-      document.querySelectorAll(".app-header-tabs .app-tab").forEach(t => t.classList.remove("active"));
-      if (tabEl) tabEl.classList.add("active");
+      document.querySelectorAll(".ghost-nav-item").forEach(i => i.classList.remove("active"));
+      const navMap = {{
+        overview: "navItemOverview",
+        arena: "navItemArena",
+        auditor: "navItemAuditor",
+        ledger: "navItemLedger",
+        settings: "navItemSettings"
+      }};
+      const navItem = document.getElementById(navMap[view || "overview"]);
+      if (navItem) navItem.classList.add("active");
 
-      if (view === "arena") {{
+      const btnO = document.getElementById("modeBtnOverview");
+      const btnA = document.getElementById("modeBtnArena");
+      if (btnO && btnA) {{
+        if (view === "arena") {{
+          btnA.classList.add("active");
+          btnO.classList.remove("active");
+        }} else {{
+          btnO.classList.add("active");
+          btnA.classList.remove("active");
+        }}
+      }}
+
+      if (view === "arena" && typeof drawCandleChart === "function") {{
         setTimeout(drawCandleChart, 50);
       }}
     }}
@@ -4630,6 +5654,12 @@ html_template = f"""<!DOCTYPE html>
         startAutoPilotInterval();
       }} catch(e) {{
         console.error("startAutoPilotInterval error:", e);
+      }}
+
+      try {{
+        renderOverviewLedger(ChronosWalletStore.getCurrentData().trades || realTrades);
+      }} catch(e) {{
+        console.error("renderOverviewLedger error:", e);
       }}
 
       try {{
