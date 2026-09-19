@@ -398,12 +398,67 @@ img, svg, video, canvas {
 
 /* Animations */
 @keyframes pageRiseIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
+  0% {
+    opacity: 0;
+    transform: translateY(28px);
+    filter: blur(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
 }
 
 .page-rise-in {
-  animation: pageRiseIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: pageRiseIn 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes viewRiseIn {
+  0% {
+    opacity: 0;
+    transform: translateY(26px) scale(0.985);
+    filter: blur(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+.view-rise-in {
+  animation: viewRiseIn 0.52s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+  will-change: opacity, transform, filter;
+}
+
+/* Scroll Reveal Pop-in Animation (Blurred before pop-in) */
+.chronos-pop-in {
+  opacity: 0;
+  transform: translateY(32px) scale(0.92);
+  filter: blur(14px);
+  transition: opacity 0.72s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.72s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.72s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
+}
+
+.chronos-pop-in.chronos-revealed {
+  opacity: 1 !important;
+  transform: translateY(0) scale(1) !important;
+  filter: blur(0px) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chronos-pop-in {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+  .page-rise-in, .view-rise-in {
+    animation: none !important;
+  }
 }
 
 /* Scrollbar */

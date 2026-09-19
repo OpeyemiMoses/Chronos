@@ -772,7 +772,7 @@ html_content = f"""<!DOCTYPE html>
     }}
   </style>
 </head>
-<body>
+<body class="page-rise-in">
 
   <!-- Floating Dynamic Pill Header -->
   <div class="header-wrapper">
@@ -790,7 +790,7 @@ html_content = f"""<!DOCTYPE html>
 
       <!-- Middle: Dynamic Nav links expanding on scroll -->
       <nav class="header-nav">
-        <a href="app.html" style="color: var(--color-green); font-weight: 700;">Live Terminal</a>
+        <a href="app.html" onclick="event.preventDefault(); smoothNavigate('app.html');" style="color: var(--color-green); font-weight: 700;">Live Terminal</a>
         <a href="#platform">Dislocation Radar</a>
         <a href="#thesis">Thesis</a>
         <a href="#metrics">Alpha Metrics</a>
@@ -800,7 +800,7 @@ html_content = f"""<!DOCTYPE html>
 
       <!-- Right: Launch Terminal Button -->
       <div style="display: flex; align-items: center; gap: 0.65rem;">
-        <button class="btn-launch-black" onclick="window.location.href='app.html'">
+        <button class="btn-launch-black" onclick="smoothNavigate('app.html')">
           <span>Launch Terminal</span>
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </button>
@@ -826,7 +826,7 @@ html_content = f"""<!DOCTYPE html>
         </p>
 
         <div style="display: flex; align-items: center; gap: 0.85rem; flex-wrap: wrap;">
-          <button class="btn-launch-black" onclick="window.location.href='app.html'">
+          <button class="btn-launch-black" onclick="smoothNavigate('app.html')">
             <span>Launch Web3 Terminal</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </button>
@@ -1477,7 +1477,7 @@ html_content = f"""<!DOCTYPE html>
           Continuous statistical arbitrage across tokenized equities. Seamlessly integrated with Bitget UTA v3 and official Bitget MCP tools.
         </p>
         <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
-          <button class="btn-launch-white" onclick="window.location.href='app.html'">
+          <button class="btn-launch-white" onclick="smoothNavigate('app.html')">
             <span>Launch Web3 Terminal</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </button>
@@ -1717,9 +1717,98 @@ html_content = f"""<!DOCTYPE html>
       ctx.fillText("Monday 09:30 EST (Convergence)", w - 210, h - 14);
     }}
 
+    // Smooth Page-to-Page Navigation with Rise/Fade transition
+    function smoothNavigate(url) {{
+      document.body.style.transition = "opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1), transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), filter 0.28s cubic-bezier(0.16, 1, 0.3, 1)";
+      document.body.style.opacity = "0";
+      document.body.style.transform = "translateY(-16px)";
+      document.body.style.filter = "blur(8px)";
+      setTimeout(() => {{
+        window.location.href = url;
+      }}, 260);
+    }}
+    window.smoothNavigate = smoothNavigate;
+
+    // Reveal on Scroll Pop-In Animation Engine (Blur-to-Focus Pop-In)
+    function initScrollPopAnimations() {{
+      const targetSelectors = [
+        ".hero-pop",
+        ".hero-3d-clean-wrap",
+        ".market-ticker-wrap",
+        ".section-tag",
+        ".section-title",
+        ".section-desc",
+        ".card-paper",
+        ".card-dark",
+        ".stat-box-interactive",
+        ".landing-grid-3col > div",
+        ".landing-grid-4col > div",
+        ".landing-grid-2col > div",
+        ".landing-arch-grid > div",
+        ".interactive-sim-box",
+        ".comparison-table-wrap",
+        ".faq-card",
+        ".matrix-card"
+      ];
+
+      const elements = document.querySelectorAll(targetSelectors.join(", "));
+      const observedSet = new Set();
+
+      elements.forEach(el => {{
+        if (el.closest(".header-wrapper")) return;
+        if (observedSet.has(el)) return;
+        observedSet.add(el);
+        el.classList.add("chronos-pop-in");
+      }});
+
+      if ("IntersectionObserver" in window) {{
+        const observer = new IntersectionObserver((entries, obs) => {{
+          entries.forEach(entry => {{
+            if (entry.isIntersecting) {{
+              const target = entry.target;
+              const parent = target.parentElement;
+              let delay = 0;
+              if (parent) {{
+                const siblings = Array.from(parent.children).filter(c => c.classList.contains("chronos-pop-in"));
+                const idx = siblings.indexOf(target);
+                if (idx > 0) {{
+                  delay = Math.min(idx * 75, 450);
+                }}
+              }}
+              setTimeout(() => {{
+                target.classList.add("chronos-revealed");
+              }}, delay);
+              obs.unobserve(target);
+            }}
+          }});
+        }}, {{
+          root: null,
+          rootMargin: "0px 0px -40px 0px",
+          threshold: 0.05
+        }});
+
+        observedSet.forEach(el => {{
+          observer.observe(el);
+        }});
+      }} else {{
+        observedSet.forEach(el => el.classList.add("chronos-revealed"));
+      }}
+
+      // Safety fallback: reveal any visible elements in viewport
+      setTimeout(() => {{
+        document.querySelectorAll(".chronos-pop-in:not(.chronos-revealed)").forEach(el => {{
+          const rect = el.getBoundingClientRect();
+          if (rect.top < window.innerHeight + 120) {{
+            el.classList.add("chronos-revealed");
+          }}
+        }});
+      }}, 1000);
+    }}
+
     window.addEventListener("resize", drawChart);
     function initIndexApp() {{
       try {{ setTimeout(drawChart, 80); }} catch(e) {{}}
+      try {{ initScrollPopAnimations(); }} catch(e) {{}}
     }}
     if (document.readyState === "loading") {{
       document.addEventListener("DOMContentLoaded", initIndexApp);

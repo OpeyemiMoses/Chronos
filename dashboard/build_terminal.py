@@ -2920,6 +2920,20 @@ html_template = f"""<!DOCTYPE html>
       if (vLedger) vLedger.style.display = view === "ledger" ? "block" : "none";
       if (vSettings) vSettings.style.display = view === "settings" ? "block" : "none";
 
+      const targetEl = (view === "arena") ? vArena :
+                       (view === "trades") ? vTrades :
+                       (view === "auditor") ? vAuditor :
+                       (view === "ledger") ? vLedger :
+                       (view === "settings") ? vSettings : vOverview;
+      if (targetEl) {{
+        targetEl.classList.remove("view-rise-in");
+        void targetEl.offsetWidth;
+        targetEl.classList.add("view-rise-in");
+        if (typeof triggerViewPopReveals === "function") {{
+          triggerViewPopReveals(targetEl);
+        }}
+      }}
+
       // Update sidebar nav active items
       document.querySelectorAll(".ghost-nav-item").forEach(i => i.classList.remove("active"));
       const navMap = {{
@@ -2967,7 +2981,7 @@ html_template = f"""<!DOCTYPE html>
     window.selectMarket = selectMarket;
   </script>
 </head>
-<body>
+<body class="page-rise-in">
 
   <!-- Top Navigation Header -->
 
@@ -2981,7 +2995,7 @@ html_template = f"""<!DOCTYPE html>
 
       <div>
         <!-- Brand Logo & Wordmark -->
-        <a href="index.html" class="ghost-brand" title="Return to Chronos Landing Page">
+        <a href="index.html" onclick="event.preventDefault(); smoothNavigate('index.html');" class="ghost-brand" title="Return to Chronos Landing Page">
           <img src="assets/chronos_logo.svg" alt="Chronos" class="ghost-brand-logo">
           <span class="ghost-brand-text">chronos</span>
         </a>
@@ -3022,7 +3036,7 @@ html_template = f"""<!DOCTYPE html>
             <span class="ghost-nav-badge">UTA v3</span>
           </div>
 
-          <div class="ghost-nav-item" onclick="window.location.href='index.html#thesis'">
+          <div class="ghost-nav-item" onclick="smoothNavigate('index.html#thesis')">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
             <span class="ghost-nav-text">Protocol Docs</span>
           </div>
@@ -6879,6 +6893,20 @@ html_template = f"""<!DOCTYPE html>
       if (vLedger) vLedger.style.display = view === "ledger" ? "block" : "none";
       if (vSettings) vSettings.style.display = view === "settings" ? "block" : "none";
 
+      const targetEl = (view === "arena") ? vArena :
+                       (view === "trades") ? vTrades :
+                       (view === "auditor") ? vAuditor :
+                       (view === "ledger") ? vLedger :
+                       (view === "settings") ? vSettings : vOverview;
+      if (targetEl) {{
+        targetEl.classList.remove("view-rise-in");
+        void targetEl.offsetWidth;
+        targetEl.classList.add("view-rise-in");
+        if (typeof triggerViewPopReveals === "function") {{
+          triggerViewPopReveals(targetEl);
+        }}
+      }}
+
       document.querySelectorAll(".ghost-nav-item").forEach(i => i.classList.remove("active"));
       const navMap = {{
         overview: "navItemOverview",
@@ -7176,7 +7204,115 @@ html_template = f"""<!DOCTYPE html>
     window.syncAgentConfigSettings = syncAgentConfigSettings;
     window.verifyStrategyClearance = verifyStrategyClearance;
 
+    // Smooth Page-to-Page Navigation with Rise/Fade transition
+    function smoothNavigate(url) {{
+      document.body.style.transition = "opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1), transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), filter 0.28s cubic-bezier(0.16, 1, 0.3, 1)";
+      document.body.style.opacity = "0";
+      document.body.style.transform = "translateY(-16px)";
+      document.body.style.filter = "blur(8px)";
+      setTimeout(() => {{
+        window.location.href = url;
+      }}, 260);
+    }}
+    window.smoothNavigate = smoothNavigate;
+
+    // Trigger Pop-In Reveals on cards within an activated view
+    function triggerViewPopReveals(container) {{
+      if (!container) return;
+      const pops = container.querySelectorAll(".chronos-pop-in");
+      pops.forEach((el, idx) => {{
+        el.classList.remove("chronos-revealed");
+        const delay = Math.min(idx * 45, 320);
+        setTimeout(() => {{
+          el.classList.add("chronos-revealed");
+        }}, delay);
+      }});
+    }}
+    window.triggerViewPopReveals = triggerViewPopReveals;
+
+    // Terminal Scroll Pop-In Animation Engine (Blur-to-Focus Pop-In)
+    function initTerminalScrollPopAnimations() {{
+      const selectors = [
+        ".overview-kpi-card",
+        ".overview-main-card",
+        ".arena-asset-card",
+        ".chart-panel-card",
+        ".execution-panel-card",
+        ".arena-card",
+        ".portfolio-slot-card",
+        ".auditor-lesson-card",
+        ".settings-card",
+        ".lifecycle-step-card",
+        ".trade-reasoning-card",
+        ".contract-spec-card",
+        ".overview-page-title",
+        ".overview-page-subtitle",
+        ".view-section-header"
+      ];
+
+      const elements = document.querySelectorAll(selectors.join(", "));
+      const observedSet = new Set();
+
+      elements.forEach(el => {{
+        if (observedSet.has(el)) return;
+        observedSet.add(el);
+        el.classList.add("chronos-pop-in");
+      }});
+
+      if ("IntersectionObserver" in window) {{
+        const observer = new IntersectionObserver((entries, obs) => {{
+          entries.forEach(entry => {{
+            if (entry.isIntersecting) {{
+              const target = entry.target;
+              const parent = target.parentElement;
+              let delay = 0;
+              if (parent) {{
+                const siblings = Array.from(parent.children).filter(c => c.classList.contains("chronos-pop-in"));
+                const idx = siblings.indexOf(target);
+                if (idx > 0) delay = Math.min(idx * 65, 380);
+              }}
+              setTimeout(() => {{
+                target.classList.add("chronos-revealed");
+              }}, delay);
+              obs.unobserve(target);
+            }}
+          }});
+        }}, {{
+          root: null,
+          rootMargin: "0px 0px -40px 0px",
+          threshold: 0.05
+        }});
+
+        observedSet.forEach(el => observer.observe(el));
+      }} else {{
+        observedSet.forEach(el => el.classList.add("chronos-revealed"));
+      }}
+
+      // Reveal currently visible view's cards immediately
+      const curView = document.getElementById("viewOverview");
+      if (curView) {{
+        triggerViewPopReveals(curView);
+      }}
+
+      // Safety fallback
+      setTimeout(() => {{
+        document.querySelectorAll(".chronos-pop-in:not(.chronos-revealed)").forEach(el => {{
+          const rect = el.getBoundingClientRect();
+          if (rect.top < window.innerHeight + 120) {{
+            el.classList.add("chronos-revealed");
+          }}
+        }});
+      }}, 1000);
+    }}
+    window.initTerminalScrollPopAnimations = initTerminalScrollPopAnimations;
+
     function initApp() {{
+      try {{
+        initTerminalScrollPopAnimations();
+      }} catch(e) {{
+        console.error("initTerminalScrollPopAnimations error:", e);
+      }}
+
       try {{
         renderSidebar();
       }} catch(e) {{
