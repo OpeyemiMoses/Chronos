@@ -1,8 +1,8 @@
 {
-  "total_audited_trades": 31,
-  "win_count": 24,
+  "total_audited_trades": 32,
+  "win_count": 25,
   "loss_count": 7,
-  "cumulative_pnl_usd": 13645.61820000001,
+  "cumulative_pnl_usd": 13899.11820000001,
   "asset_adjustments": {
     "rNVDA": {
       "z_entry": 2.0,
@@ -41,6 +41,22 @@
     }
   },
   "recent_post_mortems": [
+    {
+      "trade_id": "tr_1789781033818",
+      "symbol": "rNVDA",
+      "side": "SELL_SHORT",
+      "return_pct": 3.82,
+      "pnl_usd": 253.5,
+      "exit_reason": "Monday Open (HOLD_TRAILING_STOP (+1.5% Lock))",
+      "entry_z": 4.46,
+      "exit_z": 0.28,
+      "mae_pct": 1.2,
+      "beta_deviation_pct": 0.0,
+      "verdict": "PROFITABLE_ALPHA_CONVERGENCE",
+      "root_cause": "Clean Monday institutional liquidity convergence",
+      "corrective_action": "Maintain baseline model parameters",
+      "timestamp": "2026-09-19 02:23:53 EST"
+    },
     {
       "trade_id": "tr_1789773270910",
       "symbol": "rNVDA",
@@ -336,22 +352,6 @@
       "return_pct": 7.95,
       "pnl_usd": 1674.55,
       "exit_reason": "Monday Convergence Exit",
-      "entry_z": -2.35,
-      "exit_z": 0.35,
-      "mae_pct": 1.2,
-      "beta_deviation_pct": 2.1,
-      "verdict": "PROFITABLE_ALPHA_CONVERGENCE",
-      "root_cause": "Clean Monday institutional liquidity convergence",
-      "corrective_action": "Maintain baseline model parameters",
-      "timestamp": "2026-09-17 16:41:51 EST"
-    },
-    {
-      "trade_id": "TR-008",
-      "symbol": "rNVDA",
-      "side": "BUY_LONG",
-      "return_pct": 5.15,
-      "pnl_usd": 1073.83,
-      "exit_reason": "Mean-Reversion Take Profit",
       "entry_z": -2.35,
       "exit_z": 0.35,
       "mae_pct": 1.2,

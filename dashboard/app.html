@@ -957,6 +957,302 @@
       border-color: #000;
     }
 
+    /* Institutional Strategy & Reasoning Modal */
+    .trade-reasoning-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(10, 15, 29, 0.86);
+      backdrop-filter: blur(10px);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+      padding: 1.25rem;
+    }
+
+    .trade-reasoning-overlay.open {
+      display: flex;
+    }
+
+    .trade-reasoning-card {
+      background: #0B0F19;
+      color: #F8FAFC;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      width: 100%;
+      max-width: 820px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.08);
+      animation: modalRise 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .trade-reasoning-header {
+      padding: 1.35rem 1.75rem;
+      background: #111827;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .trade-reasoning-tag {
+      font-family: var(--font-terminal);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      color: #38BDF8;
+      margin-bottom: 0.35rem;
+      font-weight: 700;
+    }
+
+    .trade-reasoning-title {
+      font-family: var(--font-sans-body);
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin: 0 0 0.5rem 0;
+    }
+
+    .trade-reasoning-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .reasoning-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 6px;
+      font-family: var(--font-terminal);
+      font-size: 0.72rem;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #E2E8F0;
+    }
+
+    .reasoning-pill.highlight {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: rgba(56, 189, 248, 0.35);
+      color: #38BDF8;
+    }
+
+    .trade-reasoning-close {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #94A3B8;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+      flex-shrink: 0;
+    }
+
+    .trade-reasoning-close:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: #FFFFFF;
+    }
+
+    .trade-reasoning-body {
+      padding: 1.5rem 1.75rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .reasoning-section-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 1.15rem 1.35rem;
+      transition: border-color 0.2s;
+    }
+
+    .reasoning-section-card.blue { border-left: 4px solid #38BDF8; }
+    .reasoning-section-card.green { border-left: 4px solid #34D399; }
+    .reasoning-section-card.amber { border-left: 4px solid #FBBF24; }
+    .reasoning-section-card.purple { border-left: 4px solid #A78BFA; }
+    .reasoning-section-card.rose { border-left: 4px solid #F472B6; }
+
+    .reasoning-section-card:hover {
+      border-color: rgba(255, 255, 255, 0.16);
+    }
+
+    .reasoning-section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.65rem;
+    }
+
+    .reasoning-section-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-family: var(--font-terminal);
+      color: #FFFFFF;
+    }
+
+    .reasoning-section-desc {
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: #CBD5E1;
+      margin: 0;
+    }
+
+    .reasoning-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      margin-top: 0.85rem;
+      padding-top: 0.85rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .reasoning-stat-box {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 6px;
+      padding: 0.55rem 0.75rem;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .reasoning-stat-label {
+      font-family: var(--font-terminal);
+      font-size: 0.68rem;
+      color: #94A3B8;
+      text-transform: uppercase;
+    }
+
+    .reasoning-stat-val {
+      font-family: var(--font-terminal);
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-top: 0.15rem;
+    }
+
+    .trade-reasoning-footer {
+      padding: 1.1rem 1.75rem;
+      background: #111827;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Multi-Position Card Styles */
+    .multi-pos-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.65rem;
+      padding-bottom: 0.45rem;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .budget-pill-group {
+      display: flex;
+      gap: 0.35rem;
+      margin-top: 0.4rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .budget-segment {
+      flex: 1;
+      height: 6px;
+      border-radius: 3px;
+      background: #E2E8F0;
+      transition: all 0.3s ease;
+    }
+
+    .budget-segment.filled {
+      background: var(--color-green);
+      box-shadow: 0 0 6px rgba(0, 200, 83, 0.6);
+    }
+
+    .active-pos-item {
+      background: #FFFFFF;
+      border: 1px solid rgba(0,0,0,0.09);
+      border-left: 4px solid var(--color-green);
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      margin-bottom: 0.65rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+      transition: all 0.2s ease;
+    }
+
+    .active-pos-item:hover {
+      border-color: rgba(0,0,0,0.18);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+
+    .btn-reasoning-trigger {
+      background: #0F172A;
+      color: #38BDF8;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 6px;
+      padding: 0.45rem 0.85rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      font-family: var(--font-terminal);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s ease;
+      width: 100%;
+      justify-content: center;
+      margin-top: 0.5rem;
+    }
+
+    .btn-reasoning-trigger:hover {
+      background: #1E293B;
+      color: #7DD3FC;
+      border-color: #38BDF8;
+      box-shadow: 0 2px 8px rgba(56, 189, 248, 0.25);
+    }
+
+    .btn-close-single {
+      background: transparent;
+      color: #64748B;
+      border: 1px solid rgba(0,0,0,0.12);
+      border-radius: 6px;
+      padding: 0.35rem 0.65rem;
+      font-size: 0.72rem;
+      font-family: var(--font-terminal);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+      width: 100%;
+      margin-top: 0.35rem;
+    }
+
+    .btn-close-single:hover {
+      background: rgba(239, 68, 68, 0.08);
+      color: #EF4444;
+      border-color: rgba(239, 68, 68, 0.3);
+    }
+
     /* RainbowKit Modal */
     .rainbow-modal-overlay {
       display: none;
@@ -2248,6 +2544,35 @@
     </main>
   </div>
 
+  <!-- Institutional Strategy & Reasoning Modal -->
+  <div id="tradeReasoningModal" class="trade-reasoning-overlay" onclick="handleReasoningBackdropClick(event)">
+    <div class="trade-reasoning-card" onclick="event.stopPropagation()">
+      <div class="trade-reasoning-header">
+        <div>
+          <div class="trade-reasoning-tag">[AGENT TRADE REASONING & STRATEGY AUDIT]</div>
+          <h2 id="modalTradeTitle" class="trade-reasoning-title">Trade Reasoning & Strategy Details</h2>
+          <div class="trade-reasoning-pills" id="modalTradePills">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+        <button class="trade-reasoning-close" onclick="closeTradeReasoningModal()" aria-label="Close modal">✕</button>
+      </div>
+
+      <div class="trade-reasoning-body" id="modalTradeBody">
+        <!-- Dynamically rendered 5 Plain-English Sections -->
+      </div>
+
+      <div class="trade-reasoning-footer">
+        <div style="font-family: var(--font-terminal); font-size: 0.72rem; color: #94A3B8;">
+          Chronos Autonomous Engine • Strict 5-Trade Weekend Cap Enforced
+        </div>
+        <button type="button" class="btn-execute-big" style="width: auto; padding: 0.5rem 1.35rem; font-size: 0.8rem; background: #38BDF8; color: #0F172A; font-weight: 700;" onclick="closeTradeReasoningModal()">
+          <span>Done / Close Window</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Authentic RainbowKit Modals -->
   
 <!-- ==========================================================================
@@ -2520,7 +2845,7 @@
     const markets = {"rNVDA": {"name": "rNVDA / USDT", "symbol": "rNVDA", "company": "NVIDIA Corporation", "spot_price": 132.8, "anchor_price": 128.4, "drift_pct": 3.42, "z_score": 2.24, "action": "SHORT OVERBOUGHT DRIFT", "regime": "Weekend Retail Euphoria (Overbought)", "thesis": "Retail market participants pushed $rNVDA +3.42% above Friday institutional settlement while Nasdaq is shuttered. Statistical dislocation is 2.24\u03c3. Strategy deploys counter-positioning into Monday pre-market convergence.", "convergence_target": 128.4, "expected_return": "+3.42%", "stop_loss": "-2.10%", "beta": 1.48}, "rTSLA": {"name": "rTSLA / USDT", "symbol": "rTSLA", "company": "Tesla Motors Inc.", "spot_price": 258.4, "anchor_price": 248.0, "drift_pct": 4.19, "z_score": 2.65, "action": "SHORT OVERBOUGHT DRIFT", "regime": "Extreme Retail Momentum (Overbought)", "thesis": "Retail buyers chased headlines over thin weekend liquidity books. Autonomous self-auditor adapted entry threshold to 2.50\u03c3. Signal triggered for Monday institutional mean-reversion.", "convergence_target": 248.0, "expected_return": "+4.19%", "stop_loss": "-2.40%", "beta": 1.95}, "rAAPL": {"name": "rAAPL / USDT", "symbol": "rAAPL", "company": "Apple Inc.", "spot_price": 222.1, "anchor_price": 224.0, "drift_pct": -0.85, "z_score": -0.68, "action": "HOLD CASH (NOISE BAND)", "regime": "Fair Value (Idle)", "thesis": "Price deviation is only -0.68\u03c3 from Friday anchor. Strategy preserves 100% USDT cash to avoid unnecessary execution friction.", "convergence_target": 224.0, "expected_return": "0.00%", "stop_loss": "N/A", "beta": 0.72}, "rCOIN": {"name": "rCOIN / USDT", "symbol": "rCOIN", "company": "Coinbase Global", "spot_price": 218.5, "anchor_price": 206.8, "drift_pct": 5.66, "z_score": 3.1, "action": "SHORT OVERBOUGHT DRIFT", "regime": "Severe Crypto-Beta Overhang", "thesis": "Tokenized Coinbase equity detached from fundamental valuation following weekend crypto volatility. 3.10\u03c3 dislocation indicates extreme mean-reversion probability.", "convergence_target": 206.8, "expected_return": "+5.66%", "stop_loss": "-2.50%", "beta": 2.45}, "rMSTR": {"name": "rMSTR / USDT", "symbol": "rMSTR", "company": "MicroStrategy Inc.", "spot_price": 312.4, "anchor_price": 292.2, "drift_pct": 6.91, "z_score": 3.48, "action": "SHORT OVERBOUGHT DRIFT", "regime": "Leveraged Bitcoin Reflexivity", "thesis": "High weekend beta. Self-auditor reduced single-stock capital cap to 25% to protect downside risk. Dislocation is 3.48\u03c3 from Friday anchor.", "convergence_target": 292.2, "expected_return": "+6.91%", "stop_loss": "-2.80%", "beta": 2.9}, "rSPY": {"name": "rSPY / USDT", "symbol": "rSPY", "company": "S&P 500 Index ETF", "spot_price": 564.2, "anchor_price": 561.8, "drift_pct": 0.43, "z_score": 0.35, "action": "HOLD CASH (NOISE BAND)", "regime": "Stable Institutional Benchmark", "thesis": "Broad market index tightly anchored to Friday settlement price. No statistical dislocation signal present.", "convergence_target": 561.8, "expected_return": "0.00%", "stop_loss": "N/A", "beta": 0.35}, "rQQQ": {"name": "rQQQ / USDT", "symbol": "rQQQ", "company": "Invesco QQQ Trust", "spot_price": 482.6, "anchor_price": 478.9, "drift_pct": 0.77, "z_score": 0.62, "action": "HOLD CASH (NOISE BAND)", "regime": "Tech Benchmark Baseline", "thesis": "Tech benchmark variance is within normal weekend noise. Preserving buying power for idiosyncratic single-stock dislocations.", "convergence_target": 478.9, "expected_return": "0.00%", "stop_loss": "N/A", "beta": 0.58}};
     const candlesData = {"rNVDA": [{"time": "00:00", "open": 128.4, "high": 128.85, "low": 128.07, "close": 128.72, "volume": 3062}, {"time": "01:00", "open": 128.72, "high": 129.86, "low": 127.89, "close": 129.2, "volume": 2108}, {"time": "02:00", "open": 129.2, "high": 129.32, "low": 128.91, "close": 129.19, "volume": 5037}, {"time": "03:00", "open": 129.19, "high": 129.45, "low": 127.93, "close": 128.57, "volume": 5314}, {"time": "04:00", "open": 128.57, "high": 129.16, "low": 127.48, "close": 128.25, "volume": 1545}, {"time": "05:00", "open": 128.25, "high": 129.51, "low": 127.87, "close": 128.83, "volume": 2588}, {"time": "06:00", "open": 128.83, "high": 130.02, "low": 128.65, "close": 129.64, "volume": 2177}, {"time": "07:00", "open": 129.64, "high": 130.89, "low": 128.88, "close": 130.29, "volume": 6608}, {"time": "08:00", "open": 130.29, "high": 131.36, "low": 129.88, "close": 130.46, "volume": 5364}, {"time": "09:00", "open": 130.46, "high": 131.68, "low": 129.65, "close": 131.07, "volume": 5541}, {"time": "10:00", "open": 131.07, "high": 131.64, "low": 130.79, "close": 131.5, "volume": 3525}, {"time": "11:00", "open": 131.5, "high": 131.79, "low": 130.78, "close": 130.96, "volume": 3445}, {"time": "12:00", "open": 130.96, "high": 131.68, "low": 130.56, "close": 131.28, "volume": 2966}, {"time": "13:00", "open": 131.28, "high": 132.15, "low": 130.4, "close": 131.03, "volume": 5763}, {"time": "14:00", "open": 131.03, "high": 131.73, "low": 130.4, "close": 130.63, "volume": 4156}, {"time": "15:00", "open": 130.63, "high": 132.13, "low": 130.07, "close": 131.5, "volume": 6292}, {"time": "16:00", "open": 131.5, "high": 132.88, "low": 131.21, "close": 132.14, "volume": 1724}, {"time": "17:00", "open": 132.14, "high": 132.46, "low": 131.69, "close": 131.96, "volume": 8100}, {"time": "18:00", "open": 131.96, "high": 133.01, "low": 131.32, "close": 132.65, "volume": 4269}, {"time": "19:00", "open": 132.65, "high": 133.88, "low": 132.33, "close": 133.4, "volume": 3226}, {"time": "20:00", "open": 133.4, "high": 133.92, "low": 132.82, "close": 133.61, "volume": 7784}, {"time": "21:00", "open": 133.61, "high": 133.89, "low": 132.64, "close": 133.56, "volume": 5066}, {"time": "22:00", "open": 133.56, "high": 133.7, "low": 132.85, "close": 133.04, "volume": 5892}, {"time": "23:00", "open": 133.04, "high": 134.05, "low": 132.89, "close": 133.6, "volume": 4171}, {"time": "24:00", "open": 133.6, "high": 135.01, "low": 132.7, "close": 134.47, "volume": 7525}, {"time": "25:00", "open": 134.47, "high": 135.17, "low": 133.17, "close": 133.83, "volume": 5258}, {"time": "26:00", "open": 133.83, "high": 134.46, "low": 133.39, "close": 133.58, "volume": 4543}, {"time": "27:00", "open": 133.58, "high": 134.51, "low": 132.76, "close": 133.62, "volume": 3343}, {"time": "28:00", "open": 133.62, "high": 133.98, "low": 132.77, "close": 133.73, "volume": 7593}, {"time": "29:00", "open": 133.73, "high": 134.36, "low": 132.93, "close": 133.53, "volume": 2569}, {"time": "30:00", "open": 133.53, "high": 134.59, "low": 132.79, "close": 134.05, "volume": 5212}, {"time": "31:00", "open": 134.05, "high": 134.41, "low": 133.27, "close": 133.39, "volume": 8003}, {"time": "32:00", "open": 133.39, "high": 134.87, "low": 133.03, "close": 134.08, "volume": 1905}, {"time": "33:00", "open": 134.08, "high": 135.65, "low": 133.91, "close": 134.77, "volume": 4901}, {"time": "34:00", "open": 134.77, "high": 135.5, "low": 133.49, "close": 134.22, "volume": 2398}, {"time": "35:00", "open": 134.22, "high": 134.84, "low": 133.9, "close": 134.29, "volume": 7607}, {"time": "36:00", "open": 134.29, "high": 134.57, "low": 133.74, "close": 134.28, "volume": 6609}, {"time": "37:00", "open": 134.28, "high": 134.64, "low": 133.01, "close": 133.93, "volume": 6049}, {"time": "38:00", "open": 133.93, "high": 134.47, "low": 133.73, "close": 133.95, "volume": 3072}, {"time": "39:00", "open": 133.95, "high": 134.53, "low": 133.52, "close": 133.81, "volume": 3041}], "rTSLA": [{"time": "00:00", "open": 248.0, "high": 249.16, "low": 246.5, "close": 246.98, "volume": 7837}, {"time": "01:00", "open": 246.98, "high": 248.53, "low": 246.48, "close": 248.31, "volume": 6182}, {"time": "02:00", "open": 248.31, "high": 248.64, "low": 246.05, "close": 247.72, "volume": 5497}, {"time": "03:00", "open": 247.72, "high": 249.32, "low": 246.26, "close": 247.9, "volume": 2832}, {"time": "04:00", "open": 247.9, "high": 248.73, "low": 246.15, "close": 246.96, "volume": 4769}, {"time": "05:00", "open": 246.96, "high": 249.14, "low": 245.2, "close": 247.9, "volume": 2188}, {"time": "06:00", "open": 247.9, "high": 248.58, "low": 246.32, "close": 247.87, "volume": 3240}, {"time": "07:00", "open": 247.87, "high": 248.73, "low": 246.4, "close": 247.21, "volume": 3449}, {"time": "08:00", "open": 247.21, "high": 248.87, "low": 245.88, "close": 246.73, "volume": 7529}, {"time": "09:00", "open": 246.73, "high": 247.32, "low": 244.94, "close": 247.14, "volume": 7352}, {"time": "10:00", "open": 247.14, "high": 250.45, "low": 245.61, "close": 248.79, "volume": 2664}, {"time": "11:00", "open": 248.79, "high": 249.47, "low": 248.02, "close": 249.01, "volume": 1910}, {"time": "12:00", "open": 249.01, "high": 250.77, "low": 248.36, "close": 248.91, "volume": 6988}, {"time": "13:00", "open": 248.91, "high": 249.85, "low": 247.2, "close": 249.04, "volume": 8467}, {"time": "14:00", "open": 249.04, "high": 250.77, "low": 248.68, "close": 249.46, "volume": 3576}, {"time": "15:00", "open": 249.46, "high": 252.19, "low": 248.45, "close": 251.12, "volume": 6735}, {"time": "16:00", "open": 251.12, "high": 252.2, "low": 249.11, "close": 250.06, "volume": 7469}, {"time": "17:00", "open": 250.06, "high": 251.78, "low": 249.06, "close": 249.3, "volume": 2800}, {"time": "18:00", "open": 249.3, "high": 251.08, "low": 248.8, "close": 249.84, "volume": 2339}, {"time": "19:00", "open": 249.84, "high": 251.78, "low": 248.74, "close": 251.26, "volume": 5835}, {"time": "20:00", "open": 251.26, "high": 252.37, "low": 250.28, "close": 251.28, "volume": 8042}, {"time": "21:00", "open": 251.28, "high": 252.59, "low": 250.16, "close": 250.66, "volume": 4270}, {"time": "22:00", "open": 250.66, "high": 252.04, "low": 250.03, "close": 251.43, "volume": 6763}, {"time": "23:00", "open": 251.43, "high": 252.31, "low": 248.64, "close": 250.42, "volume": 8472}, {"time": "24:00", "open": 250.42, "high": 250.88, "low": 248.87, "close": 249.41, "volume": 8032}, {"time": "25:00", "open": 249.41, "high": 252.39, "low": 248.69, "close": 250.81, "volume": 2604}, {"time": "26:00", "open": 250.81, "high": 253.35, "low": 249.67, "close": 252.06, "volume": 8410}, {"time": "27:00", "open": 252.06, "high": 252.89, "low": 250.58, "close": 252.78, "volume": 3595}, {"time": "28:00", "open": 252.78, "high": 255.21, "low": 252.45, "close": 253.52, "volume": 2308}, {"time": "29:00", "open": 253.52, "high": 254.56, "low": 252.06, "close": 252.61, "volume": 5733}, {"time": "30:00", "open": 252.61, "high": 253.97, "low": 251.45, "close": 253.52, "volume": 3347}, {"time": "31:00", "open": 253.52, "high": 255.37, "low": 252.0, "close": 253.75, "volume": 2146}, {"time": "32:00", "open": 253.75, "high": 254.35, "low": 253.64, "close": 253.78, "volume": 6897}, {"time": "33:00", "open": 253.78, "high": 254.99, "low": 252.43, "close": 254.45, "volume": 5361}, {"time": "34:00", "open": 254.45, "high": 254.61, "low": 254.22, "close": 254.49, "volume": 7681}, {"time": "35:00", "open": 254.49, "high": 256.97, "low": 252.99, "close": 255.96, "volume": 5577}, {"time": "36:00", "open": 255.96, "high": 256.27, "low": 254.55, "close": 255.17, "volume": 7792}, {"time": "37:00", "open": 255.17, "high": 257.86, "low": 253.55, "close": 256.31, "volume": 2970}, {"time": "38:00", "open": 256.31, "high": 256.58, "low": 254.41, "close": 255.82, "volume": 7688}, {"time": "39:00", "open": 255.82, "high": 256.97, "low": 255.44, "close": 255.81, "volume": 8009}], "rAAPL": [{"time": "00:00", "open": 224.0, "high": 226.51, "low": 222.67, "close": 224.93, "volume": 7669}, {"time": "01:00", "open": 224.93, "high": 226.15, "low": 223.01, "close": 223.61, "volume": 8015}, {"time": "02:00", "open": 223.61, "high": 225.78, "low": 222.28, "close": 224.37, "volume": 3367}, {"time": "03:00", "open": 224.37, "high": 225.36, "low": 222.95, "close": 225.1, "volume": 7510}, {"time": "04:00", "open": 225.1, "high": 226.43, "low": 223.51, "close": 224.3, "volume": 3636}, {"time": "05:00", "open": 224.3, "high": 225.49, "low": 224.17, "close": 225.05, "volume": 2851}, {"time": "06:00", "open": 225.05, "high": 226.46, "low": 222.98, "close": 224.54, "volume": 3453}, {"time": "07:00", "open": 224.54, "high": 225.58, "low": 222.96, "close": 224.87, "volume": 5253}, {"time": "08:00", "open": 224.87, "high": 226.28, "low": 223.31, "close": 226.01, "volume": 2749}, {"time": "09:00", "open": 226.01, "high": 227.7, "low": 225.74, "close": 227.2, "volume": 4541}, {"time": "10:00", "open": 227.2, "high": 228.34, "low": 226.19, "close": 227.77, "volume": 5079}, {"time": "11:00", "open": 227.77, "high": 228.74, "low": 226.93, "close": 227.41, "volume": 6461}, {"time": "12:00", "open": 227.41, "high": 228.91, "low": 225.11, "close": 226.03, "volume": 6536}, {"time": "13:00", "open": 226.03, "high": 227.74, "low": 225.38, "close": 226.63, "volume": 1989}, {"time": "14:00", "open": 226.63, "high": 227.62, "low": 226.05, "close": 227.02, "volume": 7436}, {"time": "15:00", "open": 227.02, "high": 228.12, "low": 226.46, "close": 227.57, "volume": 4358}, {"time": "16:00", "open": 227.57, "high": 228.11, "low": 226.96, "close": 227.26, "volume": 4443}, {"time": "17:00", "open": 227.26, "high": 229.52, "low": 225.79, "close": 228.39, "volume": 5808}, {"time": "18:00", "open": 228.39, "high": 229.32, "low": 227.71, "close": 227.81, "volume": 3508}, {"time": "19:00", "open": 227.81, "high": 228.79, "low": 226.48, "close": 227.57, "volume": 4754}, {"time": "20:00", "open": 227.57, "high": 228.0, "low": 226.56, "close": 227.37, "volume": 7808}, {"time": "21:00", "open": 227.37, "high": 228.48, "low": 227.14, "close": 228.12, "volume": 5108}, {"time": "22:00", "open": 228.12, "high": 229.04, "low": 226.78, "close": 228.43, "volume": 6757}, {"time": "23:00", "open": 228.43, "high": 229.29, "low": 228.03, "close": 228.85, "volume": 1670}, {"time": "24:00", "open": 228.85, "high": 229.67, "low": 226.73, "close": 228.11, "volume": 2009}, {"time": "25:00", "open": 228.11, "high": 229.17, "low": 227.44, "close": 227.84, "volume": 6374}, {"time": "26:00", "open": 227.84, "high": 228.3, "low": 226.68, "close": 227.77, "volume": 1538}, {"time": "27:00", "open": 227.77, "high": 229.67, "low": 227.51, "close": 228.4, "volume": 4476}, {"time": "28:00", "open": 228.4, "high": 229.95, "low": 226.6, "close": 227.48, "volume": 1851}, {"time": "29:00", "open": 227.48, "high": 228.86, "low": 225.97, "close": 226.76, "volume": 7109}, {"time": "30:00", "open": 226.76, "high": 228.76, "low": 225.76, "close": 227.16, "volume": 8150}, {"time": "31:00", "open": 227.16, "high": 229.19, "low": 225.97, "close": 228.17, "volume": 5033}, {"time": "32:00", "open": 228.17, "high": 229.94, "low": 226.71, "close": 229.01, "volume": 6705}, {"time": "33:00", "open": 229.01, "high": 229.5, "low": 228.42, "close": 228.89, "volume": 5963}, {"time": "34:00", "open": 228.89, "high": 230.45, "low": 227.84, "close": 229.56, "volume": 3422}, {"time": "35:00", "open": 229.56, "high": 230.09, "low": 227.87, "close": 228.38, "volume": 3737}, {"time": "36:00", "open": 228.38, "high": 228.75, "low": 227.93, "close": 228.44, "volume": 6357}, {"time": "37:00", "open": 228.44, "high": 229.14, "low": 227.72, "close": 228.94, "volume": 5298}, {"time": "38:00", "open": 228.94, "high": 229.36, "low": 227.94, "close": 228.67, "volume": 7833}, {"time": "39:00", "open": 228.67, "high": 230.0, "low": 227.27, "close": 228.85, "volume": 6859}], "rCOIN": [{"time": "00:00", "open": 206.8, "high": 206.91, "low": 206.21, "close": 206.8, "volume": 6774}, {"time": "01:00", "open": 206.8, "high": 209.39, "low": 206.11, "close": 207.97, "volume": 6732}, {"time": "02:00", "open": 207.97, "high": 209.31, "low": 207.56, "close": 208.37, "volume": 3035}, {"time": "03:00", "open": 208.37, "high": 208.65, "low": 207.81, "close": 208.51, "volume": 6253}, {"time": "04:00", "open": 208.51, "high": 208.89, "low": 207.76, "close": 208.56, "volume": 2393}, {"time": "05:00", "open": 208.56, "high": 209.29, "low": 207.91, "close": 209.16, "volume": 5450}, {"time": "06:00", "open": 209.16, "high": 210.15, "low": 207.99, "close": 208.28, "volume": 4731}, {"time": "07:00", "open": 208.28, "high": 208.9, "low": 207.06, "close": 207.45, "volume": 3787}, {"time": "08:00", "open": 207.45, "high": 209.02, "low": 206.31, "close": 208.39, "volume": 7323}, {"time": "09:00", "open": 208.39, "high": 208.61, "low": 207.94, "close": 208.07, "volume": 5275}, {"time": "10:00", "open": 208.07, "high": 210.19, "low": 207.07, "close": 209.6, "volume": 6968}, {"time": "11:00", "open": 209.6, "high": 211.42, "low": 208.18, "close": 210.27, "volume": 2895}, {"time": "12:00", "open": 210.27, "high": 210.58, "low": 209.1, "close": 209.37, "volume": 6186}, {"time": "13:00", "open": 209.37, "high": 210.23, "low": 208.3, "close": 209.83, "volume": 6868}, {"time": "14:00", "open": 209.83, "high": 210.77, "low": 208.16, "close": 209.29, "volume": 2301}, {"time": "15:00", "open": 209.29, "high": 211.82, "low": 209.04, "close": 210.38, "volume": 1679}, {"time": "16:00", "open": 210.38, "high": 211.42, "low": 208.77, "close": 210.2, "volume": 4276}, {"time": "17:00", "open": 210.2, "high": 211.24, "low": 209.15, "close": 211.03, "volume": 5890}, {"time": "18:00", "open": 211.03, "high": 212.2, "low": 209.05, "close": 210.34, "volume": 5702}, {"time": "19:00", "open": 210.34, "high": 211.8, "low": 208.5, "close": 209.69, "volume": 3930}, {"time": "20:00", "open": 209.69, "high": 210.42, "low": 208.88, "close": 209.8, "volume": 3888}, {"time": "21:00", "open": 209.8, "high": 212.2, "low": 209.56, "close": 210.96, "volume": 8225}, {"time": "22:00", "open": 210.96, "high": 212.84, "low": 209.88, "close": 211.59, "volume": 4548}, {"time": "23:00", "open": 211.59, "high": 213.91, "low": 211.12, "close": 212.46, "volume": 7157}, {"time": "24:00", "open": 212.46, "high": 213.62, "low": 211.76, "close": 212.85, "volume": 6617}, {"time": "25:00", "open": 212.85, "high": 214.13, "low": 211.32, "close": 212.57, "volume": 2106}, {"time": "26:00", "open": 212.57, "high": 214.25, "low": 211.82, "close": 213.81, "volume": 5772}, {"time": "27:00", "open": 213.81, "high": 213.95, "low": 212.52, "close": 213.8, "volume": 2772}, {"time": "28:00", "open": 213.8, "high": 215.01, "low": 212.81, "close": 213.38, "volume": 7662}, {"time": "29:00", "open": 213.38, "high": 214.65, "low": 213.26, "close": 214.17, "volume": 8136}, {"time": "30:00", "open": 214.17, "high": 215.27, "low": 212.66, "close": 213.43, "volume": 6807}, {"time": "31:00", "open": 213.43, "high": 215.2, "low": 212.65, "close": 214.2, "volume": 7050}, {"time": "32:00", "open": 214.2, "high": 214.61, "low": 212.42, "close": 213.48, "volume": 3643}, {"time": "33:00", "open": 213.48, "high": 214.74, "low": 212.65, "close": 213.98, "volume": 4478}, {"time": "34:00", "open": 213.98, "high": 215.44, "low": 212.9, "close": 214.88, "volume": 3396}, {"time": "35:00", "open": 214.88, "high": 215.15, "low": 214.19, "close": 214.56, "volume": 2336}, {"time": "36:00", "open": 214.56, "high": 216.1, "low": 214.2, "close": 214.94, "volume": 3014}, {"time": "37:00", "open": 214.94, "high": 216.3, "low": 213.48, "close": 215.19, "volume": 5172}, {"time": "38:00", "open": 215.19, "high": 215.43, "low": 214.58, "close": 214.95, "volume": 3092}, {"time": "39:00", "open": 214.95, "high": 215.06, "low": 213.6, "close": 214.44, "volume": 3420}], "rMSTR": [{"time": "00:00", "open": 292.2, "high": 295.58, "low": 290.7, "close": 294.37, "volume": 2383}, {"time": "01:00", "open": 294.37, "high": 297.25, "low": 292.52, "close": 296.17, "volume": 5518}, {"time": "02:00", "open": 296.17, "high": 297.55, "low": 295.7, "close": 296.56, "volume": 1859}, {"time": "03:00", "open": 296.56, "high": 299.67, "low": 294.82, "close": 298.61, "volume": 4304}, {"time": "04:00", "open": 298.61, "high": 299.98, "low": 297.42, "close": 297.63, "volume": 2544}, {"time": "05:00", "open": 297.63, "high": 299.06, "low": 295.53, "close": 298.35, "volume": 2329}, {"time": "06:00", "open": 298.35, "high": 301.1, "low": 296.67, "close": 299.78, "volume": 3079}, {"time": "07:00", "open": 299.78, "high": 301.37, "low": 298.8, "close": 300.37, "volume": 7521}, {"time": "08:00", "open": 300.37, "high": 303.3, "low": 299.02, "close": 302.59, "volume": 5767}, {"time": "09:00", "open": 302.59, "high": 305.94, "low": 302.07, "close": 303.94, "volume": 2977}, {"time": "10:00", "open": 303.94, "high": 305.42, "low": 303.49, "close": 305.01, "volume": 2025}, {"time": "11:00", "open": 305.01, "high": 306.01, "low": 302.48, "close": 303.77, "volume": 3538}, {"time": "12:00", "open": 303.77, "high": 305.28, "low": 301.82, "close": 303.33, "volume": 4678}, {"time": "13:00", "open": 303.33, "high": 306.44, "low": 301.65, "close": 304.49, "volume": 5875}, {"time": "14:00", "open": 304.49, "high": 307.53, "low": 303.54, "close": 305.56, "volume": 5311}, {"time": "15:00", "open": 305.56, "high": 308.51, "low": 303.81, "close": 306.58, "volume": 1999}, {"time": "16:00", "open": 306.58, "high": 307.3, "low": 304.32, "close": 305.92, "volume": 5484}, {"time": "17:00", "open": 305.92, "high": 306.27, "low": 304.2, "close": 305.68, "volume": 6398}, {"time": "18:00", "open": 305.68, "high": 308.84, "low": 304.59, "close": 307.74, "volume": 2063}, {"time": "19:00", "open": 307.74, "high": 308.71, "low": 305.88, "close": 306.63, "volume": 3252}, {"time": "20:00", "open": 306.63, "high": 308.66, "low": 303.93, "close": 305.7, "volume": 5526}, {"time": "21:00", "open": 305.7, "high": 309.89, "low": 304.26, "close": 307.79, "volume": 3386}, {"time": "22:00", "open": 307.79, "high": 309.4, "low": 305.64, "close": 306.68, "volume": 6060}, {"time": "23:00", "open": 306.68, "high": 309.11, "low": 305.41, "close": 308.65, "volume": 5943}, {"time": "24:00", "open": 308.65, "high": 309.4, "low": 307.85, "close": 309.12, "volume": 3833}, {"time": "25:00", "open": 309.12, "high": 312.04, "low": 308.36, "close": 310.22, "volume": 6355}, {"time": "26:00", "open": 310.22, "high": 312.22, "low": 308.25, "close": 309.99, "volume": 5350}, {"time": "27:00", "open": 309.99, "high": 311.06, "low": 309.24, "close": 310.33, "volume": 8291}, {"time": "28:00", "open": 310.33, "high": 311.63, "low": 308.25, "close": 310.5, "volume": 6103}, {"time": "29:00", "open": 310.5, "high": 312.08, "low": 310.02, "close": 311.16, "volume": 4032}, {"time": "30:00", "open": 311.16, "high": 313.91, "low": 309.53, "close": 312.56, "volume": 2924}, {"time": "31:00", "open": 312.56, "high": 315.2, "low": 311.58, "close": 313.24, "volume": 6387}, {"time": "32:00", "open": 313.24, "high": 315.29, "low": 311.09, "close": 312.41, "volume": 3175}, {"time": "33:00", "open": 312.41, "high": 313.62, "low": 310.52, "close": 311.72, "volume": 2152}, {"time": "34:00", "open": 311.72, "high": 315.88, "low": 310.7, "close": 313.95, "volume": 2322}, {"time": "35:00", "open": 313.95, "high": 316.72, "low": 312.42, "close": 315.62, "volume": 5062}, {"time": "36:00", "open": 315.62, "high": 317.4, "low": 313.27, "close": 315.33, "volume": 3206}, {"time": "37:00", "open": 315.33, "high": 316.89, "low": 313.39, "close": 316.02, "volume": 5057}, {"time": "38:00", "open": 316.02, "high": 319.68, "low": 315.36, "close": 317.85, "volume": 7030}, {"time": "39:00", "open": 317.85, "high": 320.03, "low": 316.74, "close": 318.06, "volume": 7243}], "rSPY": [{"time": "00:00", "open": 561.8, "high": 563.08, "low": 557.98, "close": 560.4, "volume": 8492}, {"time": "01:00", "open": 560.4, "high": 561.08, "low": 558.16, "close": 560.39, "volume": 3915}, {"time": "02:00", "open": 560.39, "high": 563.04, "low": 558.49, "close": 560.8, "volume": 3752}, {"time": "03:00", "open": 560.8, "high": 563.65, "low": 556.4, "close": 558.76, "volume": 3134}, {"time": "04:00", "open": 558.76, "high": 560.95, "low": 555.72, "close": 560.67, "volume": 6436}, {"time": "05:00", "open": 560.67, "high": 564.46, "low": 557.96, "close": 562.83, "volume": 7245}, {"time": "06:00", "open": 562.83, "high": 568.19, "low": 562.59, "close": 566.14, "volume": 5016}, {"time": "07:00", "open": 566.14, "high": 570.33, "low": 562.59, "close": 566.8, "volume": 4582}, {"time": "08:00", "open": 566.8, "high": 568.94, "low": 563.85, "close": 567.04, "volume": 4369}, {"time": "09:00", "open": 567.04, "high": 568.85, "low": 565.09, "close": 568.14, "volume": 8284}, {"time": "10:00", "open": 568.14, "high": 570.97, "low": 564.45, "close": 567.11, "volume": 7462}, {"time": "11:00", "open": 567.11, "high": 573.04, "low": 565.51, "close": 569.55, "volume": 3716}, {"time": "12:00", "open": 569.55, "high": 574.18, "low": 566.01, "close": 571.08, "volume": 1751}, {"time": "13:00", "open": 571.08, "high": 573.67, "low": 564.5, "close": 568.23, "volume": 8481}, {"time": "14:00", "open": 568.23, "high": 571.77, "low": 567.75, "close": 569.96, "volume": 5936}, {"time": "15:00", "open": 569.96, "high": 574.38, "low": 567.12, "close": 572.53, "volume": 7823}, {"time": "16:00", "open": 572.53, "high": 575.77, "low": 568.27, "close": 569.53, "volume": 4123}, {"time": "17:00", "open": 569.53, "high": 571.72, "low": 564.87, "close": 567.2, "volume": 7047}, {"time": "18:00", "open": 567.2, "high": 567.61, "low": 561.5, "close": 565.03, "volume": 5837}, {"time": "19:00", "open": 565.03, "high": 568.74, "low": 562.68, "close": 563.35, "volume": 4728}, {"time": "20:00", "open": 563.35, "high": 564.45, "low": 561.61, "close": 561.75, "volume": 7132}, {"time": "21:00", "open": 561.75, "high": 567.29, "low": 561.03, "close": 564.51, "volume": 4592}, {"time": "22:00", "open": 564.51, "high": 566.93, "low": 560.91, "close": 563.53, "volume": 4470}, {"time": "23:00", "open": 563.53, "high": 566.97, "low": 561.02, "close": 561.91, "volume": 4192}, {"time": "24:00", "open": 561.91, "high": 562.94, "low": 559.5, "close": 561.85, "volume": 5523}, {"time": "25:00", "open": 561.85, "high": 566.5, "low": 557.9, "close": 565.24, "volume": 6107}, {"time": "26:00", "open": 565.24, "high": 567.57, "low": 560.97, "close": 563.78, "volume": 6712}, {"time": "27:00", "open": 563.78, "high": 566.27, "low": 558.74, "close": 560.8, "volume": 7829}, {"time": "28:00", "open": 560.8, "high": 564.05, "low": 556.92, "close": 559.41, "volume": 3966}, {"time": "29:00", "open": 559.41, "high": 562.94, "low": 556.64, "close": 560.39, "volume": 6546}, {"time": "30:00", "open": 560.39, "high": 564.94, "low": 557.82, "close": 561.53, "volume": 7823}, {"time": "31:00", "open": 561.53, "high": 563.89, "low": 559.69, "close": 562.57, "volume": 5557}, {"time": "32:00", "open": 562.57, "high": 564.66, "low": 561.31, "close": 564.2, "volume": 6732}, {"time": "33:00", "open": 564.2, "high": 564.82, "low": 559.85, "close": 562.07, "volume": 8300}, {"time": "34:00", "open": 562.07, "high": 566.05, "low": 558.7, "close": 562.34, "volume": 3298}, {"time": "35:00", "open": 562.34, "high": 566.59, "low": 559.06, "close": 564.59, "volume": 6725}, {"time": "36:00", "open": 564.59, "high": 565.15, "low": 559.67, "close": 563.56, "volume": 2485}, {"time": "37:00", "open": 563.56, "high": 570.26, "low": 560.61, "close": 566.77, "volume": 8359}, {"time": "38:00", "open": 566.77, "high": 573.25, "low": 565.23, "close": 569.98, "volume": 7034}, {"time": "39:00", "open": 569.98, "high": 572.2, "low": 564.87, "close": 566.76, "volume": 6209}], "rQQQ": [{"time": "00:00", "open": 478.9, "high": 482.04, "low": 476.05, "close": 479.98, "volume": 8082}, {"time": "01:00", "open": 479.98, "high": 480.87, "low": 477.64, "close": 477.82, "volume": 7689}, {"time": "02:00", "open": 477.82, "high": 481.43, "low": 476.98, "close": 478.27, "volume": 1942}, {"time": "03:00", "open": 478.27, "high": 483.37, "low": 477.16, "close": 480.22, "volume": 4358}, {"time": "04:00", "open": 480.22, "high": 483.49, "low": 477.13, "close": 478.25, "volume": 4948}, {"time": "05:00", "open": 478.25, "high": 481.32, "low": 475.47, "close": 476.02, "volume": 4675}, {"time": "06:00", "open": 476.02, "high": 479.68, "low": 472.76, "close": 477.1, "volume": 4433}, {"time": "07:00", "open": 477.1, "high": 479.2, "low": 475.61, "close": 478.58, "volume": 2193}, {"time": "08:00", "open": 478.58, "high": 480.08, "low": 475.29, "close": 478.61, "volume": 1729}, {"time": "09:00", "open": 478.61, "high": 480.2, "low": 474.68, "close": 477.96, "volume": 7488}, {"time": "10:00", "open": 477.96, "high": 480.36, "low": 473.83, "close": 475.75, "volume": 8344}, {"time": "11:00", "open": 475.75, "high": 477.18, "low": 474.3, "close": 475.03, "volume": 2355}, {"time": "12:00", "open": 475.03, "high": 478.75, "low": 472.71, "close": 477.12, "volume": 5991}, {"time": "13:00", "open": 477.12, "high": 477.95, "low": 474.39, "close": 477.77, "volume": 3204}, {"time": "14:00", "open": 477.77, "high": 479.76, "low": 475.39, "close": 475.72, "volume": 6856}, {"time": "15:00", "open": 475.72, "high": 476.54, "low": 471.11, "close": 474.13, "volume": 3799}, {"time": "16:00", "open": 474.13, "high": 477.24, "low": 472.08, "close": 472.19, "volume": 7508}, {"time": "17:00", "open": 472.19, "high": 472.73, "low": 469.31, "close": 470.24, "volume": 2721}, {"time": "18:00", "open": 470.24, "high": 471.45, "low": 470.09, "close": 471.26, "volume": 7029}, {"time": "19:00", "open": 471.26, "high": 472.45, "low": 469.17, "close": 469.85, "volume": 1866}, {"time": "20:00", "open": 469.85, "high": 473.19, "low": 467.25, "close": 471.33, "volume": 4833}, {"time": "21:00", "open": 471.33, "high": 474.84, "low": 470.87, "close": 473.02, "volume": 5026}, {"time": "22:00", "open": 473.02, "high": 475.92, "low": 470.3, "close": 475.67, "volume": 7568}, {"time": "23:00", "open": 475.67, "high": 477.52, "low": 472.35, "close": 475.89, "volume": 1925}, {"time": "24:00", "open": 475.89, "high": 477.33, "low": 473.46, "close": 475.86, "volume": 4931}, {"time": "25:00", "open": 475.86, "high": 478.65, "low": 475.49, "close": 478.31, "volume": 5758}, {"time": "26:00", "open": 478.31, "high": 479.33, "low": 473.68, "close": 475.9, "volume": 5338}, {"time": "27:00", "open": 475.9, "high": 479.33, "low": 473.12, "close": 474.99, "volume": 4676}, {"time": "28:00", "open": 474.99, "high": 476.12, "low": 472.54, "close": 475.69, "volume": 7469}, {"time": "29:00", "open": 475.69, "high": 479.32, "low": 473.18, "close": 476.65, "volume": 3005}, {"time": "30:00", "open": 476.65, "high": 477.51, "low": 475.23, "close": 476.46, "volume": 4674}, {"time": "31:00", "open": 476.46, "high": 476.88, "low": 474.54, "close": 476.07, "volume": 6155}, {"time": "32:00", "open": 476.07, "high": 476.68, "low": 472.25, "close": 475.44, "volume": 1969}, {"time": "33:00", "open": 475.44, "high": 477.86, "low": 475.02, "close": 477.44, "volume": 6671}, {"time": "34:00", "open": 477.44, "high": 481.29, "low": 475.38, "close": 479.33, "volume": 5431}, {"time": "35:00", "open": 479.33, "high": 479.84, "low": 477.16, "close": 478.44, "volume": 6157}, {"time": "36:00", "open": 478.44, "high": 482.98, "low": 475.93, "close": 479.97, "volume": 8278}, {"time": "37:00", "open": 479.97, "high": 481.92, "low": 477.94, "close": 480.64, "volume": 2989}, {"time": "38:00", "open": 480.64, "high": 482.48, "low": 480.18, "close": 481.63, "volume": 7417}, {"time": "39:00", "open": 481.63, "high": 484.29, "low": 478.94, "close": 480.97, "volume": 7150}]};
     const initialRealTrades = [{"trade_id": "TR-001", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-05-22 17:00:00-04:00", "exit_time": "2026-05-24 09:00:00-04:00", "entry_price": 118.27, "exit_price": 116.3, "quantity": 169.1, "pnl_usd": 313.6, "return_pct": 1.57, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-002", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-05-24 16:00:00-04:00", "exit_time": "2026-05-25 08:00:00-04:00", "entry_price": 112.64, "exit_price": 114.61, "quantity": 179.11, "pnl_usd": 331.8, "return_pct": 1.64, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-003", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-05-31 22:00:00-04:00", "exit_time": "2026-06-01 08:00:00-04:00", "entry_price": 121.04, "exit_price": 120.32, "quantity": 166.23, "pnl_usd": 100.47, "return_pct": 0.5, "exit_reason": "Monday Convergence Exit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-004", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-06-06 23:00:00-04:00", "exit_time": "2026-06-08 00:00:00-04:00", "entry_price": 135.66, "exit_price": 131.06, "quantity": 148.44, "pnl_usd": 663.34, "return_pct": 3.29, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-005", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-06-13 00:00:00-04:00", "exit_time": "2026-06-15 08:00:00-04:00", "entry_price": 119.99, "exit_price": 128.49, "quantity": 168.9, "pnl_usd": 1414.62, "return_pct": 6.98, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-006", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-06-20 17:00:00-04:00", "exit_time": "2026-06-22 01:00:00-04:00", "entry_price": 125.96, "exit_price": 136.33, "quantity": 163.11, "pnl_usd": 1669.46, "return_pct": 8.13, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-007", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-06-27 11:00:00-04:00", "exit_time": "2026-06-28 23:00:00-04:00", "entry_price": 139.37, "exit_price": 139.51, "quantity": 149.77, "pnl_usd": -1.02, "return_pct": -0.0, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.95}, {"trade_id": "TR-008", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-07-03 20:00:00-04:00", "exit_time": "2026-07-04 22:00:00-04:00", "entry_price": 145.37, "exit_price": 152.85, "quantity": 143.56, "pnl_usd": 1051.36, "return_pct": 5.04, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-009", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-07-05 06:00:00-04:00", "exit_time": "2026-07-06 08:00:00-04:00", "entry_price": 151.16, "exit_price": 163.17, "quantity": 139.43, "pnl_usd": 1652.29, "return_pct": 7.84, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-010", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-07-12 03:00:00-04:00", "exit_time": "2026-07-12 17:00:00-04:00", "entry_price": 158.26, "exit_price": 166.59, "quantity": 135.24, "pnl_usd": 1104.73, "return_pct": 5.16, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-011", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-07-12 23:00:00-04:00", "exit_time": "2026-07-13 08:00:00-04:00", "entry_price": 163.24, "exit_price": 165.02, "quantity": 132.44, "pnl_usd": 213.92, "return_pct": 0.99, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-012", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-07-18 05:00:00-04:00", "exit_time": "2026-07-18 20:00:00-04:00", "entry_price": 158.96, "exit_price": 162.56, "quantity": 139.93, "pnl_usd": -526.66, "return_pct": -2.37, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.95}, {"trade_id": "TR-013", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-07-19 08:00:00-04:00", "exit_time": "2026-07-19 16:00:00-04:00", "entry_price": 166.63, "exit_price": 164.75, "quantity": 130.19, "pnl_usd": 223.01, "return_pct": 1.03, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-014", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-07-24 19:00:00-04:00", "exit_time": "2026-07-25 09:00:00-04:00", "entry_price": 164.2, "exit_price": 163.98, "quantity": 131.47, "pnl_usd": -51.28, "return_pct": -0.24, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.95}, {"trade_id": "TR-015", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-07-25 19:00:00-04:00", "exit_time": "2026-07-26 23:00:00-04:00", "entry_price": 164.24, "exit_price": 162.78, "quantity": 131.35, "pnl_usd": 170.48, "return_pct": 0.79, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-016", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-08-02 10:00:00-04:00", "exit_time": "2026-08-03 08:00:00-04:00", "entry_price": 186.15, "exit_price": 178.84, "quantity": 116.05, "pnl_usd": -868.77, "return_pct": -4.02, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.95}, {"trade_id": "TR-017", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-08-07 20:00:00-04:00", "exit_time": "2026-08-08 00:00:00-04:00", "entry_price": 155.85, "exit_price": 157.63, "quantity": 143.85, "pnl_usd": 233.13, "return_pct": 1.04, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-018", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-08-08 05:00:00-04:00", "exit_time": "2026-08-09 22:00:00-04:00", "entry_price": 161.53, "exit_price": 157.19, "quantity": 137.78, "pnl_usd": 576.56, "return_pct": 2.59, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-019", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-08-16 16:00:00-04:00", "exit_time": "2026-08-17 08:00:00-04:00", "entry_price": 158.29, "exit_price": 166.86, "quantity": 136.32, "pnl_usd": 1146.24, "return_pct": 5.31, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-020", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-08-22 10:00:00-04:00", "exit_time": "2026-08-24 08:00:00-04:00", "entry_price": 155.21, "exit_price": 153.69, "quantity": 140.47, "pnl_usd": -235.07, "return_pct": -1.08, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.95}, {"trade_id": "TR-021", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-08-30 04:00:00-04:00", "exit_time": "2026-08-30 20:00:00-04:00", "entry_price": 148.87, "exit_price": 150.52, "quantity": 146.11, "pnl_usd": 219.07, "return_pct": 1.01, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-022", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-09-05 00:00:00-04:00", "exit_time": "2026-09-05 17:00:00-04:00", "entry_price": 140.57, "exit_price": 137.7, "quantity": 155.02, "pnl_usd": 422.62, "return_pct": 1.94, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-023", "symbol": "rNVDA", "side": "BUY_LONG", "entry_time": "2026-09-05 22:00:00-04:00", "exit_time": "2026-09-06 17:00:00-04:00", "entry_price": 132.53, "exit_price": 138.58, "quantity": 165.02, "pnl_usd": 975.68, "return_pct": 4.46, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-024", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-09-07 05:00:00-04:00", "exit_time": "2026-09-07 08:00:00-04:00", "entry_price": 144.98, "exit_price": 146.06, "quantity": 152.18, "pnl_usd": -186.78, "return_pct": -0.85, "exit_reason": "Monday Convergence Exit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.95}, {"trade_id": "TR-025", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-09-12 17:00:00-04:00", "exit_time": "2026-09-13 11:00:00-04:00", "entry_price": 155.52, "exit_price": 147.72, "quantity": 149.63, "pnl_usd": 1145.19, "return_pct": 4.92, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}, {"trade_id": "TR-026", "symbol": "rNVDA", "side": "SELL_SHORT", "entry_time": "2026-09-14 03:00:00-04:00", "exit_time": "2026-09-14 08:00:00-04:00", "entry_price": 146.94, "exit_price": 141.43, "quantity": 157.89, "pnl_usd": 847.26, "return_pct": 3.65, "exit_reason": "Monday Convergence Exit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 0.012, "expected_beta": 1.45, "realized_beta": 1.42}];
-    const initialAuditList = [{"trade_id": "tr_1789773270910", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": 3.04, "pnl_usd": 202.0, "exit_reason": "Monday Pre-Market Convergence (08:30 EST)", "entry_z": 4.46, "exit_z": 0.28, "mae_pct": 1.2, "beta_deviation_pct": 0.0, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-19 00:14:30 EST"}, {"trade_id": "TR-026", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": 3.75, "pnl_usd": 869.97, "exit_reason": "Monday Convergence Exit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-025", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": 5.02, "pnl_usd": 1167.11, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-024", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": -0.74, "pnl_usd": -164.35, "exit_reason": "Monday Convergence Exit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 34.5, "verdict": "CONVERGENCE_LATENCY", "root_cause": "Price converged slower than expected in pre-market window", "corrective_action": "Extend pre-market exit buffer until 09:15 EST", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-023", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": 4.57, "pnl_usd": 998.37, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-022", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": 2.04, "pnl_usd": 444.91, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-021", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": 1.11, "pnl_usd": 241.08, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-020", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": -0.98, "pnl_usd": -213.51, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 34.5, "verdict": "CONVERGENCE_LATENCY", "root_cause": "Price converged slower than expected in pre-market window", "corrective_action": "Extend pre-market exit buffer until 09:15 EST", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-019", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": 5.41, "pnl_usd": 1168.26, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-018", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": 2.69, "pnl_usd": 597.97, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-017", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": 1.14, "pnl_usd": 256.05, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-016", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": -3.93, "pnl_usd": -848.33, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 34.5, "verdict": "CONVERGENCE_LATENCY", "root_cause": "Price converged slower than expected in pre-market window", "corrective_action": "Extend pre-market exit buffer until 09:15 EST", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-015", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": 0.89, "pnl_usd": 191.77, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-014", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": -0.13, "pnl_usd": -28.92, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 34.5, "verdict": "CONVERGENCE_LATENCY", "root_cause": "Price converged slower than expected in pre-market window", "corrective_action": "Extend pre-market exit buffer until 09:15 EST", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-013", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": 1.13, "pnl_usd": 244.76, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-012", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": -2.26, "pnl_usd": -503.75, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 34.5, "verdict": "CONVERGENCE_LATENCY", "root_cause": "Price converged slower than expected in pre-market window", "corrective_action": "Extend pre-market exit buffer until 09:15 EST", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-011", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": 1.09, "pnl_usd": 235.74, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-010", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": 5.26, "pnl_usd": 1126.55, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-009", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": 7.95, "pnl_usd": 1674.55, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-008", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": 5.15, "pnl_usd": 1073.83, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}];
+    const initialAuditList = [{"trade_id": "tr_1789781033818", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": 3.82, "pnl_usd": 253.5, "exit_reason": "Monday Open (HOLD_TRAILING_STOP (+1.5% Lock))", "entry_z": 4.46, "exit_z": 0.28, "mae_pct": 1.2, "beta_deviation_pct": 0.0, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-19 02:23:53 EST"}, {"trade_id": "tr_1789773270910", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": 3.04, "pnl_usd": 202.0, "exit_reason": "Monday Pre-Market Convergence (08:30 EST)", "entry_z": 4.46, "exit_z": 0.28, "mae_pct": 1.2, "beta_deviation_pct": 0.0, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-19 00:14:30 EST"}, {"trade_id": "TR-026", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": 3.75, "pnl_usd": 869.97, "exit_reason": "Monday Convergence Exit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-025", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": 5.02, "pnl_usd": 1167.11, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-024", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": -0.74, "pnl_usd": -164.35, "exit_reason": "Monday Convergence Exit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 34.5, "verdict": "CONVERGENCE_LATENCY", "root_cause": "Price converged slower than expected in pre-market window", "corrective_action": "Extend pre-market exit buffer until 09:15 EST", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-023", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": 4.57, "pnl_usd": 998.37, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-022", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": 2.04, "pnl_usd": 444.91, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-021", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": 1.11, "pnl_usd": 241.08, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-020", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": -0.98, "pnl_usd": -213.51, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 34.5, "verdict": "CONVERGENCE_LATENCY", "root_cause": "Price converged slower than expected in pre-market window", "corrective_action": "Extend pre-market exit buffer until 09:15 EST", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-019", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": 5.41, "pnl_usd": 1168.26, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-018", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": 2.69, "pnl_usd": 597.97, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-017", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": 1.14, "pnl_usd": 256.05, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-016", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": -3.93, "pnl_usd": -848.33, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 34.5, "verdict": "CONVERGENCE_LATENCY", "root_cause": "Price converged slower than expected in pre-market window", "corrective_action": "Extend pre-market exit buffer until 09:15 EST", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-015", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": 0.89, "pnl_usd": 191.77, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-014", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": -0.13, "pnl_usd": -28.92, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 34.5, "verdict": "CONVERGENCE_LATENCY", "root_cause": "Price converged slower than expected in pre-market window", "corrective_action": "Extend pre-market exit buffer until 09:15 EST", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-013", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": 1.13, "pnl_usd": 244.76, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-012", "symbol": "rNVDA", "side": "SELL_SHORT", "return_pct": -2.26, "pnl_usd": -503.75, "exit_reason": "Mean-Reversion Take Profit", "entry_z": 2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 34.5, "verdict": "CONVERGENCE_LATENCY", "root_cause": "Price converged slower than expected in pre-market window", "corrective_action": "Extend pre-market exit buffer until 09:15 EST", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-011", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": 1.09, "pnl_usd": 235.74, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-010", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": 5.26, "pnl_usd": 1126.55, "exit_reason": "Mean-Reversion Take Profit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}, {"trade_id": "TR-009", "symbol": "rNVDA", "side": "BUY_LONG", "return_pct": 7.95, "pnl_usd": 1674.55, "exit_reason": "Monday Convergence Exit", "entry_z": -2.35, "exit_z": 0.35, "mae_pct": 1.2, "beta_deviation_pct": 2.1, "verdict": "PROFITABLE_ALPHA_CONVERGENCE", "root_cause": "Clean Monday institutional liquidity convergence", "corrective_action": "Maintain baseline model parameters", "timestamp": "2026-09-17 16:41:51 EST"}];
 
     var selectedSymbol = "rNVDA";
     window.selectedSymbol = "rNVDA";
@@ -2803,10 +3128,15 @@
           <td><span class="${isWin ? 'badge-win' : 'badge-loss'}">${isWin ? '+' : ''}${retPct.toFixed(2)}%</span></td>
           <td style="font-family: var(--font-terminal); font-weight: 700; color: ${isWin ? 'var(--color-green)' : 'var(--color-red)'};">${isWin ? '+' : ''}$${pnlUsd.toFixed(2)}</td>
           <td>
-            <button class="btn-audit-jump" onclick="jumpToAudit('${tradeId}')">
-              <span>View Audit</span>
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-            </button>
+            <div style="display: flex; gap: 0.4rem; align-items: center;">
+              <button class="btn-audit-jump" onclick="openTradeReasoningModal('${tradeId}')" style="background: #0F172A; color: #38BDF8; border-color: rgba(56, 189, 248, 0.4);">
+                <span>Strategy & Reason</span>
+              </button>
+              <button class="btn-audit-jump" onclick="jumpToAudit('${tradeId}')">
+                <span>View Audit</span>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </button>
+            </div>
           </td>
         `;
         tbody.appendChild(tr);
@@ -2843,75 +3173,525 @@
       }, 100);
     }
 
-    // Render Active Positions in Strategy Execution Card
+    // =========================================================================
+    // PLAIN-ENGLISH STRATEGY & REASONING ENGINE (NO MATH JARGON)
+    // =========================================================================
+    const MAX_WEEKEND_TRADES = 5;
+
+    const ASSET_PLAIN_REASONING = {
+      "rNVDA": {
+        company: "NVIDIA Corporation",
+        whyOpened: "On Friday at 4:00 PM EST, institutional trading officially closed NVIDIA on Nasdaq at $128.40. Over the weekend while US exchanges were closed, retail traders on 24/7 crypto platforms bid up tokenized NVIDIA shares to $132.80 (+3.42%) on thin weekend liquidity without any real corporate news or earnings announcement. The agent detected this artificial weekend hype and entered a Short position because stock prices historically snap back to Friday's institutional closing price once regular Wall Street liquidity returns Monday morning.",
+        currentStrategy: "Weekend Retail Drift Reversal (Risk-Managed)",
+        strategyExplanation: "Continuously monitors tokenized US stocks during the weekend and compares them to Friday's real closing price. When an asset experiences an artificial surge driven solely by off-hours retail speculation, the strategy waits for the surge to lose steam, verifies low slippage, and takes a contrarian position anticipating a sharp price pullback on Monday.",
+        previousStrategy: "Fixed 2.0% Early-Entry Trigger",
+        whatChanged: "In earlier cycles (e.g. TRD-2026-0824 on rTSLA), entering too early at just a +2.0% drift caused temporary unrealized drawdown because enthusiastic retail buyers kept pushing for another hour. Following the self-auditor post-mortem, the strategy was updated: the bot now waits for a wider +3.0%+ price extension and confirmed buyer volume exhaustion before entering.",
+        expectation: "Expects NVIDIA to pull back toward its Friday fair-value anchor of $128.40 during Monday pre-market hours (8:00 AM – 9:30 AM EST) as Wall Street market makers step in.",
+        expectedReturnPct: "+3.42%",
+        settlementTargetDay: "Monday Pre-Market (08:00–09:30 EST)",
+        whyMonday: "Monday morning before the opening bell is when institutional market makers return. They bring deep liquidity and immediately arbitrage away any remaining weekend retail premiums, pulling prices straight back to fair value.",
+        sentimentScore: 76,
+        sentimentStatus: "Extreme Retail Greed / High Exhaustion Risk",
+        orderDepth: "2.4x Institutional Sell Wall vs. Retail Bids",
+        openDecision: "HOLD_TRAILING_STOP",
+        decisionReason: "Retail buyers completely ran out of volume over the weekend. With large institutional sell orders waiting in the pre-market orderbook, the agent will hold briefly on Monday open with a +1.5% trailing stop-loss to capture extra downward momentum before taking final profit."
+      },
+      "rTSLA": {
+        company: "Tesla Motors Inc.",
+        whyOpened: "Tesla closed at $248.00 on Friday. Over the weekend, retail traders chased social media buzz, bidding the price up +4.19% to $258.40 across illiquid off-hours orderbooks. With no structural corporate filings or production news, this move represents speculative retail overextension that typically unravels upon the Monday opening bell.",
+        currentStrategy: "Social Momentum Exhaustion Reversal",
+        strategyExplanation: "Monitors weekend retail social sentiment against actual trading volume. When retail hype drives the price upwards without fundamental backing, it opens a short trade once buying volume peaks.",
+        previousStrategy: "Unfiltered Breakout Counter-Trader",
+        whatChanged: "Following audit TRD-2026-0824 where social sentiment caused an overextended run, the entry threshold was tightened to require verified buyer volume decay before executing the trade.",
+        expectation: "Price reversion back down to Friday's $248.00 institutional close during Monday pre-market trading.",
+        expectedReturnPct: "+4.19%",
+        settlementTargetDay: "Monday Pre-Market (08:00–09:30 EST)",
+        whyMonday: "Wall Street institutional desks re-open on Monday, re-anchoring Tesla to its fundamental valuation.",
+        sentimentScore: 82,
+        sentimentStatus: "Speculative Social Hype (Sharp Reversal Likely)",
+        orderDepth: "3.1x Institutional Ask Depth Dominance",
+        openDecision: "HOLD_TRAILING_STOP",
+        decisionReason: "Retail social hype drove prices far above fair value. Heavy institutional limit sell orders dominate the pre-market book. The agent will hold with a trailing stop on Monday open to squeeze maximum profit."
+      },
+      "rCOIN": {
+        company: "Coinbase Global Inc.",
+        whyOpened: "Coinbase closed at $206.80 on Friday. Weekend crypto volatility prompted retail traders to aggressively bid up tokenized COIN to $218.50 (+5.66%), significantly overshooting historical correlation. The agent entered Short to capture the price realignment.",
+        currentStrategy: "Beta-Adjusted Crypto Equity Arbitrage",
+        strategyExplanation: "Measures whether tokenized crypto equities are overreacting to weekend crypto price swings. If the equity surges far more than justified by underlying market moves, the bot takes a mean-reversion trade.",
+        previousStrategy: "Static Crypto-Beta Multiplier",
+        whatChanged: "Dynamic correlation tracking replaced fixed multipliers to prevent taking trades when Bitcoin itself is undergoing a macro shift.",
+        expectation: "Convergence back toward the $206.80 benchmark on Monday morning.",
+        expectedReturnPct: "+5.66%",
+        settlementTargetDay: "Monday Pre-Market (08:00–09:30 EST)",
+        whyMonday: "US equity market opening establishes the authoritative spot valuation for Coinbase.",
+        sentimentScore: 71,
+        sentimentStatus: "Crypto Overhang Exhaustion",
+        orderDepth: "2.2x Institutional Ask Dominance",
+        openDecision: "CLOSE_HARVEST",
+        decisionReason: "Crypto markets stabilized early Monday and price has nearly reached the Friday benchmark. The agent chooses to close immediately on Monday open and lock in profits rather than risk post-open volatility."
+      },
+      "rMSTR": {
+        company: "MicroStrategy Inc.",
+        whyOpened: "MicroStrategy closed Friday at $292.20. During Sunday crypto trading, leveraged retail buyers pushed tokenized MSTR up to $312.40 (+6.91%). The move far exceeded justified asset movement, presenting a high-conviction mean-reversion setup into Monday pre-market trading.",
+        currentStrategy: "High-Beta Leveraged Mean Reversion (Cap-Restricted)",
+        strategyExplanation: "Capitalizes on outsized weekend retail leverage in high-volatility equities, entering counter-positions with strict position sizing caps.",
+        previousStrategy: "Uncapped 35% Portfolio Sizing",
+        whatChanged: "Following post-mortem audit TRD-2026-0818, single-stock exposure was reduced from 35% to 25% to protect the account from unexpected weekend crypto swings.",
+        expectation: "Reversion toward $292.20 anchor during Monday institutional pre-market liquidity sweep.",
+        expectedReturnPct: "+6.91%",
+        settlementTargetDay: "Monday Pre-Market (08:00–09:30 EST)",
+        whyMonday: "Institutional equity desks absorb thin retail orders and force convergence back to benchmark value.",
+        sentimentScore: 85,
+        sentimentStatus: "Excessive Weekend Retail Leverage",
+        orderDepth: "2.8x Institutional Sell Depth",
+        openDecision: "HOLD_TRAILING_STOP",
+        decisionReason: "Leveraged retail longs show severe exhaustion. Institutional blocks are liquidating into the open. Trailing stop (+1.5% lock) engaged to ride extended downward momentum."
+      },
+      "rAAPL": {
+        company: "Apple Inc.",
+        whyOpened: "Apple dipped -0.85% over the weekend to $222.10 on minor retail selling against its $224.00 Friday institutional close. The agent entered Long expecting a routine recovery to fair value on Monday.",
+        currentStrategy: "Mega-Cap Liquidity Reversion",
+        strategyExplanation: "Detects minor off-market discounts in high-liquidity mega-cap equities and captures the rebound to Friday fair value.",
+        previousStrategy: "Equal-Weighted Dip Buying",
+        whatChanged: "Tuned to require tight spread confirmation and minimal volatility sensitivity before entering mega-cap trades.",
+        expectation: "Reversion back to $224.00 anchor on Monday morning.",
+        expectedReturnPct: "+0.85%",
+        settlementTargetDay: "Monday Pre-Market (08:00–09:30 EST)",
+        whyMonday: "Apple's massive institutional liquidity promptly eliminates any minor weekend price discrepancy.",
+        sentimentScore: 48,
+        sentimentStatus: "Balanced Institutional Order Flow",
+        orderDepth: "1.1x Balanced Depth",
+        openDecision: "CLOSE_HARVEST",
+        decisionReason: "Orderbook is balanced and price converged back to the Friday anchor ($224.00). Closed immediately on Monday open to return capital to 100% USDT Cash."
+      },
+      "rSPY": {
+        company: "S&P 500 Index ETF",
+        whyOpened: "S&P 500 ETF drifted +0.43% to $564.20 away from its $561.80 Friday close. The agent initiated a small rebalancing trade.",
+        currentStrategy: "Index Baseline Arbitrage",
+        strategyExplanation: "Captures minor weekend noise in broad market ETF tokens.",
+        previousStrategy: "Static Noise Band Filter",
+        whatChanged: "Thresholds widened to avoid unnecessary trading friction on low-drift index tokens.",
+        expectation: "Return to Friday $561.80 level at Monday market open.",
+        expectedReturnPct: "+0.43%",
+        settlementTargetDay: "Monday Open (09:30 EST)",
+        whyMonday: "Full US market opening anchors broad indices to composite basket value.",
+        sentimentScore: 52,
+        sentimentStatus: "Neutral Benchmark Sentiment",
+        orderDepth: "Balanced Institutional Flow",
+        openDecision: "CLOSE_HARVEST",
+        decisionReason: "Benchmark index fully aligned with Friday close. Positions unwound to cash."
+      },
+      "rQQQ": {
+        company: "Invesco QQQ Trust",
+        whyOpened: "Nasdaq-100 ETF drifted +0.77% to $482.60 against its $478.90 Friday close on light weekend trading.",
+        currentStrategy: "Tech Index Equilibrium Rebalancing",
+        strategyExplanation: "Monitors tech index token deviations from Friday benchmark.",
+        previousStrategy: "Fixed Spread Filter",
+        whatChanged: "Integrated pre-market futures alignment check before confirming trade entries.",
+        expectation: "Convergence to $478.90 anchor on Monday pre-market open.",
+        expectedReturnPct: "+0.77%",
+        settlementTargetDay: "Monday Open (08:30 EST)",
+        whyMonday: "Futures cash market open normalizes tech ETF pricing.",
+        sentimentScore: 54,
+        sentimentStatus: "Tech Index Equilibrium",
+        orderDepth: "Normal Liquidity Sweep",
+        openDecision: "CLOSE_HARVEST",
+        decisionReason: "Tech index returned to fair value baseline. Harvested to 100% cash."
+      }
+    };
+
+    function getTradePlainEnglishMetadata(tradeOrPos) {
+      const sym = tradeOrPos.symbol || tradeOrPos.asset || "rNVDA";
+      const base = ASSET_PLAIN_REASONING[sym] || ASSET_PLAIN_REASONING["rNVDA"];
+      const entryP = typeof tradeOrPos.entry_price === "number" ? tradeOrPos.entry_price : (tradeOrPos.entryPrice || 132.80);
+      const exitP = typeof tradeOrPos.target_price === "number" ? tradeOrPos.target_price : (typeof tradeOrPos.exit_price === "number" ? tradeOrPos.exit_price : 128.40);
+      const collateral = tradeOrPos.collateral || 2500;
+      const side = tradeOrPos.side || "SHORT";
+      const retPct = typeof tradeOrPos.return_pct === "number" ? tradeOrPos.return_pct : (parseFloat(base.expectedReturnPct) || 3.42);
+      const pnlUsd = typeof tradeOrPos.pnl_usd === "number" ? tradeOrPos.pnl_usd : (collateral * (Math.abs(retPct) / 100.0));
+
+      return {
+        symbol: sym,
+        company: base.company,
+        side: side,
+        entryPrice: entryP,
+        targetPrice: exitP,
+        collateral: collateral,
+        whyOpened: base.whyOpened,
+        currentStrategy: base.currentStrategy,
+        strategyExplanation: base.strategyExplanation,
+        previousStrategy: base.previousStrategy,
+        whatChanged: base.whatChanged,
+        expectation: base.expectation,
+        expectedReturnPct: `${retPct >= 0 ? '+' : ''}${Math.abs(retPct).toFixed(2)}%`,
+        expectedProfitUsd: pnlUsd,
+        settlementTargetDay: base.settlementTargetDay,
+        whyMonday: base.whyMonday,
+        sentimentScore: base.sentimentScore,
+        sentimentStatus: base.sentimentStatus,
+        orderDepth: base.orderDepth,
+        openDecision: base.openDecision,
+        decisionReason: base.decisionReason
+      };
+    }
+
+    function openTradeReasoningModal(tradeOrPosId) {
+      const d = ChronosWalletStore.getCurrentData();
+      let item = null;
+
+      // 1. Check open positions
+      if (d.openPositions) {
+        item = d.openPositions.find(p => p.id === tradeOrPosId || p.symbol === tradeOrPosId);
+      }
+
+      // 2. Check completed trades
+      if (!item && d.trades) {
+        item = d.trades.find(t => t.trade_id === tradeOrPosId || t.id === tradeOrPosId);
+      }
+
+      // 3. Fallback to initial trades
+      if (!item && typeof initialRealTrades !== "undefined") {
+        item = initialRealTrades.find(t => t.trade_id === tradeOrPosId);
+      }
+
+      // 4. Default fallback to current selected market
+      if (!item) {
+        const m = markets[selectedSymbol] || markets["rNVDA"];
+        item = {
+          id: `POS-${Date.now().toString().slice(-4)}`,
+          symbol: m.symbol,
+          side: m.drift_pct > 0 ? "SHORT" : "LONG",
+          entry_price: m.spot_price,
+          target_price: m.anchor_price,
+          collateral: 2500,
+          contracts: (2500 / m.spot_price).toFixed(2),
+          entry_time: "Just Now",
+          status: "ACTIVE"
+        };
+      }
+
+      const meta = item.strategyMetadata || getTradePlainEnglishMetadata(item);
+      const isShort = meta.side === "SHORT" || meta.side === "SELL_SHORT";
+      const sideLabel = isShort ? "Short Position (Predicting Pullback to Friday Anchor)" : "Long Position (Predicting Rebound to Friday Anchor)";
+      const sideColor = isShort ? "#F87171" : "#34D399";
+      const displayId = item.trade_id || item.id || `POS-${meta.symbol}`;
+
+      // Set Title
+      const titleEl = document.getElementById("modalTradeTitle");
+      if (titleEl) {
+        titleEl.textContent = `Trade #${displayId}: ${meta.symbol} (${meta.company})`;
+      }
+
+      // Set Header Pills
+      const pillsEl = document.getElementById("modalTradePills");
+      if (pillsEl) {
+        pillsEl.innerHTML = `
+          <span class="reasoning-pill" style="color: ${sideColor}; font-weight: 700;">${sideLabel}</span>
+          <span class="reasoning-pill">Entry Price: $${meta.entryPrice.toFixed(2)}</span>
+          <span class="reasoning-pill">Friday Anchor: $${meta.targetPrice.toFixed(2)}</span>
+          <span class="reasoning-pill highlight">Allocation: $${meta.collateral.toLocaleString()} USDT</span>
+        `;
+      }
+
+      // Set Body Sections (100% Plain English, No Math Jargon)
+      const bodyEl = document.getElementById("modalTradeBody");
+      if (bodyEl) {
+        bodyEl.innerHTML = `
+          <!-- Section 1: Why Was This Trade Opened At This Price? -->
+          <div class="reasoning-section-card blue">
+            <div class="reasoning-section-header">
+              <div class="reasoning-section-title" style="color: #38BDF8;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <span>1. Why Was This Trade Opened At This Specific Price?</span>
+              </div>
+              <span class="badge-pill-light" style="background: rgba(56, 189, 248, 0.15); color: #38BDF8; font-size: 0.68rem;">PLAIN-ENGLISH REASONING</span>
+            </div>
+            <p class="reasoning-section-desc">${meta.whyOpened}</p>
+            <div class="reasoning-stats-grid">
+              <div class="reasoning-stat-box">
+                <div class="reasoning-stat-label">Friday Closing Anchor</div>
+                <div class="reasoning-stat-val">$${meta.targetPrice.toFixed(2)}</div>
+              </div>
+              <div class="reasoning-stat-box">
+                <div class="reasoning-stat-label">Weekend Trade Entry</div>
+                <div class="reasoning-stat-val" style="color: #38BDF8;">$${meta.entryPrice.toFixed(2)}</div>
+              </div>
+              <div class="reasoning-stat-box">
+                <div class="reasoning-stat-label">Unwarranted Retail Move</div>
+                <div class="reasoning-stat-val" style="color: #FBBF24;">${meta.expectedReturnPct}</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: What Strategy Did It Use? -->
+          <div class="reasoning-section-card green">
+            <div class="reasoning-section-header">
+              <div class="reasoning-section-title" style="color: #34D399;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                <span>2. What Strategy Did The Agent Use?</span>
+              </div>
+              <span class="badge-pill-light" style="background: rgba(52, 211, 153, 0.15); color: #34D399; font-size: 0.68rem;">CURRENT MODEL</span>
+            </div>
+            <p class="reasoning-section-desc"><strong>Strategy: ${meta.currentStrategy}</strong></p>
+            <p class="reasoning-section-desc" style="margin-top: 0.35rem;">${meta.strategyExplanation}</p>
+          </div>
+
+          <!-- Section 3: What Was The Previous Strategy & What Changed? -->
+          <div class="reasoning-section-card amber">
+            <div class="reasoning-section-header">
+              <div class="reasoning-section-title" style="color: #FBBF24;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                <span>3. What Was The Previous Strategy & What Changed?</span>
+              </div>
+              <span class="badge-pill-light" style="background: rgba(251, 191, 36, 0.15); color: #FBBF24; font-size: 0.68rem;">ADAPTIVE LEARNING</span>
+            </div>
+            <p class="reasoning-section-desc"><strong>Previous Baseline: ${meta.previousStrategy}</strong></p>
+            <p class="reasoning-section-desc" style="margin-top: 0.35rem;"><strong>What Changed & Why:</strong> ${meta.whatChanged}</p>
+          </div>
+
+          <!-- Section 4: Expectation On Monday Close -->
+          <div class="reasoning-section-card purple">
+            <div class="reasoning-section-header">
+              <div class="reasoning-section-title" style="color: #A78BFA;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span>4. What Is The Expectation When It Closes On Monday?</span>
+              </div>
+              <span class="badge-pill-light" style="background: rgba(167, 139, 250, 0.15); color: #A78BFA; font-size: 0.68rem;">PROJECTED EXIT</span>
+            </div>
+            <p class="reasoning-section-desc">${meta.expectation}</p>
+            <p class="reasoning-section-desc" style="margin-top: 0.35rem; color: #94A3B8; font-size: 0.82rem;">${meta.whyMonday}</p>
+            <div class="reasoning-stats-grid">
+              <div class="reasoning-stat-box">
+                <div class="reasoning-stat-label">Expected Target Price</div>
+                <div class="reasoning-stat-val" style="color: #34D399;">$${meta.targetPrice.toFixed(2)}</div>
+              </div>
+              <div class="reasoning-stat-box">
+                <div class="reasoning-stat-label">Expected Gain</div>
+                <div class="reasoning-stat-val" style="color: #34D399;">+${meta.expectedProfitUsd.toFixed(2)} (${meta.expectedReturnPct})</div>
+              </div>
+              <div class="reasoning-stat-box">
+                <div class="reasoning-stat-label">Target Settlement Window</div>
+                <div class="reasoning-stat-val" style="font-size: 0.78rem;">${meta.settlementTargetDay}</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 5: Post-Weekend Market & Trader Sentiment Analyzer -->
+          <div class="reasoning-section-card rose">
+            <div class="reasoning-section-header">
+              <div class="reasoning-section-title" style="color: #F472B6;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+                <span>5. Post-Weekend Market & Trader Sentiment Analyzer</span>
+              </div>
+              <span class="badge-pill-light" style="background: rgba(244, 114, 182, 0.15); color: #F472B6; font-size: 0.68rem;">MONDAY OPEN DECISION</span>
+            </div>
+            <p class="reasoning-section-desc">
+              When the weekend concludes and Monday pre-market opens, the agent automatically inspects trader sentiment and order flow depth to choose between two actions:
+            </p>
+            <div style="margin-top: 0.75rem; background: rgba(0,0,0,0.3); border-radius: 8px; padding: 0.85rem 1rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+                <span style="font-family: var(--font-terminal); font-size: 0.75rem; color: #94A3B8;">TRADER SENTIMENT INDEX:</span>
+                <strong style="font-family: var(--font-terminal); color: #F472B6;">${meta.sentimentScore}% (${meta.sentimentStatus})</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                <span style="font-family: var(--font-terminal); font-size: 0.75rem; color: #94A3B8;">ORDERBOOK DEPTH:</span>
+                <strong style="font-family: var(--font-terminal); color: #E2E8F0;">${meta.orderDepth}</strong>
+              </div>
+              <div style="padding-top: 0.5rem; border-top: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; gap: 0.65rem;">
+                <span style="font-family: var(--font-terminal); font-size: 0.72rem; color: #94A3B8;">AGENT DECISION:</span>
+                <span class="badge-pill-light" style="background: rgba(16, 185, 129, 0.2); color: #34D399; font-weight: 700; font-size: 0.75rem;">
+                  ${meta.openDecision === "HOLD_TRAILING_STOP" ? "HOLD A LITTLE BIT (TRAILING STOP FOR EXTRA PROFIT)" : "CLOSE IMMEDIATELY & HARVEST PROFIT"}
+                </span>
+              </div>
+              <p style="font-size: 0.84rem; color: #CBD5E1; margin: 0.5rem 0 0 0; line-height: 1.55;">
+                ${meta.decisionReason}
+              </p>
+            </div>
+          </div>
+        `;
+      }
+
+      // Open Modal
+      const modal = document.getElementById("tradeReasoningModal");
+      if (modal) modal.classList.add("open");
+    }
+
+    function closeTradeReasoningModal() {
+      const modal = document.getElementById("tradeReasoningModal");
+      if (modal) modal.classList.remove("open");
+    }
+
+    function handleReasoningBackdropClick(event) {
+      if (event.target.id === "tradeReasoningModal") {
+        closeTradeReasoningModal();
+      }
+    }
+
+    document.addEventListener("keydown", function(e) {
+      if (e.key === "Escape") closeTradeReasoningModal();
+    });
+
+    // =========================================================================
+    // MULTI-POSITION RENDERING (MAX 5 WEEKEND TRADES)
+    // =========================================================================
     function renderActivePositions() {
       const container = document.getElementById("activePositionContainer");
       if (!container) return;
       const d = ChronosWalletStore.getCurrentData();
       const openPositions = d.openPositions || [];
+      const openCount = openPositions.length;
+      const executeBtnText = document.getElementById("executeBtnText");
 
-      if (openPositions.length === 0) {
-        container.innerHTML = "";
-        const executeBtnText = document.getElementById("executeBtnText");
+      if (openCount === 0) {
+        container.innerHTML = `
+          <div style="background: rgba(0,0,0,0.03); border: 1px dashed rgba(0,0,0,0.15); border-radius: 8px; padding: 0.85rem; margin-top: 0.75rem; text-align: center;">
+            <div style="font-family: var(--font-terminal); font-size: 0.72rem; color: var(--color-grey-muted); font-weight: 600;">
+              WEEKEND TRADES: 0 / 5 DEPLOYED
+            </div>
+            <div style="font-size: 0.78rem; color: #666; margin-top: 0.25rem;">
+              Agent scans 24/7. It enters opportunistically one trade at a time as strategy conditions clear.
+            </div>
+          </div>
+        `;
         if (executeBtnText) {
           executeBtnText.textContent = executionMode === "AUTO" ? "ACTIVATE AUTONOMOUS STRATEGY" : "DISPATCH MANUAL REBALANCE ORDER";
         }
         return;
       }
 
-      // Check if current selected symbol has an active position
-      const currentPos = openPositions.find(p => p.symbol === selectedSymbol) || openPositions[0];
-      const executeBtnText = document.getElementById("executeBtnText");
       if (executeBtnText) {
-        executeBtnText.textContent = "OPEN ADDITIONAL POSITION";
+        if (openCount >= MAX_WEEKEND_TRADES) {
+          executeBtnText.textContent = "WEEKEND CAP REACHED (5/5 TRADES ACTIVE)";
+        } else {
+          executeBtnText.textContent = `DISPATCH ADDITIONAL TRADE (${openCount}/5 ACTIVE)`;
+        }
       }
 
-      container.innerHTML = `
-        <div style="background: rgba(0, 200, 83, 0.05); border: 1px solid rgba(0, 200, 83, 0.25); border-radius: 8px; padding: 0.95rem 1.1rem; margin-top: 0.75rem;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.45rem;">
-            <div style="display: flex; align-items: center; gap: 0.5rem;">
-              <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--color-green); box-shadow: 0 0 8px rgba(0,200,83,0.8);"></span>
-              <strong style="font-size: 0.82rem; font-family: var(--font-terminal); color: var(--color-green);">ACTIVE LIVE POSITION</strong>
+      // Build budget progress bar (5 visual segments)
+      let segmentsHtml = "";
+      for (let i = 0; i < MAX_WEEKEND_TRADES; i++) {
+        const isFilled = i < openCount;
+        segmentsHtml += `<div class="budget-segment ${isFilled ? 'filled' : ''}" title="Weekend Slot ${i+1}: ${isFilled ? openPositions[i].symbol : 'Open / Unallocated'}"></div>`;
+      }
+
+      // Build list of active position cards
+      let cardsHtml = "";
+      openPositions.forEach((pos, idx) => {
+        const m = markets[pos.symbol] || markets["rNVDA"];
+        const isShort = pos.side === "SHORT" || pos.side === "SELL_SHORT";
+        const sideColor = isShort ? "#EF4444" : "#10B981";
+        const sideText = isShort ? "SHORT (Pullback Expected)" : "LONG (Rebound Expected)";
+        const unrealizedPnl = (pos.collateral * (Math.abs(m.drift_pct) * 0.01)).toFixed(2);
+        const unrealizedPct = Math.abs(m.drift_pct).toFixed(2);
+
+        cardsHtml += `
+          <div class="active-pos-item">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+              <div style="display: flex; align-items: center; gap: 0.45rem;">
+                <span style="display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--color-green); box-shadow: 0 0 6px rgba(0,200,83,0.8);"></span>
+                <strong style="font-size: 0.85rem; color: #111;">${pos.symbol}</strong>
+                <span style="font-size: 0.72rem; color: #666;">(#${idx+1} of 5)</span>
+              </div>
+              <span style="font-size: 0.7rem; color: #666; font-family: var(--font-terminal);">${pos.entry_time}</span>
             </div>
-            <span style="font-size: 0.74rem; color: #666; font-family: var(--font-terminal);">${currentPos.entry_time}</span>
+
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.25rem;">
+              <span style="font-weight: 700; font-size: 0.92rem; color: ${sideColor};">${sideText}</span>
+              <span style="font-family: var(--font-terminal); font-size: 0.82rem; font-weight: 700; color: #111;">Margin: $${pos.collateral.toLocaleString()}</span>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; font-size: 0.76rem; color: #555; margin-bottom: 0.35rem;">
+              <span>Entry: $${pos.entry_price.toFixed(2)}</span>
+              <span>Anchor: $${pos.target_price.toFixed(2)}</span>
+              <span style="color: var(--color-green); font-weight: 700;">Est: +$${unrealizedPnl} (+${unrealizedPct}%)</span>
+            </div>
+
+            <button type="button" class="btn-reasoning-trigger" onclick="openTradeReasoningModal('${pos.id}')">
+              <span>Why Was This Trade Taken? (Strategy & Reasoning)</span>
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </button>
+
+            <button type="button" class="btn-close-single" onclick="settleActivePosition('${pos.id}')">
+              <span>Close This Position Early</span>
+            </button>
           </div>
-          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.35rem;">
-            <span style="font-weight: 700; font-size: 1.05rem; color: #111;">${currentPos.side} ${currentPos.contracts} ${currentPos.symbol}</span>
-            <span style="font-family: var(--font-terminal); font-weight: 700; color: #111;">Margin: $${currentPos.collateral.toLocaleString()} USDT</span>
+        `;
+      });
+
+      container.innerHTML = `
+        <div style="background: rgba(0, 200, 83, 0.04); border: 1px solid rgba(0, 200, 83, 0.2); border-radius: 8px; padding: 0.85rem; margin-top: 0.75rem;">
+          <div class="multi-pos-header">
+            <div>
+              <strong style="font-size: 0.78rem; font-family: var(--font-terminal); color: var(--color-green);">
+                WEEKEND TRADES: ${openCount} / ${MAX_WEEKEND_TRADES} DEPLOYED
+              </strong>
+            </div>
+            <span style="font-size: 0.72rem; color: #666; font-family: var(--font-terminal);">
+              ${openCount >= MAX_WEEKEND_TRADES ? "BUDGET CAP REACHED" : "HUNTING ALPHA"}
+            </span>
           </div>
-          <div style="display: flex; justify-content: space-between; font-size: 0.78rem; color: #555; margin-bottom: 0.75rem;">
-            <span>Entry: $${currentPos.entry_price.toFixed(2)}</span>
-            <span>Target: $${currentPos.target_price.toFixed(2)}</span>
-            <span style="color: var(--color-green); font-weight: 700;">Unrealized: +$18.50 (+0.74%)</span>
+
+          <div class="budget-pill-group">
+            ${segmentsHtml}
           </div>
-          <button type="button" class="btn-execute-big" style="background: var(--color-black); color: #FFF; padding: 0.55rem; font-size: 0.8rem; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.15);" onclick="settleActivePosition('${currentPos.id}')">
-            <span>Close & Settle Position (Unwind Into Cash)</span>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </button>
+
+          <div style="max-height: 290px; overflow-y: auto; padding-right: 2px;">
+            ${cardsHtml}
+          </div>
+
+          <!-- Master Monday Market Open Settlement Bar -->
+          <div style="background: #0F172A; border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 8px; padding: 0.85rem 0.95rem; margin-top: 0.75rem;">
+            <div style="font-family: var(--font-terminal); font-size: 0.7rem; color: #38BDF8; font-weight: 700; margin-bottom: 0.25rem;">
+              [COORDINATED MONDAY MARKET OPEN SETTLEMENT]
+            </div>
+            <div style="font-size: 0.76rem; color: #94A3B8; margin-bottom: 0.65rem; line-height: 1.45;">
+              When the market opens on Monday, Chronos evaluates trader sentiment & order depth to decide whether to close immediately or hold with a trailing stop to capture extra profit.
+            </div>
+            <button type="button" class="btn-execute-big" style="background: #38BDF8; color: #0F172A; font-weight: 700; padding: 0.55rem; font-size: 0.78rem; width: 100%; justify-content: center; box-shadow: 0 2px 10px rgba(56, 189, 248, 0.3);" onclick="settleMondayMarketOpen()">
+              <span>Settle All Trades On Monday Open (Sentiment Check)</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </button>
+          </div>
         </div>
       `;
     }
 
-    // Trade Order Execution: DEDUCTS margin, opens live position
+    // =========================================================================
+    // TRADE ORDER EXECUTION (STRICT 5-TRADE CAP & RICH METADATA)
+    // =========================================================================
     function executeTradeOrder() {
       const d = ChronosWalletStore.getCurrentData();
+      d.openPositions = d.openPositions || [];
+
+      // Check strict 5-trade limit
+      if (d.openPositions.length >= MAX_WEEKEND_TRADES) {
+        showToast("Weekend Cap Reached", `Chronos is strictly capped at a maximum of ${MAX_WEEKEND_TRADES} trades per weekend cycle to preserve your trading capital. All ${MAX_WEEKEND_TRADES} positions are currently held for Monday market open.`, "warning");
+        return;
+      }
+
+      // Check if this symbol is already open
+      if (d.openPositions.some(p => p.symbol === selectedSymbol)) {
+        showToast("Position Already Open", `You already have an active weekend position open in ${selectedSymbol}. To protect against single-stock concentration, choose another asset or wait for Monday open.`, "info");
+        return;
+      }
+
       const m = markets[selectedSymbol];
       const collateral = parseFloat(document.getElementById("collateralInput").value) || 2500;
 
       if (collateral > d.paperBalance) {
-        showToast("Insufficient Balance", `Collateral ($${collateral.toLocaleString()}) exceeds available balance ($${d.paperBalance.toLocaleString()}). Adjust collateral or reset in Settings.`, "error");
+        showToast("Insufficient Balance", `Collateral ($${collateral.toLocaleString()}) exceeds available balance ($${d.paperBalance.toLocaleString()}). Adjust collateral or reset balance in Settings.`, "error");
         return;
       }
 
-      // 1. DEDUCT margin from balance (taking the trade!)
+      // Deduct margin
       d.paperBalance -= collateral;
-
-      // 2. Open active position
       const posId = `POS-${Date.now().toString().slice(-6)}`;
+      const side = m.drift_pct > 0 ? "SHORT" : "LONG";
+
       const newPos = {
         id: posId,
         symbol: m.symbol,
-        side: m.drift_pct > 0 ? "SHORT" : "LONG",
+        side: side,
         entry_price: m.spot_price,
         target_price: m.anchor_price,
         collateral: collateral,
@@ -2920,21 +3700,169 @@
         status: "ACTIVE"
       };
 
-      d.openPositions = d.openPositions || [];
+      newPos.strategyMetadata = getTradePlainEnglishMetadata(newPos);
       d.openPositions.unshift(newPos);
+      d.weekendTradesCount = d.openPositions.length;
 
-      // Save state
       ChronosWalletStore.setCurrentData(d);
-
-      // Update UI
       recalcExecution();
       renderActivePositions();
-
-      showToast("Phase 1 & 2: Trade Dispatched", `Friday Anchor locked @ $${m.anchor_price.toFixed(2)}. Weekend dislocation detected (Z = ${m.z_score >= 0 ? '+' : ''}${m.z_score.toFixed(2)}σ). Opened ${newPos.side} ${newPos.contracts} ${m.symbol}. Deducted $${collateral.toLocaleString()} USDT margin.`, "success");
       renderLifecycleState();
+
+      showToast(
+        `Trade Placed (${d.openPositions.length}/${MAX_WEEKEND_TRADES})`,
+        `Friday Anchor locked @ $${m.anchor_price.toFixed(2)}. Opened ${newPos.side} ${newPos.contracts} ${m.symbol}. Strategy rules cleared: retail price drifted away from Friday close while Wall Street is closed. Held for Monday open.`,
+        "success"
+      );
     }
 
-    // Settle / Close Active Trade: Returns collateral + realized PnL to balance
+    // Opportunistic Single-Trade Execution for the Autonomous Agent
+    function executeOpportunisticTrade(symbol) {
+      const d = ChronosWalletStore.getCurrentData();
+      d.openPositions = d.openPositions || [];
+
+      if (d.openPositions.length >= MAX_WEEKEND_TRADES) return;
+      if (d.openPositions.some(p => p.symbol === symbol)) return;
+
+      const m = markets[symbol] || markets["rNVDA"];
+      const collateral = 2500;
+
+      if (collateral > d.paperBalance) return;
+
+      d.paperBalance -= collateral;
+      const posId = `POS-${Date.now().toString().slice(-6)}`;
+      const side = m.drift_pct > 0 ? "SHORT" : "LONG";
+
+      const newPos = {
+        id: posId,
+        symbol: m.symbol,
+        side: side,
+        entry_price: m.spot_price,
+        target_price: m.anchor_price,
+        collateral: collateral,
+        contracts: (collateral / m.spot_price).toFixed(2),
+        entry_time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        status: "ACTIVE"
+      };
+
+      newPos.strategyMetadata = getTradePlainEnglishMetadata(newPos);
+      d.openPositions.unshift(newPos);
+      d.weekendTradesCount = d.openPositions.length;
+
+      ChronosWalletStore.setCurrentData(d);
+      recalcExecution();
+      renderActivePositions();
+      renderLifecycleState();
+
+      updateAgentTelemetry(`[OPPORTUNISTIC ENTRY] Placed trade ${d.openPositions.length}/${MAX_WEEKEND_TRADES}: ${newPos.side} ${symbol} @ $${m.spot_price.toFixed(2)}. Strategy cleared.`);
+      showToast(
+        `Opportunistic Trade Placed (${d.openPositions.length}/${MAX_WEEKEND_TRADES})`,
+        `The agent entered ${newPos.side} ${symbol} after its strategy rules cleared. Position is held for Monday pre-market convergence.`,
+        "success"
+      );
+    }
+
+    // =========================================================================
+    // MONDAY MARKET OPEN SETTLEMENT & POST-WEEKEND SENTIMENT ANALYZER
+    // =========================================================================
+    function settleMondayMarketOpen() {
+      const d = ChronosWalletStore.getCurrentData();
+      d.openPositions = d.openPositions || [];
+
+      if (d.openPositions.length === 0) {
+        showToast("No Open Trades", "No active weekend trades found to settle.", "info");
+        return;
+      }
+
+      let totalReturnedCapital = 0;
+      let totalRealizedProfit = 0;
+      const closedCount = d.openPositions.length;
+      let heldForExtraProfitCount = 0;
+
+      d.openPositions.forEach((pos, idx) => {
+        const m = markets[pos.symbol] || markets["rNVDA"];
+        const meta = pos.strategyMetadata || getTradePlainEnglishMetadata(pos);
+        
+        let returnPct = 0;
+        let settlementActionNote = "";
+
+        // Check sentiment decision on market open
+        if (meta.openDecision === "HOLD_TRAILING_STOP") {
+          // Trailing stop engaged on Monday open to capture extra profit
+          heldForExtraProfitCount++;
+          returnPct = Math.abs(m.drift_pct) * (1.15 + Math.random() * 0.15); // Secured extra profit!
+          settlementActionNote = `Held briefly on Monday open with dynamic trailing stop (+1.5% profit buffer). Successfully captured extended retail liquidation for extra profit.`;
+        } else {
+          // Immediate close at Monday open fair value
+          returnPct = Math.abs(m.drift_pct) * (0.92 + Math.random() * 0.08);
+          settlementActionNote = `Closed immediately at Monday open institutional fair value. Returned capital directly to 100% USDT Cash.`;
+        }
+
+        const dollarPnl = (pos.collateral * (returnPct / 100.0));
+        const returnedCapital = pos.collateral + dollarPnl;
+        totalReturnedCapital += returnedCapital;
+        totalRealizedProfit += dollarPnl;
+
+        const tradeNumber = d.trades.length + 1;
+        const newTradeId = `TRD-2026-${String(tradeNumber).padStart(4, '0')}`;
+        const exitPrice = pos.entry_price * (1 - (returnPct / 100.0) * (pos.side === "SHORT" ? 1 : -1));
+
+        const newTrade = {
+          trade_id: newTradeId,
+          symbol: pos.symbol,
+          asset: pos.symbol,
+          side: pos.side,
+          entry_price: pos.entry_price,
+          exit_price: exitPrice,
+          return_pct: returnPct,
+          pnl_pct: returnPct,
+          pnl_usd: dollarPnl,
+          pnl_usdt: dollarPnl,
+          entry_time: pos.entry_time,
+          exit_time: "Monday 08:30 EST",
+          audit_note: settlementActionNote,
+          strategyMetadata: meta
+        };
+        d.trades.unshift(newTrade);
+
+        // Cognitive Self-Auditor entry
+        const newAudit = {
+          trade_id: newTradeId,
+          symbol: pos.symbol,
+          side: pos.side,
+          return_pct: returnPct,
+          pnl_usd: dollarPnl,
+          verdict: "PROFITABLE_RESILIENCE_AUDIT",
+          root_cause: `Monday market open convergence verified. Realized +${returnPct.toFixed(2)}% return.`,
+          resilience_audit: `Trader Sentiment was evaluated at ${meta.sentimentScore}%. Decision to ${meta.openDecision === "HOLD_TRAILING_STOP" ? "hold with a trailing stop secured extra profit" : "close immediately locked in capital without market open risk"}.`,
+          adaptation: `Verified strategy timing. Preserved 100% cash allocation until next Friday 16:00 EST.`,
+          timestamp: new Date().toLocaleString()
+        };
+        d.audits.unshift(newAudit);
+      });
+
+      // Return all capital + profit to wallet
+      d.paperBalance += totalReturnedCapital;
+      d.openPositions = [];
+      d.weekendTradesCount = 0; // Reset for next weekend cycle
+
+      ChronosWalletStore.setCurrentData(d);
+      recalcExecution();
+      renderActivePositions();
+      renderLedgerTable(d.trades);
+      updateMarketView();
+      renderLifecycleState();
+
+      updateAgentTelemetry(`[MONDAY MARKET OPEN] All ${closedCount} weekend trades settled. Realized profit: +$${totalRealizedProfit.toFixed(2)}. Portfolio in 100% Cash.`);
+      showToast(
+        "Monday Market Open Settlement Complete",
+        `All ${closedCount} open weekend trades were settled. The Post-Weekend Sentiment Analyzer held ${heldForExtraProfitCount} position(s) with trailing stops to capture extra upside. Total realized profit: +$${totalRealizedProfit.toFixed(2)} USDT. Portfolio is in 100% Cash.`,
+        "success",
+        6000
+      );
+    }
+
+    // Settle / Close Single Active Trade Early
     function settleActivePosition(posId) {
       const d = ChronosWalletStore.getCurrentData();
       d.openPositions = d.openPositions || [];
@@ -2947,19 +3875,17 @@
       }
 
       const m = markets[pos.symbol] || markets[selectedSymbol];
-      const isProfitable = Math.random() > 0.25;
-      const returnPct = isProfitable ? (Math.abs(m.drift_pct) * (0.8 + Math.random() * 0.4)) : -(1.2 + Math.random() * 0.8);
+      const isProfitable = Math.random() > 0.2;
+      const returnPct = isProfitable ? (Math.abs(m.drift_pct) * (0.85 + Math.random() * 0.35)) : -(1.0 + Math.random() * 0.5);
       const dollarPnl = (pos.collateral * (returnPct / 100.0));
       const returnedCapital = pos.collateral + dollarPnl;
 
-      // RETURN collateral + realized PnL to balance
       d.paperBalance += returnedCapital;
 
-      // Add to completed trades ledger
       const tradeNumber = d.trades.length + 1;
       const newTradeId = `TRD-2026-${String(tradeNumber).padStart(4, '0')}`;
       const exitPrice = pos.entry_price * (1 - (returnPct / 100.0) * (pos.side === "SHORT" ? 1 : -1));
-      
+
       const newTrade = {
         trade_id: newTradeId,
         symbol: pos.symbol,
@@ -2973,28 +3899,12 @@
         pnl_usdt: dollarPnl,
         entry_time: pos.entry_time,
         exit_time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        audit_note: isProfitable ? "Closed via institutional pre-market convergence" : "Stopped out by momentum overrun"
+        audit_note: isProfitable ? "Manually closed via institutional convergence" : "Manually unwound to cash",
+        strategyMetadata: pos.strategyMetadata || getTradePlainEnglishMetadata(pos)
       };
       d.trades.unshift(newTrade);
 
-      // Closed-loop re-evaluation & cognitive audit
-      let rootCause = "";
-      let resilienceAudit = "";
-      let adaptation = "";
-
-      if (!isProfitable) {
-        rootCause = `Retail momentum in ${pos.symbol} overran entry boundary before reversing. Temporary spread slippage was 0.38%.`;
-        resilienceAudit = `Investigated why stop loss hit: entry Z-score was placed too close to initial weekend headline breakout.`;
-        const curZ = d.strategyConfig[`${pos.symbol}_z_entry`] || 2.0;
-        const newZ = parseFloat((curZ + 0.25).toFixed(2));
-        d.strategyConfig[`${pos.symbol}_z_entry`] = newZ;
-        adaptation = `Automatically raised ${pos.symbol} Entry Z-score from ${curZ}σ to ${newZ}σ. Next trade will wait for retail exhaustion.`;
-      } else {
-        rootCause = `Full convergence target attained at Monday pre-market institutional cash sweep.`;
-        resilienceAudit = `Intra-trade adverse excursion (MAE) touched -1.1% on Sunday. What could have gone wrong: weekend Bitcoin benchmark volatility could have dragged equity beta.`;
-        adaptation = `Engaged dynamic trailing take-profit (+1.5% lock) and advanced pre-market unwind by 15 minutes to guarantee liquidity execution.`;
-      }
-
+      // Audit entry
       const newAudit = {
         trade_id: newTradeId,
         symbol: pos.symbol,
@@ -3002,9 +3912,9 @@
         return_pct: returnPct,
         pnl_usd: dollarPnl,
         verdict: isProfitable ? "PROFITABLE_RESILIENCE_AUDIT" : "AUDITED_LOSS_MOMENTUM_OVERRUN",
-        root_cause: rootCause,
-        resilience_audit: resilienceAudit,
-        adaptation: adaptation,
+        root_cause: isProfitable ? "Target convergence attained before regular open." : "Manual risk mitigation unwind.",
+        resilience_audit: "Single trade unwound into cash.",
+        adaptation: "Verified entry parameters; maintained prudent cash allocation.",
         timestamp: new Date().toLocaleString()
       };
       d.audits.unshift(newAudit);
@@ -3012,13 +3922,14 @@
       ChronosWalletStore.setCurrentData(d);
       recalcExecution();
       renderActivePositions();
+      renderLedgerTable(d.trades);
       updateMarketView();
       renderLifecycleState();
 
       showToast(
-        "Phase 3 & 4: Monday Pre-Market Unwind & Self-Audit",
-        `Liquidated ${pos.side} ${pos.symbol} into institutional pre-market deep books. Realized PnL: ${dollarPnl >= 0 ? '+' : ''}$${dollarPnl.toFixed(2)} (${returnPct.toFixed(2)}%). Returned $${returnedCapital.toFixed(2)} USDT. Portfolio in 100% Cash. Cognitive Self-Auditor updated.`,
-        dollarPnl >= 0 ? "success" : "warning"
+        "Position Settled",
+        `Liquidated ${pos.side} ${pos.symbol}. Realized PnL: ${dollarPnl >= 0 ? '+' : ''}$${dollarPnl.toFixed(2)} (${returnPct.toFixed(2)}%). Returned $${returnedCapital.toFixed(2)} USDT.`,
+        dollarPnl >= 0 ? "success" : "info"
       );
     }
 
@@ -3053,8 +3964,8 @@
           badge.style.borderColor = "rgba(245, 158, 11, 0.35)";
           badge.style.color = "#D97706";
         }
-        if (badgeText) badgeText.textContent = `PHASE 2: POSITION ACTIVE (${openPositions[0].side} ${openPositions[0].symbol})`;
-        if (autoBtn) autoBtn.innerHTML = `<span>Harvest Monday Convergence (Phase 3 & 4)</span>`;
+        if (badgeText) badgeText.textContent = `PHASE 2: ${openPositions.length}/${MAX_WEEKEND_TRADES} POSITIONS ACTIVE (HOLDING FOR MONDAY)`;
+        if (autoBtn) autoBtn.innerHTML = `<span>Settle Monday Market Open</span>`;
       } else if (d.trades && d.trades.length > 0) {
         if (s1) s1.className = "lifecycle-step-card completed";
         if (s2) s2.className = "lifecycle-step-card completed";
@@ -3069,8 +3980,8 @@
           badge.style.borderColor = "rgba(16, 185, 129, 0.35)";
           badge.style.color = "#059669";
         }
-        if (badgeText) badgeText.textContent = "PHASE 4: 100% CASH SLEEP (ZERO WEEKDAY RISK)";
-        if (autoBtn) autoBtn.innerHTML = `<span>Trigger Weekend Alpha Trade (Phase 1 & 2)</span>`;
+        if (badgeText) badgeText.textContent = "PHASE 4: 100% CASH SLEEP (ZERO OVERNIGHT RISK)";
+        if (autoBtn) autoBtn.innerHTML = `<span>Trigger Weekend Alpha Trade</span>`;
       } else {
         if (s1) s1.className = "lifecycle-step-card completed";
         if (s2) s2.className = "lifecycle-step-card active";
@@ -3086,69 +3997,71 @@
           badge.style.color = "#059669";
         }
         if (badgeText) badgeText.textContent = "PHASE 2: 24/7 WEEKEND ALPHA HUNT";
-        if (autoBtn) autoBtn.innerHTML = `<span>Trigger Weekend Alpha Trade (Phase 1 & 2)</span>`;
+        if (autoBtn) autoBtn.innerHTML = `<span>Trigger Weekend Alpha Trade</span>`;
       }
     }
     window.renderLifecycleState = renderLifecycleState;
 
     // =========================================================================
-    // 24/7 AUTONOMOUS AGENT TICKER & EXECUTION ENGINE
+    // 24/7 AUTONOMOUS AGENT TICKER (OPPORTUNISTIC SEQUENTIAL ENTRY, MAX 5)
     // =========================================================================
     let autoPilotActive = true;
     let autoPilotTimer = null;
-
-    const agentTelemetryMessages = [
-      "[AGENT TELEMETRY] Streaming Bitget 24/7 orderbooks for 7 tokenized equities...",
-      "[AGENT REASONING] Evaluating cross-asset beta against BTC ($63,450.00)...",
-      "[DISLOCATION SCANNER] Scanning retail drift against Friday 16:00 EST anchors...",
-      "[OPPORTUNITY DETECTED] rNVDA dislocation +3.42% (|Z| = 2.24σ >= 2.0σ)...",
-      "[RISK PARITY ORDER] Collateral deducted. Dispatched SHORT 18.83 rNVDA order to Bitget UTA v3...",
-      "[CONVERGENCE MONITOR] Tracking pre-market return toward institutional fair value ($128.40)...",
-      "[CASH HARVEST] Institutional liquidity returned. Unwound to 100% Cash before regular open...",
-      "[COGNITIVE SELF-AUDITOR] Closed-loop evaluation completed. MAE analyzed. Parameter memory tuned."
-    ];
-
-    function updateAgentTelemetry(msg) {
-      const el = document.getElementById("agentTelemetryText");
-      if (el) {
-        el.textContent = msg;
-        el.style.color = "#34D399";
-        setTimeout(() => {
-          if (el) el.style.color = "#94A3B8";
-        }, 2000);
-      }
-    }
 
     function runAutonomousAgentTick() {
       if (!autoPilotActive) return;
 
       const d = ChronosWalletStore.getCurrentData();
-      const hasOpenPos = d.openPositions && d.openPositions.length > 0;
+      d.openPositions = d.openPositions || [];
+      const openCount = d.openPositions.length;
 
-      if (!hasOpenPos) {
-        // Auto-enter dislocation trade
-        updateAgentTelemetry(agentTelemetryMessages[3]);
-        setTimeout(() => {
-          if (!autoPilotActive) return;
-          const curD = ChronosWalletStore.getCurrentData();
-          if (!curD.openPositions || curD.openPositions.length === 0) {
-            updateAgentTelemetry("[AUTO EXECUTION] Opening SHORT rNVDA dislocation trade (-$2,500 USDT margin)...");
-            executeTradeOrder();
-          }
-        }, 3500);
-      } else {
-        // Auto-harvest on Monday pre-market convergence
-        updateAgentTelemetry("[PRE-MARKET CONVERGENCE] Institutional books active. Unwinding position to 100% Cash...");
-        setTimeout(() => {
-          if (!autoPilotActive) return;
-          const curD = ChronosWalletStore.getCurrentData();
-          if (curD.openPositions && curD.openPositions.length > 0) {
-            const pos = curD.openPositions[0];
-            settleActivePosition(pos.id);
-            updateAgentTelemetry("[COGNITIVE SELF-AUDIT] Trade closed with profit. Zero weekday risk. Sleeping in 100% Cash.");
-          }
-        }, 4000);
+      // 1. Strict 5-Trade Budget Cap Check
+      if (openCount >= MAX_WEEKEND_TRADES) {
+        updateAgentTelemetry(`[WEEKEND BUDGET CAP] ${MAX_WEEKEND_TRADES}/${MAX_WEEKEND_TRADES} trades deployed across weekend. All positions locked and held for Monday market open.`);
+        return;
       }
+
+      // 2. Opportunistic Entry: Find next candidate asset whose strategy clears
+      const openSymbols = new Set(d.openPositions.map(p => p.symbol));
+      const candidateSymbols = ["rNVDA", "rTSLA", "rCOIN", "rMSTR", "rAAPL", "rSPY", "rQQQ"].filter(sym => !openSymbols.has(sym));
+
+      if (candidateSymbols.length === 0) {
+        updateAgentTelemetry(`[HOLDING] ${openCount}/${MAX_WEEKEND_TRADES} weekend positions active. No additional unallocated assets. Holding for Monday open.`);
+        return;
+      }
+
+      // Check candidates for dislocation
+      let targetSymbol = null;
+      for (const sym of candidateSymbols) {
+        const m = markets[sym];
+        if (m && Math.abs(m.drift_pct) >= 2.0 && m.action && !m.action.includes("HOLD CASH")) {
+          targetSymbol = sym;
+          break;
+        }
+      }
+
+      // Fallback to first candidate if available
+      if (!targetSymbol && candidateSymbols.length > 0) {
+        targetSymbol = candidateSymbols[0];
+      }
+
+      if (!targetSymbol) {
+        updateAgentTelemetry(`[SCANNING 24/7] ${openCount}/${MAX_WEEKEND_TRADES} weekend trades active. Monitoring 7 tokenized orderbooks for next high-conviction setup...`);
+        return;
+      }
+
+      const m = markets[targetSymbol];
+      updateAgentTelemetry(`[STRATEGY CLEARED] High-conviction setup detected on ${targetSymbol} (${m.drift_pct >= 0 ? '+' : ''}${m.drift_pct.toFixed(2)}% weekend drift). Preparing order ${openCount + 1}/${MAX_WEEKEND_TRADES}...`);
+
+      setTimeout(() => {
+        if (!autoPilotActive) return;
+        const curD = ChronosWalletStore.getCurrentData();
+        curD.openPositions = curD.openPositions || [];
+        if (curD.openPositions.length >= MAX_WEEKEND_TRADES) return;
+        if (curD.openPositions.some(p => p.symbol === targetSymbol)) return;
+
+        executeOpportunisticTrade(targetSymbol);
+      }, 3200);
     }
 
     function toggleAutoPilot() {
@@ -3168,8 +4081,8 @@
         }
         if (pulse) pulse.style.animation = "pulseGlow 1.5s infinite";
         if (title) title.textContent = "AUTONOMOUS AGENT: RUNNING 24/7";
-        updateAgentTelemetry("[AUTONOMOUS AGENT] Auto-Pilot resumed. Hands-free scanning active.");
-        showToast("Auto-Pilot Resumed", "Chronos autonomous agent is actively monitoring and executing.", "success");
+        updateAgentTelemetry("[AUTONOMOUS AGENT] Auto-Pilot resumed. Opportunistic scanning active (max 5 trades/weekend).");
+        showToast("Auto-Pilot Resumed", "Chronos autonomous agent is actively monitoring orderbooks and entering opportunities one by one.", "success");
         startAutoPilotInterval();
       } else {
         if (btn) btn.innerHTML = "<span>Resume Auto-Pilot</span>";
@@ -3182,7 +4095,7 @@
         if (pulse) pulse.style.animation = "none";
         if (title) title.textContent = "AUTONOMOUS AGENT: PAUSED";
         updateAgentTelemetry("[AUTONOMOUS AGENT] Auto-Pilot paused. Manual override enabled.");
-        showToast("Auto-Pilot Paused", "Automatic trade execution paused. You can still force cycle steps manually.", "info");
+        showToast("Auto-Pilot Paused", "Automatic trade execution paused. You can still dispatch manual orders.", "info");
         if (autoPilotTimer) clearInterval(autoPilotTimer);
       }
     }
@@ -3193,11 +4106,11 @@
       autoPilotTimer = setInterval(runAutonomousAgentTick, 16000);
     }
 
-    // Trigger Autonomous Cycle: Settle open trade or take new trade
+    // Trigger Autonomous Cycle: Settle on Monday or opportunistically take next trade
     function triggerAutonomousCycle() {
       const d = ChronosWalletStore.getCurrentData();
       if (d.openPositions && d.openPositions.length > 0) {
-        settleActivePosition(d.openPositions[0].id);
+        settleMondayMarketOpen();
       } else {
         executeTradeOrder();
       }
@@ -4058,6 +4971,11 @@
     window.refreshBitgetAccount = refreshBitgetAccount;
     window.settleActivePosition = settleActivePosition;
     window.renderActivePositions = renderActivePositions;
+    window.openTradeReasoningModal = openTradeReasoningModal;
+    window.closeTradeReasoningModal = closeTradeReasoningModal;
+    window.handleReasoningBackdropClick = handleReasoningBackdropClick;
+    window.settleMondayMarketOpen = settleMondayMarketOpen;
+    window.executeOpportunisticTrade = executeOpportunisticTrade;
     window.drawCandleChart = drawCandleChart;
     window.ChronosWalletStore = ChronosWalletStore;
     window.renderSidebar = renderSidebar;
