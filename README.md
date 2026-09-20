@@ -3,14 +3,35 @@
 [![Bitget AI Hackathon S2](https://img.shields.io/badge/Bitget%20AI%20Hackathon%20S2-Submission%20Ready-00F0FF?style=for-the-badge&logo=bitget)](https://bitget-ai.gitbook.io/bitgetai_hackathons2)
 [![Track 2: Agentic Trading](https://img.shields.io/badge/Track%202-Agentic%20Trading-00E599?style=for-the-badge)](docs/HACKATHON_SUBMISSION_GUIDE.md#submission-1-track-2--agentic-trading)
 [![Track 1: Alpha Factory](https://img.shields.io/badge/Track%201-Alpha%20Factory-3B82F6?style=for-the-badge)](docs/HACKATHON_SUBMISSION_GUIDE.md#submission-2-track-1--alpha-factory)
-[![Paper Trading Logs](https://img.shields.io/badge/Paper%20Trading-151%20Audited%20Trades-FF9900?style=for-the-badge&logo=csv)](data/paper_trading_logs.csv)
+[![Live on Vercel](https://img.shields.io/badge/Vercel-Live%20Terminal-000000?style=for-the-badge&logo=vercel)](https://chronos-hours.vercel.app/terminal)
+[![Live on Railway](https://img.shields.io/badge/Railway-Live%20Backend-0B0D0E?style=for-the-badge&logo=railway)](https://chronos-production-a1e4.up.railway.app/terminal)
+
+<p align="center">
+  <a href="https://chronos-hours.vercel.app/terminal" target="_blank">
+    <img src="assets/hero_banner.jpg" alt="Chronos: Autonomous After-Hours Information Pricing & Convergence Engine" width="100%">
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://chronos-hours.vercel.app/terminal"><b>🚀 Launch Live Trading Terminal (Vercel Edge)</b></a> &nbsp;|&nbsp;
+  <a href="https://chronos-production-a1e4.up.railway.app/terminal"><b>⚡ Live Full-Stack App & API Gateway (Railway)</b></a> &nbsp;|&nbsp;
+  <a href="https://chronos-hours.vercel.app/"><b>📊 Presentation Showcase</b></a>
+</p>
 
 > **"When tokenized US stocks make 7×24 the new normal, humans sleep — Agents don't."**  
 > *Chronos is an autonomous agent and quant alpha engine designed for the Bitget AI Base Camp Hackathon S2. It captures 24/7 weekend price dislocations across tokenized U.S. equities (rTokens on Bitget) and executes risk-managed mean-reversion positions before Monday morning cash market open.*
 
-### 🏆 Hackathon Quick Links & Verified Run Records
+### 🚀 Live Deployments & Public URLs
+* 🌐 **Live Web3 Trading Terminal (Vercel Global Edge):** [https://chronos-hours.vercel.app/terminal](https://chronos-hours.vercel.app/terminal)
+* ⚡ **Live Full-Stack & API Gateway (Railway):** [https://chronos-production-a1e4.up.railway.app/terminal](https://chronos-production-a1e4.up.railway.app/terminal)
+* 📊 **Master Presentation Showcase:** [https://chronos-hours.vercel.app/](https://chronos-hours.vercel.app/)
+* 🔌 **Real-Time Bitget Futures Stream (JSON):** [https://chronos-production-a1e4.up.railway.app/api/market-prices](https://chronos-production-a1e4.up.railway.app/api/market-prices)
+* 🧠 **Alibaba Cloud Qwen (`qwen3.8-max`) Reasoning API:** [https://chronos-production-a1e4.up.railway.app/api/qwen/thesis?symbol=rNVDA](https://chronos-production-a1e4.up.railway.app/api/qwen/thesis?symbol=rNVDA)
+
+### 🏆 Hackathon Submission Dossier & Verified Run Records
 * 📋 **Official Submission Dossier (Q1–Q20 Copy-Ready):** [`docs/HACKATHON_SUBMISSION_GUIDE.md`](docs/HACKATHON_SUBMISSION_GUIDE.md)
-* 📊 **Empirical Paper Trading Report:** [`docs/PAPER_TRADING_REPORT.md`](docs/PAPER_TRADING_REPORT.md)
+* 📖 **Executive Product & Architectural Specification:** [`docs/CHRONOS_EXECUTIVE_DOCUMENTATION.md`](docs/CHRONOS_EXECUTIVE_DOCUMENTATION.md)
+* 📊 **Empirical Paper Trading Report (151 Trades):** [`docs/PAPER_TRADING_REPORT.md`](docs/PAPER_TRADING_REPORT.md)
 * 💾 **Auditable Run Records (CSV):** [`data/paper_trading_logs.csv`](data/paper_trading_logs.csv)
 * 📁 **Auditable Run Records (JSON):** [`data/paper_trading_logs.json`](data/paper_trading_logs.json)
 * ⚙️ **Real Bitget Candlestick Backtest Data:** [`data/real_backtest_results.json`](data/real_backtest_results.json)
