@@ -450,11 +450,11 @@ img, svg, video, canvas {
 /* Scroll Reveal Pop-in Animation (Blurred before pop-in) */
 .chronos-pop-in {
   opacity: 0;
-  transform: translateY(32px) scale(0.92);
-  filter: blur(14px);
-  transition: opacity 0.72s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.72s cubic-bezier(0.16, 1, 0.3, 1),
-              filter 0.72s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(24px) scale(0.96);
+  filter: blur(8px);
+  transition: opacity 0.82s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.82s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.82s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform, filter;
 }
 
@@ -987,6 +987,95 @@ img, svg, video, canvas {
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
       border-color: rgba(0, 0, 0, 0.12);
+    }
+
+    /* 3-Card Fanned Amphitheater Stage (Wireframe Diagram Layout) */
+    .thesis-fanned-stage {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      max-width: 1200px;
+      margin: 3.5rem auto 2.5rem;
+      padding: 1.5rem 1rem 3.5rem;
+    }
+
+    .thesis-fanned-card {
+      background-color: var(--color-white);
+      border: 1px solid var(--color-border-hairline);
+      border-radius: 8px;
+      padding: 1.85rem 1.75rem;
+      flex: 1;
+      max-width: 375px;
+      min-height: 230px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05), 0 2px 6px rgba(0, 0, 0, 0.03);
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s ease, border-color 0.3s ease;
+      position: relative;
+    }
+
+    /* Left card: angled counter-clockwise, pointing inward */
+    .thesis-card-left {
+      transform: rotate(-12deg) translateY(24px) translateX(20px);
+      z-index: 2;
+      transform-origin: bottom right;
+    }
+
+    .thesis-card-left.chronos-revealed {
+      transform: rotate(-12deg) translateY(24px) translateX(20px) !important;
+    }
+
+    /* Center card: straight, elevated, foreground */
+    .thesis-card-center {
+      transform: rotate(0deg) translateY(-14px);
+      z-index: 5;
+      box-shadow: 0 22px 50px -10px rgba(0, 0, 0, 0.15), 0 6px 18px rgba(0, 0, 0, 0.06);
+      border-color: rgba(0, 0, 0, 0.14);
+    }
+
+    .thesis-card-center.chronos-revealed {
+      transform: rotate(0deg) translateY(-14px) !important;
+    }
+
+    /* Right card: angled clockwise, pointing inward */
+    .thesis-card-right {
+      transform: rotate(12deg) translateY(24px) translateX(-20px);
+      z-index: 2;
+      transform-origin: bottom left;
+    }
+
+    .thesis-card-right.chronos-revealed {
+      transform: rotate(12deg) translateY(24px) translateX(-20px) !important;
+    }
+
+    /* Interactive hover lift: smoothly levels out and lifts up on hover */
+    .thesis-fanned-card:hover {
+      transform: translateY(-20px) rotate(0deg) scale(1.04) !important;
+      z-index: 10 !important;
+      box-shadow: 0 26px 58px -10px rgba(0, 0, 0, 0.2), 0 10px 24px rgba(0, 0, 0, 0.08) !important;
+      border-color: rgba(0, 0, 0, 0.2) !important;
+    }
+
+    /* Mobile / Tablet Responsive Fallback */
+    @media (max-width: 960px) {
+      .thesis-fanned-stage {
+        flex-direction: column;
+        gap: 1.25rem;
+        margin: 1.5rem auto;
+        padding: 1rem 0;
+      }
+      .thesis-fanned-card {
+        width: 100%;
+        max-width: 520px;
+        min-height: auto;
+        transform: none !important;
+      }
+      .thesis-card-left.chronos-revealed,
+      .thesis-card-center.chronos-revealed,
+      .thesis-card-right.chronos-revealed {
+        transform: none !important;
+      }
     }
 
     .card-dark {
@@ -1537,27 +1626,30 @@ img, svg, video, canvas {
         Traditional equity exchanges close for 65 consecutive hours every weekend. Tokenized U.S. equities trade continuously without institutional market-makers, creating systematic, harvestable mean-reversion alpha.
       </p>
 
-      <div class="landing-grid-3col" style="margin-top: 1.5rem;">
-        <div class="card-paper">
+      <div class="thesis-fanned-stage">
+        <!-- Card 1: Left Angled -->
+        <div class="thesis-fanned-card thesis-card-left card-paper" data-stagger-index="0">
           <div class="step-index">01 /</div>
-          <h3 style="font-family: var(--font-serif-editorial); font-size: 1.15rem; margin-bottom: 0.35rem;">The Shuttered Exchange</h3>
-          <p style="font-size: 0.9rem; color: var(--color-grey-text); line-height: 1.6;">
+          <h3 style="font-family: var(--font-serif-editorial); font-size: 1.18rem; margin-bottom: 0.45rem; color: var(--color-black);">The Shuttered Exchange</h3>
+          <p style="font-size: 0.9rem; color: var(--color-grey-text); line-height: 1.6; margin: 0;">
             NYSE and NASDAQ cease trading at Friday 16:00 EST. Traditional price discovery vanishes, leaving tokenized synthetic stocks subject purely to retail crypto order flow without institutional ballast.
           </p>
         </div>
 
-        <div class="card-paper">
+        <!-- Card 2: Center Elevated -->
+        <div class="thesis-fanned-card thesis-card-center card-paper" data-stagger-index="1">
           <div class="step-index">02 /</div>
-          <h3 style="font-family: var(--font-serif-editorial); font-size: 1.15rem; margin-bottom: 0.35rem;">Retail Drift & Noise</h3>
-          <p style="font-size: 0.9rem; color: var(--color-grey-text); line-height: 1.6;">
+          <h3 style="font-family: var(--font-serif-editorial); font-size: 1.18rem; margin-bottom: 0.45rem; color: var(--color-black);">Retail Drift & Noise</h3>
+          <p style="font-size: 0.9rem; color: var(--color-grey-text); line-height: 1.6; margin: 0;">
             Retail market participants over-extrapolate weekend news headlines over thin liquidity orderbooks, driving synthetic token prices to extreme statistical dislocations (|Z| ≥ 2.0σ).
           </p>
         </div>
 
-        <div class="card-paper">
+        <!-- Card 3: Right Angled -->
+        <div class="thesis-fanned-card thesis-card-right card-paper" data-stagger-index="2">
           <div class="step-index">03 /</div>
-          <h3 style="font-family: var(--font-serif-editorial); font-size: 1.15rem; margin-bottom: 0.35rem;">Institutional Convergence</h3>
-          <p style="font-size: 0.9rem; color: var(--color-grey-text); line-height: 1.6;">
+          <h3 style="font-family: var(--font-serif-editorial); font-size: 1.18rem; margin-bottom: 0.45rem; color: var(--color-black);">Institutional Convergence</h3>
+          <p style="font-size: 0.9rem; color: var(--color-grey-text); line-height: 1.6; margin: 0;">
             Monday 08:00–09:30 EST, institutional pre-market cash returns. Dislocated synthetic prices violently collapse back to fundamental values, monetizing the spread into 100% USDT cash.
           </p>
         </div>
@@ -2327,6 +2419,8 @@ img, svg, video, canvas {
         ".section-desc",
         ".card-paper",
         ".card-dark",
+        ".thesis-fanned-card",
+        ".kpi-card",
         ".stat-box-interactive",
         ".landing-grid-3col > div",
         ".landing-grid-4col > div",
@@ -2355,14 +2449,14 @@ img, svg, video, canvas {
               const target = entry.target;
               let delay = 0;
               if (target.dataset && target.dataset.staggerIndex !== undefined) {
-                delay = parseInt(target.dataset.staggerIndex, 10) * 140;
+                delay = parseInt(target.dataset.staggerIndex, 10) * 130;
               } else {
-                const parent = target.parentElement;
-                if (parent) {
-                  const siblings = Array.from(parent.children).filter(c => c.classList.contains("chronos-pop-in"));
+                const groupContainer = target.closest(".landing-grid-3col, .landing-grid-4col, .landing-grid-2col, .landing-arch-grid, .thesis-fanned-stage, .kpi-cross-stage, .container, section") || target.parentElement;
+                if (groupContainer) {
+                  const siblings = Array.from(groupContainer.querySelectorAll(".chronos-pop-in"));
                   const idx = siblings.indexOf(target);
                   if (idx > 0) {
-                    delay = Math.min(idx * 75, 450);
+                    delay = Math.min(idx * 110, 550);
                   }
                 }
               }
