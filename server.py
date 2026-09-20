@@ -173,6 +173,18 @@ def serve_help():
     return send_from_directory("dashboard", "help.html")
 
 
+@app.route("/assets/<path:filename>")
+def serve_assets(filename):
+    """Serve static assets."""
+    return send_from_directory(os.path.join("dashboard", "assets"), filename)
+
+
+@app.route("/dashboard/assets/<path:filename>")
+def serve_dashboard_assets(filename):
+    """Serve static dashboard assets."""
+    return send_from_directory(os.path.join("dashboard", "assets"), filename)
+
+
 def is_within_weekend_window(test_dt=None) -> tuple[bool, str]:
     """
     Checks if current time in New York (EST/EDT) is within the weekend trading window:

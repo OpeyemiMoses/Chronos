@@ -258,23 +258,47 @@ markets_json = json.dumps(markets_data)
 candles_json = json.dumps(candles_data)
 trades_json = json.dumps(real_trades)
 audit_json = json.dumps(audit_memory.get("recent_post_mortems", []))
+# Load and base64-encode token SVG icons for 100% self-contained rendering
+tokens_dir = os.path.join(os.path.dirname(__file__), "assets", "tokens")
+token_b64_map = {}
+if os.path.exists(tokens_dir):
+    import base64
+    for fn in os.listdir(tokens_dir):
+        if fn.endswith(".svg"):
+            k = fn.replace(".svg", "").lower()
+            with open(os.path.join(tokens_dir, fn), "rb") as svg_f:
+                b64 = base64.b64encode(svg_f.read()).decode("utf-8")
+                token_b64_map[k] = f"data:image/svg+xml;base64,{b64}"
+
+token_logos_dict = {
+    "rNVDA": token_b64_map.get("nvda", "assets/tokens/nvda.svg"),
+    "rTSLA": token_b64_map.get("tsla", "assets/tokens/tsla.svg"),
+    "rAAPL": token_b64_map.get("aapl", "assets/tokens/aapl.svg"),
+    "rCOIN": token_b64_map.get("coin", "assets/tokens/coin.svg"),
+    "rMSTR": token_b64_map.get("mstr", "assets/tokens/mstr.svg"),
+    "rSPY": token_b64_map.get("spy", "assets/tokens/spy.svg"),
+    "rQQQ": token_b64_map.get("qqq", "assets/tokens/qqq.svg"),
+    "BTC": token_b64_map.get("btc", "assets/tokens/btc.svg"),
+}
+token_logos_json = json.dumps(token_logos_dict)
 
 selector_cards_list = []
 for sym, m in markets_data.items():
     active_cls = " active" if sym == "rNVDA" else ""
-    tok_img = sym.lower().replace("r", "")
+    tok_img = sym[1:].lower() if sym.startswith(("r", "R")) else sym.lower()
     drift_val = m["drift_pct"]
     drift_cls = "green" if drift_val > 0 else ("gold" if drift_val < 0 else "neutral")
     drift_sign = "+" if drift_val > 0 else ""
     z_val = m["z_score"]
     z_sign = "+" if z_val > 0 else ""
     comp_short = m["company"].split()[0]
+    tok_b64 = token_b64_map.get(tok_img, f"assets/tokens/{tok_img}.svg")
     selector_cards_list.append(f"""
             <!-- Asset: {sym} -->
             <div class="arena-asset-card{active_cls}" data-symbol="{sym}" onclick="selectMarket('{sym}')" id="selectorCard_{sym}">
               <div class="asset-card-top">
                 <div class="asset-card-token">
-                  <img src="assets/tokens/{tok_img}.svg" alt="{sym}">
+                  <img src="{tok_b64}" alt="{sym}" onerror="this.onerror=null; this.src='assets/tokens/{tok_img}.svg';">
                   <span class="asset-card-symbol">{sym}</span>
                 </div>
                 <span class="asset-card-drift {drift_cls}" id="selectorDrift_{sym}">{drift_sign}{drift_val:.2f}%</span>
@@ -5836,16 +5860,7 @@ html_template = f"""<!DOCTYPE html>
     window.renderStressTestPanel = renderStressTestPanel;
 
 
-    const TOKEN_LOGOS = {{
-      "rNVDA": "assets/tokens/nvda.svg",
-      "rTSLA": "assets/tokens/tsla.svg",
-      "rAAPL": "assets/tokens/aapl.svg",
-      "rCOIN": "assets/tokens/coin.svg",
-      "rMSTR": "assets/tokens/mstr.svg",
-      "rSPY": "assets/tokens/spy.svg",
-      "rQQQ": "assets/tokens/qqq.svg",
-      "BTC": "assets/tokens/btc.svg"
-    }};
+    const TOKEN_LOGOS = {token_logos_json};
 
     function getTokenLogoHtml(symbol, size = 20) {{
       const src = TOKEN_LOGOS[symbol] || "assets/tokens/nvda.svg";
