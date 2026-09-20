@@ -154,16 +154,41 @@ if (winTrade.pnl_usd <= 0 || winTrade.return_pct <= 0) {
 console.log('Confirmed: Early close after favorable drop settled with legitimate profit!');
 
 console.log('--- TEST 5: Monday Market Settlement Distribution (Wins AND Losses) ---');
-// Deploy multiple trades and settle on Monday open
+// Simulate the Ornstein-Uhlenbeck weekend ticker by explicitly setting spot_price
+// to both favorable (price dropped → SHORT profit) and adverse (price rose → SHORT loss) levels.
+// This proves settlement is based on actual live price at settlement time, NOT random wins.
 let totalSettledWins = 0;
 let totalSettledLosses = 0;
 
+const ENTRY_PRICE = 132.80;
+// Alternate between adverse and favorable spot prices across 15 cycles
+const mondaySpotPrices = [
+  134.50, // adverse (SHORT loss: price rose from 132.80)
+  130.20, // favorable (SHORT win: price fell toward anchor)
+  135.10, // adverse
+  129.80, // favorable
+  133.90, // adverse
+  128.50, // favorable (near anchor)
+  134.20, // adverse
+  131.00, // favorable
+  136.00, // adverse
+  130.60, // favorable
+  133.10, // adverse
+  129.40, // favorable
+  134.80, // adverse
+  131.50, // favorable
+  133.40  // adverse
+];
+
 for (let cycle = 0; cycle < 15; cycle++) {
+  // Set the market spot_price to simulate where price is on Monday morning
+  markets['rNVDA'].spot_price = mondaySpotPrices[cycle];
+
   d.openPositions = [{
     id: `POS-CYCLE-${cycle}`,
     symbol: 'rNVDA',
     side: 'SHORT',
-    entry_price: 132.80,
+    entry_price: ENTRY_PRICE,
     target_price: 128.40,
     collateral: 2500,
     contracts: '18.82',
@@ -174,6 +199,15 @@ for (let cycle = 0; cycle < 15; cycle++) {
   settleMondayMarketOpen();
   d = ChronosWalletStore.getCurrentData();
   const latestTrade = d.trades[0];
+  const expectedWin = mondaySpotPrices[cycle] < ENTRY_PRICE; // SHORT profits when price drops
+  const actualWin = latestTrade.pnl_usd > 0;
+
+  // Verify each trade settled correctly based on the spot price
+  if (actualWin !== expectedWin) {
+    console.error(`FAIL: Cycle ${cycle}: spot=$${mondaySpotPrices[cycle]}, entry=$${ENTRY_PRICE}, expected ${expectedWin ? 'WIN' : 'LOSS'} but got ${actualWin ? 'WIN' : 'LOSS'}. PnL: $${latestTrade.pnl_usd}`);
+    process.exit(1);
+  }
+
   if (latestTrade.pnl_usd > 0) totalSettledWins++;
   else totalSettledLosses++;
 }
@@ -183,7 +217,7 @@ if (totalSettledWins === 0 || totalSettledLosses === 0) {
   console.error('FAIL: Settlement must include BOTH wins and losses, not 100% wins or 100% losses!');
   process.exit(1);
 }
-console.log('Confirmed: Realistic quant win/loss distribution verified on Monday settlement!');
+console.log('Confirmed: Monday settlement realistically uses actual live spot_price — wins and losses determined by real market position!');
 
 console.log('=== ALL REALISTIC PRICING & LOSS TESTS PASSED PERFECTLY ===');
 process.exit(0);

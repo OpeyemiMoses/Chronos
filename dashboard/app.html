@@ -453,11 +453,11 @@ img, svg, video, canvas {
 /* Scroll Reveal Pop-in Animation (Blurred before pop-in) */
 .chronos-pop-in {
   opacity: 0;
-  transform: translateY(32px) scale(0.92);
-  filter: blur(14px);
-  transition: opacity 0.72s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.72s cubic-bezier(0.16, 1, 0.3, 1),
-              filter 0.72s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(24px) scale(0.96);
+  filter: blur(8px);
+  transition: opacity 0.82s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.82s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.82s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform, filter;
 }
 
@@ -7573,14 +7573,16 @@ div[data-rk] [aria-label*="Switch"] {
         const m = markets[pos.symbol] || markets["rNVDA"];
         const meta = pos.strategyMetadata || getTradePlainEnglishMetadata(pos);
         const isShort = pos.side === "SHORT" || pos.side === "SELL_SHORT";
-        
-        // Realistic Quant Mean-Reversion Benchmark:
-        // Historically ~76.9% converge back to anchor (profitable wins)
-        // ~23.1% suffer adverse pre-market momentum continuation or gaps (audited losses)
-        const isWin = Math.random() < 0.769;
 
-        let exitPrice = 0;
-        let rawReturnPct = 0;
+        // ── REALISTIC SETTLEMENT: Based on actual live spot_price vs entry ──
+        // The price ticker (Ornstein-Uhlenbeck) has been running all weekend,
+        // pulling spot_price toward or away from anchor. We settle at exactly
+        // that live price — no synthetic random win/loss override.
+        const exitPrice = parseFloat((typeof m.spot_price === "number" ? m.spot_price : pos.entry_price).toFixed(2));
+        const rawPriceDiff = isShort ? (pos.entry_price - exitPrice) : (exitPrice - pos.entry_price);
+        const rawReturnPct = (rawPriceDiff / (pos.entry_price || 1)) * 100;
+        const isWin = rawReturnPct > 0;
+
         let settlementActionNote = "";
         let auditVerdict = "";
         let rootCause = "";
@@ -7588,34 +7590,17 @@ div[data-rk] [aria-label*="Switch"] {
 
         if (isWin) {
           totalWins++;
-          // Converges 80% to 105% towards Friday Anchor
-          const reversionPct = 0.80 + Math.random() * 0.25;
-          if (isShort) {
-            exitPrice = parseFloat((pos.entry_price - (pos.entry_price - m.anchor_price) * reversionPct).toFixed(2));
-            rawReturnPct = ((pos.entry_price - exitPrice) / pos.entry_price) * 100;
-          } else {
-            exitPrice = parseFloat((pos.entry_price + (m.anchor_price - pos.entry_price) * reversionPct).toFixed(2));
-            rawReturnPct = ((exitPrice - pos.entry_price) / pos.entry_price) * 100;
-          }
-          settlementActionNote = `Monday 08:30 EST institutional auction confirmed anchor convergence @ $${exitPrice.toFixed(2)}.`;
+          const convergencePct = Math.abs(((exitPrice - m.anchor_price) / (pos.entry_price - m.anchor_price || 1)) * 100).toFixed(1);
+          settlementActionNote = `Monday 08:30 EST institutional auction settled @ $${exitPrice.toFixed(2)} (Entry $${pos.entry_price.toFixed(2)}, Anchor $${m.anchor_price.toFixed(2)}). Mean-reversion captured.`;
           auditVerdict = "PROFITABLE_RESILIENCE_AUDIT";
-          rootCause = `Monday institutional open returned orderbook to fundamental anchor ($${m.anchor_price.toFixed(2)}). Mean-reversion captured.`;
+          rootCause = `Monday open returned price toward fundamental anchor ($${m.anchor_price.toFixed(2)}). Spot at settlement: $${exitPrice.toFixed(2)}.`;
           adaptation = `Strategy parameters verified for ${pos.symbol}. Preserved 100% cash allocation until next Friday 16:00 EST.`;
         } else {
           totalLosses++;
-          // Adverse momentum drift (-1.2% to -2.8%)
-          const adverseDriftPct = 0.012 + Math.random() * 0.018;
-          if (isShort) {
-            exitPrice = parseFloat((pos.entry_price * (1 + adverseDriftPct)).toFixed(2));
-            rawReturnPct = ((pos.entry_price - exitPrice) / pos.entry_price) * 100;
-          } else {
-            exitPrice = parseFloat((pos.entry_price * (1 - adverseDriftPct)).toFixed(2));
-            rawReturnPct = ((exitPrice - pos.entry_price) / pos.entry_price) * 100;
-          }
-          settlementActionNote = `Monday open pre-market momentum continuation overran anchor. Stopped out @ $${exitPrice.toFixed(2)}.`;
+          settlementActionNote = `Monday open momentum continuation. Settled @ $${exitPrice.toFixed(2)} (Entry $${pos.entry_price.toFixed(2)}). Anchor divergence caused loss.`;
           auditVerdict = "AUDITED_LOSS_MOMENTUM_OVERRUN";
-          rootCause = `Adverse pre-market order flow expanded price dislocation to $${exitPrice.toFixed(2)}. Anchor convergence failed.`;
-          adaptation = `Cognitive Auditor auto-calibrated entry threshold to require wider statistical cushion (+0.25σ) for ${pos.symbol}.`;
+          rootCause = `Price moved adversely to $${exitPrice.toFixed(2)} vs entry $${pos.entry_price.toFixed(2)}. Anchor convergence failed.`;
+          adaptation = `Cognitive Auditor adapted entry threshold (+0.25σ) for ${pos.symbol} to reduce adverse momentum exposure.`;
         }
 
         // Deduct 0.05% institutional clearing / settlement fee
@@ -8286,8 +8271,14 @@ div[data-rk] [aria-label*="Switch"] {
       Object.keys(markets).forEach(sym => {
         const m = markets[sym];
         if (!m || !m.spot_price) return;
-        // Jitter step between -0.22% and +0.22%
-        const deltaPct = (Math.random() - 0.498) * 0.003;
+        // Ornstein-Uhlenbeck mean-reversion: price pulled toward anchor with noise
+        // This produces realistic weekend drift: price drifts but tends to revert
+        const meanReversionStrength = 0.04;  // How hard price pulls back toward anchor
+        const baseVol = 0.0045;              // ±0.45% base volatility per tick (10x larger = visible swings)
+        const gap = (m.spot_price - m.anchor_price) / (m.anchor_price || 1);
+        const reversionForce = -meanReversionStrength * gap; // Pulls back toward anchor
+        const randomNoise = (Math.random() - 0.5) * 2 * baseVol;
+        const deltaPct = reversionForce + randomNoise;
         const newPrice = Math.max(1, m.spot_price * (1 + deltaPct));
         m.spot_price = parseFloat(newPrice.toFixed(2));
         if (m.anchor_price) {
