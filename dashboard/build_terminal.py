@@ -4337,11 +4337,28 @@ html_template = f"""<!DOCTYPE html>
       ? (window.location.port === "8899" ? "" : "http://localhost:8899")
       : "http://localhost:8899";
 
-    async function callBackendAPI(endpoint, method = "GET", bodyData = null) {{
+    function getActiveGatewayHeaders() {{
+      const headers = {{ "Content-Type": "application/json" }};
+      try {{
+        if (typeof ChronosWalletStore !== "undefined" && ChronosWalletStore.getCurrentData) {{
+          const d = ChronosWalletStore.getCurrentData();
+          if (d && d.gateway && d.gateway.mode === "live" && d.gateway.apiKey && d.gateway.apiSecret && d.gateway.passphrase) {{
+            headers["X-Bitget-Api-Key"] = d.gateway.apiKey.trim();
+            headers["X-Bitget-Api-Secret"] = d.gateway.apiSecret.trim();
+            headers["X-Bitget-Passphrase"] = d.gateway.passphrase.trim();
+            headers["X-Trading-Mode"] = "LIVE";
+          }}
+        }}
+      }} catch (e) {{}}
+      return headers;
+    }}
+
+    async function callBackendAPI(endpoint, method = "GET", bodyData = null, customHeaders = null) {{
       const url = `${{API_BASE}}${{endpoint}}`;
+      const defaultHeaders = getActiveGatewayHeaders();
       const opts = {{
         method: method,
-        headers: {{ "Content-Type": "application/json" }}
+        headers: Object.assign({{}}, defaultHeaders, customHeaders || {{}})
       }};
       if (bodyData && method !== "GET") {{
         opts.body = JSON.stringify(bodyData);
@@ -4368,6 +4385,15 @@ html_template = f"""<!DOCTYPE html>
               ChronosWalletStore.setCurrentData(d);
               if (typeof renderOverviewDynamic === "function") {{
                 renderOverviewDynamic(d);
+              }}
+              const balDisplay = document.getElementById("settingsPaperBalanceDisplay");
+              if (balDisplay) {{
+                balDisplay.textContent = `$${{res.data.balance_usdt.toLocaleString('en-US', {{minimumFractionDigits: 2, maximumFractionDigits: 2}})}} USDT`;
+                balDisplay.style.color = "var(--color-green)";
+              }}
+              const headerChip = document.getElementById("headerBalanceChipSpan");
+              if (headerChip) {{
+                headerChip.textContent = `$${{res.data.balance_usdt.toLocaleString('en-US', {{minimumFractionDigits: 2, maximumFractionDigits: 2}})}}`;
               }}
             }}
           }}
@@ -7498,45 +7524,92 @@ html_template = f"""<!DOCTYPE html>
       if (liveStatus) liveStatus.style.display = "none";
     }}
 
-    function testBitgetConnection() {{
+    async function testBitgetConnection() {{
       const key = document.getElementById("settingsApiKey").value.trim();
       const secret = document.getElementById("settingsApiSecret").value.trim();
       const pass = document.getElementById("settingsPassphrase").value.trim();
-      if (!key) {{
-        showToast("API Key Required", "Please enter your Bitget API Key to test connection.", "warning");
+      if (!key || !secret || !pass) {{
+        showToast("Credentials Required", "Please enter your Bitget API Key, Secret, and Passphrase to test connection.", "warning");
         return;
       }}
-      const masked = key.length > 10 ? key.slice(0, 6) + "..." + key.slice(-4) : key;
-      showToast(
-        "Bitget Connection Verified",
-        `Bitget UTA v3: HMAC-SHA256 handshake valid. Key: ${{masked}} | Latency: 14ms Direct UTA.`,
-        "success"
-      );
+      const testBtn = document.getElementById("btnTestBitget");
+      const origText = testBtn ? testBtn.textContent : "Test Connection";
+      if (testBtn) {{
+        testBtn.textContent = "Testing Handshake...";
+        testBtn.style.opacity = "0.7";
+      }}
+      try {{
+        const headers = {{
+          "X-Bitget-Api-Key": key,
+          "X-Bitget-Api-Secret": secret,
+          "X-Bitget-Passphrase": pass,
+          "X-Trading-Mode": "LIVE"
+        }};
+        const res = await callBackendAPI("/api/balance", "GET", null, headers);
+        if (res && res.ok && res.data && res.data.status === "ok") {{
+          const bal = typeof res.data.balance_usdt === "number" ? res.data.balance_usdt : 0;
+          showToast(
+            "Bitget Live Verified",
+            `Connected to api.bitget.com (UTA v3). Live Equity Balance: $${{bal.toLocaleString('en-US', {{minimumFractionDigits: 2, maximumFractionDigits: 2}})}} USDT!`,
+            "success"
+          );
+          const balEl = document.getElementById("settingsPaperBalanceDisplay");
+          if (balEl) {{
+            balEl.textContent = `$${{bal.toLocaleString('en-US', {{minimumFractionDigits: 2, maximumFractionDigits: 2}})}} USDT`;
+            balEl.style.color = "var(--color-green)";
+          }}
+          const chipEl = document.getElementById("headerBalanceChipSpan");
+          if (chipEl) {{
+            chipEl.textContent = `$${{bal.toLocaleString('en-US', {{minimumFractionDigits: 2, maximumFractionDigits: 2}})}}`;
+          }}
+        }} else {{
+          const msg = (res && res.data && (res.data.message || res.data.msg)) || (res && res.error) || "Authentication failed. Check your API Key, Secret, and Passphrase.";
+          showToast("Bitget Auth Error", msg, "error");
+        }}
+      }} catch (err) {{
+        showToast("Connection Error", err.message || "Could not reach Bitget bridge server.", "error");
+      }} finally {{
+        if (testBtn) {{
+          testBtn.textContent = origText;
+          testBtn.style.opacity = "1";
+        }}
+      }}
     }}
 
-    function refreshBitgetAccount() {{
-      showToast("Bitget UTA Synced", "Refreshed margin balance and open positions from api.bitget.com (UTA v3).", "info");
+    async function refreshBitgetAccount() {{
+      showToast("Syncing Bitget UTA...", "Querying real-time balance and open positions from api.bitget.com...", "info");
+      const res = await syncBackendBalance();
+      if (res && res.balance_usdt !== undefined) {{
+        showToast("Bitget UTA Synced", `Updated live equity: $${{res.balance_usdt.toLocaleString('en-US', {{minimumFractionDigits: 2, maximumFractionDigits: 2}})}} USDT`, "success");
+      }} else {{
+        showToast("Sync Notice", "Using isolated vault margin. Enter active API keys to fetch live exchange balance.", "warning");
+      }}
     }}
 
-    function saveBitgetSettings() {{
+    async function saveBitgetSettings() {{
       const env = document.getElementById("settingsEnvSelect").value;
       const key = document.getElementById("settingsApiKey").value.trim();
       const secret = document.getElementById("settingsApiSecret").value.trim();
       const pass = document.getElementById("settingsPassphrase").value.trim();
 
-      if (env === "live" && !key) {{
-        showToast("API Key Required", "Please enter your Bitget API key before saving.", "warning");
-        return;
+      if (env === "live") {{
+        if (!key || !secret || !pass) {{
+          showToast("Credentials Required", "Please enter your Bitget API Key, Secret, and Passphrase before activating Live mode.", "warning");
+          return;
+        }}
       }}
 
       const d = ChronosWalletStore.getCurrentData();
       if (!d) return;
-      if (d) {{
-        d.gateway = {{ mode: env, apiKey: key, apiSecret: secret, passphrase: pass }};
-        ChronosWalletStore.setCurrentData(d);
-      }}
+      d.gateway = {{ mode: env, apiKey: key, apiSecret: secret, passphrase: pass }};
+      ChronosWalletStore.setCurrentData(d);
 
-      showToast("Configuration Saved", `Environment: ${{env === 'live' ? 'Live Capital (Bitget UTA v3)' : 'Paper Mode'}}. HMAC-SHA256 headers active.`, "success");
+      if (env === "live") {{
+        showToast("Gateway Saved", "Live Bitget credentials saved to your isolated wallet profile. Syncing live balance...", "success");
+        await syncBackendBalance();
+      }} else {{
+        showToast("Configuration Saved", "Switched to Paper Simulation Vault.", "info");
+      }}
     }}
     window.addEventListener("resize", drawCandleChart);
     window.switchView = switchView;
