@@ -1,40 +1,96 @@
 # Chronos: 24/7 After-Hours Information Pricing & Multi-Asset Alpha Engine
 
-[![Bitget AI Hackathon S2](https://img.shields.io/badge/Bitget_AI_Hackathon-Track_1:_Alpha_Factory-00E5FF)](https://bitget-ai.gitbook.io/bitgetai_hackathons2/)
-[![Sub-Theme](https://img.shields.io/badge/Sub--Theme-After--Hours_Information_Pricing-10B981)](https://bitget-ai.gitbook.io/bitgetai_hackathons2/)
-[![Anti-Overfit Audit](https://img.shields.io/badge/Anti--Overfit_Audit-PASSED_(OOS%2FIS_1.26x)-success)](https://github.com/OpeyemiMoses/Chronos)
-[![Bitget MCP](https://img.shields.io/badge/Bitget_MCP-agent.bitget.com%2Fmcp-7000FF)](https://agent.bitget.com/mcp)
-[![Web3 Terminal](https://img.shields.io/badge/Web3_Terminal-RainbowKit_Isolated-F59E0B)](dashboard/app.html)
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-
 > **"When tokenized US stocks make 7×24 the new normal, humans sleep — Agents don't."**  
 > *Chronos systematically captures weekend retail price dislocations across a complete basket of tokenized U.S. equities (rTokens) and profits as prices converge back to institutional fair value during Monday morning pre-market liquidity.*
 
 ---
 
-## 📌 Executive Summary
+## 🎯 The Problem
 
-Traditional U.S. equity markets (NYSE/NASDAQ) operate Monday through Friday from 9:30 AM to 4:00 PM EST, leaving a **128-hour weekly closure gap** (65 consecutive weekend hours). However, tokenized U.S. equities (**rTokens** backed by custodial shares or perpetual synthetics) trade **24/7/365** on crypto platforms like Bitget.
+Traditional U.S. equity exchanges (NYSE & NASDAQ) operate strictly Monday through Friday from 9:30 AM to 4:00 PM EST. This leaves a **128-hour weekly closure void**—including 65 consecutive weekend hours—where the world's primary stock markets are completely dark.
 
-During weekends, breaking macroeconomic news, geopolitical developments, and social sentiment shocks are priced exclusively on rTokens. Because institutional market makers are offline, retail flow dominates, creating **severe speculative overreactions and pricing dislocations**.
+However, financial events, earnings leaks, geopolitical tensions, and macroeconomic news do not stop on Friday afternoon:
+* **The 24/7 Crypto Reality:** Tokenized U.S. stocks (**rTokens** backed by custodial shares or perpetual synthetics like `rNVDA`, `rTSLA`, `rAAPL`, `rMSTR`, `rCOIN`, `rSPY`, `rQQQ`) trade **24 hours a day, 7 days a week, 365 days a year** on venues like Bitget.
+* **The Liquidity Vacuum:** Over the weekend, institutional market makers, designated broker-dealers, and primary clearinghouses are offline. Order books are thin and retail-dominated.
+* **Severe Pricing Dislocations:** Unhedged retail sentiment and speculative panic/fomo drive wild, unjustified price moves away from institutional closing prices. 
+* **The Human Dilemma:** Manual traders cannot monitor thin order books around the clock, lack mathematical models to separate real macro moves from retail noise, and suffer from emotional decision-making, fatigue, and execution slippage.
 
-**Chronos** exploits this structural inefficiency through:
-1. **Multi-Asset Universe (7 Core Equities + Macro Baseline):**
-   * **Mega-cap Tech:** `rNVDA`, `rTSLA`, `rAAPL`
-   * **Crypto-Equities:** `rCOIN`, `rMSTR` (extreme weekend beta to Bitcoin)
-   * **Macro Indices:** `rSPY`, `rQQQ` (broad market anchors)
-   * **Macro Anchor:** 24/7 `BTC/USDT`
-2. **Dynamic Risk Parity & Correlation Tracking:** Computes empirical cross-asset covariance $\mathbf{\Sigma}$, weighting positions inversely proportional to weekend volatility with single-asset caps (25%–35%) and leverage limits ($1.2\times$–$3.0\times$).
-3. **Pre-Trade Strategy Clearance Engine:** Rigorous multi-parameter checks ($|Z| \ge 2.0\sigma$, anchor drift, risk parity, single-asset limits) before any order is dispatched.
-4. **Real-Time Mark-to-Market Pricing & True Loss Realism:** Live 2.4s order book ticker, two-sided floating PnL with taker fee drag, and authentic early exit pricing (booking real profits or audited losses).
-5. **Strict Multi-Wallet State Isolation:** RainbowKit Web3 connect where each wallet receives an independent $50,000 USDT sandbox balance, dedicated ledger, isolated open positions, and separate cognitive memory.
-6. **Official Bitget MCP Integration (`agent.bitget.com/mcp`):** Native Model Context Protocol client querying tokenized quotes, company fundamentals, orderbook depth, and macro benchmark spreads over UTA v3.
-7. **Monday Pre-Market Convergence & Cash Sweep:** Coordinated position unwinding into institutional pre-market liquidity (08:00–09:30 EST), returning to a **flat 100% USDT cash allocation (zero active market exposure)** before regular market open. Trades settle at live market prices and can close at audited profits or losses; there is never any principal guarantee.
+---
 
-> [!CAUTION]
-> **Risk Disclosure & No Principal Guarantee:** There is **no principal guarantee** in quantitative or algorithmic trading. Tokenized equity synthetics trade against real market volatility, slippage, and taker fees. Individual trades **can and do close at a loss** if dislocations widen or dynamic stop losses (3.5% adverse excursion threshold) are triggered.
-> 
-> *Terminology Clarification:* Phrases such as **"100% Cash Allocation"** or **"100% Cash Sleep"** refer exclusively to **portfolio asset weighting**—all positions are completely closed into liquid USDT cash so that the portfolio carries 0% market risk during normal weekday trading hours. It does **not** mean starting principal is guaranteed or immune from trading losses.
+## 💡 The Solution
+
+**Chronos** is an autonomous after-hours information pricing and statistical arbitrage engine. It treats the weekend equity market as a transient dislocation factory that mathematically resolves on Monday morning:
+
+1. **Institutional Anchor Locking:** Freezes official institutional closing consensus prices at Friday 16:00 EST ($P_{i,\text{anchor}}$).
+2. **Rolling Macro Decoupling:** Uses 24/7 Bitcoin ($M$) as a continuous macro proxy. By estimating rolling beta $\beta_{i}$, Chronos separates justified macroeconomic shifts from purely emotional, unhedged retail drift.
+3. **Statistical Entry Barriers ($|Z| \ge 2.0\sigma$):** Deploys positions only when retail price distortion exceeds a normalized statistical threshold with high historical mean-reversion probability (~76.9%).
+4. **Dynamic Risk Parity & Caps:** Sizes positions inversely to weekend volatility, enforcing strict single-asset exposure caps (25%) and gross leverage limits ($1.2\times$).
+5. **Pre-Market Institutional Liquidity Harvest:** When Wall Street institutional desks boot up on Monday morning (08:00–09:30 EST), deep liquidity floods the market and tokenized prices snap back to institutional fair value. Chronos exits into this deep liquidity.
+6. **Flat Cash Posture (Zero Weekday Exposure):** The portfolio unwinds 100% of open contracts into liquid USDT cash before the regular 09:30 EST market open, completely bypassing normal weekday market risk.
+
+---
+
+## 🧬 Why We Built Chronos
+
+1. **The Paradigm Shift to 24/7 Capital Markets:** Real-World Assets (RWA) and tokenized equities represent the inevitable future of global finance. When traditional markets sleep while tokenized markets trade, a structural information pricing asymmetry is created. We built Chronos to capture this asymmetry algorithmically.
+2. **Uncorrelated Statistical Alpha:** Traditional trading strategies (long-only equity holding, momentum chasing, trend following) are saturated and decaying. Chronos harvests alpha strictly during market downtime—creating returns that are uncorrelated with standard stock market beta.
+3. **Autonomous Agency in Web3 Finance:** Proving that an AI agent, powered by the Model Context Protocol (Bitget MCP), can act as a disciplined, tireless, quantitative risk manager—eliminating human emotional bias, protecting capital with rigorous pre-trade checks, and learning continuously through post-mortem self-audits.
+
+---
+
+## 👥 Who Chronos Is For
+
+* **Quantitative & Systematic Traders:** Traders seeking uncorrelated, market-neutral statistical mean-reversion strategies with audited Sharpe ratios (>4.0) and zero curve-fitting decay ($OOS > IS$).
+* **DeFi & Stablecoin Yield Allocators:** Web3 participants holding idle USDT who want active, market-neutral yields generated from real-world equity dislocations without holding volatile crypto tokens.
+* **Prop Desks & Family Offices:** Institutional entities looking for an automated weekend alpha overlay that operates exclusively when traditional venues are closed and sits in cash during the week.
+* **Bitget AI Hackathon & Ecosystem Evaluators:** Builders and researchers exploring the frontiers of Bitget Unified Trading Account (UTA v3), Bitget MCP agent tooling, and tokenized equity execution.
+
+---
+
+## 🔄 How Trades Work (Step-by-Step)
+
+```
+[Friday 16:00 EST]          [Weekend 24/7]           [Weekend Signal]          [Execution Gateway]          [Monday 08:00 EST]        [Monday 09:30 EST]
+Anchor Lock Consensus  ──>  2.4s Telemetry Scan  ──>  |Z| >= 2.0σ Clearance ──>  Bitget API / Paper  ──>  Pre-Market Harvest  ──>  Self-Audit & Cash Sleep
+(Freeze Stock & BTC)        (Detect Retail Drift)     (Risk Parity Sizing)       (UTA v3 Order Route)       (Unwind Into Liquidity)    (Analyze & Re-Tune)
+```
+
+1. **Step 1: Anchor Lock (Friday 16:00 EST)**  
+   Chronos takes an immutable snapshot of Friday closing prices for all 7 tokenized equities (`rNVDA`, `rTSLA`, `rAAPL`, `rMSTR`, `rCOIN`, `rSPY`, `rQQQ`) and the macro benchmark (`BTC/USDT`).
+2. **Step 2: Continuous Weekend Drift Scanning (24/7)**  
+   Every 2.4 seconds, the order book ticker samples live bids and asks. The engine computes rolling macro beta against Bitcoin to calculate justified drift.
+3. **Step 3: Pre-Trade Strategy Clearance Check**  
+   Before any trade is considered, the gatekeeper verifies:
+   - Statistical threshold: Excess retail drift $|Z| \ge 2.0\sigma$.
+   - Multi-asset capacity: Global limit of max 5 active weekend positions.
+   - Single-asset limit: Maximum 25% portfolio weight per token.
+   - Risk parity collateral allocation: Dynamic margin based on inverse volatility.
+4. **Step 4: Order Dispatch (Live Bitget UTA v3 or Paper Sandbox)**  
+   - If `TRADING_MODE=LIVE`: Authenticated HMAC-SHA256 order is dispatched via Bitget REST API / MCP gateway.
+   - If `TRADING_MODE=PAPER`: Order executes in the isolated in-memory sandbox with simulated fills and real order IDs.
+5. **Step 5: Mark-to-Market Realism & Risk Protection**  
+   Positions are tracked in real time with floating two-sided PnL factoring in exchange taker fees (0.06%–0.10%). If adverse price excursion reaches 3.5%, an emergency stop-loss unwinds the trade early.
+6. **Step 6: Monday Institutional Pre-Market Harvest (08:00–09:30 EST)**  
+   As Wall Street pre-market books open and institutional market makers quote tight spreads, retail dislocations compress back to zero. Chronos executes atomic market orders to close all positions into deep institutional liquidity.
+7. **Step 7: Closed-Loop Cognitive Self-Audit**  
+   The **Cognitive Self-Auditor** evaluates each completed trade. If a trade hits an audited loss (e.g. momentum overrun or beta decoupling), it diagnoses the root cause and automatically widens the $Z$-score entry barrier for the next cycle. All positions return to a **flat 100% USDT cash allocation** before 09:30 EST.
+
+---
+
+## 🏆 Current MVP Features & Live Deliverables
+
+The Chronos Minimum Viable Product (MVP) is fully built, tested, and operational:
+
+| Component | Status | Deliverable & Description |
+|---|---|---|
+| **Live Trading Backend Server** | **LIVE** ✅ | Flask REST API (`server.py`) on `http://localhost:8899` providing authenticated endpoints (`/api/status`, `/api/balance`, `/api/trade`, `/api/positions`, `/api/close`). |
+| **Bitget Live Execution Client** | **LIVE** ✅ | Official HMAC-SHA256 authenticated UTA v3 client (`src/bitget_live_trader.py`) supporting dual execution: `TRADING_MODE=PAPER` (safe simulation) and `TRADING_MODE=LIVE` (real Bitget orders). |
+| **Unified Web3 Trading Terminal** | **LIVE** ✅ | Interactive terminal (`dashboard/app.html`) with RainbowKit multi-wallet state isolation, 2.4s live spot ticker, mark-to-market floating PnL, autonomous agent controls, and discretionary order book. |
+| **Master Institutional Showcase** | **LIVE** ✅ | Comprehensive presentation dashboard (`dashboard/index.html`) featuring 24/7 market marquee, interactive 7-asset dislocation radar, live clearance check simulator, and empirical walk-forward audit matrix. |
+| **Bitget MCP Server Gateway** | **LIVE** ✅ | Model Context Protocol client (`src/mcp_client.py`) connecting to `agent.bitget.com/mcp` for real-time market depth, company fundamentals, and multi-leg order dispatch. |
+| **Cognitive Self-Auditor** | **LIVE** ✅ | Machine learning diagnostic post-mortem engine (`data/audit_memory.json`) categorizing trade outcomes and dynamically tuning entry parameters. |
+| **Documentation & Help Centers** | **LIVE** ✅ | Interactive standalone documentation portals (`dashboard/docs.html` and `dashboard/help.html`) with architecture deep-dives and API reference. |
+| **Automated Test Suite (17 Tests)** | **PASSED** ✅ | Full test coverage verifying wallet isolation, risk quotas, clearance guards, and mark-to-market loss realism (`node test_wallet_isolation.js` & `node test_floating_pnl_and_losses.js`). |
 
 ---
 
@@ -56,6 +112,11 @@ Chronos operates on a strict 4-phase weekly lifecycle designed to exploit the we
 2. **Phase 2: Weekend 24/7 Dislocation Alpha Hunt:** Scans continuous retail drift, separates macro drift via rolling beta, verifies pre-trade strategy clearance, and enters risk-parity positions when $|Z| \ge 2.0\sigma$.
 3. **Phase 3: Monday 08:00–09:30 EST Institutional Pre-Market Harvest:** Closes all positions into deep institutional returning liquidity, returning the portfolio to a **flat 100% USDT cash posture (zero market exposure)** before 09:30 EST open. Trades close at market prices and may book gains or audited losses.
 4. **Phase 4: Monday Post-Trade Cognitive Self-Audit & Sleep:** Evaluates outcomes, diagnoses root causes for wins and losses alike, adapts Z-thresholds into `data/audit_memory.json`, and sleeps in **100% Cash allocation with zero weekday market risk**.
+
+> [!CAUTION]
+> **Risk Disclosure & No Principal Guarantee:** There is **no principal guarantee** in quantitative or algorithmic trading. Tokenized equity synthetics trade against real market volatility, slippage, and taker fees. Individual trades **can and do close at a loss** if dislocations widen or dynamic stop losses (3.5% adverse excursion threshold) are triggered.
+> 
+> *Terminology Clarification:* Phrases such as **"100% Cash Allocation"** or **"100% Cash Sleep"** refer exclusively to **portfolio asset weighting**—all positions are completely closed into liquid USDT cash so that the portfolio carries 0% market risk during normal weekday trading hours. It does **not** mean starting principal is guaranteed or immune from trading losses.
 
 👉 **[Read the complete Operational Lifecycle Specification](docs/OPERATIONAL_LIFECYCLE.md)**
 

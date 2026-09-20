@@ -1,10 +1,5 @@
 # Chronos Operational Lifecycle: The 4-Phase Alpha Engine
 
-[![Bitget AI Hackathon S2](https://img.shields.io/badge/Bitget_AI_Hackathon-Track_1:_Alpha_Factory-00E5FF)](https://bitget-ai.gitbook.io/bitgetai_hackathons2/)
-[![Sub-Theme](https://img.shields.io/badge/Sub--Theme-After--Hours_Information_Pricing-10B981)](https://bitget-ai.gitbook.io/bitgetai_hackathons2/)
-[![Execution Standard](https://img.shields.io/badge/Execution-Bitget_UTA_v3_&_MCP-7000FF)](https://agent.bitget.com/mcp)
-[![State Machine](https://img.shields.io/badge/Status-100%25_Cash_Weekday_Sleep-success)](https://github.com/OpeyemiMoses/Chronos)
-
 > **"When tokenized US stocks make 7×24 the new normal, humans sleep — Agents don't."**  
 > *Chronos exploits the structural 128-hour weekend closure of traditional financial exchanges by capturing retail pricing dislocations on tokenized U.S. equities (rTokens) and unwinding positions during Monday morning institutional pre-market liquidity, before returning to a flat cash posture (100% USDT cash allocation, zero market exposure) and autonomously self-auditing its strategy.*
 
