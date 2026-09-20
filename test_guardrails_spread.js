@@ -27,8 +27,9 @@ assert(html.includes('Beta Decoupling'), "Missing Beta Decoupling title");
 assert(html.includes('Closed-Loop Self-Auditor'), "Missing Closed-Loop Self-Auditor title");
 assert(html.includes('Bitget HMAC Gateway'), "Missing Bitget HMAC Gateway title");
 assert(html.includes('Multi-Wallet Isolation'), "Missing Multi-Wallet Isolation title");
-assert(html.includes('id="guardrailsScrollPill"'), "Missing scroll deployment pill tracker");
-console.log("Passed: All 4 guardrail card contents and progress pill verified.");
+assert(!html.includes('id="guardrailsScrollPill"'), "Scroll deployment pill tracker should NOT be present");
+assert(!html.includes('id="guardrailsBarFill"'), "Scroll bar fill should NOT be present");
+console.log("Passed: All 4 guardrail cards verified, loading bar & instruction pill cleanly removed.");
 
 // 3. Mathematical Animation Spread Test
 console.log("--- TEST 3: Mathematical Spread Calculation (0.0 -> 1.0) ---");

@@ -890,45 +890,6 @@ html_content = f"""<!DOCTYPE html>
       font-weight: 700;
     }}
 
-    .guardrails-scroll-pill {{
-      display: inline-flex;
-      align-items: center;
-      gap: 0.65rem;
-      padding: 5px 14px;
-      border-radius: 9999px;
-      background: rgba(244, 241, 234, 0.75);
-      border: 1px solid var(--color-border-hairline);
-      backdrop-filter: blur(8px);
-      font-family: var(--font-terminal);
-      font-size: 0.75rem;
-      color: var(--color-grey-text);
-      margin-top: 0.25rem;
-    }}
-
-    .guardrails-scroll-pill .pill-dot {{
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--color-green);
-      box-shadow: 0 0 6px var(--color-green);
-    }}
-
-    .guardrails-scroll-pill .pill-bar {{
-      width: 48px;
-      height: 4px;
-      border-radius: 2px;
-      background: rgba(0, 0, 0, 0.08);
-      overflow: hidden;
-    }}
-
-    .guardrails-scroll-pill .pill-bar-fill {{
-      width: 0%;
-      height: 100%;
-      background: var(--color-black);
-      border-radius: 2px;
-      transition: width 0.08s ease-out;
-    }}
-
     @media (max-width: 900px) {{
       .guardrails-spread-canvas {{
         gap: 1.25rem 1.75rem;
@@ -951,9 +912,6 @@ html_content = f"""<!DOCTYPE html>
       }}
       .guardrails-card-slot {{
         transform: none !important;
-      }}
-      .guardrails-scroll-pill {{
-        display: none;
       }}
     }}
 
@@ -1631,13 +1589,6 @@ html_content = f"""<!DOCTYPE html>
           </div>
         </div>
 
-        <!-- Scroll Deployment Indicator Pill -->
-        <div class="guardrails-scroll-pill" id="guardrailsScrollPill">
-          <span class="pill-dot"></span>
-          <span class="pill-label" id="guardrailsPillLabel">Scroll down to deploy institutional defenses</span>
-          <div class="pill-bar"><div class="pill-bar-fill" id="guardrailsBarFill"></div></div>
-        </div>
-
       </div>
     </div>
   </section>
@@ -2300,8 +2251,6 @@ html_content = f"""<!DOCTYPE html>
       if (!stage) return;
 
       const slots = stage.querySelectorAll(".guardrails-card-slot");
-      const barFill = document.getElementById("guardrailsBarFill");
-      const pillLabel = document.getElementById("guardrailsPillLabel");
 
       let ticking = false;
 
@@ -2364,19 +2313,6 @@ html_content = f"""<!DOCTYPE html>
           const scale = 0.94 + 0.06 * eased;
           slot.style.transform = `translate3d(${{tx.toFixed(2)}}px, ${{ty.toFixed(2)}}px, 0px) scale(${{scale.toFixed(4)}}) rotate(${{rot.toFixed(2)}}deg)`;
         }});
-
-        if (barFill) {{
-          barFill.style.width = `${{(progress * 100).toFixed(1)}}%`;
-        }}
-        if (pillLabel) {{
-          if (progress <= 0.08) {{
-            pillLabel.textContent = "Scroll down to deploy institutional defenses";
-          }} else if (progress < 0.95) {{
-            pillLabel.textContent = `Deploying defenses... ${{Math.round(progress * 100)}}%`;
-          }} else {{
-            pillLabel.textContent = "Defenses locked // Continue scrolling";
-          }}
-        }}
       }}
 
       window.addEventListener("scroll", onScroll, {{ passive: true }});
