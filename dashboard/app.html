@@ -5002,24 +5002,24 @@ div[data-rk] [aria-label*="Switch"] {
             <div id="liveBitgetStatusGroup" style="display: none; margin-top: 0.5rem;">
               <div style="display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.82rem; color: #4B5563; font-family: var(--font-terminal);">
                 <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(0,0,0,0.06); padding-bottom: 0.4rem;">
-                  <span>Bitget Account UID:</span>
-                  <strong style="color: #000;">829104821</strong>
+                  <span>Active Bitget Key:</span>
+                  <strong style="color: #000;" id="liveBitgetKeyPreview">No Key Connected</strong>
                 </div>
                 <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(0,0,0,0.06); padding-bottom: 0.4rem;">
-                  <span>Cross Margin Available:</span>
-                  <strong style="color: var(--color-green);">$94,200.00 USDT</strong>
+                  <span>Live Available Equity:</span>
+                  <strong style="color: var(--color-green);" id="liveBitgetBalanceValue">— USDT</strong>
                 </div>
                 <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(0,0,0,0.06); padding-bottom: 0.4rem;">
-                  <span>UTA Leverage Tier:</span>
-                  <strong style="color: #000;">10x Dynamic Cross Margin</strong>
+                  <span>Account Margin Mode:</span>
+                  <strong style="color: #000;" id="liveBitgetMarginMode">UTA Cross Margin</strong>
                 </div>
                 <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(0,0,0,0.06); padding-bottom: 0.4rem;">
-                  <span>Active Gateway:</span>
-                  <strong style="color: var(--color-green);">Connected (api.bitget.com)</strong>
+                  <span>Gateway Status:</span>
+                  <strong style="color: var(--color-amber);" id="liveBitgetGatewayStatus">Awaiting Connection</strong>
                 </div>
               </div>
               <button class="btn-execute-big" style="width: 100%; margin-top: 1rem; padding: 0.6rem;" onclick="refreshBitgetAccount()">
-                <span>Refresh Live Exchange Account</span>
+                <span>Sync Live Balance from Bitget</span>
               </button>
             </div>
           </div>
@@ -8979,29 +8979,61 @@ div[data-rk] [aria-label*="Switch"] {
       const balanceLabel = document.getElementById("settingsBalanceLabel");
       if (balanceLabel) balanceLabel.textContent = "BITGET UTA REAL EQUITY";
 
+      const d = ChronosWalletStore.getCurrentData();
+      const savedGw = d && d.gateway ? d.gateway : null;
+      const keyInput = document.getElementById("settingsApiKey");
+      const keyVal = (savedGw && savedGw.apiKey) ? savedGw.apiKey : (keyInput ? keyInput.value.trim() : "");
+
       const balanceDisplay = document.getElementById("settingsPaperBalanceDisplay");
-      if (balanceDisplay) {
-        balanceDisplay.textContent = "$128,450.00 USDT";
-        balanceDisplay.style.color = "var(--color-green)";
-      }
-
-      const walletLabel = document.getElementById("settingsWalletAddress");
-      if (walletLabel) {
-        walletLabel.innerHTML = `
-          <div style="display: flex; gap: 0.5rem; align-items: center;">
-            <span style="color: #065F46; font-weight: 700;">UID: 829104821</span>
-            <span class="badge-pill-light" style="font-size: 0.68rem;">UTA Cross Margin</span>
-          </div>
-        `;
-      }
-
       const headerChip = document.getElementById("headerBalanceChipSpan");
-      if (headerChip) headerChip.textContent = "$128,450.00";
+      const keyPreviewEl = document.getElementById("liveBitgetKeyPreview");
+      const liveBalEl = document.getElementById("liveBitgetBalanceValue");
+      const statusEl = document.getElementById("liveBitgetGatewayStatus");
+      const walletLabel = document.getElementById("settingsWalletAddress");
+
+      if (keyVal) {
+        const masked = keyVal.length > 8 ? keyVal.slice(0, 4) + "..." + keyVal.slice(-4) : keyVal;
+        if (keyPreviewEl) keyPreviewEl.textContent = masked;
+        if (walletLabel) {
+          walletLabel.innerHTML = `
+            <div style="display: flex; gap: 0.5rem; align-items: center;">
+              <span style="color: #065F46; font-weight: 700;">Key: ${masked}</span>
+              <span class="badge-pill-light" style="font-size: 0.68rem;">UTA Live</span>
+            </div>
+          `;
+        }
+        if (statusEl) {
+          statusEl.textContent = "Ready (Click Test Handshake)";
+          statusEl.style.color = "var(--color-green)";
+        }
+      } else {
+        if (keyPreviewEl) keyPreviewEl.textContent = "Enter API Key Below";
+        if (walletLabel) {
+          walletLabel.innerHTML = `
+            <div style="display: flex; gap: 0.5rem; align-items: center;">
+              <span style="color: #9CA3AF; font-weight: 700;">Awaiting API Key</span>
+              <span class="badge-pill-light" style="font-size: 0.68rem;">Not Configured</span>
+            </div>
+          `;
+        }
+        if (balanceDisplay) balanceDisplay.textContent = "— USDT";
+        if (headerChip) headerChip.textContent = "—";
+        if (liveBalEl) liveBalEl.textContent = "— USDT";
+        if (statusEl) {
+          statusEl.textContent = "No API Key Provided";
+          statusEl.style.color = "var(--color-amber)";
+        }
+      }
 
       const paperBtns = document.getElementById("paperControlsGroup");
       if (paperBtns) paperBtns.style.display = "none";
       const liveStatus = document.getElementById("liveBitgetStatusGroup");
       if (liveStatus) liveStatus.style.display = "block";
+
+      // If user has saved credentials, trigger a real live balance sync immediately
+      if (savedGw && savedGw.apiKey && savedGw.apiSecret && savedGw.passphrase) {
+        syncBackendBalance();
+      }
     }
 
     function restorePaperTradingState() {
