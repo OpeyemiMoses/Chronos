@@ -4406,6 +4406,14 @@ html_template = f"""<!DOCTYPE html>
     }}
     window.syncBackendBalance = syncBackendBalance;
 
+    function isLiveTradingReady() {{
+      if (typeof activeTradingEnv !== "undefined" && activeTradingEnv !== "live") return false;
+      const d = (typeof ChronosWalletStore !== "undefined" && ChronosWalletStore.getCurrentData) ? ChronosWalletStore.getCurrentData() : null;
+      const gw = d ? d.gateway : null;
+      return !!(gw && gw.mode === "live" && gw.apiKey && gw.apiSecret && gw.passphrase);
+    }}
+    window.isLiveTradingReady = isLiveTradingReady;
+
     // =========================================================================
     // AUTONOMOUS AGENT CONFIGURATION & STRATEGY CLEARANCE CONSTANTS
     // =========================================================================
@@ -5981,6 +5989,17 @@ html_template = f"""<!DOCTYPE html>
         return;
       }}
 
+      // GUARD: In Live Bitget mode, API keys are required before placing trades
+      if (typeof activeTradingEnv !== "undefined" && activeTradingEnv === "live" && !isLiveTradingReady()) {{
+        showToast(
+          "Bitget Keys Required",
+          "Live Trading mode is active. Please enter and save your Bitget API Key, Secret, and Passphrase in Settings before placing live orders.",
+          "warning"
+        );
+        switchView("settings");
+        return;
+      }}
+
       const d = ChronosWalletStore.getCurrentData();
       if (!d) return;
       d.openPositions = d.openPositions || [];
@@ -6123,6 +6142,12 @@ html_template = f"""<!DOCTYPE html>
       }}
       const d = ChronosWalletStore.getCurrentData();
       if (!d) return;
+
+      // GUARD: In Live Bitget mode, API keys are required before deploying trades
+      if (typeof activeTradingEnv !== "undefined" && activeTradingEnv === "live" && !isLiveTradingReady()) {{
+        updateAgentTelemetry(`[LIVE TRADING PAUSED] Switched to Live Bitget mode, but API keys are not configured. Autonomous agent cannot deploy trades without credentials. Configure keys in Settings.`);
+        return;
+      }}
 
       // STRICT STRATEGY CLEARANCE CHECK BEFORE TAKING ANY TRADE
       const clearance = verifyStrategyClearance(symbol);
@@ -6635,6 +6660,18 @@ html_template = f"""<!DOCTYPE html>
       d.openPositions = d.openPositions || [];
       const openCount = d.openPositions.length;
 
+      // GUARD: In Live Bitget mode, API keys are required
+      if (typeof activeTradingEnv !== "undefined" && activeTradingEnv === "live" && !isLiveTradingReady()) {{
+        updateAgentTelemetry(`[LIVE TRADING PAUSED] Switched to Live Bitget mode, but API keys are not configured. Autonomous agent paused. Configure your Bitget API keys in Settings to deploy live trades.`);
+        if (autoPilotActive) {{
+          autoPilotActive = false;
+          updateAutoPilotUI(false);
+          if (autoPilotTimer) clearInterval(autoPilotTimer);
+          if (countdownInterval) clearInterval(countdownInterval);
+        }}
+        return;
+      }}
+
       // 1. Strict Budget Cap Check
       if (typeof syncAgentConfigSettings === "function") syncAgentConfigSettings();
       if (openCount >= MAX_WEEKEND_TRADES) {{
@@ -6686,6 +6723,12 @@ html_template = f"""<!DOCTYPE html>
       if (!autoPilotActive && !ChronosWalletStore.currentAddress) {{
         showToast("Wallet Required", "Connect your wallet first to enable autonomous auto-pilot.", "warning");
         if (window.openRainbowKitModal) window.openRainbowKitModal();
+        return;
+      }}
+
+      if (!autoPilotActive && typeof activeTradingEnv !== "undefined" && activeTradingEnv === "live" && !isLiveTradingReady()) {{
+        showToast("Bitget Keys Required", "Live Trading mode is active. Please configure and save your Bitget API Key, Secret, and Passphrase in Settings before activating auto-pilot.", "warning");
+        switchView("settings");
         return;
       }}
 
@@ -7413,24 +7456,40 @@ html_template = f"""<!DOCTYPE html>
           passphraseInput.value = (savedGw && savedGw.passphrase) ? savedGw.passphrase : "";
         }}
 
-        // 2. CLEAR VAULT POSITIONS FOR LIVE
+        // 2. PAUSE AUTOPILOT AND CLEAR VAULT POSITIONS FOR LIVE
         activeTradingEnv = "live";
+        if (autoPilotActive) {{
+          autoPilotActive = false;
+          updateAutoPilotUI(false);
+          if (autoPilotTimer) clearInterval(autoPilotTimer);
+          if (countdownInterval) clearInterval(countdownInterval);
+        }}
         if (!d) return;
         if (d) {{
           d.positions = [];
           d.openPositions = [];
           ChronosWalletStore.saveData(ChronosWalletStore.currentAddress, d);
+          renderActivePositions();
+          renderOverviewDynamic(d);
         }}
 
         // 3. LOAD UP BITGET ACCOUNT
         loadBitgetAccount();
 
         // 4. BROADCAST TOAST
-        showToast(
-          "Switched to Live Bitget UTA v3",
-          "Vault state synchronized. Bitget credentials unlocked.",
-          "success"
-        );
+        if (!isLiveTradingReady()) {{
+          showToast(
+            "Switched to Live Bitget UTA v3",
+            "Please configure and save your Bitget API Key, Secret, and Passphrase below to start live trading.",
+            "warning"
+          );
+        }} else {{
+          showToast(
+            "Switched to Live Bitget UTA v3",
+            "Vault state synchronized. Active Bitget credentials loaded.",
+            "success"
+          );
+        }}
       }} else {{
         // INTERNAL VAULT MODE: LOCK BITGET INPUTS
         [apiKeyInput, apiSecretInput, passphraseInput].forEach(inp => {{
