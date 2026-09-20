@@ -5,7 +5,7 @@
 
 ---
 
-## 🎯 The Problem
+## The Problem
 
 Traditional U.S. equity exchanges (NYSE & NASDAQ) operate strictly Monday through Friday from 9:30 AM to 4:00 PM EST. This leaves a **128-hour weekly closure void**—including 65 consecutive weekend hours—where the world's primary stock markets are completely dark.
 
@@ -17,7 +17,7 @@ However, financial events, earnings leaks, geopolitical tensions, and macroecono
 
 ---
 
-## 💡 The Solution
+## The Solution
 
 **Chronos** is an autonomous after-hours information pricing and statistical arbitrage engine. It treats the weekend equity market as a transient dislocation factory that mathematically resolves on Monday morning:
 
@@ -30,7 +30,7 @@ However, financial events, earnings leaks, geopolitical tensions, and macroecono
 
 ---
 
-## 🧬 Why We Built Chronos
+## Why We Built Chronos
 
 1. **The Paradigm Shift to 24/7 Capital Markets:** Real-World Assets (RWA) and tokenized equities represent the inevitable future of global finance. When traditional markets sleep while tokenized markets trade, a structural information pricing asymmetry is created. We built Chronos to capture this asymmetry algorithmically.
 2. **Uncorrelated Statistical Alpha:** Traditional trading strategies (long-only equity holding, momentum chasing, trend following) are saturated and decaying. Chronos harvests alpha strictly during market downtime—creating returns that are uncorrelated with standard stock market beta.
@@ -38,7 +38,7 @@ However, financial events, earnings leaks, geopolitical tensions, and macroecono
 
 ---
 
-## 👥 Who Chronos Is For
+## Who Chronos Is For
 
 * **Quantitative & Systematic Traders:** Traders seeking uncorrelated, market-neutral statistical mean-reversion strategies with audited Sharpe ratios (>4.0) and zero curve-fitting decay ($OOS > IS$).
 * **DeFi & Stablecoin Yield Allocators:** Web3 participants holding idle USDT who want active, market-neutral yields generated from real-world equity dislocations without holding volatile crypto tokens.
@@ -47,7 +47,7 @@ However, financial events, earnings leaks, geopolitical tensions, and macroecono
 
 ---
 
-## 🔄 How Trades Work (Step-by-Step)
+## How Trades Work (Step-by-Step)
 
 ```
 [Friday 16:00 EST]          [Weekend 24/7]           [Weekend Signal]          [Execution Gateway]          [Monday 08:00 EST]        [Monday 09:30 EST]
@@ -77,24 +77,24 @@ Anchor Lock Consensus  ──>  2.4s Telemetry Scan  ──>  |Z| >= 2.0σ Clear
 
 ---
 
-## 🏆 Current MVP Features & Live Deliverables
+## Current MVP Features & Live Deliverables
 
 The Chronos Minimum Viable Product (MVP) is fully built, tested, and operational:
 
 | Component | Status | Deliverable & Description |
 |---|---|---|
-| **Live Trading Backend Server** | **LIVE** ✅ | Flask REST API (`server.py`) on `http://localhost:8899` providing authenticated endpoints (`/api/status`, `/api/balance`, `/api/trade`, `/api/positions`, `/api/close`). |
-| **Bitget Live Execution Client** | **LIVE** ✅ | Official HMAC-SHA256 authenticated UTA v3 client (`src/bitget_live_trader.py`) supporting dual execution: `TRADING_MODE=PAPER` (safe simulation) and `TRADING_MODE=LIVE` (real Bitget orders). |
-| **Unified Web3 Trading Terminal** | **LIVE** ✅ | Interactive terminal (`dashboard/app.html`) with RainbowKit multi-wallet state isolation, 2.4s live spot ticker, mark-to-market floating PnL, autonomous agent controls, and discretionary order book. |
-| **Master Institutional Showcase** | **LIVE** ✅ | Comprehensive presentation dashboard (`dashboard/index.html`) featuring 24/7 market marquee, interactive 7-asset dislocation radar, live clearance check simulator, and empirical walk-forward audit matrix. |
-| **Bitget MCP Server Gateway** | **LIVE** ✅ | Model Context Protocol client (`src/mcp_client.py`) connecting to `agent.bitget.com/mcp` for real-time market depth, company fundamentals, and multi-leg order dispatch. |
-| **Cognitive Self-Auditor** | **LIVE** ✅ | Machine learning diagnostic post-mortem engine (`data/audit_memory.json`) categorizing trade outcomes and dynamically tuning entry parameters. |
-| **Documentation & Help Centers** | **LIVE** ✅ | Interactive standalone documentation portals (`dashboard/docs.html` and `dashboard/help.html`) with architecture deep-dives and API reference. |
-| **Automated Test Suite (17 Tests)** | **PASSED** ✅ | Full test coverage verifying wallet isolation, risk quotas, clearance guards, and mark-to-market loss realism (`node test_wallet_isolation.js` & `node test_floating_pnl_and_losses.js`). |
+| **Live Trading Backend Server** | **LIVE** | Flask REST API (`server.py`) on `http://localhost:8899` providing authenticated endpoints (`/api/status`, `/api/balance`, `/api/trade`, `/api/positions`, `/api/close`). |
+| **Bitget Live Execution Client** | **LIVE** | Official HMAC-SHA256 authenticated UTA v3 client (`src/bitget_live_trader.py`) supporting dual execution: `TRADING_MODE=PAPER` (safe simulation) and `TRADING_MODE=LIVE` (real Bitget orders). |
+| **Unified Web3 Trading Terminal** | **LIVE** | Interactive terminal (`dashboard/app.html`) with RainbowKit multi-wallet state isolation, 2.4s live spot ticker, mark-to-market floating PnL, autonomous agent controls, and discretionary order book. |
+| **Master Institutional Showcase** | **LIVE** | Comprehensive presentation dashboard (`dashboard/index.html`) featuring 24/7 market marquee, interactive 7-asset dislocation radar, live clearance check simulator, and empirical walk-forward audit matrix. |
+| **Bitget MCP Server Gateway** | **LIVE** | Model Context Protocol client (`src/mcp_client.py`) connecting to `agent.bitget.com/mcp` for real-time market depth, company fundamentals, and multi-leg order dispatch. |
+| **Cognitive Self-Auditor** | **LIVE** | Machine learning diagnostic post-mortem engine (`data/audit_memory.json`) categorizing trade outcomes and dynamically tuning entry parameters. |
+| **Documentation & Help Centers** | **LIVE** | Interactive standalone documentation portals (`dashboard/docs.html` and `dashboard/help.html`) with architecture deep-dives and API reference. |
+| **Automated Test Suite (17 Tests)** | **PASSED** | Full test coverage verifying wallet isolation, risk quotas, clearance guards, and mark-to-market loss realism (`node test_wallet_isolation.js` & `node test_floating_pnl_and_losses.js`). |
 
 ---
 
-## 🧭 The 4-Phase Operational Lifecycle
+## The 4-Phase Operational Lifecycle
 
 Chronos operates on a strict 4-phase weekly lifecycle designed to exploit the weekend closure gap while completely eliminating normal weekday market exposure:
 
@@ -118,11 +118,11 @@ Chronos operates on a strict 4-phase weekly lifecycle designed to exploit the we
 > 
 > *Terminology Clarification:* Phrases such as **"100% Cash Allocation"** or **"100% Cash Sleep"** refer exclusively to **portfolio asset weighting**—all positions are completely closed into liquid USDT cash so that the portfolio carries 0% market risk during normal weekday trading hours. It does **not** mean starting principal is guaranteed or immune from trading losses.
 
-👉 **[Read the complete Operational Lifecycle Specification](docs/OPERATIONAL_LIFECYCLE.md)**
+**[Read the complete Operational Lifecycle Specification](docs/OPERATIONAL_LIFECYCLE.md)**
 
 ---
 
-## 📐 Mathematical Formulation
+## Mathematical Formulation
 
 ### 1. Friday Anchor Baseline
 At Friday 16:00 EST ($t_{\text{anchor}}$), the official closing prices of all tokenized equities ($P_{i}$) and the macro benchmark ($M$) are locked:
@@ -147,7 +147,7 @@ $$Z_i(t) = \frac{\text{Excess Drift}_i(t)}{\sigma_{i,\text{excess}}(t)}$$
 
 ---
 
-## 📊 Institutional Performance Audit
+## Institutional Performance Audit
 
 All results are audited net of **0.05% exchange taker fee + 0.05% bid-ask spread slippage** (10 bps round-trip friction per trade) on 2,881 continuous hourly candles.
 
@@ -162,12 +162,12 @@ All results are audited net of **0.05% exchange taker fee + 0.05% bid-ask spread
 | **Out-of-Sample Sharpe (60d)** | 3.27 | **5.07** | **Zero curve-fitting decay ($OOS > IS$)** |
 | **Sortino Ratio** | 3.41 | **7.35** | 2.1x downside protection |
 | **Maximum Drawdown** | -1.45% | **-4.69% (OOS)** | Strict capital preservation (<10%) |
-| **Anti-Overfit Decay Ratio ($OOS/IS$)** | 0.62 | **1.26x** | **PASSED ✅ ($\ge 0.50$ requirement)** |
+| **Anti-Overfit Decay Ratio ($OOS/IS$)** | 0.62 | **1.26x** | **PASSED  ($\ge 0.50$ requirement)** |
 | **Diversification Benefit** | 1.00x | **1.90x** | 1.9x portfolio variance reduction |
 
 ---
 
-## 🖥️ Two Purpose-Built Web Experiences
+## Two Purpose-Built Web Experiences
 
 Chronos delivers two distinct, production-grade web interfaces tailored for institutional researchers and active Web3 traders:
 
@@ -198,7 +198,7 @@ open dashboard/app.html
 
 ---
 
-## 🔌 Bitget MCP Server Integration (`agent.bitget.com/mcp`)
+## Bitget MCP Server Integration (`agent.bitget.com/mcp`)
 
 Chronos natively integrates with the official **Bitget Agent Hub Model Context Protocol (MCP)** server via UTA v3 (`@bitget-ai/bitget-agent-mcp`):
 
@@ -225,7 +225,7 @@ Chronos natively integrates with the official **Bitget Agent Hub Model Context P
 
 ---
 
-## 🚀 Bitget Live Trading Engine & Backend Server (`server.py`)
+## Bitget Live Trading Engine & Backend Server (`server.py`)
 
 Chronos features an official **Bitget Live Execution Client** and high-performance **Flask REST Backend Server** (`server.py`) that bridges the Web3 trading terminal to Bitget's Unified Trading Account (UTA v3) and an in-memory paper simulation sandbox.
 
@@ -253,7 +253,7 @@ Chronos features an official **Bitget Live Execution Client** and high-performan
 └──────────────────────────┘└────────────────────────────┘
 ```
 
-### 🔐 Web3 Wallet Connect Mode (Preserved & Active)
+### Web3 Wallet Connect Mode (Preserved & Active)
 
 Your **Web3 Wallet Connect mode (RainbowKit)** remains completely functional and active:
 * **Multi-Wallet State Isolation:** Connect seamlessly using MetaMask, Rainbow, Coinbase Wallet, or injected Web3 providers.
@@ -261,7 +261,7 @@ Your **Web3 Wallet Connect mode (RainbowKit)** remains completely functional and
 * **Demo Sandbox Vault:** When operating without an external Web3 wallet, 1-click connection activates the isolated Demo Sandbox Vault (`0x0356...`) with $50,000 isolated margin.
 * **Unified Bridge:** While Web3 wallets manage identity, isolated state, and risk allocation, live order execution routes asynchronously through the Bitget backend engine.
 
-### 🌐 Backend REST API Endpoints
+### Backend REST API Endpoints
 
 The backend server runs on `http://localhost:8899` and provides the following endpoints:
 
@@ -275,7 +275,7 @@ The backend server runs on `http://localhost:8899` and provides the following en
 | `/api/positions` | `GET` | Queries all currently active open futures positions |
 | `/api/close` | `POST` | Dispatches close/unwind order for a specific position |
 
-### ⚙️ Configuration (`.env`)
+### Configuration (`.env`)
 
 Configure your credentials and execution mode in `.env`:
 
@@ -306,7 +306,7 @@ Z_EXIT_THRESHOLD=0.4
 
 ---
 
-## 🏗️ Repository Structure
+## Repository Structure
 
 ```
 chronos/
@@ -358,7 +358,7 @@ chronos/
 
 ---
 
-## ⚡ Quickstart & Reproduction
+## Quickstart & Reproduction
 
 ### 1. Run the Live Trading Server & Terminal
 ```bash
@@ -402,5 +402,5 @@ python3 dashboard/build_terminal.py
 
 ---
 
-## 📄 License
+## License
 MIT License. Developed for the **Bitget AI Base Camp Hackathon Season 2 (2026)**.

@@ -8,7 +8,7 @@
 
 ---
 
-## 🧭 The 4-Phase Weekly Operational Lifecycle
+## The 4-Phase Weekly Operational Lifecycle
 
 ```
 ========================================================================================================
@@ -27,9 +27,9 @@
 
 ---
 
-## 📌 Detailed Breakdown of Each Phase
+## Detailed Breakdown of Each Phase
 
-### 🕒 Phase 1: Friday 16:00 EST — *Anchor Snapshot & Baseline Freeze*
+### Phase 1: Friday 16:00 EST — *Anchor Snapshot & Baseline Freeze*
 
 #### What Happens:
 1. At Friday 16:00 EST (closing bell of the New York Stock Exchange and NASDAQ), traditional U.S. equities cease trading for the weekend.
@@ -44,7 +44,7 @@ Without a fixed anchor, drift cannot be measured accurately. The Friday 16:00 ES
 
 ---
 
-### 🕒 Phase 2: Weekend 24/7 — *Information Dislocation Alpha Hunt*
+### Phase 2: Weekend 24/7 — *Information Dislocation Alpha Hunt*
 
 #### What Happens:
 1. Tokenized stocks (rTokens) continue trading 24 hours a day, 7 days a week on crypto platforms like Bitget.
@@ -74,7 +74,7 @@ Chronos does not simply buy dips or sell rallies; it mathematically distinguishe
 
 ---
 
-### 🕒 Phase 3: Monday 08:00–09:30 EST — *Institutional Pre-Market Harvest*
+### Phase 3: Monday 08:00–09:30 EST — *Institutional Pre-Market Harvest*
 
 #### What Happens:
 1. On Monday morning at 08:00 EST, traditional institutional market makers, designated broker-dealers, and algorithmic desks boot up for official U.S. Pre-Market Trading.
@@ -92,7 +92,7 @@ Chronos does not blindly hold until Monday if market conditions mandate early cl
 
 ---
 
-### 🕒 Phase 4: Monday 09:30 EST — *Cognitive Self-Audit & Adaptation*
+### Phase 4: Monday 09:30 EST — *Cognitive Self-Audit & Adaptation*
 
 #### What Happens:
 As soon as the trade settles and the portfolio reaches 100% Cash, the **Cognitive Self-Auditor** ([`src/self_auditor.py`](file:///Users/user/.gemini/antigravity-ide/scratch/chronos/src/self_auditor.py)) initiates an autonomous post-mortem:
@@ -115,7 +115,7 @@ As soon as the trade settles and the portfolio reaches 100% Cash, the **Cognitiv
 
 ---
 
-### 💤 Weekday Intermission: Monday 09:30 – Friday 15:59 EST — *100% Cash Sleep*
+### Weekday Intermission: Monday 09:30 – Friday 15:59 EST — *100% Cash Sleep*
 
 #### What Happens:
 - While traditional Wall Street trades between 9:30 AM and 4:00 PM EST throughout the week, **Chronos is 100% in cash**.
@@ -130,7 +130,7 @@ Chronos remains in this dormant, capital-preserving sleep state until **Friday 1
 
 ---
 
-## 🎯 Strategic Advantages of This Architecture
+## Strategic Advantages of This Architecture
 
 | Operational Feature | Traditional Trading Bots | Chronos 4-Phase Alpha Engine |
 | :--- | :--- | :--- |
@@ -143,7 +143,7 @@ Chronos remains in this dormant, capital-preserving sleep state until **Friday 1
 
 ---
 
-## 💻 How to Run the 4-Phase System
+## How to Run the 4-Phase System
 
 ### 1. Single-Cycle Demonstration (All 4 Phases End-to-End)
 ```bash
