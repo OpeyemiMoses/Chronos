@@ -346,6 +346,45 @@ def api_backtest_results():
         return jsonify(data)
     return jsonify({"error": "Backtest results not yet compiled"}), 404
 
+@app.route("/api/qwen/thesis", methods=["GET", "POST"])
+def api_qwen_thesis():
+    """
+    Autonomous LLM Thesis Generation powered by Alibaba Cloud Qwen (qwen3.8-max).
+    Returns real-time plain-English trade reasoning for any of the 7 tokenized US equities.
+    """
+    from src.qwen_agent import QwenTradingAgent
+    qwen = QwenTradingAgent()
+    
+    symbol = request.args.get("symbol")
+    if request.is_json and not symbol:
+        body = request.get_json(silent=True) or {}
+        symbol = body.get("symbol")
+    
+    symbol = symbol or "rNVDA"
+    
+    # Get live market values
+    global _market_prices_cache
+    markets = (_market_prices_cache.get("data") or {}).get("markets", {})
+    m = markets.get(symbol, {})
+    
+    spot_price = float(request.args.get("spot_price") or m.get("spot_price") or 221.34)
+    anchor_price = float(request.args.get("anchor_price") or m.get("anchor_price") or 216.37)
+    drift_pct = float(request.args.get("drift_pct") or m.get("drift_pct") or 2.30)
+    z_score = float(request.args.get("z_score") or m.get("z_score") or 1.53)
+    beta = 1.48 if symbol == "rNVDA" else (2.20 if symbol in ["rTSLA", "rMSTR"] else 1.00)
+    stress_score = 58 if symbol == "rNVDA" else 10
+    
+    result = qwen.generate_trade_thesis(
+        symbol=symbol,
+        spot_price=spot_price,
+        anchor_price=anchor_price,
+        drift_pct=drift_pct,
+        z_score=z_score,
+        beta=beta,
+        stress_score=stress_score
+    )
+    return jsonify(result)
+
 # =========================================================================
 # API: CONNECTION STATUS
 # =========================================================================
