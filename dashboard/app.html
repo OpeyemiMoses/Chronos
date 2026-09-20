@@ -3997,8 +3997,68 @@ div[data-rk] [aria-label*="Switch"] {
         width: 100% !important;
         margin-bottom: 1.25rem !important;
       }
+
+      /* Stack card grids on tablet and mobile */
+      .overview-kpi-row {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.75rem !important;
+      }
+      .overview-split-2col {
+        grid-template-columns: 1fr !important;
+        gap: 0.85rem !important;
+      }
+      .overview-3box-grid {
+        grid-template-columns: 1fr !important;
+        gap: 0.5rem !important;
+      }
+      .arena-grid-split {
+        grid-template-columns: 1fr !important;
+      }
+      .telemetry-orderbook-split {
+        grid-template-columns: 1fr !important;
+      }
+      .portfolio-kpi-strip {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+      .auditor-metrics-grid {
+        grid-template-columns: 1fr !important;
+      }
+      .arena-market-selector-bar {
+        grid-template-columns: repeat(3, 1fr) !important;
+      }
     }
 
+    @media (max-width: 640px) {
+      .overview-kpi-row {
+        grid-template-columns: 1fr !important;
+      }
+      .portfolio-kpi-strip {
+        grid-template-columns: 1fr !important;
+      }
+      .arena-market-selector-bar {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+      .overview-kpi-card, .arena-card, .overview-main-card, .auditor-lesson-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+      }
+    }
+
+    @media (max-width: 440px) {
+      .arena-market-selector-bar {
+        grid-template-columns: 1fr !important;
+      }
+    }
+
+    html, body, .ghost-app-shell, .ghost-main-stage {
+      overflow-x: hidden !important;
+      max-width: 100vw !important;
+      width: 100% !important;
+    }
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
   </style>
   <script>
     window.selectedSymbol = "rNVDA";
@@ -4691,7 +4751,7 @@ div[data-rk] [aria-label*="Switch"] {
             </div>
 
             <!-- Sub-Card: Orderbook & Agent Telemetry Split -->
-            <div style="display: grid; grid-template-columns: 1fr 1.15fr; gap: 1rem;">
+            <div class="telemetry-orderbook-split" style="display: grid; grid-template-columns: 1fr 1.15fr; gap: 1rem;">
               <!-- Bitget 24/7 Live Orderbook -->
               <div class="arena-card">
                 <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.55rem; padding-bottom: 0.45rem; border-bottom: 1px solid #EEE9DF;">
@@ -4941,7 +5001,7 @@ div[data-rk] [aria-label*="Switch"] {
         </div>
 
         <!-- Metric KPI Strip for 5-Trade Portfolio -->
-        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin-bottom: 1.25rem;">
+        <div class="portfolio-kpi-strip" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin-bottom: 1.25rem;">
           <div class="overview-kpi-card">
             <div class="overview-kpi-top">
               <span style="font-family: var(--font-terminal); font-size: 0.68rem; color: #71717A;">CAPACITY QUOTA</span>
@@ -4997,7 +5057,7 @@ div[data-rk] [aria-label*="Switch"] {
         </p>
 
         <!-- 3 Key Metric Cards -->
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem; margin-bottom: 1.5rem;">
+        <div class="auditor-metrics-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem; margin-bottom: 1.5rem;">
           <div class="auditor-lesson-card">
             <div style="font-family: var(--font-terminal); font-size: 0.72rem; color: var(--color-grey-muted); text-transform: uppercase;">Overall System Health</div>
             <div style="font-family: var(--font-serif-editorial); font-size: 1.65rem; color: var(--color-green);" id="auditorHealthVal">100% Ready</div>
