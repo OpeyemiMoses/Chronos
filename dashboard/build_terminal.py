@@ -259,6 +259,32 @@ candles_json = json.dumps(candles_data)
 trades_json = json.dumps(real_trades)
 audit_json = json.dumps(audit_memory.get("recent_post_mortems", []))
 
+selector_cards_list = []
+for sym, m in markets_data.items():
+    active_cls = " active" if sym == "rNVDA" else ""
+    tok_img = sym.lower().replace("r", "")
+    drift_val = m["drift_pct"]
+    drift_cls = "green" if drift_val > 0 else ("gold" if drift_val < 0 else "neutral")
+    drift_sign = "+" if drift_val > 0 else ""
+    z_val = m["z_score"]
+    z_sign = "+" if z_val > 0 else ""
+    comp_short = m["company"].split()[0]
+    selector_cards_list.append(f"""
+            <!-- Asset: {sym} -->
+            <div class="arena-asset-card{active_cls}" data-symbol="{sym}" onclick="selectMarket('{sym}')" id="selectorCard_{sym}">
+              <div class="asset-card-top">
+                <div class="asset-card-token">
+                  <img src="assets/tokens/{tok_img}.svg" alt="{sym}">
+                  <span class="asset-card-symbol">{sym}</span>
+                </div>
+                <span class="asset-card-drift {drift_cls}" id="selectorDrift_{sym}">{drift_sign}{drift_val:.2f}%</span>
+              </div>
+              <div class="asset-card-price" id="selectorPrice_{sym}">${m['spot_price']:.2f}</div>
+              <div class="asset-card-company" id="selectorSub_{sym}">{comp_short} • {z_sign}{z_val:.2f}σ</div>
+            </div>""")
+
+selector_cards_html = "\n".join(selector_cards_list)
+
 html_template = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -3488,96 +3514,7 @@ html_template = f"""<!DOCTYPE html>
             <span>7 Markets Active • Weekend Dislocation Scanner</span>
           </div>
           <div class="arena-market-selector-bar" id="arenaMarketSelectorBar">
-            <!-- Asset 1: rNVDA -->
-            <div class="arena-asset-card active" data-symbol="rNVDA" onclick="selectMarket('rNVDA')">
-              <div class="asset-card-top">
-                <div class="asset-card-token">
-                  <img src="assets/tokens/nvda.svg" alt="NVDA">
-                  <span class="asset-card-symbol">rNVDA</span>
-                </div>
-                <span class="asset-card-drift green">+3.42%</span>
-              </div>
-              <div class="asset-card-price" id="selectorPrice_rNVDA">$132.80</div>
-              <div class="asset-card-company">NVIDIA Corp • 2.24σ</div>
-            </div>
-
-            <!-- Asset 2: rTSLA -->
-            <div class="arena-asset-card" data-symbol="rTSLA" onclick="selectMarket('rTSLA')">
-              <div class="asset-card-top">
-                <div class="asset-card-token">
-                  <img src="assets/tokens/tsla.svg" alt="TSLA">
-                  <span class="asset-card-symbol">rTSLA</span>
-                </div>
-                <span class="asset-card-drift green">+4.20%</span>
-              </div>
-              <div class="asset-card-price" id="selectorPrice_rTSLA">$253.52</div>
-              <div class="asset-card-company">Tesla Inc • 2.65σ</div>
-            </div>
-
-            <!-- Asset 3: rMSTR -->
-            <div class="arena-asset-card" data-symbol="rMSTR" onclick="selectMarket('rMSTR')">
-              <div class="asset-card-top">
-                <div class="asset-card-token">
-                  <img src="assets/tokens/mstr.svg" alt="MSTR">
-                  <span class="asset-card-symbol">rMSTR</span>
-                </div>
-                <span class="asset-card-drift green">+6.91%</span>
-              </div>
-              <div class="asset-card-price" id="selectorPrice_rMSTR">$312.40</div>
-              <div class="asset-card-company">MicroStrategy • 3.48σ</div>
-            </div>
-
-            <!-- Asset 4: rCOIN -->
-            <div class="arena-asset-card" data-symbol="rCOIN" onclick="selectMarket('rCOIN')">
-              <div class="asset-card-top">
-                <div class="asset-card-token">
-                  <img src="assets/tokens/coin.svg" alt="COIN">
-                  <span class="asset-card-symbol">rCOIN</span>
-                </div>
-                <span class="asset-card-drift green">+5.66%</span>
-              </div>
-              <div class="asset-card-price" id="selectorPrice_rCOIN">$218.50</div>
-              <div class="asset-card-company">Coinbase Global • 3.10σ</div>
-            </div>
-
-            <!-- Asset 5: rAAPL -->
-            <div class="arena-asset-card" data-symbol="rAAPL" onclick="selectMarket('rAAPL')">
-              <div class="asset-card-top">
-                <div class="asset-card-token">
-                  <img src="assets/tokens/aapl.svg" alt="AAPL">
-                  <span class="asset-card-symbol">rAAPL</span>
-                </div>
-                <span class="asset-card-drift gold">-1.82%</span>
-              </div>
-              <div class="asset-card-price" id="selectorPrice_rAAPL">$228.40</div>
-              <div class="asset-card-company">Apple Inc • -1.20σ</div>
-            </div>
-
-            <!-- Asset 6: rSPY -->
-            <div class="arena-asset-card" data-symbol="rSPY" onclick="selectMarket('rSPY')">
-              <div class="asset-card-top">
-                <div class="asset-card-token">
-                  <img src="assets/tokens/spy.svg" alt="SPY">
-                  <span class="asset-card-symbol">rSPY</span>
-                </div>
-                <span class="asset-card-drift neutral">+0.43%</span>
-              </div>
-              <div class="asset-card-price" id="selectorPrice_rSPY">$564.20</div>
-              <div class="asset-card-company">S&P 500 ETF • 0.35σ</div>
-            </div>
-
-            <!-- Asset 7: rQQQ -->
-            <div class="arena-asset-card" data-symbol="rQQQ" onclick="selectMarket('rQQQ')">
-              <div class="asset-card-top">
-                <div class="asset-card-token">
-                  <img src="assets/tokens/qqq.svg" alt="QQQ">
-                  <span class="asset-card-symbol">rQQQ</span>
-                </div>
-                <span class="asset-card-drift neutral">+0.77%</span>
-              </div>
-              <div class="asset-card-price" id="selectorPrice_rQQQ">$482.60</div>
-              <div class="asset-card-company">Nasdaq QQQ • 0.62σ</div>
-            </div>
+{selector_cards_html}
           </div>
         </div>
 
@@ -7666,6 +7603,22 @@ html_template = f"""<!DOCTYPE html>
               markets[sym].high_24h     = liveM.high_24h;
               markets[sym].low_24h      = liveM.low_24h;
               markets[sym].source       = liveM.source;
+
+              // Real-time selector card updates
+              const pEl = document.getElementById(`selectorPrice_${{sym}}`);
+              if (pEl) pEl.textContent = `$${{liveM.spot_price.toFixed(2)}}`;
+              const dEl = document.getElementById(`selectorDrift_${{sym}}`);
+              if (dEl) {{
+                const sign = liveM.drift_pct > 0 ? "+" : "";
+                dEl.textContent = `${{sign}}${{liveM.drift_pct.toFixed(2)}}%`;
+                dEl.className = liveM.drift_pct > 0 ? "asset-card-drift green" : (liveM.drift_pct < 0 ? "asset-card-drift gold" : "asset-card-drift neutral");
+              }}
+              const sEl = document.getElementById(`selectorSub_${{sym}}`);
+              if (sEl && markets[sym]) {{
+                const zSign = liveM.z_score > 0 ? "+" : "";
+                const comp = markets[sym].company.split(" ")[0];
+                sEl.textContent = `${{comp}} • ${{zSign}}${{liveM.z_score.toFixed(2)}}σ`;
+              }}
             }}
           }});
 

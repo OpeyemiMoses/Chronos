@@ -4372,95 +4372,96 @@ div[data-rk] [aria-label*="Switch"] {
             <span>7 Markets Active • Weekend Dislocation Scanner</span>
           </div>
           <div class="arena-market-selector-bar" id="arenaMarketSelectorBar">
-            <!-- Asset 1: rNVDA -->
-            <div class="arena-asset-card active" data-symbol="rNVDA" onclick="selectMarket('rNVDA')">
+
+            <!-- Asset: rNVDA -->
+            <div class="arena-asset-card active" data-symbol="rNVDA" onclick="selectMarket('rNVDA')" id="selectorCard_rNVDA">
               <div class="asset-card-top">
                 <div class="asset-card-token">
-                  <img src="assets/tokens/nvda.svg" alt="NVDA">
+                  <img src="assets/tokens/nvda.svg" alt="rNVDA">
                   <span class="asset-card-symbol">rNVDA</span>
                 </div>
-                <span class="asset-card-drift green">+3.42%</span>
+                <span class="asset-card-drift green" id="selectorDrift_rNVDA">+2.37%</span>
               </div>
-              <div class="asset-card-price" id="selectorPrice_rNVDA">$132.80</div>
-              <div class="asset-card-company">NVIDIA Corp • 2.24σ</div>
+              <div class="asset-card-price" id="selectorPrice_rNVDA">$221.49</div>
+              <div class="asset-card-company" id="selectorSub_rNVDA">NVIDIA • +1.58σ</div>
             </div>
 
-            <!-- Asset 2: rTSLA -->
-            <div class="arena-asset-card" data-symbol="rTSLA" onclick="selectMarket('rTSLA')">
+            <!-- Asset: rTSLA -->
+            <div class="arena-asset-card" data-symbol="rTSLA" onclick="selectMarket('rTSLA')" id="selectorCard_rTSLA">
               <div class="asset-card-top">
                 <div class="asset-card-token">
-                  <img src="assets/tokens/tsla.svg" alt="TSLA">
+                  <img src="assets/tokens/tsla.svg" alt="rTSLA">
                   <span class="asset-card-symbol">rTSLA</span>
                 </div>
-                <span class="asset-card-drift green">+4.20%</span>
+                <span class="asset-card-drift gold" id="selectorDrift_rTSLA">-0.57%</span>
               </div>
-              <div class="asset-card-price" id="selectorPrice_rTSLA">$253.52</div>
-              <div class="asset-card-company">Tesla Inc • 2.65σ</div>
+              <div class="asset-card-price" id="selectorPrice_rTSLA">$364.82</div>
+              <div class="asset-card-company" id="selectorSub_rTSLA">Tesla • -0.38σ</div>
             </div>
 
-            <!-- Asset 3: rMSTR -->
-            <div class="arena-asset-card" data-symbol="rMSTR" onclick="selectMarket('rMSTR')">
+            <!-- Asset: rAAPL -->
+            <div class="arena-asset-card" data-symbol="rAAPL" onclick="selectMarket('rAAPL')" id="selectorCard_rAAPL">
               <div class="asset-card-top">
                 <div class="asset-card-token">
-                  <img src="assets/tokens/mstr.svg" alt="MSTR">
-                  <span class="asset-card-symbol">rMSTR</span>
-                </div>
-                <span class="asset-card-drift green">+6.91%</span>
-              </div>
-              <div class="asset-card-price" id="selectorPrice_rMSTR">$312.40</div>
-              <div class="asset-card-company">MicroStrategy • 3.48σ</div>
-            </div>
-
-            <!-- Asset 4: rCOIN -->
-            <div class="arena-asset-card" data-symbol="rCOIN" onclick="selectMarket('rCOIN')">
-              <div class="asset-card-top">
-                <div class="asset-card-token">
-                  <img src="assets/tokens/coin.svg" alt="COIN">
-                  <span class="asset-card-symbol">rCOIN</span>
-                </div>
-                <span class="asset-card-drift green">+5.66%</span>
-              </div>
-              <div class="asset-card-price" id="selectorPrice_rCOIN">$218.50</div>
-              <div class="asset-card-company">Coinbase Global • 3.10σ</div>
-            </div>
-
-            <!-- Asset 5: rAAPL -->
-            <div class="arena-asset-card" data-symbol="rAAPL" onclick="selectMarket('rAAPL')">
-              <div class="asset-card-top">
-                <div class="asset-card-token">
-                  <img src="assets/tokens/aapl.svg" alt="AAPL">
+                  <img src="assets/tokens/aapl.svg" alt="rAAPL">
                   <span class="asset-card-symbol">rAAPL</span>
                 </div>
-                <span class="asset-card-drift gold">-1.82%</span>
+                <span class="asset-card-drift gold" id="selectorDrift_rAAPL">-0.16%</span>
               </div>
-              <div class="asset-card-price" id="selectorPrice_rAAPL">$228.40</div>
-              <div class="asset-card-company">Apple Inc • -1.20σ</div>
+              <div class="asset-card-price" id="selectorPrice_rAAPL">$334.48</div>
+              <div class="asset-card-company" id="selectorSub_rAAPL">Apple • -0.11σ</div>
             </div>
 
-            <!-- Asset 6: rSPY -->
-            <div class="arena-asset-card" data-symbol="rSPY" onclick="selectMarket('rSPY')">
+            <!-- Asset: rCOIN -->
+            <div class="arena-asset-card" data-symbol="rCOIN" onclick="selectMarket('rCOIN')" id="selectorCard_rCOIN">
               <div class="asset-card-top">
                 <div class="asset-card-token">
-                  <img src="assets/tokens/spy.svg" alt="SPY">
+                  <img src="assets/tokens/coin.svg" alt="rCOIN">
+                  <span class="asset-card-symbol">rCOIN</span>
+                </div>
+                <span class="asset-card-drift green" id="selectorDrift_rCOIN">+0.05%</span>
+              </div>
+              <div class="asset-card-price" id="selectorPrice_rCOIN">$194.78</div>
+              <div class="asset-card-company" id="selectorSub_rCOIN">Coinbase • +0.03σ</div>
+            </div>
+
+            <!-- Asset: rMSTR -->
+            <div class="arena-asset-card" data-symbol="rMSTR" onclick="selectMarket('rMSTR')" id="selectorCard_rMSTR">
+              <div class="asset-card-top">
+                <div class="asset-card-token">
+                  <img src="assets/tokens/mst.svg" alt="rMSTR">
+                  <span class="asset-card-symbol">rMSTR</span>
+                </div>
+                <span class="asset-card-drift gold" id="selectorDrift_rMSTR">-0.01%</span>
+              </div>
+              <div class="asset-card-price" id="selectorPrice_rMSTR">$156.19</div>
+              <div class="asset-card-company" id="selectorSub_rMSTR">MicroStrategy • -0.01σ</div>
+            </div>
+
+            <!-- Asset: rSPY -->
+            <div class="arena-asset-card" data-symbol="rSPY" onclick="selectMarket('rSPY')" id="selectorCard_rSPY">
+              <div class="asset-card-top">
+                <div class="asset-card-token">
+                  <img src="assets/tokens/spy.svg" alt="rSPY">
                   <span class="asset-card-symbol">rSPY</span>
                 </div>
-                <span class="asset-card-drift neutral">+0.43%</span>
+                <span class="asset-card-drift gold" id="selectorDrift_rSPY">-0.07%</span>
               </div>
-              <div class="asset-card-price" id="selectorPrice_rSPY">$564.20</div>
-              <div class="asset-card-company">S&P 500 ETF • 0.35σ</div>
+              <div class="asset-card-price" id="selectorPrice_rSPY">$763.30</div>
+              <div class="asset-card-company" id="selectorSub_rSPY">SPDR • -0.05σ</div>
             </div>
 
-            <!-- Asset 7: rQQQ -->
-            <div class="arena-asset-card" data-symbol="rQQQ" onclick="selectMarket('rQQQ')">
+            <!-- Asset: rQQQ -->
+            <div class="arena-asset-card" data-symbol="rQQQ" onclick="selectMarket('rQQQ')" id="selectorCard_rQQQ">
               <div class="asset-card-top">
                 <div class="asset-card-token">
-                  <img src="assets/tokens/qqq.svg" alt="QQQ">
+                  <img src="assets/tokens/qqq.svg" alt="rQQQ">
                   <span class="asset-card-symbol">rQQQ</span>
                 </div>
-                <span class="asset-card-drift neutral">+0.77%</span>
+                <span class="asset-card-drift green" id="selectorDrift_rQQQ">+0.15%</span>
               </div>
-              <div class="asset-card-price" id="selectorPrice_rQQQ">$482.60</div>
-              <div class="asset-card-company">Nasdaq QQQ • 0.62σ</div>
+              <div class="asset-card-price" id="selectorPrice_rQQQ">$721.86</div>
+              <div class="asset-card-company" id="selectorSub_rQQQ">Invesco • +0.10σ</div>
             </div>
           </div>
         </div>
@@ -8805,6 +8806,22 @@ div[data-rk] [aria-label*="Switch"] {
               markets[sym].high_24h     = liveM.high_24h;
               markets[sym].low_24h      = liveM.low_24h;
               markets[sym].source       = liveM.source;
+
+              // Real-time selector card updates
+              const pEl = document.getElementById(`selectorPrice_${sym}`);
+              if (pEl) pEl.textContent = `$${liveM.spot_price.toFixed(2)}`;
+              const dEl = document.getElementById(`selectorDrift_${sym}`);
+              if (dEl) {
+                const sign = liveM.drift_pct > 0 ? "+" : "";
+                dEl.textContent = `${sign}${liveM.drift_pct.toFixed(2)}%`;
+                dEl.className = liveM.drift_pct > 0 ? "asset-card-drift green" : (liveM.drift_pct < 0 ? "asset-card-drift gold" : "asset-card-drift neutral");
+              }
+              const sEl = document.getElementById(`selectorSub_${sym}`);
+              if (sEl && markets[sym]) {
+                const zSign = liveM.z_score > 0 ? "+" : "";
+                const comp = markets[sym].company.split(" ")[0];
+                sEl.textContent = `${comp} • ${zSign}${liveM.z_score.toFixed(2)}σ`;
+              }
             }
           });
 
