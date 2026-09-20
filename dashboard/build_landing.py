@@ -545,6 +545,95 @@ html_content = f"""<!DOCTYPE html>
       line-height: 1.45;
     }}
 
+    /* Audited Statistical KPI Cross-Grid Showcase (Hero Diagram Layout) */
+    .kpi-showcase-section {{
+      padding: 5rem 0;
+      background: radial-gradient(ellipse at center, #78997a 0%, #52755b 42%, #375344 78%, #273d32 100%);
+      position: relative;
+      overflow: hidden;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    }}
+
+    .kpi-cross-stage {{
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1.08fr 1fr;
+      align-items: center;
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }}
+
+    /* Horizontal connector bridge behind the center cards */
+    .kpi-connector-bar {{
+      position: absolute;
+      left: 8%;
+      right: 8%;
+      top: 50%;
+      height: 76px;
+      transform: translateY(-50%);
+      background: rgba(115, 140, 105, 0.45);
+      border-radius: 6px;
+      z-index: 1;
+      pointer-events: none;
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.15);
+    }}
+
+    .kpi-card {{
+      background: #FFFFFF;
+      border-radius: 8px;
+      padding: 1.75rem 1.85rem;
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 10px 25px -4px rgba(0, 0, 0, 0.28), 0 4px 10px -2px rgba(0, 0, 0, 0.14);
+      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease;
+      position: relative;
+      z-index: 2;
+    }}
+
+    .kpi-card:hover {{
+      transform: translateY(-4px);
+      box-shadow: 0 18px 36px -6px rgba(0, 0, 0, 0.38), 0 8px 16px -3px rgba(0, 0, 0, 0.2);
+    }}
+
+    .kpi-center-stack {{
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      position: relative;
+      z-index: 3;
+    }}
+
+    .kpi-center-backdrop {{
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 24%;
+      bottom: 24%;
+      background: #6e8460;
+      border-radius: 6px;
+      z-index: -1;
+      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.25);
+    }}
+
+    .kpi-card-center-top,
+    .kpi-card-center-bottom {{
+      box-shadow: 0 18px 38px -6px rgba(0, 0, 0, 0.45), 0 6px 14px -2px rgba(0, 0, 0, 0.25);
+    }}
+
+    @media (max-width: 960px) {{
+      .kpi-cross-stage {{
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+        padding: 1.5rem 1rem;
+      }}
+      .kpi-connector-bar,
+      .kpi-center-backdrop {{
+        display: none;
+      }}
+    }}
+
     /* Interactive Asset Pills */
     .asset-pill {{
       display: inline-flex;
@@ -980,26 +1069,42 @@ html_content = f"""<!DOCTYPE html>
     </div>
   </section>
 
-  <!-- 4-Column Audited Statistical KPI Strip & Institutional Walk-Forward Audit Table -->
-  <section class="section-spacious" id="metrics" style="background-color: var(--color-canvas-subtle);">
+  <!-- Audited Statistical KPI Cross-Grid Showcase (Hero Diagram Layout) -->
+  <section class="kpi-showcase-section" id="metrics">
     <div class="container">
-      <div class="landing-grid-4col">
-        <div class="card-paper stat-box-interactive">
+      <div class="kpi-cross-stage">
+        <!-- Horizontal bridge connector running behind center stack -->
+        <div class="kpi-connector-bar"></div>
+
+        <!-- Left Wing Card: 120-Day Cumulative Return -->
+        <div class="kpi-card kpi-card-left card-paper stat-box-interactive">
           <div class="stat-number" style="color: var(--color-green);">+39.71%</div>
           <div class="stat-label">120-Day Cumulative Return</div>
           <div class="stat-sub">Net of 0.10% round-trip taker fee and bid-ask spread on 2,881 hourly candles.</div>
         </div>
-        <div class="card-paper stat-box-interactive">
-          <div class="stat-number">4.44</div>
-          <div class="stat-label">Full Horizon Sharpe Ratio</div>
-          <div class="stat-sub">5.07 Out-of-Sample Sharpe (1.26x Walk-Forward Stability Ratio). Zero curve fitting.</div>
+
+        <!-- Center Stack: Card 2 (Top) & Card 3 (Bottom) -->
+        <div class="kpi-center-stack">
+          <!-- Backdrop block behind center cards gap -->
+          <div class="kpi-center-backdrop"></div>
+
+          <!-- Center Top Card: Sharpe Ratio -->
+          <div class="kpi-card kpi-card-center-top card-paper stat-box-interactive">
+            <div class="stat-number">4.44</div>
+            <div class="stat-label">Full Horizon Sharpe Ratio</div>
+            <div class="stat-sub">5.07 Out-of-Sample Sharpe (1.26x Walk-Forward Stability Ratio). Zero curve fitting.</div>
+          </div>
+
+          <!-- Center Bottom Card: Max Drawdown -->
+          <div class="kpi-card kpi-card-center-bottom card-paper stat-box-interactive">
+            <div class="stat-number" style="color: #18181B;">-4.69%</div>
+            <div class="stat-label">Max Peak-to-Trough DD</div>
+            <div class="stat-sub">Protected by dynamic volatility stops and 3.0x max leverage cap.</div>
+          </div>
         </div>
-        <div class="card-paper stat-box-interactive">
-          <div class="stat-number" style="color: #222;">-4.69%</div>
-          <div class="stat-label">Max Peak-to-Trough DD</div>
-          <div class="stat-sub">Protected by dynamic volatility stops and 3.0x max leverage cap.</div>
-        </div>
-        <div class="card-paper stat-box-interactive">
+
+        <!-- Right Wing Card: Weekday Cash Sweep -->
+        <div class="kpi-card kpi-card-right card-paper stat-box-interactive">
           <div class="stat-number" style="color: var(--color-green);">100%</div>
           <div class="stat-label">Weekday Cash Sweep</div>
           <div class="stat-sub">Zero overnight equity beta. 100% USDT cash held Monday afternoon through Friday.</div>
