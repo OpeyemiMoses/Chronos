@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "public": false,
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/", "destination": "/dashboard/index.html" },
+    { "source": "/terminal", "destination": "/dashboard/app.html" },
+    { "source": "/app", "destination": "/dashboard/app.html" },
+    { "source": "/docs", "destination": "/dashboard/docs.html" },
+    { "source": "/help", "destination": "/dashboard/help.html" },
+    { "source": "/assets/:match*", "destination": "/dashboard/assets/:match*" }
+  ],
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    }
+  ]
+}
