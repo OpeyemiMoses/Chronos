@@ -4414,6 +4414,31 @@ html_template = f"""<!DOCTYPE html>
     }}
     window.isLiveTradingReady = isLiveTradingReady;
 
+    function isWeekendWindowActive() {{
+      try {{
+        const now = new Date();
+        const nyString = now.toLocaleString("en-US", {{ timeZone: "America/New_York" }});
+        const ny = new Date(nyString);
+        const day = ny.getDay(); // 0=Sun, 1=Mon, 2=Tue, 3=Wed, 4=Thu, 5=Fri, 6=Sat
+        const hour = ny.getHours();
+        const min = ny.getMinutes();
+        const t = hour + min / 60.0;
+
+        // Fri >= 16:00 EST
+        if (day === 5 && t >= 16.0) return true;
+        // Sat all day
+        if (day === 6) return true;
+        // Sun all day
+        if (day === 0) return true;
+        // Mon <= 9:30 EST
+        if (day === 1 && t <= 9.5) return true;
+        return false;
+      }} catch (e) {{
+        return true;
+      }}
+    }}
+    window.isWeekendWindowActive = isWeekendWindowActive;
+
     // =========================================================================
     // AUTONOMOUS AGENT CONFIGURATION & STRATEGY CLEARANCE CONSTANTS
     // =========================================================================
@@ -6000,6 +6025,16 @@ html_template = f"""<!DOCTYPE html>
         return;
       }}
 
+      // GUARD: In Live Bitget mode, only trade during the weekend window
+      if (typeof activeTradingEnv !== "undefined" && activeTradingEnv === "live" && !isWeekendWindowActive()) {{
+        showToast(
+          "100% Cash Sleep Active",
+          "Chronos live execution operates strictly during the weekend window (Friday 16:00 EST to Monday 09:30 EST). Live trading is dormant during weekday hours to protect capital from regular equity beta.",
+          "info"
+        );
+        return;
+      }}
+
       const d = ChronosWalletStore.getCurrentData();
       if (!d) return;
       d.openPositions = d.openPositions || [];
@@ -6146,6 +6181,12 @@ html_template = f"""<!DOCTYPE html>
       // GUARD: In Live Bitget mode, API keys are required before deploying trades
       if (typeof activeTradingEnv !== "undefined" && activeTradingEnv === "live" && !isLiveTradingReady()) {{
         updateAgentTelemetry(`[LIVE TRADING PAUSED] Switched to Live Bitget mode, but API keys are not configured. Autonomous agent cannot deploy trades without credentials. Configure keys in Settings.`);
+        return;
+      }}
+
+      // GUARD: In Live Bitget mode, only trade during the weekend window
+      if (typeof activeTradingEnv !== "undefined" && activeTradingEnv === "live" && !isWeekendWindowActive()) {{
+        updateAgentTelemetry("[LIVE DORMANT - 100% CASH SLEEP] Weekday session active on Wall Street. Chronos is in Phase 4: 100% Cash Sleep. Live trading dormant until Friday 16:00 EST.");
         return;
       }}
 
@@ -6663,6 +6704,18 @@ html_template = f"""<!DOCTYPE html>
       // GUARD: In Live Bitget mode, API keys are required
       if (typeof activeTradingEnv !== "undefined" && activeTradingEnv === "live" && !isLiveTradingReady()) {{
         updateAgentTelemetry(`[LIVE TRADING PAUSED] Switched to Live Bitget mode, but API keys are not configured. Autonomous agent paused. Configure your Bitget API keys in Settings to deploy live trades.`);
+        if (autoPilotActive) {{
+          autoPilotActive = false;
+          updateAutoPilotUI(false);
+          if (autoPilotTimer) clearInterval(autoPilotTimer);
+          if (countdownInterval) clearInterval(countdownInterval);
+        }}
+        return;
+      }}
+
+      // GUARD: In Live Bitget mode, only trade during the weekend window
+      if (typeof activeTradingEnv !== "undefined" && activeTradingEnv === "live" && !isWeekendWindowActive()) {{
+        updateAgentTelemetry("[LIVE DORMANT - 100% CASH SLEEP] US equity markets are open. Chronos is in Phase 4: 100% Cash Sleep (Zero Weekday Exposure). Autonomous agent will wake up Friday at 16:00 EST.");
         if (autoPilotActive) {{
           autoPilotActive = false;
           updateAutoPilotUI(false);

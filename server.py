@@ -138,6 +138,44 @@ def serve_help():
     return send_from_directory("dashboard", "help.html")
 
 
+def is_within_weekend_window(test_dt=None) -> tuple[bool, str]:
+    """
+    Checks if current time in New York (EST/EDT) is within the weekend trading window:
+    - Friday 16:00 EST through Monday 09:30 EST
+    Returns (is_active, phase_name)
+    """
+    import datetime, zoneinfo
+    try:
+        ny_tz = zoneinfo.ZoneInfo("America/New_York")
+    except Exception:
+        ny_tz = datetime.timezone(datetime.timedelta(hours=-4))
+
+    now = test_dt if test_dt else datetime.datetime.now(ny_tz)
+    weekday = now.weekday()  # 0=Mon, 4=Fri, 5=Sat, 6=Sun
+    hour = now.hour
+    minute = now.minute
+    time_dec = hour + minute / 60.0
+
+    # Friday after 16:00 EST -> Weekend Alpha Hunt (Phase 2)
+    if weekday == 4 and time_dec >= 16.0:
+        return True, "PHASE 2: 24/7 WEEKEND ALPHA HUNT"
+    # Saturday all day -> Weekend Alpha Hunt (Phase 2)
+    if weekday == 5:
+        return True, "PHASE 2: 24/7 WEEKEND ALPHA HUNT"
+    # Sunday all day -> Weekend Alpha Hunt (Phase 2)
+    if weekday == 6:
+        return True, "PHASE 2: 24/7 WEEKEND ALPHA HUNT"
+    # Monday before 08:00 EST -> Weekend Alpha Hunt (Phase 2)
+    if weekday == 0 and time_dec < 8.0:
+        return True, "PHASE 2: 24/7 WEEKEND ALPHA HUNT"
+    # Monday 08:00 to 09:30 EST -> Pre-Market Convergence Harvest (Phase 3)
+    if weekday == 0 and 8.0 <= time_dec <= 9.5:
+        return True, "PHASE 3: MONDAY PRE-MARKET HARVEST"
+
+    # Weekday: Mon 09:30 -> Fri 15:59 EST -> 100% Cash Sleep
+    return False, "PHASE 4: 100% CASH SLEEP (WEEKDAY INTERMISSION)"
+
+
 # =========================================================================
 # API: CONNECTION STATUS
 # =========================================================================
@@ -152,6 +190,9 @@ def api_status():
     active_trader = get_trader_for_request(request)
     result = active_trader.test_connection()
     result["trading_mode"] = active_trader.trading_mode
+    is_active, phase_str = is_within_weekend_window()
+    result["market_phase"] = phase_str
+    result["is_weekend_window"] = is_active
     return jsonify(result)
 
 
@@ -233,6 +274,20 @@ def api_trade():
 
     if not symbol or not side or collateral <= 0:
         return jsonify({"status": "error", "message": "Missing required fields: symbol, side, collateral"}), 400
+
+    # Enforce Weekend Window for Live Capital Execution
+    if active_trader.is_live and not data.get("bypass_weekend_check"):
+        is_active, phase_str = is_within_weekend_window()
+        if not is_active:
+            logger.warning(f"[MARKET CLOSED] Live trade rejected outside weekend window: {phase_str}")
+            return jsonify({
+                "status": "error",
+                "trading_mode": "LIVE",
+                "error_code": "WEEKDAY_SLEEP_ACTIVE",
+                "message": f"Trading blocked: Chronos operates strictly on weekends (Friday 16:00 EST to Monday 09:30 EST). Currently in {phase_str}.",
+                "phase": phase_str,
+                "is_paper": False
+            }), 400
 
     # Calculate position size from collateral and price
     if entry_price > 0:
