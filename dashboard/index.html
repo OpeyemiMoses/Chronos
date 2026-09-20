@@ -1025,14 +1025,14 @@ img, svg, video, canvas {
       line-height: 1.45;
     }
 
-    /* Audited Statistical KPI Cross-Grid Showcase (Hero Diagram Layout) */
+    /* Audited Statistical KPI Cross-Grid Showcase (Retained Editorial Canvas) */
     .kpi-showcase-section {
       padding: 5rem 0;
-      background: radial-gradient(ellipse at center, #78997a 0%, #52755b 42%, #375344 78%, #273d32 100%);
+      background-color: var(--color-canvas-subtle);
       position: relative;
       overflow: hidden;
-      border-top: 1px solid rgba(0, 0, 0, 0.08);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      border-top: 1px solid var(--color-border-hairline);
+      border-bottom: 1px solid var(--color-border-hairline);
     }
 
     .kpi-cross-stage {
@@ -1043,38 +1043,39 @@ img, svg, video, canvas {
       gap: 1.5rem;
       max-width: 1200px;
       margin: 0 auto;
-      padding: 2rem 1rem;
+      padding: 2.25rem 1rem;
     }
 
     /* Horizontal connector bridge behind the center cards */
     .kpi-connector-bar {
       position: absolute;
-      left: 8%;
-      right: 8%;
+      left: 6%;
+      right: 6%;
       top: 50%;
       height: 76px;
       transform: translateY(-50%);
-      background: rgba(115, 140, 105, 0.45);
-      border-radius: 6px;
+      background: #EAE8DE;
+      border: 1px solid #DCD9CE;
+      border-radius: 8px;
       z-index: 1;
       pointer-events: none;
-      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.15);
     }
 
     .kpi-card {
       background: #FFFFFF;
       border-radius: 8px;
       padding: 1.75rem 1.85rem;
-      border: 1px solid rgba(255, 255, 255, 0.9);
-      box-shadow: 0 10px 25px -4px rgba(0, 0, 0, 0.28), 0 4px 10px -2px rgba(0, 0, 0, 0.14);
-      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease;
+      border: 1px solid var(--color-border-hairline);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.03);
+      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease, border-color 0.28s ease;
       position: relative;
       z-index: 2;
     }
 
     .kpi-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 18px 36px -6px rgba(0, 0, 0, 0.38), 0 8px 16px -3px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+      border-color: rgba(0, 0, 0, 0.16);
     }
 
     .kpi-center-stack {
@@ -1087,19 +1088,34 @@ img, svg, video, canvas {
 
     .kpi-center-backdrop {
       position: absolute;
-      left: 0;
-      right: 0;
-      top: 24%;
-      bottom: 24%;
-      background: #6e8460;
-      border-radius: 6px;
+      left: -6px;
+      right: -6px;
+      top: 22%;
+      bottom: 22%;
+      background: #E2DFD3;
+      border: 1px solid #D4D0C2;
+      border-radius: 8px;
       z-index: -1;
-      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.25);
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.04);
     }
 
     .kpi-card-center-top,
     .kpi-card-center-bottom {
-      box-shadow: 0 18px 38px -6px rgba(0, 0, 0, 0.45), 0 6px 14px -2px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(0, 0, 0, 0.03);
+    }
+
+    /* Stagger reveal transitions */
+    .kpi-card[data-stagger-index="0"] {
+      transition-delay: 0ms;
+    }
+    .kpi-card[data-stagger-index="1"] {
+      transition-delay: 140ms;
+    }
+    .kpi-card[data-stagger-index="2"] {
+      transition-delay: 280ms;
+    }
+    .kpi-card[data-stagger-index="3"] {
+      transition-delay: 420ms;
     }
 
     @media (max-width: 960px) {
@@ -1557,7 +1573,7 @@ img, svg, video, canvas {
         <div class="kpi-connector-bar"></div>
 
         <!-- Left Wing Card: 120-Day Cumulative Return -->
-        <div class="kpi-card kpi-card-left card-paper stat-box-interactive">
+        <div class="kpi-card kpi-card-left card-paper stat-box-interactive" data-stagger-index="0">
           <div class="stat-number" style="color: var(--color-green);">+39.71%</div>
           <div class="stat-label">120-Day Cumulative Return</div>
           <div class="stat-sub">Net of 0.10% round-trip taker fee and bid-ask spread on 2,881 hourly candles.</div>
@@ -1569,14 +1585,14 @@ img, svg, video, canvas {
           <div class="kpi-center-backdrop"></div>
 
           <!-- Center Top Card: Sharpe Ratio -->
-          <div class="kpi-card kpi-card-center-top card-paper stat-box-interactive">
+          <div class="kpi-card kpi-card-center-top card-paper stat-box-interactive" data-stagger-index="1">
             <div class="stat-number">4.44</div>
             <div class="stat-label">Full Horizon Sharpe Ratio</div>
             <div class="stat-sub">5.07 Out-of-Sample Sharpe (1.26x Walk-Forward Stability Ratio). Zero curve fitting.</div>
           </div>
 
           <!-- Center Bottom Card: Max Drawdown -->
-          <div class="kpi-card kpi-card-center-bottom card-paper stat-box-interactive">
+          <div class="kpi-card kpi-card-center-bottom card-paper stat-box-interactive" data-stagger-index="2">
             <div class="stat-number" style="color: #18181B;">-4.69%</div>
             <div class="stat-label">Max Peak-to-Trough DD</div>
             <div class="stat-sub">Protected by dynamic volatility stops and 3.0x max leverage cap.</div>
@@ -1584,7 +1600,7 @@ img, svg, video, canvas {
         </div>
 
         <!-- Right Wing Card: Weekday Cash Sweep -->
-        <div class="kpi-card kpi-card-right card-paper stat-box-interactive">
+        <div class="kpi-card kpi-card-right card-paper stat-box-interactive" data-stagger-index="3">
           <div class="stat-number" style="color: var(--color-green);">100%</div>
           <div class="stat-label">Weekday Cash Sweep</div>
           <div class="stat-sub">Zero overnight equity beta. 100% USDT cash held Monday afternoon through Friday.</div>
@@ -2337,13 +2353,17 @@ img, svg, video, canvas {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
               const target = entry.target;
-              const parent = target.parentElement;
               let delay = 0;
-              if (parent) {
-                const siblings = Array.from(parent.children).filter(c => c.classList.contains("chronos-pop-in"));
-                const idx = siblings.indexOf(target);
-                if (idx > 0) {
-                  delay = Math.min(idx * 75, 450);
+              if (target.dataset && target.dataset.staggerIndex !== undefined) {
+                delay = parseInt(target.dataset.staggerIndex, 10) * 140;
+              } else {
+                const parent = target.parentElement;
+                if (parent) {
+                  const siblings = Array.from(parent.children).filter(c => c.classList.contains("chronos-pop-in"));
+                  const idx = siblings.indexOf(target);
+                  if (idx > 0) {
+                    delay = Math.min(idx * 75, 450);
+                  }
                 }
               }
               setTimeout(() => {
