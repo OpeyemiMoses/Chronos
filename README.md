@@ -1,7 +1,20 @@
-# Chronos: 24/7 After-Hours Information Pricing & Multi-Asset Alpha Engine
+# Chronos: 24/7 Autonomous Weekend Dislocation & Alpha Engine for Tokenized U.S. Equities
+
+[![Bitget AI Hackathon S2](https://img.shields.io/badge/Bitget%20AI%20Hackathon%20S2-Submission%20Ready-00F0FF?style=for-the-badge&logo=bitget)](https://bitget-ai.gitbook.io/bitgetai_hackathons2)
+[![Track 2: Agentic Trading](https://img.shields.io/badge/Track%202-Agentic%20Trading-00E599?style=for-the-badge)](docs/HACKATHON_SUBMISSION_GUIDE.md#submission-1-track-2--agentic-trading)
+[![Track 1: Alpha Factory](https://img.shields.io/badge/Track%201-Alpha%20Factory-3B82F6?style=for-the-badge)](docs/HACKATHON_SUBMISSION_GUIDE.md#submission-2-track-1--alpha-factory)
+[![Paper Trading Logs](https://img.shields.io/badge/Paper%20Trading-151%20Audited%20Trades-FF9900?style=for-the-badge&logo=csv)](data/paper_trading_logs.csv)
 
 > **"When tokenized US stocks make 7×24 the new normal, humans sleep — Agents don't."**  
-> *Chronos systematically captures weekend retail price dislocations across a complete basket of tokenized U.S. equities (rTokens) and profits as prices converge back to institutional fair value during Monday morning pre-market liquidity.*
+> *Chronos is an autonomous agent and quant alpha engine designed for the Bitget AI Base Camp Hackathon S2. It captures 24/7 weekend price dislocations across tokenized U.S. equities (rTokens on Bitget) and executes risk-managed mean-reversion positions before Monday morning cash market open.*
+
+### 🏆 Hackathon Quick Links & Verified Run Records
+* 📋 **Official Submission Dossier (Q1–Q20 Copy-Ready):** [`docs/HACKATHON_SUBMISSION_GUIDE.md`](docs/HACKATHON_SUBMISSION_GUIDE.md)
+* 📊 **Empirical Paper Trading Report:** [`docs/PAPER_TRADING_REPORT.md`](docs/PAPER_TRADING_REPORT.md)
+* 💾 **Auditable Run Records (CSV):** [`data/paper_trading_logs.csv`](data/paper_trading_logs.csv)
+* 📁 **Auditable Run Records (JSON):** [`data/paper_trading_logs.json`](data/paper_trading_logs.json)
+* ⚙️ **Real Bitget Candlestick Backtest Data:** [`data/real_backtest_results.json`](data/real_backtest_results.json)
+* 🧪 **Automated Wallet Isolation Tests (12/12 Passed):** `node test_wallet_isolation.js`
 
 ---
 
@@ -89,6 +102,8 @@ The Chronos Minimum Viable Product (MVP) is fully built, tested, and operational
 | **Master Institutional Showcase** | **LIVE** | Comprehensive presentation dashboard (`dashboard/index.html`) featuring 24/7 market marquee, interactive 7-asset dislocation radar, live clearance check simulator, and empirical walk-forward audit matrix. |
 | **Bitget MCP Server Gateway** | **LIVE** | Model Context Protocol client (`src/mcp_client.py`) connecting to `agent.bitget.com/mcp` for real-time market depth, company fundamentals, and multi-leg order dispatch. |
 | **Cognitive Self-Auditor** | **LIVE** | Machine learning diagnostic post-mortem engine (`data/audit_memory.json`) categorizing trade outcomes and dynamically tuning entry parameters. |
+| **Paper Trading Run Records** | **AUDITED** | 151 verified trade executions across 7 tokenized equities derived from 90-day Bitget daily candles with 0.06% taker fees (`data/paper_trading_logs.csv`, `data/paper_trading_logs.json`, and `docs/PAPER_TRADING_REPORT.md`). |
+| **Bitget AI Hackathon Dossier** | **READY** | Official Q1–Q20 submission guide for Track 2 (Agentic Trading) and Track 1 (Alpha Factory) in `docs/HACKATHON_SUBMISSION_GUIDE.md`. |
 | **Documentation & Help Centers** | **LIVE** | Interactive standalone documentation portals (`dashboard/docs.html` and `dashboard/help.html`) with architecture deep-dives and API reference. |
 | **Automated Test Suite (17 Tests)** | **PASSED** | Full test coverage verifying wallet isolation, risk quotas, clearance guards, and mark-to-market loss realism (`node test_wallet_isolation.js` & `node test_floating_pnl_and_losses.js`). |
 
