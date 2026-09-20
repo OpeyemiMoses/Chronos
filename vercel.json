@@ -1,20 +1,31 @@
 {
   "version": 2,
-  "public": false,
   "cleanUrls": true,
   "rewrites": [
+    {
+      "source": "/api/:match*",
+      "destination": "https://chronos-production-a1e4.up.railway.app/api/:match*"
+    },
     { "source": "/", "destination": "/dashboard/index.html" },
     { "source": "/terminal", "destination": "/dashboard/app.html" },
     { "source": "/app", "destination": "/dashboard/app.html" },
     { "source": "/docs", "destination": "/dashboard/docs.html" },
     { "source": "/help", "destination": "/dashboard/help.html" },
-    { "source": "/assets/:match*", "destination": "/dashboard/assets/:match*" }
+    { "source": "/assets/:match*", "destination": "/dashboard/assets/:match*" },
+    { "source": "/data/:match*", "destination": "/data/:match*" }
   ],
   "headers": [
     {
       "source": "/assets/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" },
+        { "key": "Access-Control-Allow-Origin", "value": "*" }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "*" }
       ]
     }
   ]
