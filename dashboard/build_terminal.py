@@ -5525,6 +5525,55 @@ html_template = f"""<!DOCTYPE html>
         stressScore = Math.max(stressScore, 48);
       }}
 
+      // ── Factor 1: Z-Score Conviction Amplifier ────────────────────────────
+      // Higher divergence = stronger mean-reversion signal → boost score.
+      const absZ = Math.abs(parseFloat(m.z_score) || 0);
+      const zBoost = absZ >= 3.0 ? 8 : absZ >= 2.5 ? 5 : absZ >= 2.0 ? 2 : 0;
+
+      // ── Factor 2: Sentiment Overlay ───────────────────────────────────────
+      // Retail sentiment score (0-100) from ASSET_PLAIN_REASONING.
+      // High greed (>70): crowded retail longs amplify institutional snap-back → boost.
+      // Low / fearful (<40): weak positioning, possible adverse momentum → penalty.
+      const sentMeta = (typeof ASSET_PLAIN_REASONING !== "undefined" && ASSET_PLAIN_REASONING[symbol]) || null;
+      const sentScore = sentMeta ? (sentMeta.sentimentScore || 50) : 50;
+      const sentimentAdjust = sentScore >= 75 ? 7 : sentScore >= 60 ? 3 : sentScore >= 40 ? 0 : -4;
+
+      // ── Factor 3: Beta Risk Penalty ───────────────────────────────────────
+      // High-beta assets can gap far adversely on Monday open → reduce score.
+      // Low-beta (index ETFs) are more stable → small bonus.
+      const beta = parseFloat(m.beta) || 1.0;
+      const betaPenalty = beta > 2.5 ? -6 : beta > 1.8 ? -3 : beta <= 1.0 ? 2 : 0;
+
+      // ── Factor 4: Live Market Price Confirmation ──────────────────────────
+      // Compare current spot_price to entry to see if price is already
+      // converging toward anchor (thesis confirming) or diverging (weakening).
+      const currentSpot = parseFloat(m.spot_price) || entryPrice;
+      const entryGap   = Math.abs(entryPrice - anchor);
+      const currentGap = Math.abs(currentSpot - anchor);
+      const gapRatio   = entryGap > 0 ? (currentGap / entryGap) : 1.0;
+      const priceAdjust = gapRatio < 0.85 ? 5    // converging strongly — confirming
+                        : gapRatio < 1.0  ? 2    // slight convergence
+                        : gapRatio > 1.15 ? -5   // diverging further — thesis weakening
+                        : 0;
+
+      // Apply all adjustments, clamp final score to 0–100
+      stressScore = Math.round(Math.max(0, Math.min(100,
+        stressScore + zBoost + sentimentAdjust + betaPenalty + priceAdjust
+      )));
+
+      // Store factor breakdown so the modal can display each contribution
+      const scoreFactors = {{
+        base_scenario_score: Math.round(rawScore),
+        z_boost:             zBoost,
+        sentiment_adjust:    sentimentAdjust,
+        beta_penalty:        betaPenalty,
+        price_adjust:        priceAdjust,
+        sentiment_score:     sentScore,
+        beta,
+        current_spot:        parseFloat(currentSpot.toFixed(2)),
+        gap_ratio:           parseFloat(gapRatio.toFixed(3))
+      }};
+
       // Break-even: price at which netPct = 0 → rawPct = feePct
       const beMovePct = feePct / 100;
       const breakEvenPrice = parseFloat((isShort
@@ -5561,6 +5610,7 @@ html_template = f"""<!DOCTYPE html>
         drift_pct: parseFloat((m.drift_pct || 0).toFixed(2)),
         collateral,
         scenarios,
+        score_factors: scoreFactors,
         stress_score: stressScore,
         break_even_price: breakEvenPrice,
         worst_case_loss_usd: scenarios.tail_gap_8pct.pnl_usd,
@@ -5594,6 +5644,40 @@ html_template = f"""<!DOCTYPE html>
       return arr.length > 0 ? arr[arr.length - 1] : null;
     }}
     window.getLastStressTest = getLastStressTest;
+
+    /** Render factor breakdown HTML for stress test cards and modal */
+    function renderStressFactorsHTML(f) {{
+      if (!f) return '';
+      function factorChip(label, val, pts) {{
+        const col = pts > 0 ? '#10B981' : pts < 0 ? '#EF4444' : '#71717A';
+        const sign = pts > 0 ? '+' : '';
+        const ptsTxt = pts !== 0 ? `<span style="color: ${{col}}; font-weight: 700;">${{sign}}${{pts}} pts</span>` : `<span style="color: #A1A1AA;">0 pts</span>`;
+        return `
+          <div style="background: rgba(0,0,0,0.02); border: 1px solid rgba(0,0,0,0.06); border-radius: 6px; padding: 0.32rem 0.45rem;">
+            <div style="font-size: 0.58rem; color: #A1A1AA; font-weight: 700; text-transform: uppercase;">${{label}}</div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 0.12rem;">
+              <span style="font-size: 0.67rem; font-weight: 600; color: #18181B;">${{val}}</span>
+              <span style="font-family: var(--font-terminal); font-size: 0.62rem;">${{ptsTxt}}</span>
+            </div>
+          </div>
+        `;
+      }}
+      return `
+        <div style="margin-top: 0.55rem; padding-top: 0.45rem; border-top: 1px solid #EEE9DF;">
+          <div style="font-family: var(--font-terminal); font-size: 0.60rem; color: #A1A1AA; font-weight: 700; margin-bottom: 0.35rem; display: flex; justify-content: space-between;">
+            <span>MULTI-FACTOR CONVICTION OVERLAY</span>
+            <span>Scenario Base: ${{f.base_scenario_score || 0}} pts</span>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.35rem;">
+            ${{factorChip("Live Price Action", `$${{f.current_spot}} (${{f.gap_ratio < 1 ? 'converging' : 'widening'}})`, f.price_adjust)}}
+            ${{factorChip("Retail Sentiment", `${{f.sentiment_score}}% sentiment`, f.sentiment_adjust)}}
+            ${{factorChip("Z-Divergence", `Amplifier`, f.z_boost)}}
+            ${{factorChip("Asset Beta", `β = ${{f.beta.toFixed(2)}}`, f.beta_penalty)}}
+          </div>
+        </div>
+      `;
+    }}
+    window.renderStressFactorsHTML = renderStressFactorsHTML;
 
     /**
      * Renders the Stress Test panel in the Trading Arena for the given symbol.
@@ -5684,6 +5768,9 @@ html_template = f"""<!DOCTYPE html>
             </div>
             <div style="font-size: 0.62rem; color: #A1A1AA; font-style: italic; max-width: 200px; text-align: right;">Z=${{lastTest.z_score.toFixed(2)}}σ · Drift=${{lastTest.drift_pct >= 0 ? '+' : ''}}${{lastTest.drift_pct.toFixed(2)}}%</div>
           </div>
+
+          <!-- Factor Breakdown -->
+          ${{renderStressFactorsHTML(lastTest.score_factors)}}
 
           <!-- Memory Note -->
           <div style="margin-top: 0.5rem; padding: 0.4rem 0.6rem; background: rgba(99,102,241,0.05); border: 1px solid rgba(99,102,241,0.15); border-radius: 6px; font-size: 0.63rem; color: #6366F1; font-family: var(--font-terminal);">
@@ -6120,6 +6207,9 @@ html_template = f"""<!DOCTYPE html>
             </div>
             <div style="font-size: 0.62rem; color: #A1A1AA; font-style: italic;">${{stressData.id}}</div>
           </div>
+
+          <!-- Factor Breakdown -->
+          ${{renderStressFactorsHTML(stressData.score_factors)}}
 
           <div style="margin-top: 0.55rem; padding: 0.4rem 0.6rem; background: rgba(99,102,241,0.05); border: 1px solid rgba(99,102,241,0.15); border-radius: 6px; font-size: 0.63rem; color: #6366F1; font-family: var(--font-terminal); display: flex; align-items: center; gap: 0.35rem;">
             ${{window.icon ? window.icon('brain-circuit', {{ size: 12, color: '#6366F1' }}) : ''}}
