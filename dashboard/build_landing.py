@@ -915,6 +915,132 @@ html_content = f"""<!DOCTYPE html>
       }}
     }}
 
+    /* 3-Step Onboarding Stepped Layout (Matching Image 2) */
+    .onboarding-stepped-stage {{
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      max-width: 1160px;
+      margin: 2.75rem auto 3.5rem auto;
+      position: relative;
+      padding: 1.5rem 0 2rem 0;
+    }}
+
+    .onboarding-card-wrap {{
+      flex: 1;
+      max-width: 390px;
+      position: relative;
+      transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), z-index 0.32s ease;
+    }}
+
+    /* Left Card: Higher up, behind center */
+    .onboarding-card-wrap.step-left {{
+      z-index: 1;
+      transform: translateY(-26px);
+      margin-right: -2.75rem;
+    }}
+
+    /* Center Card: Stepped down, prominent elevation, overlapping */
+    .onboarding-card-wrap.step-center {{
+      z-index: 3;
+      transform: translateY(28px);
+    }}
+
+    /* Right Card: Higher up, behind center */
+    .onboarding-card-wrap.step-right {{
+      z-index: 1;
+      transform: translateY(-26px);
+      margin-left: -2.75rem;
+    }}
+
+    .onboarding-card {{
+      background-color: var(--color-white);
+      border: 1px solid var(--color-border-hairline);
+      border-radius: 12px;
+      padding: 1.85rem 1.85rem;
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.02);
+      transition: box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      min-height: 210px;
+      display: flex;
+      flex-direction: column;
+    }}
+
+    .onboarding-card-prominent {{
+      box-shadow: 0 22px 50px -10px rgba(0, 0, 0, 0.16), 0 8px 22px -4px rgba(0, 0, 0, 0.08);
+      border-color: rgba(0, 0, 0, 0.12);
+    }}
+
+    .onboarding-card .step-index {{
+      color: var(--color-green);
+      font-family: var(--font-terminal);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      letter-spacing: 0.05em;
+    }}
+
+    .onboarding-card-title {{
+      font-family: var(--font-serif-editorial);
+      font-size: 1.16rem;
+      font-weight: 600;
+      margin-bottom: 0.45rem;
+      color: var(--color-black);
+    }}
+
+    .onboarding-card-desc {{
+      font-size: 0.88rem;
+      color: var(--color-grey-text);
+      line-height: 1.6;
+    }}
+
+    /* Hover States: elevating smoothly */
+    .onboarding-card-wrap.step-left:hover {{
+      z-index: 5;
+      transform: translateY(-34px) scale(1.02);
+    }}
+    .onboarding-card-wrap.step-left:hover .onboarding-card {{
+      box-shadow: 0 20px 45px -8px rgba(0, 0, 0, 0.14), 0 8px 20px rgba(0, 0, 0, 0.06);
+      border-color: rgba(0, 0, 0, 0.2);
+    }}
+
+    .onboarding-card-wrap.step-center:hover {{
+      z-index: 5;
+      transform: translateY(18px) scale(1.02);
+    }}
+    .onboarding-card-wrap.step-center:hover .onboarding-card {{
+      box-shadow: 0 30px 65px -10px rgba(0, 0, 0, 0.22), 0 12px 28px rgba(0, 0, 0, 0.1);
+      border-color: rgba(0, 0, 0, 0.25);
+    }}
+
+    .onboarding-card-wrap.step-right:hover {{
+      z-index: 5;
+      transform: translateY(-34px) scale(1.02);
+    }}
+    .onboarding-card-wrap.step-right:hover .onboarding-card {{
+      box-shadow: 0 20px 45px -8px rgba(0, 0, 0, 0.14), 0 8px 20px rgba(0, 0, 0, 0.06);
+      border-color: rgba(0, 0, 0, 0.2);
+    }}
+
+    @media (max-width: 860px) {{
+      .onboarding-stepped-stage {{
+        flex-direction: column;
+        align-items: center;
+        gap: 1.25rem;
+        margin: 2rem auto;
+        padding: 0;
+      }}
+      .onboarding-card-wrap {{
+        max-width: 100%;
+        width: 100%;
+        margin: 0 !important;
+        transform: none !important;
+      }}
+      .onboarding-card-prominent {{
+        box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+      }}
+    }}
+
     /* Interactive Asset Pills */
     .asset-pill {{
       display: inline-flex;
@@ -1860,7 +1986,7 @@ html_content = f"""<!DOCTYPE html>
   </section>
 
   <!-- How to Get Started in 3 Steps -->
-  <section class="section-spacious" style="background-color: var(--color-canvas-light);">
+  <section class="section-spacious" style="background-color: var(--color-canvas-light); background-image: radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.035) 0%, rgba(24, 24, 27, 0.01) 45%, transparent 75%);">
     <div class="container">
       <div class="section-tag">
         <span class="section-tag-dot"></span>
@@ -1869,29 +1995,38 @@ html_content = f"""<!DOCTYPE html>
       <h2 class="section-title">Get Started in 3 Simple Steps</h2>
       <p class="section-desc">Designed with frictionless onboarding. Start trading in seconds without complex setup or custodial risk.</p>
 
-      <div class="landing-grid-3col" style="margin-top: 1.25rem;">
-        <div class="card-paper">
-          <div class="step-index">01 /</div>
-          <h3 style="font-family: var(--font-serif-editorial); font-size: 1.12rem; margin-bottom: 0.35rem;">Launch Trading Vault</h3>
-          <p style="font-size: 0.88rem; color: var(--color-grey-text); line-height: 1.6;">
-            Open the terminal with $50,000 pre-loaded USDT capital. Connect via RainbowKit, customize autonomous agent quotas, and observe live executions.
-          </p>
+      <div class="onboarding-stepped-stage">
+        <!-- Step 1: Left Card -->
+        <div class="onboarding-card-wrap step-left">
+          <div class="card-paper onboarding-card" data-stagger-index="0">
+            <div class="step-index">01 /</div>
+            <h3 class="onboarding-card-title">Launch Trading Vault</h3>
+            <p class="onboarding-card-desc">
+              Open the terminal with $50,000 pre-loaded USDT capital. Connect via RainbowKit, customize autonomous agent quotas, and observe live executions.
+            </p>
+          </div>
         </div>
 
-        <div class="card-paper">
-          <div class="step-index">02 /</div>
-          <h3 style="font-family: var(--font-serif-editorial); font-size: 1.12rem; margin-bottom: 0.35rem;">Monitor Weekend Drift</h3>
-          <p style="font-size: 0.88rem; color: var(--color-grey-text); line-height: 1.6;">
-            Observe continuous price feeds across tokenized equities. Statistical Z-scores automatically notify you when retail sentiment creates tradeable dislocations.
-          </p>
+        <!-- Step 2: Center Card (Prominent, Stepped Down & Overlapping) -->
+        <div class="onboarding-card-wrap step-center">
+          <div class="card-paper onboarding-card onboarding-card-prominent" data-stagger-index="1">
+            <div class="step-index">02 /</div>
+            <h3 class="onboarding-card-title">Monitor Weekend Drift</h3>
+            <p class="onboarding-card-desc">
+              Observe continuous price feeds across tokenized equities. Statistical Z-scores automatically notify you when retail sentiment creates tradeable dislocations.
+            </p>
+          </div>
         </div>
 
-        <div class="card-paper">
-          <div class="step-index">03 /</div>
-          <h3 style="font-family: var(--font-serif-editorial); font-size: 1.12rem; margin-bottom: 0.35rem;">Connect Bitget UTA v3</h3>
-          <p style="font-size: 0.88rem; color: var(--color-grey-text); line-height: 1.6;">
-            When you're ready for real deployment, add your Bitget API credentials in the non-custodial modal. Chronos handles execution and Monday cash unwinds autonomously.
-          </p>
+        <!-- Step 3: Right Card -->
+        <div class="onboarding-card-wrap step-right">
+          <div class="card-paper onboarding-card" data-stagger-index="2">
+            <div class="step-index">03 /</div>
+            <h3 class="onboarding-card-title">Connect Bitget UTA v3</h3>
+            <p class="onboarding-card-desc">
+              When you're ready for real deployment, add your Bitget API credentials in the non-custodial modal. Chronos handles execution and Monday cash unwinds autonomously.
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -2206,7 +2341,7 @@ html_content = f"""<!DOCTYPE html>
               if (target.dataset && target.dataset.staggerIndex !== undefined) {{
                 delay = parseInt(target.dataset.staggerIndex, 10) * 130;
               }} else {{
-                const groupContainer = target.closest(".landing-grid-3col, .landing-grid-4col, .landing-grid-2col, .landing-arch-grid, .thesis-fanned-stage, .kpi-cross-stage, .guardrails-spread-canvas, .container, section") || target.parentElement;
+                const groupContainer = target.closest(".landing-grid-3col, .landing-grid-4col, .landing-grid-2col, .landing-arch-grid, .thesis-fanned-stage, .kpi-cross-stage, .guardrails-spread-canvas, .onboarding-stepped-stage, .container, section") || target.parentElement;
                 if (groupContainer) {{
                   const siblings = Array.from(groupContainer.querySelectorAll(".chronos-pop-in"));
                   const idx = siblings.indexOf(target);
