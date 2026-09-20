@@ -4384,8 +4384,9 @@ html_template = f"""<!DOCTYPE html>
           const d = ChronosWalletStore ? ChronosWalletStore.getCurrentData() : null;
           if (d) {{
             if (res.data.trading_mode === "LIVE") {{
-              d.paperBalance = res.data.balance_usdt;
-              ChronosWalletStore.setCurrentData(d);
+              d.liveBalance = res.data.balance_usdt;
+              ChronosWalletStore.saveData(ChronosWalletStore.currentAddress, d);
+              ChronosWalletStore.syncActiveView();
               if (typeof renderOverviewDynamic === "function") {{
                 renderOverviewDynamic(d);
               }}
@@ -4393,6 +4394,15 @@ html_template = f"""<!DOCTYPE html>
               if (balDisplay) {{
                 balDisplay.textContent = `$${{res.data.balance_usdt.toLocaleString('en-US', {{minimumFractionDigits: 2, maximumFractionDigits: 2}})}} USDT`;
                 balDisplay.style.color = "var(--color-green)";
+              }}
+              const liveBalEl = document.getElementById("liveBitgetBalanceValue");
+              if (liveBalEl) {{
+                liveBalEl.textContent = `$${{res.data.balance_usdt.toLocaleString('en-US', {{minimumFractionDigits: 2, maximumFractionDigits: 2}})}} USDT`;
+              }}
+              const statusEl = document.getElementById("liveBitgetGatewayStatus");
+              if (statusEl) {{
+                statusEl.textContent = "Connected (api.bitget.com)";
+                statusEl.style.color = "var(--color-green)";
               }}
               const headerChip = document.getElementById("headerBalanceChipSpan");
               if (headerChip) {{
