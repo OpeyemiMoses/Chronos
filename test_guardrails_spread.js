@@ -18,7 +18,7 @@ assert(html.includes('class="guardrails-ambient-glow"'), "Missing ambient glow b
 assert(html.includes('data-slot="tl"'), "Missing Top-Left slot (Beta Decoupling)");
 assert(html.includes('data-slot="tr"'), "Missing Top-Right slot (Closed-Loop Self-Auditor)");
 assert(html.includes('data-slot="bl"'), "Missing Bottom-Left slot (Bitget HMAC Gateway)");
-assert(html.includes('data-slot="br"'), "Missing Bottom-Right slot (Multi-Wallet Isolation)");
+assert(html.includes('data-slot="br"'), "Missing Bottom-Right slot (Monday Cash Convergence)");
 console.log("Passed: All 4 slots (TL, TR, BL, BR) present in 2x2 layout.");
 
 // 2. Card Content Verification
@@ -26,7 +26,7 @@ console.log("--- TEST 2: Card Content & Institutional Defenses ---");
 assert(html.includes('Beta Decoupling'), "Missing Beta Decoupling title");
 assert(html.includes('Closed-Loop Self-Auditor'), "Missing Closed-Loop Self-Auditor title");
 assert(html.includes('Bitget HMAC Gateway'), "Missing Bitget HMAC Gateway title");
-assert(html.includes('Multi-Wallet Isolation'), "Missing Multi-Wallet Isolation title");
+assert(html.includes('Monday Cash Convergence'), "Missing Monday Cash Convergence title");
 assert(!html.includes('id="guardrailsScrollPill"'), "Scroll deployment pill tracker should NOT be present");
 assert(!html.includes('id="guardrailsBarFill"'), "Scroll bar fill should NOT be present");
 console.log("Passed: All 4 guardrail cards verified, loading bar & instruction pill cleanly removed.");
