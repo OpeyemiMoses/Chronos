@@ -3086,7 +3086,7 @@ html_template = f"""<!DOCTYPE html>
           </div>
         </div>
 
-        <button class="btn-ghost-switch-live" onclick="switchView('settings')">
+        <button class="btn-ghost-switch-live" onclick="switchView('settings'); handleEnvModeChange('live');">
           <span>Switch to Live Bitget</span>
         </button>
       </div>
