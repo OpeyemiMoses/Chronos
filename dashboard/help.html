@@ -726,13 +726,169 @@
       }
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 768px) {
       .header-nav {
-        display: none;
+        display: none !important;
+      }
+      .mobile-hamburger-btn {
+        display: flex !important;
+      }
+      .header-pill {
+        width: 94% !important;
+        max-width: 94% !important;
+      }
+      .btn-launch-terminal {
+        display: none !important;
       }
       .footer-inner {
         grid-template-columns: 1fr;
       }
+    }
+
+    /* Mobile Hamburger & Side Navigation Drawer */
+    .mobile-hamburger-btn {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: #FFFFFF;
+      border: 1px solid #EEE9DF;
+      color: #18181B;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      padding: 0;
+      flex-shrink: 0;
+    }
+    .mobile-hamburger-btn:hover {
+      background: #F4EFE6;
+      border-color: #18181B;
+    }
+    .mobile-nav-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.45);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      z-index: 9998;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .mobile-nav-backdrop.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .mobile-nav-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 290px;
+      max-width: 86vw;
+      background: #FAF8F5;
+      border-left: 1px solid #EEE9DF;
+      box-shadow: -8px 0 32px rgba(0, 0, 0, 0.12);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .mobile-nav-drawer.active {
+      transform: translateX(0);
+    }
+    .mobile-nav-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.15rem;
+      border-bottom: 1px solid #EEE9DF;
+      background: #FAF8F5;
+    }
+    .mobile-nav-close-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: #FFFFFF;
+      border: 1px solid #E5E0D5;
+      color: #18181B;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      padding: 0;
+    }
+    .mobile-nav-close-btn:hover {
+      background: #F4EFE6;
+      border-color: #18181B;
+    }
+    .mobile-nav-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem 1.15rem;
+      -webkit-overflow-scrolling: touch;
+    }
+    .mobile-nav-section-title {
+      font-family: var(--font-terminal);
+      font-size: 0.65rem;
+      color: #71717A;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+    .mobile-nav-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.55rem 0.65rem;
+      border-radius: 8px;
+      color: #18181B;
+      text-decoration: none;
+      font-family: var(--font-sans-body);
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: all 0.15s ease;
+      position: relative;
+    }
+    .mobile-nav-link:hover {
+      background: #F4EFE6;
+      color: #000000;
+    }
+    .mobile-nav-link.primary-link {
+      background: rgba(16, 185, 129, 0.08);
+      color: #047857;
+      font-weight: 600;
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      margin-bottom: 0.35rem;
+    }
+    .mobile-nav-link.primary-link:hover {
+      background: rgba(16, 185, 129, 0.14);
+    }
+    .mobile-nav-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: inherit;
+    }
+    .mobile-nav-badge {
+      margin-left: auto;
+      font-family: var(--font-terminal);
+      font-size: 0.62rem;
+      font-weight: 700;
+      background: #10B981;
+      color: #FFFFFF;
+      padding: 0.1rem 0.45rem;
+      border-radius: 9999px;
+      text-transform: uppercase;
+    }
+    .mobile-nav-footer {
+      padding: 1rem 1.15rem;
+      border-top: 1px solid #EEE9DF;
+      background: #FAF8F5;
     }
   </style>
 </head>
@@ -753,12 +909,77 @@
         <a href="help.html" class="active">Help Centre</a>
       </nav>
 
-      <a href="app.html" class="btn-launch-terminal">
-        <span>Launch Terminal</span>
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <a href="app.html" onclick="event.preventDefault(); smoothNavigate('app.html');" class="btn-launch-terminal">
+          <span>Launch Terminal</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <button class="mobile-hamburger-btn" onclick="toggleMobileNav(true)" aria-label="Open Navigation" title="Open Navigation">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+      </div>
     </div>
   </header>
+
+  <!-- Mobile Side Navigation Drawer & Backdrop -->
+  <div id="mobileNavBackdrop" class="mobile-nav-backdrop" onclick="toggleMobileNav(false)"></div>
+  <aside id="mobileNavDrawer" class="mobile-nav-drawer" aria-label="Mobile Navigation">
+    <div class="mobile-nav-header">
+      <div style="display: flex; align-items: center; gap: 0.55rem;">
+        <img src="assets/chronos_logo.svg" alt="Chronos" style="height: 20px; width: auto;">
+        <span style="font-family: var(--font-terminal); font-size: 0.70rem; color: #10B981; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">24/7 Engine</span>
+      </div>
+      <button class="mobile-nav-close-btn" onclick="toggleMobileNav(false)" aria-label="Close Navigation">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="mobile-nav-body">
+      <div class="mobile-nav-section-title">Navigation</div>
+      <a href="app.html" onclick="event.preventDefault(); toggleMobileNav(false); smoothNavigate('app.html');" class="mobile-nav-link primary-link">
+        <span class="mobile-nav-icon">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </span>
+        <span>Live Trading Terminal</span>
+        <span class="mobile-nav-badge">Live</span>
+      </a>
+      <a href="index.html" onclick="event.preventDefault(); toggleMobileNav(false); smoothNavigate('index.html');" class="mobile-nav-link">
+        <span class="mobile-nav-icon">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        </span>
+        <span>Overview & Presentation</span>
+      </a>
+      <a href="docs.html" onclick="event.preventDefault(); toggleMobileNav(false); smoothNavigate('docs.html');" class="mobile-nav-link">
+        <span class="mobile-nav-icon">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </span>
+        <span>Documentation</span>
+      </a>
+      <a href="help.html" class="mobile-nav-link" style="background: #F4EFE6; font-weight: 600;">
+        <span class="mobile-nav-icon">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </span>
+        <span>Help Centre & FAQ</span>
+      </a>
+    </div>
+
+    <div class="mobile-nav-footer">
+      <button class="btn-launch-terminal" style="width: 100%; justify-content: center; height: 40px; font-size: 0.82rem;" onclick="toggleMobileNav(false); smoothNavigate('app.html');">
+        <span>Launch Terminal</span>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+      <div style="margin-top: 0.85rem; font-family: var(--font-terminal); font-size: 0.65rem; color: #71717A; text-align: center;">
+        Bitget Futures · 7 Markets Streaming
+      </div>
+    </div>
+  </aside>
 
   <!-- Page Entrance Rise-In Animation Wrapper -->
   <div class="page-rise-in">
@@ -1233,6 +1454,27 @@
         });
       }, 700);
     }
+
+    // Mobile Navigation Drawer Toggle
+    function toggleMobileNav(open) {
+      const drawer = document.getElementById("mobileNavDrawer");
+      const backdrop = document.getElementById("mobileNavBackdrop");
+      if (!drawer) return;
+      const shouldOpen = (open !== undefined) ? open : !drawer.classList.contains("active");
+      if (shouldOpen) {
+        drawer.classList.add("active");
+        if (backdrop) backdrop.classList.add("active");
+        document.body.style.overflow = "hidden";
+      } else {
+        drawer.classList.remove("active");
+        if (backdrop) backdrop.classList.remove("active");
+        document.body.style.overflow = "";
+      }
+    }
+    window.toggleMobileNav = toggleMobileNav;
+    document.addEventListener("keydown", function(e) {
+      if (e.key === "Escape") toggleMobileNav(false);
+    });
 
     // Auto-run on load
     if (document.readyState === "loading") {

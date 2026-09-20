@@ -3878,6 +3878,127 @@ div[data-rk] [aria-label*="Switch"] {
       flex-shrink: 0;
     }
 
+    /* Mobile Side Navigation & Responsive Main Stage */
+    .ghost-mobile-nav-bar {
+      display: none;
+      align-items: center;
+      gap: 0.65rem;
+    }
+    .ghost-mobile-hamburger {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: #FAF8F5;
+      border: 1px solid #EEE9DF;
+      color: #18181B;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      padding: 0;
+    }
+    .ghost-mobile-hamburger:hover {
+      background: #FFFFFF;
+      border-color: #18181B;
+    }
+    .ghost-mobile-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      text-decoration: none;
+      color: #18181B;
+      font-weight: 700;
+      font-size: 0.92rem;
+      letter-spacing: -0.02em;
+    }
+    .ghost-sidebar-mobile-close {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 6px;
+      background: #FFFFFF;
+      border: 1px solid #EEE9DF;
+      color: #18181B;
+      cursor: pointer;
+      padding: 0;
+    }
+    .ghost-sidebar-mobile-close:hover {
+      background: #F4EFE6;
+      border-color: #18181B;
+    }
+    .ghost-sidebar-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.45);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 9998;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .ghost-sidebar-backdrop.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    @media (max-width: 900px) {
+      .ghost-mobile-nav-bar {
+        display: flex !important;
+      }
+      .ghost-sidebar {
+        position: fixed !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        width: 260px !important;
+        max-width: 85vw !important;
+        z-index: 10000 !important;
+        transform: translateX(-100%) !important;
+        transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        box-shadow: 8px 0 32px rgba(0, 0, 0, 0.15) !important;
+      }
+      .ghost-sidebar.mobile-open {
+        transform: translateX(0) !important;
+      }
+      .ghost-sidebar-toggle {
+        display: none !important;
+      }
+      .ghost-sidebar-mobile-close {
+        display: flex !important;
+      }
+      .ghost-main-stage {
+        margin-left: 0 !important;
+        padding: 0.65rem 0.75rem 3rem !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        overflow-x: hidden !important;
+      }
+      .ghost-sidebar.collapsed ~ .ghost-main-stage {
+        margin-left: 0 !important;
+      }
+      .ghost-running-banner {
+        display: none !important;
+      }
+      .ghost-top-bar {
+        justify-content: space-between !important;
+        gap: 0.5rem !important;
+      }
+      .ghost-top-controls {
+        margin-left: auto !important;
+      }
+      .ghost-brand {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        width: 100% !important;
+        margin-bottom: 1.25rem !important;
+      }
+    }
+
   </style>
   <script>
     window.selectedSymbol = "rNVDA";
@@ -3954,8 +4075,32 @@ div[data-rk] [aria-label*="Switch"] {
       if (view === "arena" && typeof drawCandleChart === "function") {
         setTimeout(drawCandleChart, 50);
       }
+
+      if (window.innerWidth <= 900) {
+        toggleMobileSidebar(false);
+      }
     }
     window.switchView = switchView;
+
+    function toggleMobileSidebar(open) {
+      const sb = document.getElementById("ghostSidebar");
+      const bd = document.getElementById("ghostSidebarBackdrop");
+      if (!sb) return;
+      const shouldOpen = (open !== undefined) ? open : !sb.classList.contains("mobile-open");
+      if (shouldOpen) {
+        sb.classList.add("mobile-open");
+        if (bd) bd.classList.add("active");
+        document.body.style.overflow = "hidden";
+      } else {
+        sb.classList.remove("mobile-open");
+        if (bd) bd.classList.remove("active");
+        document.body.style.overflow = "";
+      }
+    }
+    window.toggleMobileSidebar = toggleMobileSidebar;
+    document.addEventListener("keydown", function(e) {
+      if (e.key === "Escape") toggleMobileSidebar(false);
+    });
 
     function selectMarket(sym) {
       window.selectedSymbol = sym;
@@ -3981,20 +4126,31 @@ div[data-rk] [aria-label*="Switch"] {
   <!-- Page Content Wrapper (animation here, NOT on body, so fixed modals work correctly) -->
   <div class="page-rise-in">
 
+  <!-- Backdrop for mobile side drawer -->
+  <div id="ghostSidebarBackdrop" class="ghost-sidebar-backdrop" onclick="toggleMobileSidebar(false)"></div>
+
   <div class="ghost-app-shell">
     <!-- Collapsible Dark Left Sidebar -->
     <aside class="ghost-sidebar" id="ghostSidebar">
-      <!-- Collapse / Expand Toggle Button -->
+      <!-- Collapse / Expand Toggle Button (Desktop) -->
       <button id="ghostSidebarToggle" class="ghost-sidebar-toggle" onclick="toggleGhostSidebar()" aria-label="Toggle Sidebar" title="Toggle Sidebar">
         <svg id="sidebarToggleIcon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
       </button>
 
       <div>
-        <!-- Brand Logo & Wordmark -->
-        <a href="index.html" onclick="event.preventDefault(); smoothNavigate('index.html');" class="ghost-brand" title="Return to Chronos Landing Page">
-          <img src="assets/chronos_logo.svg" alt="Chronos" class="ghost-brand-logo">
-          <span class="ghost-brand-text">chronos</span>
-        </a>
+        <!-- Brand Logo & Mobile Close Button -->
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.85rem;">
+          <a href="index.html" onclick="event.preventDefault(); smoothNavigate('index.html');" class="ghost-brand" style="margin-bottom: 0;" title="Return to Chronos Landing Page">
+            <img src="assets/chronos_logo.svg" alt="Chronos" class="ghost-brand-logo">
+            <span class="ghost-brand-text">chronos</span>
+          </a>
+          <button class="ghost-sidebar-mobile-close" onclick="toggleMobileSidebar(false)" aria-label="Close Navigation" title="Close Menu">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
 
         <!-- Main Navigation Items -->
         <nav class="ghost-nav-menu">
@@ -4071,6 +4227,20 @@ div[data-rk] [aria-label*="Switch"] {
     <div class="ghost-main-stage" id="ghostMainStage">
       <!-- Top Running Banner & Header Controls -->
       <div class="ghost-top-bar" id="ghostTopBar">
+        <div class="ghost-mobile-nav-bar">
+          <button class="ghost-mobile-hamburger" onclick="toggleMobileSidebar(true)" aria-label="Open Navigation Menu" title="Open Navigation Menu">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="6" x2="21" y2="6"/>
+              <line x1="3" y1="12" x2="21" y2="12"/>
+              <line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+          </button>
+          <a href="index.html" class="ghost-mobile-brand" onclick="event.preventDefault(); smoothNavigate('index.html');">
+            <img src="assets/chronos_logo.svg" alt="Chronos" height="18">
+            <span>chronos</span>
+          </a>
+        </div>
+
         <div class="ghost-running-banner">
           BITGET UTA v3 SPOT ORACLE · 24/7 TOKENIZED EQUITIES · RESIDUAL DRIFT ARBITRAGE · AUTONOMOUS WEEKEND CAP
         </div>
