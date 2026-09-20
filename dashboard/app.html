@@ -4953,12 +4953,15 @@ div[data-rk] [aria-label*="Switch"] {
                 <strong style="color: var(--color-green); font-family: var(--font-terminal);" id="settingsGatewayPing">api.bitget.com (UTA v3 Direct)</strong>
               </div>
 
-              <div style="display: flex; gap: 0.65rem;">
-                <button id="btnSaveBitget" class="btn-execute-big" style="padding: 0.65rem; opacity: 0.45; cursor: not-allowed; pointer-events: none;" onclick="saveBitgetSettings()" disabled>
+              <div style="display: flex; gap: 0.65rem; flex-wrap: wrap;">
+                <button id="btnSaveBitget" class="btn-execute-big" style="flex: 1; padding: 0.65rem; opacity: 0.45; cursor: not-allowed; pointer-events: none;" onclick="saveBitgetSettings()" disabled>
                   <span>Save Gateway Configuration</span>
                 </button>
                 <button id="btnTestBitget" class="preset-chip" style="padding: 0.65rem 1rem; font-weight: 700; opacity: 0.45; cursor: not-allowed; pointer-events: none;" onclick="testBitgetConnection()" disabled>
                   <span>Test Connection</span>
+                </button>
+                <button id="btnClearBitget" class="preset-chip" style="padding: 0.65rem 1rem; font-weight: 700; color: var(--color-red); display: none;" onclick="clearBitgetCredentials()">
+                  <span>Clear Keys</span>
                 </button>
               </div>
             </div>
@@ -5799,6 +5802,11 @@ div[data-rk] [aria-label*="Switch"] {
             address: addr,
             paperBalance: 50000.00,
             initialBalance: 50000.00,
+            liveBalance: null,
+            paperOpenPositions: [],
+            paperTrades: [],
+            liveOpenPositions: [],
+            liveTrades: [],
             positions: [],
             openPositions: [],
             weekendTradesCount: 0,
@@ -5831,6 +5839,31 @@ div[data-rk] [aria-label*="Switch"] {
           let modified = false;
           if (!d.agentConfig) {
             d.agentConfig = { maxTrades: 5, collateralPerTrade: 2500 };
+            modified = true;
+          }
+          if (!Array.isArray(d.paperOpenPositions)) {
+            d.paperOpenPositions = Array.isArray(d.openPositions) ? d.openPositions.slice() : [];
+            modified = true;
+          }
+          if (!Array.isArray(d.paperTrades)) {
+            d.paperTrades = Array.isArray(d.trades) ? d.trades.slice() : [];
+            modified = true;
+          }
+          if (!Array.isArray(d.liveOpenPositions)) {
+            d.liveOpenPositions = [];
+            modified = true;
+          }
+          if (!Array.isArray(d.liveTrades)) {
+            d.liveTrades = [];
+            modified = true;
+          }
+          // Auto-sanitize: If apiKey is a 64-char hex string (accidental secret paste), clear it
+          if (d.gateway && d.gateway.apiKey && d.gateway.apiKey.length >= 60 && !d.gateway.apiKey.startsWith("bg_")) {
+            d.gateway.apiKey = "";
+            d.gateway.apiSecret = "";
+            d.gateway.passphrase = "";
+            d.gateway.mode = "paper";
+            d.liveBalance = null;
             modified = true;
           }
           if (modified) {
@@ -5950,15 +5983,35 @@ div[data-rk] [aria-label*="Switch"] {
           if (sDot) { sDot.style.color = "#EF4444"; sDot.textContent = "○"; }
         }
 
-        // Balance displays — show '—' when disconnected
-        const balStr = (isConnected && d) ? `$${d.paperBalance.toLocaleString('en-US', {minimumFractionDigits: 2})}` : "—";
+        // Balance displays — show '—' when disconnected, or when Live without connected real balance
+        const isLive = typeof activeTradingEnv !== "undefined" && activeTradingEnv === "live";
+        let balStr = "—";
+        if (isConnected && d) {
+          if (isLive) {
+            if (typeof d.liveBalance === "number") {
+              balStr = `$${d.liveBalance.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            } else {
+              balStr = "—";
+            }
+          } else {
+            balStr = `$${d.paperBalance.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+          }
+        }
         const setText = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
         setText("availBalanceDisplay", balStr);
         setText("arenaPaperBalanceDisplay", balStr);
-        setText("settingsPaperBalanceDisplay", isConnected && d ? balStr + " USDT" : "—");
+        setText("settingsPaperBalanceDisplay", (isConnected && d && balStr !== "—") ? balStr + " USDT" : "—");
         setText("settingsWalletAddress", isConnected ? this.currentAddress : "--");
-        setText("settingsAccountTypeLabel", isConnected ? "CONNECTED WALLET" : "NOT CONNECTED");
+        setText("settingsAccountTypeLabel", isConnected ? (isLive ? "LIVE BITGET UTA ACCOUNT" : "CONNECTED WALLET") : "NOT CONNECTED");
         setText("ledgerWalletAddressLabel", isConnected ? (this.currentAddress.slice(0, 6) + "..." + this.currentAddress.slice(-4)) : "--");
+
+        // Dynamic balance labels based on mode
+        const availLabel = document.getElementById("availBalanceLabel");
+        if (availLabel) availLabel.textContent = isLive ? "LIVE BITGET MARGIN" : "SIMULATION VAULT MARGIN";
+        const arenaBalLabel = document.getElementById("arenaBalanceLabel");
+        if (arenaBalLabel) arenaBalLabel.textContent = isLive ? "LIVE BITGET BALANCE" : "PAPER TRADING MARGIN";
+        const settingsBalLabel = document.getElementById("settingsBalanceLabel");
+        if (settingsBalLabel) settingsBalLabel.textContent = isLive ? "BITGET UTA REAL EQUITY" : "CURRENT VAULT BALANCE";
 
         // Sync agent configuration parameters
         if (typeof syncAgentConfigSettings === "function") syncAgentConfigSettings();
@@ -8997,6 +9050,7 @@ div[data-rk] [aria-label*="Switch"] {
       if (env === "live") {
         // 1. UNLOCK BITGET INPUTS
         [apiKeyInput, apiSecretInput, passphraseInput].forEach(inp => {
+          if (!inp) return;
           inp.disabled = false;
           inp.style.opacity = "1";
           inp.style.cursor = "text";
@@ -9004,26 +9058,30 @@ div[data-rk] [aria-label*="Switch"] {
           inp.style.pointerEvents = "auto";
         });
         [btnSave, btnTest].forEach(btn => {
+          if (!btn) return;
           btn.disabled = false;
           btn.style.opacity = "1";
           btn.style.cursor = "pointer";
           btn.style.pointerEvents = "auto";
         });
+        const btnClear = document.getElementById("btnClearBitget");
+        if (btnClear) btnClear.style.display = "inline-flex";
 
-        // Pre-fill credentials from wallet store if saved
+        // Pre-fill credentials from wallet store ONLY if saved and valid
         const d = ChronosWalletStore.getCurrentData();
         const savedGw = d && d.gateway ? d.gateway : null;
-        if (apiKeyInput && !apiKeyInput.value) {
-          apiKeyInput.value = (savedGw && savedGw.apiKey) ? savedGw.apiKey : "";
+        const hasSavedLiveKey = !!(savedGw && savedGw.mode === "live" && savedGw.apiKey && savedGw.apiKey.length < 50);
+        if (apiKeyInput) {
+          apiKeyInput.value = hasSavedLiveKey ? savedGw.apiKey : "";
         }
-        if (apiSecretInput && !apiSecretInput.value) {
-          apiSecretInput.value = (savedGw && savedGw.apiSecret) ? savedGw.apiSecret : "";
+        if (apiSecretInput) {
+          apiSecretInput.value = hasSavedLiveKey ? (savedGw.apiSecret || "") : "";
         }
-        if (passphraseInput && !passphraseInput.value) {
-          passphraseInput.value = (savedGw && savedGw.passphrase) ? savedGw.passphrase : "";
+        if (passphraseInput) {
+          passphraseInput.value = hasSavedLiveKey ? (savedGw.passphrase || "") : "";
         }
 
-        // 2. PAUSE AUTOPILOT AND CLEAR VAULT POSITIONS FOR LIVE
+        // 2. PAUSE AUTOPILOT
         activeTradingEnv = "live";
         if (autoPilotActive) {
           autoPilotActive = false;
@@ -9031,19 +9089,29 @@ div[data-rk] [aria-label*="Switch"] {
           if (autoPilotTimer) clearInterval(autoPilotTimer);
           if (countdownInterval) clearInterval(countdownInterval);
         }
-        if (!d) return;
+
+        // 3. PRESERVE PAPER STATE & SWITCH TO LIVE STATE (NEVER WIPE PAPER DATA!)
         if (d) {
-          d.positions = [];
-          d.openPositions = [];
+          if (d.openPositions && d.openPositions !== d.liveOpenPositions) {
+            d.paperOpenPositions = d.openPositions.slice();
+          }
+          if (d.trades && d.trades !== d.liveTrades) {
+            d.paperTrades = d.trades.slice();
+          }
+          d.liveOpenPositions = d.liveOpenPositions || [];
+          d.liveTrades = d.liveTrades || [];
+          d.openPositions = d.liveOpenPositions;
+          d.trades = d.liveTrades;
           ChronosWalletStore.saveData(ChronosWalletStore.currentAddress, d);
           renderActivePositions();
           renderOverviewDynamic(d);
+          ChronosWalletStore.syncActiveView();
         }
 
-        // 3. LOAD UP BITGET ACCOUNT
+        // 4. LOAD UP BITGET ACCOUNT VIEW
         loadBitgetAccount();
 
-        // 4. BROADCAST TOAST
+        // 5. BROADCAST TOAST
         if (!isLiveTradingReady()) {
           showToast(
             "Switched to Live Bitget UTA v3",
@@ -9060,6 +9128,7 @@ div[data-rk] [aria-label*="Switch"] {
       } else {
         // INTERNAL VAULT MODE: LOCK BITGET INPUTS
         [apiKeyInput, apiSecretInput, passphraseInput].forEach(inp => {
+          if (!inp) return;
           inp.disabled = true;
           inp.style.opacity = "0.45";
           inp.style.cursor = "not-allowed";
@@ -9067,18 +9136,41 @@ div[data-rk] [aria-label*="Switch"] {
           inp.style.pointerEvents = "none";
         });
         [btnSave, btnTest].forEach(btn => {
+          if (!btn) return;
           btn.disabled = true;
           btn.style.opacity = "0.45";
           btn.style.cursor = "not-allowed";
           btn.style.pointerEvents = "none";
         });
+        const btnClear = document.getElementById("btnClearBitget");
+        if (btnClear) btnClear.style.display = "none";
 
         activeTradingEnv = "paper";
+
+        // RESTORE PAPER STATE (NEVER WIPE LIVE DATA EITHER!)
+        const d = ChronosWalletStore.getCurrentData();
+        if (d) {
+          if (d.openPositions && d.openPositions === d.liveOpenPositions) {
+            d.liveOpenPositions = d.openPositions.slice();
+          }
+          if (d.trades && d.trades === d.liveTrades) {
+            d.liveTrades = d.trades.slice();
+          }
+          d.paperOpenPositions = d.paperOpenPositions || [];
+          d.paperTrades = d.paperTrades || [];
+          d.openPositions = d.paperOpenPositions;
+          d.trades = d.paperTrades;
+          ChronosWalletStore.saveData(ChronosWalletStore.currentAddress, d);
+        }
+
         restorePaperTradingState();
+        renderActivePositions();
+        if (d) renderOverviewDynamic(d);
+        ChronosWalletStore.syncActiveView();
 
         showToast(
           "Switched to Internal Vault Mode",
-          "Bitget API credentials locked. Isolated non-custodial portfolio active.",
+          "Paper trading sandbox active. Your paper positions and balance are preserved.",
           "info"
         );
       }
@@ -9093,8 +9185,10 @@ div[data-rk] [aria-label*="Switch"] {
 
       const d = ChronosWalletStore.getCurrentData();
       const savedGw = d && d.gateway ? d.gateway : null;
-      const keyInput = document.getElementById("settingsApiKey");
-      const keyVal = (savedGw && savedGw.apiKey) ? savedGw.apiKey : (keyInput ? keyInput.value.trim() : "");
+      
+      // ONLY treat as configured if explicitly saved as live mode with a clean, legitimate key
+      const hasRealKey = !!(savedGw && savedGw.mode === "live" && savedGw.apiKey && savedGw.apiKey.trim().length > 0 && savedGw.apiKey.length < 50);
+      const keyVal = hasRealKey ? savedGw.apiKey.trim() : "";
 
       const balanceDisplay = document.getElementById("settingsPaperBalanceDisplay");
       const headerChip = document.getElementById("headerBalanceChipSpan");
@@ -9103,7 +9197,7 @@ div[data-rk] [aria-label*="Switch"] {
       const statusEl = document.getElementById("liveBitgetGatewayStatus");
       const walletLabel = document.getElementById("settingsWalletAddress");
 
-      if (keyVal) {
+      if (hasRealKey) {
         const masked = keyVal.length > 8 ? keyVal.slice(0, 4) + "..." + keyVal.slice(-4) : keyVal;
         if (keyPreviewEl) keyPreviewEl.textContent = masked;
         if (walletLabel) {
@@ -9115,11 +9209,21 @@ div[data-rk] [aria-label*="Switch"] {
           `;
         }
         if (statusEl) {
-          statusEl.textContent = "Ready (Click Test Handshake)";
+          statusEl.textContent = "Ready (Click Test Connection)";
           statusEl.style.color = "var(--color-green)";
         }
+        if (typeof d.liveBalance === "number") {
+          const balStr = `$${d.liveBalance.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})} USDT`;
+          if (balanceDisplay) balanceDisplay.textContent = balStr;
+          if (headerChip) headerChip.textContent = `$${d.liveBalance.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+          if (liveBalEl) liveBalEl.textContent = balStr;
+        } else {
+          if (balanceDisplay) balanceDisplay.textContent = "— USDT";
+          if (headerChip) headerChip.textContent = "—";
+          if (liveBalEl) liveBalEl.textContent = "— USDT";
+        }
       } else {
-        if (keyPreviewEl) keyPreviewEl.textContent = "Enter API Key Below";
+        if (keyPreviewEl) keyPreviewEl.textContent = "No Key Connected";
         if (walletLabel) {
           walletLabel.innerHTML = `
             <div style="display: flex; gap: 0.5rem; align-items: center;">
@@ -9142,11 +9246,29 @@ div[data-rk] [aria-label*="Switch"] {
       const liveStatus = document.getElementById("liveBitgetStatusGroup");
       if (liveStatus) liveStatus.style.display = "block";
 
-      // If user has saved credentials, trigger a real live balance sync immediately
-      if (savedGw && savedGw.apiKey && savedGw.apiSecret && savedGw.passphrase) {
+      // If user has saved credentials, trigger a real live balance sync
+      if (hasRealKey && savedGw.apiSecret && savedGw.passphrase) {
         syncBackendBalance();
       }
     }
+
+    function clearBitgetCredentials() {
+      const d = ChronosWalletStore.getCurrentData();
+      if (d) {
+        d.gateway = { mode: "paper", apiKey: "", apiSecret: "", passphrase: "" };
+        d.liveBalance = null;
+        ChronosWalletStore.setCurrentData(d);
+      }
+      const apiKeyInput = document.getElementById("settingsApiKey");
+      const apiSecretInput = document.getElementById("settingsApiSecret");
+      const passphraseInput = document.getElementById("settingsPassphrase");
+      if (apiKeyInput) apiKeyInput.value = "";
+      if (apiSecretInput) apiSecretInput.value = "";
+      if (passphraseInput) passphraseInput.value = "";
+      handleEnvModeChange("paper");
+      showToast("Credentials Cleared", "Bitget API credentials removed from your browser. Switched to Paper Simulation Vault.", "info");
+    }
+    window.clearBitgetCredentials = clearBitgetCredentials;
 
     function restorePaperTradingState() {
       const cardTitle = document.getElementById("walletCardTitle");
