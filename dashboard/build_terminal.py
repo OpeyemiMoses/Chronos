@@ -5485,68 +5485,63 @@ html_template = f"""<!DOCTYPE html>
         }};
       }}
 
-      // Compute the 6 canonical forward scenarios
-      const fullReversionExit  = isShort ? anchor : anchor;
+      const beta = parseFloat(m.beta) || 1.0;
+      const drift = Math.abs(parseFloat(m.drift_pct) || 0);
+
+      // Calibrate scenario adverse shock bands to the asset's specific volatility footprint (beta)
+      const adv2Pct = Math.max(0.015, (1.2 * beta) / 100);
+      const adv4Pct = Math.max(0.030, (2.4 * beta) / 100);
+      const adv8Pct = Math.max(0.055, (4.5 * beta) / 100);
+
+      const fullReversionExit  = anchor;
       const partial60Exit      = isShort ? entryPrice - gap * 0.60 : entryPrice + gap * 0.60;
       const stallExit          = entryPrice;
-      const adverse2PctExit    = isShort ? entryPrice * 1.020 : entryPrice * 0.980;
-      const adverse4PctExit    = isShort ? entryPrice * 1.040 : entryPrice * 0.960;
-      const tailGap8PctExit    = isShort ? entryPrice * 1.080 : entryPrice * 0.920;
+      const adverse2PctExit    = isShort ? entryPrice * (1 + adv2Pct) : entryPrice * (1 - adv2Pct);
+      const adverse4PctExit    = isShort ? entryPrice * (1 + adv4Pct) : entryPrice * (1 - adv4Pct);
+      const tailGap8PctExit    = isShort ? entryPrice * (1 + adv8Pct) : entryPrice * (1 - adv8Pct);
 
       const scenarios = {{
         full_reversion:  calcScenario(fullReversionExit,  "Full Reversion",   `Price returns fully to Friday anchor ($${{anchor.toFixed(2)}})`),
         partial_60:      calcScenario(partial60Exit,       "60% Reversion",    `Price converges 60% toward anchor — partial Monday open`),
-        stall:           calcScenario(stallExit,           "Stall (Flat)",     `Price doesn't move — only fee drag, tiny loss`),
-        adverse_2pct:    calcScenario(adverse2PctExit,     "Adverse +2%",      `Momentum continues 2% further away from anchor`),
-        adverse_4pct:    calcScenario(adverse4PctExit,     "Adverse +4%",      `Blow-off: 4% adverse momentum continuation`),
-        tail_gap_8pct:   calcScenario(tailGap8PctExit,    "Tail Gap +8%",     `Black swan weekend gap — extreme adverse move`)
+        stall:           calcScenario(stallExit,           "Stall (Flat)",     `Price doesn't move — only fee drag (-0.06%)`),
+        adverse_2pct:    calcScenario(adverse2PctExit,     `Adverse +${{(adv2Pct * 100).toFixed(1)}}%`, `Momentum continuation scaled to β=${{beta.toFixed(2)}}`),
+        adverse_4pct:    calcScenario(adverse4PctExit,     `Blow-off +${{(adv4Pct * 100).toFixed(1)}}%`, `Severe continuation shock away from anchor`),
+        tail_gap_8pct:   calcScenario(tailGap8PctExit,    `Tail Gap +${{(adv8Pct * 100).toFixed(1)}}%`, `Weekend tail dislocation event`)
       }};
 
-      // Stress Score: weighted sum across scenarios
-      // Normalise each scenario's pnl_pct relative to the maximum possible gain
-      // (full reversion profit), so small-gap valid signals aren't penalised for
-      // having a smaller absolute dollar move than large-gap trades.
-      const weights = {{ full_reversion: 30, partial_60: 25, stall: 10, adverse_2pct: 15, adverse_4pct: 12, tail_gap_8pct: 8 }};
-      const maxGainPct = Math.abs(scenarios.full_reversion.pnl_pct); // best case = 1.0 reference
-      const normBand = Math.max(maxGainPct, 2.0); // never normalise against less than 2% band
+      // ── 1. Volatility-Adjusted Dislocation Edge ────────────────────────────
+      // Measures how much drift reward is earned per unit of market beta risk
+      const edgeRatio = drift / Math.max(0.5, beta);
+      const baseScore = Math.min(62, Math.max(10, Math.round(edgeRatio * 24)));
 
-      let rawScore = 0;
-      for (const [key, w] of Object.entries(weights)) {{
-        const s = scenarios[key];
-        // Clamp pnl_pct to [-normBand, +normBand] then map to [0, 1]
-        const normalized = Math.max(-1, Math.min(1, s.pnl_pct / normBand));
-        rawScore += w * ((normalized + 1) / 2); // shift to 0–1 range
-      }}
-      let stressScore = Math.round(Math.max(0, Math.min(100, rawScore)));
-
-      // Floor: if the full-reversion scenario is profitable, score is at least 48
-      // (a trade with a valid win case should never be hard-blocked by tail scenarios alone)
-      if (scenarios.full_reversion.pnl_pct > 0) {{
-        stressScore = Math.max(stressScore, 48);
-      }}
-
-      // ── Factor 1: Z-Score Conviction Amplifier ────────────────────────────
-      // Higher divergence = stronger mean-reversion signal → boost score.
+      // ── 2. Factor 1: Z-Score Conviction Amplifier ────────────────────────────
+      // Statistical dislocation standard deviations from historical mean
       const absZ = Math.abs(parseFloat(m.z_score) || 0);
-      const zBoost = absZ >= 3.0 ? 8 : absZ >= 2.5 ? 5 : absZ >= 2.0 ? 2 : 0;
+      const zBoost = absZ >= 3.2 ? 22
+                   : absZ >= 2.8 ? 18
+                   : absZ >= 2.4 ? 14
+                   : absZ >= 2.0 ? 10
+                   : absZ >= 1.5 ? 4
+                   : -15; // Noise band penalty for non-dislocated assets
 
-      // ── Factor 2: Sentiment Overlay ───────────────────────────────────────
+      // ── 3. Factor 2: Retail Sentiment Overlay ───────────────────────────────
       // Retail sentiment score (0-100) from ASSET_PLAIN_REASONING.
-      // High greed (>70): crowded retail longs amplify institutional snap-back → boost.
-      // Low / fearful (<40): weak positioning, possible adverse momentum → penalty.
+      // High greed (>=65): crowded retail longs amplify institutional snap-back -> boost.
+      // Low / fearful (<45): weak positioning, possible adverse momentum -> penalty.
       const sentMeta = (typeof ASSET_PLAIN_REASONING !== "undefined" && ASSET_PLAIN_REASONING[symbol]) || null;
       const sentScore = sentMeta ? (sentMeta.sentimentScore || 50) : 50;
-      const sentimentAdjust = sentScore >= 75 ? 7 : sentScore >= 60 ? 3 : sentScore >= 40 ? 0 : -4;
+      const sentimentAdjust = sentScore >= 75 ? 8
+                            : sentScore >= 65 ? 5
+                            : sentScore < 45 ? -5
+                            : 0;
 
-      // ── Factor 3: Beta Risk Penalty ───────────────────────────────────────
-      // High-beta assets can gap far adversely on Monday open → reduce score.
-      // Low-beta (index ETFs) are more stable → small bonus.
-      const beta = parseFloat(m.beta) || 1.0;
-      const betaPenalty = beta > 2.5 ? -6 : beta > 1.8 ? -3 : beta <= 1.0 ? 2 : 0;
+      // ── 4. Factor 3: Beta Risk Adjustment ───────────────────────────────────
+      const betaPenalty = beta > 2.6 ? -6
+                        : beta > 2.0 ? -3
+                        : beta <= 1.0 ? 3
+                        : 0;
 
-      // ── Factor 4: Live Market Price Confirmation ──────────────────────────
-      // Compare current spot_price to entry to see if price is already
-      // converging toward anchor (thesis confirming) or diverging (weakening).
+      // ── 5. Factor 4: Live Market Price Confirmation ──────────────────────────
       const currentSpot = parseFloat(m.spot_price) || entryPrice;
       const entryGap   = Math.abs(entryPrice - anchor);
       const currentGap = Math.abs(currentSpot - anchor);
@@ -5556,14 +5551,14 @@ html_template = f"""<!DOCTYPE html>
                         : gapRatio > 1.15 ? -5   // diverging further — thesis weakening
                         : 0;
 
-      // Apply all adjustments, clamp final score to 0–100
-      stressScore = Math.round(Math.max(0, Math.min(100,
-        stressScore + zBoost + sentimentAdjust + betaPenalty + priceAdjust
+      // Compute final composite score (10 - 100)
+      const stressScore = Math.round(Math.max(10, Math.min(100,
+        baseScore + zBoost + sentimentAdjust + betaPenalty + priceAdjust
       )));
 
       // Store factor breakdown so the modal can display each contribution
       const scoreFactors = {{
-        base_scenario_score: Math.round(rawScore),
+        base_scenario_score: baseScore,
         z_boost:             zBoost,
         sentiment_adjust:    sentimentAdjust,
         beta_penalty:        betaPenalty,
@@ -5595,8 +5590,10 @@ html_template = f"""<!DOCTYPE html>
 
       const recommendation = stressScore >= 45 ? "CLEARED" : "BLOCKED";
       const blockReason = stressScore < 45
-        ? `Stress score ${{stressScore}}/100 is below the 45-point minimum. Worst-case loss: $${{Math.abs(scenarios.tail_gap_8pct.pnl_usd).toFixed(2)}} USDT. Agent will not trade until dislocation improves.`
-        : `Stress score ${{stressScore}}/100 — risk/reward acceptable. Full reversion profit: +$${{scenarios.full_reversion.pnl_usd.toFixed(2)}} USDT.`;
+        ? (absZ < 1.5
+            ? `Stress score ${{stressScore}}/100 [BLOCKED]: Token is in the noise band (|Z|=${{absZ.toFixed(2)}}σ < 1.5σ). Expected edge (+${{drift.toFixed(2)}}%) cannot overcome execution friction.`
+            : `Stress score ${{stressScore}}/100 is below the 45-point minimum. Worst-case loss: -$${{Math.abs(scenarios.tail_gap_8pct.pnl_usd).toFixed(2)}} USDT. Risk/reward ratio unaligned.`)
+        : `Stress score ${{stressScore}}/100 [${{stressScore >= 70 ? 'STRONG' : 'MARGINAL'}}] — statistical edge confirmed. Reversion target: $${{anchor.toFixed(2)}} (+${{scenarios.full_reversion.pnl_usd.toFixed(2)}} USDT).`;
 
       return {{
         id: `ST-${{symbol}}-${{Date.now().toString().slice(-6)}}`,
