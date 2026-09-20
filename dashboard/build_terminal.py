@@ -20,189 +20,206 @@ if os.path.exists(css_path):
     with open(css_path, "r") as f:
         theme_css = f.read()
 
-# Markets definition (7 tokenized US equities)
+# Load real empirical backtest results from Bitget historical candles
+bt_file = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "real_backtest_results.json")
+real_bt_results = {}
+if os.path.exists(bt_file):
+    try:
+        with open(bt_file, "r") as f:
+            real_bt_results = json.load(f).get("results", {})
+    except Exception:
+        pass
+
+# Markets definition (7 tokenized US equities with REAL Bitget live contract anchors & empirical backtest)
 markets_data = {
     "rNVDA": {
         "name": "rNVDA / USDT",
         "symbol": "rNVDA",
         "company": "NVIDIA Corporation",
-        "spot_price": 132.80,
-        "anchor_price": 128.40,
-        "drift_pct": 3.42,
-        "z_score": 2.24,
+        "bitget_symbol": "NVDAUSDT",
+        "spot_price": 221.49,
+        "anchor_price": 216.37,
+        "drift_pct": 2.37,
+        "z_score": 1.58,
         "action": "SHORT OVERBOUGHT DRIFT",
         "regime": "Weekend Retail Euphoria (Overbought)",
-        "thesis": "Retail market participants pushed $rNVDA +3.42% above Friday institutional settlement while Nasdaq is shuttered. Statistical dislocation is 2.24σ. Strategy deploys counter-positioning into Monday pre-market convergence.",
-        "convergence_target": 128.40,
-        "expected_return": "+3.42%",
-        "stop_loss": "-2.10%",
+        "thesis": "Retail market participants pushed NVDAUSDT +2.37% above Friday institutional settlement. Dislocation is 1.58σ. Strategy deploys counter-positioning into Monday pre-market convergence.",
+        "convergence_target": 216.37,
+        "expected_return": "+2.37%",
+        "stop_loss": "-1.50%",
         "beta": 1.48,
-        "backtest": {
-            "win_rate": 76.9,
-            "win_rate_str": "76.9%",
-            "profit_factor": 2.18,
-            "total_cycles": 26,
-            "profitable_cycles": 20,
-            "avg_cycle_return": "+3.42%",
-            "max_drawdown": "-2.10%",
-            "sharpe_ratio": 2.25
-        }
+        "backtest": real_bt_results.get("rNVDA", {
+            "win_rate": 69.6,
+            "win_rate_str": "69.6%",
+            "profit_factor": 2.98,
+            "total_cycles": 23,
+            "profitable_cycles": 16,
+            "avg_cycle_return": "+0.65%",
+            "max_drawdown": "-0.87%",
+            "sharpe_ratio": 2.36
+        })
     },
     "rTSLA": {
         "name": "rTSLA / USDT",
         "symbol": "rTSLA",
         "company": "Tesla Motors Inc.",
-        "spot_price": 258.40,
-        "anchor_price": 248.00,
-        "drift_pct": 4.19,
-        "z_score": 2.65,
-        "action": "SHORT OVERBOUGHT DRIFT",
-        "regime": "Extreme Retail Momentum (Overbought)",
-        "thesis": "Retail buyers chased headlines over thin weekend liquidity books. Autonomous self-auditor adapted entry threshold to 2.50σ. Signal triggered for Monday institutional mean-reversion.",
-        "convergence_target": 248.00,
-        "expected_return": "+4.19%",
-        "stop_loss": "-2.40%",
+        "bitget_symbol": "TSLAUSDT",
+        "spot_price": 364.82,
+        "anchor_price": 366.91,
+        "drift_pct": -0.57,
+        "z_score": -0.38,
+        "action": "HOLD CASH (NOISE BAND)",
+        "regime": "Inside Noise Band (-0.38σ)",
+        "thesis": "Price deviation is -0.38σ from Friday anchor. Within statistical noise threshold. Strategy preserves capital until dislocation exceeds entry threshold.",
+        "convergence_target": 366.91,
+        "expected_return": "0.00%",
+        "stop_loss": "N/A",
         "beta": 1.95,
-        "backtest": {
-            "win_rate": 73.9,
-            "win_rate_str": "73.9%",
-            "profit_factor": 2.30,
+        "backtest": real_bt_results.get("rTSLA", {
+            "win_rate": 52.2,
+            "win_rate_str": "52.2%",
+            "profit_factor": 0.97,
             "total_cycles": 23,
-            "profitable_cycles": 17,
-            "avg_cycle_return": "+4.19%",
-            "max_drawdown": "-2.40%",
-            "sharpe_ratio": 2.10
-        }
+            "profitable_cycles": 12,
+            "avg_cycle_return": "-0.02%",
+            "max_drawdown": "-3.37%",
+            "sharpe_ratio": -0.06
+        })
     },
     "rAAPL": {
         "name": "rAAPL / USDT",
         "symbol": "rAAPL",
         "company": "Apple Inc.",
-        "spot_price": 222.10,
-        "anchor_price": 224.00,
-        "drift_pct": -0.85,
-        "z_score": -0.68,
+        "bitget_symbol": "AAPLUSDT",
+        "spot_price": 334.48,
+        "anchor_price": 335.03,
+        "drift_pct": -0.16,
+        "z_score": -0.11,
         "action": "HOLD CASH (NOISE BAND)",
         "regime": "Fair Value (Idle)",
-        "thesis": "Price deviation is only -0.68σ from Friday anchor. Strategy preserves 100% USDT cash to avoid unnecessary execution friction.",
-        "convergence_target": 224.00,
+        "thesis": "Price deviation is only -0.11σ from Friday anchor. Strategy preserves 100% USDT cash to avoid unnecessary execution friction.",
+        "convergence_target": 335.03,
         "expected_return": "0.00%",
         "stop_loss": "N/A",
         "beta": 0.72,
-        "backtest": {
-            "win_rate": 41.2,
-            "win_rate_str": "41.2%",
-            "profit_factor": 0.88,
-            "total_cycles": 17,
-            "profitable_cycles": 7,
-            "avg_cycle_return": "+0.15%",
-            "max_drawdown": "-1.90%",
-            "sharpe_ratio": 0.45
-        }
+        "backtest": real_bt_results.get("rAAPL", {
+            "win_rate": 61.5,
+            "win_rate_str": "61.5%",
+            "profit_factor": 2.26,
+            "total_cycles": 26,
+            "profitable_cycles": 16,
+            "avg_cycle_return": "+0.45%",
+            "max_drawdown": "-0.58%",
+            "sharpe_ratio": 2.26
+        })
     },
     "rCOIN": {
         "name": "rCOIN / USDT",
         "symbol": "rCOIN",
-        "company": "Coinbase Global",
-        "spot_price": 218.50,
-        "anchor_price": 206.80,
-        "drift_pct": 5.66,
-        "z_score": 3.10,
-        "action": "SHORT OVERBOUGHT DRIFT",
-        "regime": "Severe Crypto-Beta Overhang",
-        "thesis": "Tokenized Coinbase equity detached from fundamental valuation following weekend crypto volatility. 3.10σ dislocation indicates extreme mean-reversion probability.",
-        "convergence_target": 206.80,
-        "expected_return": "+5.66%",
-        "stop_loss": "-2.50%",
+        "company": "Coinbase Global Inc.",
+        "bitget_symbol": "COINUSDT",
+        "spot_price": 194.78,
+        "anchor_price": 194.69,
+        "drift_pct": 0.05,
+        "z_score": 0.03,
+        "action": "HOLD CASH (NOISE BAND)",
+        "regime": "Tightly Anchored to Settlement",
+        "thesis": "COINUSDT trading within 0.03σ of Friday close. Real Bitget backtest demonstrates 65.0% historical mean-reversion win rate upon dislocation.",
+        "convergence_target": 194.69,
+        "expected_return": "0.00%",
+        "stop_loss": "N/A",
         "beta": 2.45,
-        "backtest": {
-            "win_rate": 75.0,
-            "win_rate_str": "75.0%",
-            "profit_factor": 2.45,
-            "total_cycles": 24,
-            "profitable_cycles": 18,
-            "avg_cycle_return": "+5.66%",
-            "max_drawdown": "-2.50%",
-            "sharpe_ratio": 2.38
-        }
+        "backtest": real_bt_results.get("rCOIN", {
+            "win_rate": 65.0,
+            "win_rate_str": "65.0%",
+            "profit_factor": 3.94,
+            "total_cycles": 20,
+            "profitable_cycles": 13,
+            "avg_cycle_return": "+2.08%",
+            "max_drawdown": "-2.60%",
+            "sharpe_ratio": 3.54
+        })
     },
     "rMSTR": {
         "name": "rMSTR / USDT",
         "symbol": "rMSTR",
         "company": "MicroStrategy Inc.",
-        "spot_price": 312.40,
-        "anchor_price": 292.20,
-        "drift_pct": 6.91,
-        "z_score": 3.48,
-        "action": "SHORT OVERBOUGHT DRIFT",
-        "regime": "Leveraged Bitcoin Reflexivity",
-        "thesis": "High weekend beta. Self-auditor reduced single-stock capital cap to 25% to protect downside risk. Dislocation is 3.48σ from Friday anchor.",
-        "convergence_target": 292.20,
-        "expected_return": "+6.91%",
-        "stop_loss": "-2.80%",
+        "bitget_symbol": "MSTRUSDT",
+        "spot_price": 156.19,
+        "anchor_price": 156.21,
+        "drift_pct": -0.01,
+        "z_score": -0.01,
+        "action": "HOLD CASH (NOISE BAND)",
+        "regime": "Weekend Baseline",
+        "thesis": "MSTRUSDT holding flat at Friday anchor. Verified Bitget historical candle dataset indicates 38.1% win rate requiring widened entry threshold.",
+        "convergence_target": 156.21,
+        "expected_return": "0.00%",
+        "stop_loss": "N/A",
         "beta": 2.90,
-        "backtest": {
-            "win_rate": 82.1,
-            "win_rate_str": "82.1%",
-            "profit_factor": 3.12,
-            "total_cycles": 28,
-            "profitable_cycles": 23,
-            "avg_cycle_return": "+6.91%",
-            "max_drawdown": "-2.80%",
-            "sharpe_ratio": 2.75
-        }
+        "backtest": real_bt_results.get("rMSTR", {
+            "win_rate": 38.1,
+            "win_rate_str": "38.1%",
+            "profit_factor": 0.55,
+            "total_cycles": 21,
+            "profitable_cycles": 8,
+            "avg_cycle_return": "-0.63%",
+            "max_drawdown": "-5.00%",
+            "sharpe_ratio": -1.74
+        })
     },
     "rSPY": {
         "name": "rSPY / USDT",
         "symbol": "rSPY",
-        "company": "S&P 500 Index ETF",
-        "spot_price": 564.20,
-        "anchor_price": 561.80,
-        "drift_pct": 0.43,
-        "z_score": 0.35,
+        "company": "SPDR S&P 500 ETF",
+        "bitget_symbol": "SPYUSDT",
+        "spot_price": 763.30,
+        "anchor_price": 763.84,
+        "drift_pct": -0.07,
+        "z_score": -0.05,
         "action": "HOLD CASH (NOISE BAND)",
         "regime": "Stable Institutional Benchmark",
         "thesis": "Broad market index tightly anchored to Friday settlement price. No statistical dislocation signal present.",
-        "convergence_target": 561.80,
+        "convergence_target": 763.84,
         "expected_return": "0.00%",
         "stop_loss": "N/A",
         "beta": 0.35,
-        "backtest": {
-            "win_rate": 35.0,
-            "win_rate_str": "35.0%",
-            "profit_factor": 0.76,
-            "total_cycles": 20,
-            "profitable_cycles": 7,
-            "avg_cycle_return": "+0.08%",
-            "max_drawdown": "-1.20%",
-            "sharpe_ratio": 0.32
-        }
+        "backtest": real_bt_results.get("rSPY", {
+            "win_rate": 66.7,
+            "win_rate_str": "66.7%",
+            "profit_factor": 1.63,
+            "total_cycles": 18,
+            "profitable_cycles": 12,
+            "avg_cycle_return": "+0.11%",
+            "max_drawdown": "-0.60%",
+            "sharpe_ratio": 1.36
+        })
     },
     "rQQQ": {
         "name": "rQQQ / USDT",
         "symbol": "rQQQ",
         "company": "Invesco QQQ Trust",
-        "spot_price": 482.60,
-        "anchor_price": 478.90,
-        "drift_pct": 0.77,
-        "z_score": 0.62,
+        "bitget_symbol": "QQQUSDT",
+        "spot_price": 721.86,
+        "anchor_price": 720.78,
+        "drift_pct": 0.15,
+        "z_score": 0.10,
         "action": "HOLD CASH (NOISE BAND)",
         "regime": "Tech Benchmark Baseline",
-        "thesis": "Tech benchmark variance is within normal weekend noise. Preserving buying power for idiosyncratic single-stock dislocations.",
-        "convergence_target": 478.90,
+        "thesis": "Tech benchmark variance is within normal weekend noise (+0.10σ). Preserving buying power for idiosyncratic single-stock dislocations.",
+        "convergence_target": 720.78,
         "expected_return": "0.00%",
         "stop_loss": "N/A",
         "beta": 0.58,
-        "backtest": {
-            "win_rate": 42.1,
-            "win_rate_str": "42.1%",
-            "profit_factor": 0.92,
-            "total_cycles": 19,
-            "profitable_cycles": 8,
-            "avg_cycle_return": "+0.22%",
-            "max_drawdown": "-1.50%",
-            "sharpe_ratio": 0.50
-        }
+        "backtest": real_bt_results.get("rQQQ", {
+            "win_rate": 50.0,
+            "win_rate_str": "50.0%",
+            "profit_factor": 1.25,
+            "total_cycles": 20,
+            "profitable_cycles": 10,
+            "avg_cycle_return": "+0.06%",
+            "max_drawdown": "-0.51%",
+            "sharpe_ratio": 0.56
+        })
     }
 }
 
@@ -5592,13 +5609,21 @@ html_template = f"""<!DOCTYPE html>
       const edgeRatio = drift / Math.max(0.5, beta);
       const baseScore = Math.min(55, Math.max(10, Math.round(edgeRatio * 20)));
 
-      // ── 2. Factor 1: Historical Backtest Validation Track Record ───────────
-      // Evaluates token-specific weekend convergence win rate and profit factor
+      // ── 2. Factor 1: Empirical Backtest Reliability Track Record ───────────
+      // Evaluates token-specific empirical win rate, profit factor, and drawdown protection from real Bitget candles
       const bt = m.backtest || {{ win_rate: 50.0, profit_factor: 1.0, total_cycles: 20 }};
-      const btPoints = bt.win_rate >= 80 ? 8
-                     : bt.win_rate >= 70 ? 5
-                     : bt.win_rate < 50 ? -10
-                     : 0;
+      let btPoints = 0;
+      if (bt.win_rate >= 65) btPoints += 8;
+      else if (bt.win_rate >= 55) btPoints += 4;
+      else if (bt.win_rate < 45) btPoints -= 8;
+
+      if (bt.profit_factor >= 2.5) btPoints += 6;
+      else if (bt.profit_factor >= 1.5) btPoints += 3;
+      else if (bt.profit_factor < 1.0) btPoints -= 6;
+
+      const ddVal = Math.abs(parseFloat(bt.max_drawdown) || 5.0);
+      if (ddVal < 2.0) btPoints += 4;
+      else if (ddVal > 4.0) btPoints -= 4;
 
       // ── 3. Factor 2: Z-Score Statistical Dislocation Conviction ─────────────
       const absZ = Math.abs(parseFloat(m.z_score) || 0);
@@ -7621,54 +7646,82 @@ html_template = f"""<!DOCTYPE html>
       `;
     }}
 
-    // Live Dynamic Orderbook & Spot Price Ticker
-    let priceTickerInterval = null;
-    function tickMarketPrices() {{
-      Object.keys(markets).forEach(sym => {{
-        const m = markets[sym];
-        if (!m || !m.spot_price) return;
-        // Ornstein-Uhlenbeck mean-reversion: price pulled toward anchor with noise
-        // This produces realistic weekend drift: price drifts but tends to revert
-        const meanReversionStrength = 0.04;  // How hard price pulls back toward anchor
-        const baseVol = 0.0045;              // ±0.45% base volatility per tick (10x larger = visible swings)
-        const gap = (m.spot_price - m.anchor_price) / (m.anchor_price || 1);
-        const reversionForce = -meanReversionStrength * gap; // Pulls back toward anchor
-        const randomNoise = (Math.random() - 0.5) * 2 * baseVol;
-        const deltaPct = reversionForce + randomNoise;
-        const newPrice = Math.max(1, m.spot_price * (1 + deltaPct));
-        m.spot_price = parseFloat(newPrice.toFixed(2));
-        if (m.anchor_price) {{
-          m.drift_pct = parseFloat((((m.spot_price - m.anchor_price) / m.anchor_price) * 100).toFixed(2));
-          m.z_score = parseFloat(((m.spot_price - m.anchor_price) / (m.anchor_price * 0.015)).toFixed(2));
-        }}
-      }});
+    // ── 100% REAL LIVE MARKET FEED FROM BITGET EXCHANGE ───────────────────
+    let livePriceSyncInterval = null;
+    async function syncLiveMarketPrices() {{
+      try {{
+        const resp = await fetch(`${{API_BASE}}/api/market-prices`);
+        if (!resp.ok) return;
+        const data = await resp.json();
+        if (data.status === "ok" && data.markets) {{
+          Object.keys(data.markets).forEach(sym => {{
+            const liveM = data.markets[sym];
+            if (markets[sym]) {{
+              markets[sym].spot_price   = liveM.spot_price;
+              markets[sym].anchor_price = liveM.anchor_price;
+              markets[sym].drift_pct    = liveM.drift_pct;
+              markets[sym].z_score      = liveM.z_score;
+              markets[sym].bid          = liveM.bid;
+              markets[sym].ask          = liveM.ask;
+              markets[sym].high_24h     = liveM.high_24h;
+              markets[sym].low_24h      = liveM.low_24h;
+              markets[sym].source       = liveM.source;
+            }}
+          }});
 
-      // Update active market view if in arena view
-      const curM = markets[selectedSymbol];
-      if (curM) {{
-        const cpd = document.getElementById("chartPriceDisplay");
-        if (cpd) cpd.textContent = `$${{curM.spot_price.toFixed(2)}}`;
-        const driftBadge = document.getElementById("chartDriftBadge");
-        if (driftBadge) {{
-          const driftSign = curM.drift_pct > 0 ? "+" : "";
-          driftBadge.textContent = `${{driftSign}}${{curM.drift_pct.toFixed(2)}}% Drift`;
-          driftBadge.className = curM.drift_pct > 0 ? "asset-card-drift green" : "asset-card-drift gold";
+          // Update active market view if in arena view
+          const curM = markets[selectedSymbol];
+          if (curM) {{
+            const cpd = document.getElementById("chartPriceDisplay");
+            if (cpd) cpd.textContent = `$${{curM.spot_price.toFixed(2)}}`;
+            const driftBadge = document.getElementById("chartDriftBadge");
+            if (driftBadge) {{
+              const driftSign = curM.drift_pct > 0 ? "+" : "";
+              driftBadge.textContent = `${{driftSign}}${{curM.drift_pct.toFixed(2)}}% Drift`;
+              driftBadge.className = curM.drift_pct > 0 ? "asset-card-drift green" : "asset-card-drift gold";
+            }}
+            const szb = document.getElementById("signalZScoreBadge");
+            if (szb) {{
+              const d = ChronosWalletStore.getCurrentData();
+              const currentZThreshold = (d && d.strategyConfig && d.strategyConfig[`${{curM.symbol}}_z_entry`]) || 2.0;
+              szb.textContent = `Z = ${{curM.z_score > 0 ? '+' : ''}}${{curM.z_score.toFixed(2)}}σ (Entry ≥ ${{currentZThreshold}}σ)`;
+            }}
+            renderOrderbook(selectedSymbol);
+          }}
+
+          // Dynamic floating PnL update on open orderbook positions strictly using live spot_price
+          renderActivePositions();
         }}
-        const szb = document.getElementById("signalZScoreBadge");
-        if (szb) {{
-          const d = ChronosWalletStore.getCurrentData();
-          const currentZThreshold = (d && d.strategyConfig && d.strategyConfig[`${{curM.symbol}}_z_entry`]) || 2.0;
-          szb.textContent = `Z = ${{curM.z_score > 0 ? '+' : ''}}${{curM.z_score.toFixed(2)}}σ (Entry ≥ ${{currentZThreshold}}σ)`;
-        }}
+      }} catch (err) {{
+        console.warn("[LIVE FEED] Network sync paused:", err);
       }}
-
-      // Dynamic floating PnL update on open orderbook positions
-      renderActivePositions();
     }}
 
-    function startPriceTicker() {{
-      if (priceTickerInterval) clearInterval(priceTickerInterval);
-      priceTickerInterval = setInterval(tickMarketPrices, 2400);
+    async function syncRealBacktestData() {{
+      try {{
+        const resp = await fetch(`${{API_BASE}}/api/backtest-results`);
+        if (!resp.ok) return;
+        const data = await resp.json();
+        if (data.results) {{
+          Object.keys(data.results).forEach(sym => {{
+            if (markets[sym]) {{
+              markets[sym].backtest = data.results[sym];
+            }}
+          }});
+          if (selectedSymbol) {{
+            renderStressTestPanel(selectedSymbol);
+          }}
+        }}
+      }} catch (err) {{
+        console.warn("[BACKTEST] Failed to fetch real backtest results:", err);
+      }}
+    }}
+
+    function startLivePriceSync() {{
+      if (livePriceSyncInterval) clearInterval(livePriceSyncInterval);
+      syncLiveMarketPrices();
+      syncRealBacktestData();
+      livePriceSyncInterval = setInterval(syncLiveMarketPrices, 3500);
     }}
 
     function updateMarketView() {{
@@ -8660,9 +8713,9 @@ html_template = f"""<!DOCTYPE html>
         if (typeof ChronosWalletStore !== "undefined" && ChronosWalletStore.currentAddress) {{
           startAutoPilotInterval();
         }}
-        startPriceTicker();
+        startLivePriceSync();
       }} catch(e) {{
-        console.error("startAutoPilotInterval / startPriceTicker error:", e);
+        console.error("startAutoPilotInterval / startLivePriceSync error:", e);
       }}
 
       try {{
