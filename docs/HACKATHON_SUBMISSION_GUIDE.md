@@ -68,7 +68,7 @@
 
 ### Q14: Submission Material Links
 ```text
-Project Demo URL: http://localhost:8899/terminal (or live deployed URL)
+Project Demo URL: https://chronos-production-a1e4.up.railway.app/terminal
 Public GitHub Repository: https://github.com/OpeyemiMoses/Chronos
 Paper Trading Logs (CSV): https://github.com/OpeyemiMoses/Chronos/blob/main/data/paper_trading_logs.csv
 Paper Trading Logs (JSON): https://github.com/OpeyemiMoses/Chronos/blob/main/data/paper_trading_logs.json
