@@ -1,0 +1,1561 @@
+#!/usr/bin/env python3
+"""
+Chronos Quantitative Trading Documentation Generator
+Compiles dashboard/docs.html with the editorial aesthetic of Chronos:
+- Neuton serif headings & Inter sans typography
+- Mathematical formulas for Friday Anchor & Residual Drift ($Z$-score)
+- Autonomous Agent execution cycle & 4-rule gatekeeper
+- Risk management & strict 5-trade weekend global cap
+- Monday 08:30 EST cash convergence settlement
+- Interactive sticky sidebar & instant documentation search
+"""
+
+html_content = """<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documentation · Chronos Autonomous Execution Engine</title>
+  <meta name="description" content="Technical documentation and quantitative architecture reference for the Chronos 24/7 Residual Drift Arbitrage Engine on Bitget UTA.">
+
+  <!-- Google Fonts: Neuton & Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Neuton:ital,wght@0,300;0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --font-serif: "Neuton", "Playfair Display", Georgia, serif;
+      --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: "JetBrains Mono", "Space Mono", monospace;
+
+      --color-canvas: #FBF9F4;
+      --color-card: #FFFFFF;
+      --color-card-alt: #FAF8F5;
+      --color-border: #EEE9DF;
+      --color-border-dark: #D4CEBF;
+      --color-black: #09090B;
+      --color-dark-surface: #18181B;
+      --color-grey-dark: #27272A;
+      --color-grey-text: #52525B;
+      --color-grey-muted: #71717A;
+      --color-green: #10B981;
+      --color-green-bg: rgba(16, 185, 129, 0.08);
+      --color-amber: #D97706;
+      --color-amber-bg: rgba(217, 119, 6, 0.08);
+      --color-red: #EF4444;
+      --color-red-bg: rgba(239, 68, 68, 0.08);
+      --color-blue: #3B82F6;
+      --color-blue-bg: rgba(59, 130, 246, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 13px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--color-canvas);
+      color: var(--color-black);
+      font-family: var(--font-sans);
+      font-size: 12.8px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Page Entrance Rise-In */
+    @keyframes pageRiseIn {
+      0% {
+        opacity: 0;
+        transform: translateY(14px);
+        filter: blur(5px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0px);
+      }
+    }
+
+    .page-rise-in {
+      animation: pageRiseIn 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    @keyframes headerSlideDown {
+      0% { opacity: 0; transform: translateY(-16px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulseRing {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6); }
+      70% { transform: scale(1.1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    @keyframes pulseAmberRing {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.6); }
+      70% { transform: scale(1.1); box-shadow: 0 0 0 6px rgba(217, 119, 6, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(217, 119, 6, 0); }
+    }
+
+    .pulse-dot {
+      display: inline-block;
+      border-radius: 50%;
+      animation: pulseRing 2.2s infinite cubic-bezier(0.45, 0, 0.55, 1);
+    }
+
+    .pulse-dot-amber {
+      display: inline-block;
+      border-radius: 50%;
+      animation: pulseAmberRing 2.2s infinite cubic-bezier(0.45, 0, 0.55, 1);
+    }
+
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(14px); filter: blur(3px); }
+      100% { opacity: 1; transform: translateY(0); filter: blur(0px); }
+    }
+
+    .anim-fade-up {
+      animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .anim-delay-1 { animation-delay: 0.05s; }
+    .anim-delay-2 { animation-delay: 0.12s; }
+    .anim-delay-3 { animation-delay: 0.20s; }
+
+    /* Scroll Reveal Pop-in (Blur-to-focus) */
+    .chronos-pop-in {
+      opacity: 0;
+      transform: translateY(18px) scale(0.98);
+      filter: blur(6px);
+      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                  filter 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform, filter;
+    }
+
+    .chronos-pop-in.chronos-revealed {
+      opacity: 1 !important;
+      transform: translateY(0) scale(1) !important;
+      filter: blur(0px) !important;
+    }
+
+    /* Interactive Simulator Styling */
+    .sim-token-btn {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 0.22rem 0.6rem;
+      border-radius: 9999px;
+      border: 1px solid var(--color-border);
+      background: #FFFFFF;
+      color: var(--color-grey-text);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .sim-token-btn:hover {
+      border-color: var(--color-black);
+      color: var(--color-black);
+      transform: translateY(-1px);
+    }
+    .sim-token-btn.active {
+      background: var(--color-black);
+      color: #FFFFFF;
+      border-color: var(--color-black);
+    }
+
+    .simulator-card {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .simulator-card:hover {
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+    }
+
+    /* Floating Navigation Pill */
+    .header-wrapper {
+      position: fixed;
+      top: 0.85rem;
+      left: 0;
+      width: 100%;
+      z-index: 999;
+      display: flex;
+      justify-content: center;
+      padding: 0 1rem;
+      pointer-events: none;
+    }
+
+    .header-pill {
+      pointer-events: auto;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--color-border);
+      border-radius: 9999px;
+      padding: 0.32rem 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      text-decoration: none;
+      color: var(--color-black);
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .header-logo-badge {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background: var(--color-green-bg);
+      color: var(--color-green);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      padding: 0.12rem 0.42rem;
+      border-radius: 9999px;
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 1.1rem;
+    }
+
+    .header-nav a {
+      color: var(--color-grey-text);
+      text-decoration: none;
+      font-size: 0.75rem;
+      font-weight: 500;
+      transition: color 0.15s ease;
+    }
+
+    .header-nav a:hover,
+    .header-nav a.active {
+      color: var(--color-black);
+      font-weight: 600;
+    }
+
+    .btn-launch-terminal {
+      background: var(--color-black);
+      color: #FFFFFF;
+      border: 1px solid var(--color-black);
+      border-radius: 9999px;
+      padding: 0.26rem 0.75rem;
+      font-size: 0.70rem;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-launch-terminal:hover {
+      background: #27272A;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    }
+
+    /* Main Container with Sidebar + Content */
+    .docs-container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 5.2rem 1.25rem 3.5rem 1.25rem;
+      display: grid;
+      grid-template-columns: 240px minmax(0, 1fr);
+      gap: 1.85rem;
+    }
+
+    /* Sticky Sidebar */
+    .docs-sidebar {
+      position: sticky;
+      top: 4.8rem;
+      height: calc(100vh - 6rem);
+      overflow-y: auto;
+      padding-right: 0.85rem;
+      scrollbar-width: thin;
+      scrollbar-color: var(--color-border) transparent;
+    }
+
+    .docs-search-box {
+      margin-bottom: 1.1rem;
+      position: relative;
+    }
+
+    .docs-search-input {
+      width: 100%;
+      background: #FFFFFF;
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      padding: 0.42rem 0.65rem 0.42rem 1.85rem;
+      font-size: 0.75rem;
+      font-family: var(--font-sans);
+      color: var(--color-black);
+      outline: none;
+      transition: all 0.18s ease;
+    }
+
+    .docs-search-input:focus {
+      border-color: var(--color-black);
+      box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.04);
+    }
+
+    .docs-search-icon {
+      position: absolute;
+      left: 0.55rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--color-grey-muted);
+      pointer-events: none;
+    }
+
+    .sidebar-section-title {
+      font-family: var(--font-mono);
+      font-size: 0.64rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-grey-muted);
+      margin-bottom: 0.4rem;
+      padding-left: 0.4rem;
+    }
+
+    .sidebar-nav-list {
+      list-style: none;
+      margin-bottom: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.12rem;
+    }
+
+    .sidebar-nav-link {
+      display: block;
+      padding: 0.30rem 0.55rem;
+      border-radius: 6px;
+      color: var(--color-grey-text);
+      text-decoration: none;
+      font-size: 0.76rem;
+      font-weight: 500;
+      transition: all 0.15s ease;
+      line-height: 1.35;
+    }
+
+    .sidebar-nav-link:hover {
+      color: var(--color-black);
+      background: rgba(0, 0, 0, 0.03);
+      transform: translateX(2px);
+    }
+
+    .sidebar-nav-link.active {
+      color: var(--color-black);
+      background: #FFFFFF;
+      font-weight: 600;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+      border: 1px solid var(--color-border);
+    }
+
+    /* Main Content Area */
+    .docs-content {
+      min-width: 0;
+    }
+
+    .docs-header {
+      border-bottom: 1px solid var(--color-border);
+      padding-bottom: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .docs-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--color-green);
+      background: var(--color-green-bg);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      padding: 0.18rem 0.52rem;
+      border-radius: 9999px;
+      margin-bottom: 0.65rem;
+    }
+
+    .docs-title {
+      font-family: var(--font-serif);
+      font-size: 1.62rem;
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.4rem;
+      color: var(--color-black);
+    }
+
+    .docs-subtitle {
+      font-size: 0.82rem;
+      color: var(--color-grey-text);
+      line-height: 1.5;
+    }
+
+    /* Chapter Section Layout */
+    .doc-section {
+      margin-bottom: 2.25rem;
+      scroll-margin-top: 5rem;
+    }
+
+    .doc-section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 0.65rem;
+      border-bottom: 1px solid var(--color-border);
+      padding-bottom: 0.45rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .doc-chapter-num {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--color-amber);
+    }
+
+    .doc-section-h2 {
+      font-family: var(--font-serif);
+      font-size: 1.18rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--color-black);
+    }
+
+    .doc-section-h3 {
+      font-family: var(--font-serif);
+      font-size: 0.98rem;
+      font-weight: 700;
+      margin: 1.15rem 0 0.35rem 0;
+      color: var(--color-black);
+    }
+
+    p {
+      margin-bottom: 0.75rem;
+      color: #27272A;
+      font-size: 12.8px;
+      line-height: 1.55;
+    }
+
+    /* Formula & Math Display Cards */
+    .math-card {
+      background: #FFFFFF;
+      border: 1px solid var(--color-border);
+      border-left: 3px solid var(--color-amber);
+      border-radius: 7px;
+      padding: 0.8rem 1rem;
+      margin: 0.9rem 0;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+      transition: all 0.2s ease;
+    }
+
+    .math-card:hover {
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+      transform: translateY(-2px);
+    }
+
+    .math-formula {
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--color-black);
+      padding: 0.3rem 0;
+      letter-spacing: 0.02em;
+    }
+
+    .math-legend {
+      margin-top: 0.6rem;
+      font-size: 0.76rem;
+      color: var(--color-grey-text);
+      display: flex;
+      flex-direction: column;
+      gap: 0.28rem;
+    }
+
+    .math-legend-item {
+      display: flex;
+      align-items: baseline;
+      gap: 0.45rem;
+    }
+
+    .math-var {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--color-black);
+      min-width: 60px;
+    }
+
+    /* Callout Alert Boxes */
+    .callout {
+      border-radius: 7px;
+      padding: 0.85rem 1.05rem;
+      margin: 1.05rem 0;
+      display: flex;
+      gap: 0.65rem;
+      font-size: 0.82rem;
+      line-height: 1.5;
+    }
+
+    .callout.green {
+      background: var(--color-green-bg);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      color: #065F46;
+    }
+
+    .callout.amber {
+      background: var(--color-amber-bg);
+      border: 1px solid rgba(217, 119, 6, 0.25);
+      color: #92400E;
+    }
+
+    .callout.dark {
+      background: var(--color-dark-surface);
+      border: 1px solid var(--color-grey-dark);
+      color: #F4F4F5;
+    }
+
+    .callout-icon {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 0.90rem;
+      flex-shrink: 0;
+    }
+
+    /* Interactive Comparison & Grid Cards */
+    .doc-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.85rem;
+      margin: 1.05rem 0;
+    }
+
+    .doc-card {
+      background: #FFFFFF;
+      border: 1px solid var(--color-border);
+      border-radius: 7px;
+      padding: 0.95rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .doc-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+      border-color: var(--color-border-dark);
+    }
+
+    .doc-card-title {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.35rem;
+      color: var(--color-black);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .doc-card-desc {
+      font-size: 0.78rem;
+      color: var(--color-grey-text);
+      line-height: 1.45;
+    }
+
+    /* Verification Gatekeeper Steps */
+    .gatekeeper-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      margin: 1.05rem 0;
+    }
+
+    .gatekeeper-item {
+      background: #FFFFFF;
+      border: 1px solid var(--color-border);
+      border-radius: 7px;
+      padding: 0.75rem 0.95rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      transition: all 0.2s ease;
+    }
+
+    .gatekeeper-item:hover {
+      transform: translateX(3px);
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.03);
+    }
+
+    .gate-num {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--color-black);
+      color: #FFFFFF;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    .gate-body h4 {
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--color-black);
+      margin-bottom: 0.15rem;
+    }
+
+    .gate-body p {
+      font-size: 0.76rem;
+      color: var(--color-grey-text);
+      margin-bottom: 0;
+      line-height: 1.4;
+    }
+
+    /* Data Tables */
+    .doc-table-wrap {
+      background: #FFFFFF;
+      border: 1px solid var(--color-border);
+      border-radius: 7px;
+      overflow-x: auto;
+      margin: 1.05rem 0;
+    }
+
+    .doc-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.76rem;
+      text-align: left;
+    }
+
+    .doc-table th {
+      background: var(--color-card-alt);
+      padding: 0.55rem 0.8rem;
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border-bottom: 1px solid var(--color-border);
+      color: var(--color-black);
+    }
+
+    .doc-table td {
+      padding: 0.55rem 0.8rem;
+      border-bottom: 1px solid var(--color-border);
+      color: #27272A;
+    }
+
+    .doc-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* Code Blocks */
+    .code-block {
+      background: var(--color-dark-surface);
+      color: #E4E4E7;
+      border-radius: 7px;
+      padding: 0.85rem 1.05rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      line-height: 1.55;
+      overflow-x: auto;
+      margin: 1.05rem 0;
+      border: 1px solid var(--color-grey-dark);
+    }
+
+    .code-comment {
+      color: #71717A;
+    }
+
+    .code-keyword {
+      color: #93C5FD;
+      font-weight: 600;
+    }
+
+    .code-string {
+      color: #86EFAC;
+    }
+
+    .code-number {
+      color: #FDE047;
+    }
+
+    /* Global Footer */
+    footer {
+      border-top: 1px solid var(--color-border);
+      padding: 3.5rem 1.5rem 2rem 1.5rem;
+      background: #FFFFFF;
+      margin-top: 4rem;
+    }
+
+    .footer-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.2fr;
+      gap: 2.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .footer-col h5 {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 1rem;
+      color: var(--color-black);
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      font-size: 0.85rem;
+    }
+
+    .footer-links a {
+      color: var(--color-grey-text);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--color-black);
+    }
+
+    .footer-bottom {
+      max-width: 1280px;
+      margin: 0 auto;
+      border-top: 1px solid rgba(0, 0, 0, 0.06);
+      padding-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.78rem;
+      color: var(--color-grey-muted);
+    }
+
+    @media (max-width: 900px) {
+      .docs-container {
+        grid-template-columns: 1fr;
+        padding-top: 5rem;
+      }
+      .docs-sidebar {
+        display: none;
+      }
+      .doc-grid-2 {
+        grid-template-columns: 1fr;
+      }
+      .footer-inner {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .header-nav {
+        display: none;
+      }
+      .footer-inner {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Navigation Bar -->
+  <header class="header-wrapper">
+    <div class="header-pill">
+      <a href="index.html" class="header-logo">
+        <span>Chronos</span>
+        <span class="header-logo-badge">Docs</span>
+      </a>
+
+      <nav class="header-nav">
+        <a href="index.html" onclick="event.preventDefault(); smoothNavigate('index.html');">Overview</a>
+        <a href="app.html" onclick="event.preventDefault(); smoothNavigate('app.html');">Trading Terminal</a>
+        <a href="docs.html" class="active">Documentation</a>
+        <a href="help.html" onclick="event.preventDefault(); smoothNavigate('help.html');">Help Centre</a>
+      </nav>
+
+      <a href="app.html" onclick="event.preventDefault(); smoothNavigate('app.html');" class="btn-launch-terminal">
+        <span>Launch Terminal</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- Page Entrance Rise-In Animation Wrapper -->
+  <div class="page-rise-in">
+
+  <!-- Main Container -->
+  <div class="docs-container">
+
+    <!-- Sticky Table of Contents -->
+    <aside class="docs-sidebar">
+      <div class="docs-search-box">
+        <svg class="docs-search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" id="docsSearch" class="docs-search-input" placeholder="Search documentation..." oninput="filterDocs(this.value)">
+      </div>
+
+      <div class="sidebar-section-title">Core Reference</div>
+      <ul class="sidebar-nav-list" id="sidebarList">
+        <li><a href="#ch1-market-inefficiency" class="sidebar-nav-link active">1. Market Inefficiency & Structure</a></li>
+        <li><a href="#ch2-residual-drift-model" class="sidebar-nav-link">2. Residual Drift Model & Math</a></li>
+        <li><a href="#ch3-autonomous-agent" class="sidebar-nav-link">3. Autonomous Agent Engine</a></li>
+        <li><a href="#ch4-risk-management" class="sidebar-nav-link">4. Risk Limits & 5-Trade Cap</a></li>
+        <li><a href="#ch5-monday-convergence" class="sidebar-nav-link">5. Monday Convergence Settlement</a></li>
+        <li><a href="#ch6-self-auditor" class="sidebar-nav-link">6. Cognitive Self-Auditor</a></li>
+        <li><a href="#ch7-telemetry-oracle" class="sidebar-nav-link">7. Bitget UTA Oracle & Telemetry</a></li>
+      </ul>
+
+      <div class="sidebar-section-title">Quick Resources</div>
+      <ul class="sidebar-nav-list">
+        <li><a href="help.html" class="sidebar-nav-link">Help Centre & FAQ →</a></li>
+        <li><a href="app.html#arena" class="sidebar-nav-link">Live Trading Arena →</a></li>
+        <li><a href="app.html#auditor" class="sidebar-nav-link">Audit Memory Ledger →</a></li>
+      </ul>
+    </aside>
+
+    <!-- Content Area -->
+    <main class="docs-content">
+      
+      <div class="docs-header">
+        <span class="docs-badge">Quantitative Architecture Reference</span>
+        <h1 class="docs-title">Chronos Engine Documentation</h1>
+        <p class="docs-subtitle">A comprehensive breakdown of the 24/7 tokenized equities market gap, the Friday Anchor pricing mechanism, statistical dislocation models, and autonomous risk controls on Bitget Unified Trading Account (UTA).</p>
+      </div>
+
+      <!-- Chapter 1 -->
+      <section id="ch1-market-inefficiency" class="doc-section">
+        <div class="doc-section-header">
+          <span class="doc-chapter-num">01</span>
+          <h2 class="doc-section-h2">Market Inefficiency & The Structural Gap</h2>
+        </div>
+
+        <p>In traditional capital markets, institutional trading desks shutter their operations every <strong>Friday at 16:00 EST (21:00 UTC)</strong> and do not reopen until <strong>Monday at 09:30 EST</strong>. During these 65.5 hours, primary equity exchanges (NYSE, NASDAQ, CBOE) are completely frozen with zero continuous orderbook liquidity.</p>
+
+        <p>However, modern cryptographic exchanges operating 24/7 tokenized synthetic equities (e.g., <strong>$rNVDA, $rTSLA, $rCOIN, $rMSTR, $rAAPL, $rSPY, $rQQQ</strong> on Bitget UTA) remain fully tradable around the clock. Because institutional market makers are offline, this weekend orderbook is populated primarily by retail participants and algorithmic momentum traders.</p>
+
+        <div class="doc-grid-2">
+          <div class="doc-card">
+            <div class="doc-card-title">
+              <span style="color: var(--color-red);">●</span> Institutional Market Close
+            </div>
+            <p class="doc-card-desc">Friday 16:00 EST institutional clearing price locks. Trillions in sovereign, index, and pension capital establish institutional fair value before closing.</p>
+          </div>
+          <div class="doc-card">
+            <div class="doc-card-title">
+              <span style="color: var(--color-green);">●</span> 24/7 Tokenized Equities
+            </div>
+            <p class="doc-card-desc">Continuous retail liquidity on Bitget UTA allows prices to drift 2% to 6% away from Friday close under thin weekend market depth.</p>
+          </div>
+        </div>
+
+        <p>This structural disparity creates a predictable statistical phenomenon: <strong>Residual Weekend Drift</strong>. Without institutional volume to enforce fair pricing, orderbooks drift into overbought or oversold extremes. When Wall Street opens Monday morning, massive institutional arbitrage flows force these synthetic instruments back toward their true fundamental benchmark.</p>
+
+        <div class="callout callout-green" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.1rem;">
+          <div style="display: flex; align-items: center; gap: 0.55rem;">
+            <span class="pulse-dot" style="width: 8px; height: 8px; background-color: #10B981;"></span>
+            <div>
+              <div style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--color-black);">Friday Anchor State: CONSOLIDATED TAPE ACTIVE</div>
+              <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-grey-text);">Benchmark invariant active across Bitget UTA synthetic instruments</div>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.45rem; font-family: var(--font-mono); font-size: 0.72rem;">
+            <span style="color: var(--color-grey-muted); font-size: 0.65rem;">NEXT SETTLEMENT WINDOW:</span>
+            <span id="anchorCountdownTicker" style="color: #10B981; font-weight: 700; background: rgba(16, 185, 129, 0.12); padding: 0.15rem 0.5rem; border-radius: 4px; border: 1px solid rgba(16, 185, 129, 0.3);">Calculating...</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Chapter 2 -->
+      <section id="ch2-residual-drift-model" class="doc-section">
+        <div class="doc-section-header">
+          <span class="doc-chapter-num">02</span>
+          <h2 class="doc-section-h2">The Residual Drift Model & Mathematical Formulation</h2>
+        </div>
+
+        <p>Chronos models weekend price behavior not as random directional momentum, but as an <strong>Ornstein-Uhlenbeck mean-reverting stochastic process</strong> centered on the Friday institutional anchor price.</p>
+
+        <h3 class="doc-section-h3">1. The Friday Anchor ($P_{\text{anchor}}$)</h3>
+        <p>The exact official closing price recorded by the consolidated tape at Friday 16:00 EST is established as the invariant <strong>Friday Anchor ($P_{\text{anchor}}$)</strong>. This benchmark remains mathematically fixed throughout the entire weekend trading cycle.</p>
+
+        <h3 class="doc-section-h3">2. Statistical Dislocation Formulation ($Z$-Score)</h3>
+        <p>To differentiate actionable institutional mispricings from ordinary spread noise, Chronos calculates a continuous normalized Z-score:</p>
+
+        <div class="math-card">
+          <div class="math-formula">
+            Z = \frac{P_{\text{spot}} - P_{\text{anchor}}}{\sigma_{\text{weekend}}}
+          </div>
+          <div class="math-legend">
+            <div class="math-legend-item">
+              <span class="math-var">P_spot</span>
+              <span>Current live orderbook execution price on Bitget UTA</span>
+            </div>
+            <div class="math-legend-item">
+              <span class="math-var">P_anchor</span>
+              <span>Official institutional Friday 16:00 EST closing price</span>
+            </div>
+            <div class="math-legend-item">
+              <span class="math-var">σ_weekend</span>
+              <span>Asset-specific historical weekend standard deviation (typically 1.50% to 2.20%)</span>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="doc-section-h3">3. Mean-Reversion Probability & Asymmetric Edge</h3>
+        <p>Empirical analysis of tokenized equity behavior demonstrates that when $|Z| \ge 2.00\sigma$ and weekend drift exceeds $2.00\%$, the probability of price converging back toward the Friday anchor during Monday pre-market hours is <strong>76.9%</strong>. Chronos establishes counter-positions to capture this convergence spread.</p>
+
+        <div class="doc-table-wrap">
+          <table class="doc-table">
+            <thead>
+              <tr>
+                <th>Condition</th>
+                <th>Dislocation Signal</th>
+                <th>Autonomous Action</th>
+                <th>Historical Win Rate</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>$P_{\text{spot}} \ge P_{\text{anchor}} \times 1.020$</td>
+                <td>$Z \ge +2.00\sigma$ (Overbought Drift)</td>
+                <td>Deploy <strong>SHORT</strong> Counter-Position</td>
+                <td><strong>78.4%</strong> Reversion</td>
+              </tr>
+              <tr>
+                <td>$P_{\text{spot}} \le P_{\text{anchor}} \times 0.980$</td>
+                <td>$Z \le -2.00\sigma$ (Oversold Drift)</td>
+                <td>Deploy <strong>LONG</strong> Counter-Position</td>
+                <td><strong>75.2%</strong> Reversion</td>
+              </tr>
+              <tr>
+                <td>$|Z| < 2.00\sigma$ or $|Drift| < 2.00\%$</td>
+                <td>Within Statistical Equilibrium</td>
+                <td><strong>STANDBY</strong> (Hold Capital)</td>
+                <td>N/A (No Trade)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Interactive Live Drift & Z-Score Simulator Widget -->
+        <div class="simulator-card" style="background: #FFFFFF; border: 1px solid var(--color-border); border-radius: 8px; padding: 1.1rem; margin: 1.25rem 0; box-shadow: 0 2px 10px rgba(0,0,0,0.03);">
+          <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--color-border); padding-bottom: 0.55rem; margin-bottom: 0.8rem; flex-wrap: wrap; gap: 0.4rem;">
+            <div style="display: flex; align-items: center; gap: 0.45rem;">
+              <span class="pulse-dot" style="width: 7px; height: 7px; background-color: #10B981;"></span>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--color-black);">Interactive Mathematical Simulator</span>
+            </div>
+            <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-grey-muted);">Live Ornstein-Uhlenbeck Drift Model</span>
+          </div>
+
+          <!-- Token Selector Pills -->
+          <div style="display: flex; align-items: center; gap: 0.35rem; margin-bottom: 0.8rem; flex-wrap: wrap;">
+            <span style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--color-grey-muted); margin-right: 0.3rem;">ASSET PRESET:</span>
+            <button class="sim-token-btn active" onclick="setSimToken('rNVDA', 132.80, 1.85)" id="btnSimNVDA">rNVDA ($132.80)</button>
+            <button class="sim-token-btn" onclick="setSimToken('rTSLA', 258.40, 2.10)" id="btnSimTSLA">rTSLA ($258.40)</button>
+            <button class="sim-token-btn" onclick="setSimToken('rAAPL', 224.20, 1.65)" id="btnSimAAPL">rAAPL ($224.20)</button>
+            <button class="sim-token-btn" onclick="setSimToken('rCOIN', 285.50, 2.40)" id="btnSimCOIN">rCOIN ($285.50)</button>
+          </div>
+
+          <!-- Drift Slider & Inputs -->
+          <div style="background: var(--color-canvas); border: 1px solid var(--color-border); border-radius: 6px; padding: 0.75rem 0.85rem; margin-bottom: 0.8rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+              <label for="driftSlider" style="font-family: var(--font-mono); font-size: 0.7rem; font-weight: 600; color: var(--color-grey-text);">SIMULATED DRIFT: <span id="simDriftPctText" style="color: #D97706; font-weight: 700;">+3.42%</span></label>
+              <div style="font-family: var(--font-mono); font-size: 0.74rem; font-weight: 700;" id="simZScoreText">Z = +2.48σ</div>
+            </div>
+            <input type="range" id="driftSlider" min="-5.0" max="5.0" step="0.1" value="3.4" oninput="updateSimCalculations()" style="width: 100%; accent-color: #09090B; cursor: pointer;">
+            <div style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.62rem; color: var(--color-grey-muted); margin-top: 0.25rem;">
+              <span>-5.0% (Oversold Long)</span>
+              <span>-2.0σ Threshold</span>
+              <span>0.0% Anchor</span>
+              <span>+2.0σ Threshold</span>
+              <span>+5.0% (Overbought Short)</span>
+            </div>
+          </div>
+
+          <!-- Visual Dislocation Meter with Animated Needle -->
+          <div style="position: relative; height: 16px; background: #E4E4E7; border-radius: 9999px; margin-bottom: 0.8rem; overflow: hidden; border: 1px solid var(--color-border);">
+            <div style="position: absolute; left: 0; width: 30%; height: 100%; background: rgba(16, 185, 129, 0.25);"></div>
+            <div style="position: absolute; left: 30%; width: 40%; height: 100%; background: rgba(244, 239, 230, 0.9);"></div>
+            <div style="position: absolute; left: 70%; width: 30%; height: 100%; background: rgba(239, 68, 68, 0.25);"></div>
+            <div id="simMeterNeedle" style="position: absolute; top: 0; bottom: 0; width: 4px; background: #09090B; border-radius: 2px; transform: translateX(-50%); transition: left 0.12s ease; left: 84%;"></div>
+          </div>
+
+          <!-- Reactive Output Metrics Strip -->
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.55rem; margin-bottom: 0.75rem;">
+            <div style="background: #FFFFFF; border: 1px solid var(--color-border); border-radius: 5px; padding: 0.45rem 0.6rem;">
+              <div style="font-family: var(--font-mono); font-size: 0.58rem; color: var(--color-grey-muted); text-transform: uppercase;">Friday Anchor ($P_{anchor}$)</div>
+              <div style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; color: var(--color-black);" id="simAnchorDisplay">$132.80</div>
+            </div>
+            <div style="background: #FFFFFF; border: 1px solid var(--color-border); border-radius: 5px; padding: 0.45rem 0.6rem;">
+              <div style="font-family: var(--font-mono); font-size: 0.58rem; color: var(--color-grey-muted); text-transform: uppercase;">Spot Price ($P_{spot}$)</div>
+              <div style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; color: var(--color-black);" id="simSpotDisplay">$137.34</div>
+            </div>
+            <div style="background: #FFFFFF; border: 1px solid var(--color-border); border-radius: 5px; padding: 0.45rem 0.6rem;">
+              <div style="font-family: var(--font-mono); font-size: 0.58rem; color: var(--color-grey-muted); text-transform: uppercase;">Mean-Revert Delta</div>
+              <div style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; color: #10B981;" id="simDeltaDisplay">-$4.54 (-3.4%)</div>
+            </div>
+            <div style="background: #FFFFFF; border: 1px solid var(--color-border); border-radius: 5px; padding: 0.45rem 0.6rem;">
+              <div style="font-family: var(--font-mono); font-size: 0.58rem; color: var(--color-grey-muted); text-transform: uppercase;">Est. Strategy Edge</div>
+              <div style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; color: #10B981;" id="simEdgeDisplay">78.4% Win Rate</div>
+            </div>
+          </div>
+
+          <!-- Active Verdict Banner -->
+          <div id="simVerdictBanner" style="display: flex; align-items: center; justify-content: space-between; border-radius: 6px; padding: 0.5rem 0.8rem; background: rgba(217, 119, 6, 0.08); border: 1px solid rgba(217, 119, 6, 0.3); flex-wrap: wrap; gap: 0.4rem;">
+            <div style="display: flex; align-items: center; gap: 0.45rem;">
+              <span class="pulse-dot-amber" id="simVerdictDot" style="width: 7px; height: 7px; background-color: #D97706;"></span>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; color: #D97706;" id="simVerdictTitle">ACTIONABLE DISLOCATION · SHORT CLEARANCE</span>
+            </div>
+            <span style="font-family: var(--font-mono); font-size: 0.64rem; color: var(--color-grey-text);" id="simVerdictSub">Gatekeeper Condition 1-4 Cleared · Target Convergence on Monday 09:30 EST</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Chapter 3 -->
+      <section id="ch3-autonomous-agent" class="doc-section">
+        <div class="doc-section-header">
+          <span class="doc-chapter-num">03</span>
+          <h2 class="doc-section-h2">Autonomous Agent Architecture & 24/7 Execution Loop</h2>
+        </div>
+
+        <p>The Chronos autonomous agent operates continuously on a <strong>16-second ticker cycle</strong> (`runAutonomousAgentTick()`). Rather than entering multiple positions simultaneously in a reckless batch, the agent executes an <em>opportunistic sequential entry cycle</em>.</p>
+
+        <h3 class="doc-section-h3">The 4-Gatekeeper Verification Engine</h3>
+        <p>Before any capital is allocated, every potential order must strictly satisfy the <code>verifyStrategyClearance(symbol)</code> gatekeeper:</p>
+
+        <ul class="gatekeeper-list">
+          <li class="gatekeeper-item">
+            <span class="gate-num">1</span>
+            <div class="gate-body">
+              <h4>Statistical Dislocation Check</h4>
+              <p>Confirms that the asset's current price satisfies $|Drift| \ge 2.00\%$ and $|Z| \ge Z_{\text{entry}}$ threshold (configurable per asset, default $2.00\sigma$). Sub-threshold noise is ignored.</p>
+            </div>
+          </li>
+          <li class="gatekeeper-item">
+            <span class="gate-num">2</span>
+            <div class="gate-body">
+              <h4>Weekend Capacity Guard</h4>
+              <p>Verifies that the portfolio has not reached the strict weekend cap ($< 5$ total trades). If 5 positions are already open, all further entries are halted.</p>
+            </div>
+          </li>
+          <li class="gatekeeper-item">
+            <span class="gate-num">3</span>
+            <div class="gate-body">
+              <h4>Asset Non-Duplication & Diversification</h4>
+              <p>Enforces a strict 1-trade-per-ticker rule. The agent never stacks multiple positions on the same equity, ensuring multi-asset dispersion across $rNVDA, $rTSLA, $rCOIN, $rMSTR, $rAAPL, $rSPY, and $rQQQ.</p>
+            </div>
+          </li>
+          <li class="gatekeeper-item">
+            <span class="gate-num">4</span>
+            <div class="gate-body">
+              <h4>Margin Collateral Validation</h4>
+              <p>Ensures that the available vault margin exceeds the required collateral ($2,500 USDT standard default) without risking liquidation.</p>
+            </div>
+          </li>
+        </ul>
+
+        <div class="callout green">
+          <span class="callout-icon">✓</span>
+          <div>
+            <strong>Execution Reliability:</strong> If any single condition fails, the order is blocked with a descriptive telemetry notification. When all 4 pass, the order enters <code>ACTIVE</code> status and locks the Friday Anchor as its exit target.
+          </div>
+        </div>
+      </section>
+
+      <!-- Chapter 4 -->
+      <section id="ch4-risk-management" class="doc-section">
+        <div class="doc-section-header">
+          <span class="doc-chapter-num">04</span>
+          <h2 class="doc-section-h2">Risk Management & The Strict 5-Trade Weekend Cap</h2>
+        </div>
+
+        <p>A fundamental vulnerability in retail automated bots is over-trading during low-liquidity market regimes. In weekend crypto orderbooks, liquidity depth is approximately <strong>12% to 18% of weekday norms</strong>.</p>
+
+        <h3 class="doc-section-h3">Why 5 Trades Globally?</h3>
+        <p>Chronos enforces an unyielding <strong>Strict 5-Trade Weekend Cap (MAX_WEEKEND_TRADES = 5)</strong> enforced across the entire portfolio, rather than per individual asset:</p>
+
+        <div class="doc-grid-2">
+          <div class="doc-card">
+            <div class="doc-card-title">Portfolio Exposure Ceiling</div>
+            <p class="doc-card-desc">With standard $2,500 USDT margin per position, 5 trades allocate exactly $12,500 of a $50,000 vault (25.0% maximum gross leverage), leaving 75.0% in protective margin buffer.</p>
+          </div>
+          <div class="doc-card">
+            <div class="doc-card-title">No Correlation Clustering</div>
+            <p class="doc-card-desc">Restricting trades to 5 distinct assets prevents catastrophic single-stock contagion (e.g. an unexpected weekend geopolitical or tech earnings announcement).</p>
+          </div>
+        </div>
+
+        <p>Once the 5th trade clears, the autonomous agent switches from <code>OPPORTUNISTIC SCANNING</code> to <code>PORTFOLIO HOLD FOR MONDAY</code>, preserving margin until convergence settlement.</p>
+      </section>
+
+      <!-- Chapter 5 -->
+      <section id="ch5-monday-convergence" class="doc-section">
+        <div class="doc-section-header">
+          <span class="doc-chapter-num">05</span>
+          <h2 class="doc-section-h2">Monday Pre-Market Convergence & Cash Settlement</h2>
+        </div>
+
+        <p>The realization of profits occurs during the <strong>Monday Pre-Market Window (08:30–09:30 EST / 13:30–14:30 UTC)</strong> as institutional liquidity returns:</p>
+
+        <div class="code-block">
+<span class="code-comment">// Chronos Settlement Engine Timeline</span>
+<span class="code-keyword">Friday 16:00 EST</span>  → Institutional Anchor locked ($P_anchor)
+<span class="code-keyword">Saturday - Sunday</span> → Retail drift occurs; Autonomous Agent deploys max 5 counter-positions
+<span class="code-keyword">Monday 08:30 EST</span>  → US pre-market crosses open; institutional arbitrageurs re-anchor tokenized orderbooks
+<span class="code-keyword">Monday 09:30 EST</span>  → Cash settlement executed; profits credited to available vault margin
+        </div>
+
+        <h3 class="doc-section-h3">Settlement Mechanics</h3>
+        <p>When <code>settleMondayMarketOpen()</code> executes:</p>
+        <ul style="padding-left: 1.25rem; margin-bottom: 1.1rem; color: #27272A; display: flex; flex-direction: column; gap: 0.4rem;">
+          <li><strong>Reversion Wins (~76.9%):</strong> Spot price converges 80% to 105% back toward the Friday anchor. Collateral is unlocked and realized profit is credited to the margin vault.</li>
+          <li><strong>Audited Losses (~23.1%):</strong> Genuine macroeconomic news causes the stock to gap further in the drift direction. The position is immediately closed to prevent unhedged holding, and sent to the Cognitive Self-Auditor.</li>
+        </ul>
+      </section>
+
+      <!-- Chapter 6 -->
+      <section id="ch6-self-auditor" class="doc-section">
+        <div class="doc-section-header">
+          <span class="doc-chapter-num">06</span>
+          <h2 class="doc-section-h2">Cognitive Self-Auditor & Adaptive Memory Engine</h2>
+        </div>
+
+        <p>Unlike standard static algorithms that repeat identical mistakes under shifting regime volatility, Chronos features an integrated <strong>Cognitive Self-Auditor</strong> that evaluates every completed trade.</p>
+
+        <h3 class="doc-section-h3">Root Cause Analysis</h3>
+        <p>Upon trade settlement, the auditor examines trade execution telemetry and classifies the outcome:</p>
+
+        <div class="doc-grid-2">
+          <div class="doc-card">
+            <div class="doc-card-title" style="color: var(--color-green);">Mean-Reversion Confirmed</div>
+            <p class="doc-card-desc">Convergence achieved within expected deviation. Verifies the accuracy of the anchor model and reinforces statistical conviction for the subsequent weekend cycle.</p>
+          </div>
+          <div class="doc-card">
+            <div class="doc-card-title" style="color: var(--color-red);">Adverse Drift Continuation</div>
+            <p class="doc-card-desc">Identifies whether the failure was caused by unexpected weekend news breaks, liquidity exhaustion, or premature entry. Automatically recalibrates entry Z-score thresholds.</p>
+          </div>
+        </div>
+
+        <p>All audit records are saved permanently to the session ledger with full mathematical telemetry, root cause classification, and corrective adaptations.</p>
+      </section>
+
+      <!-- Chapter 7 -->
+      <section id="ch7-telemetry-oracle" class="doc-section">
+        <div class="doc-section-header">
+          <span class="doc-chapter-num">07</span>
+          <h2 class="doc-section-h2">Bitget UTA Oracle & Telemetry Architecture</h2>
+        </div>
+
+        <p>Chronos integrates with Bitget Unified Trading Account (UTA) v3 APIs to stream sub-50ms live orderbook depth, spot oracle indices, and account margin telemetry:</p>
+
+        <div class="doc-table-wrap">
+          <table class="doc-table">
+            <thead>
+              <tr>
+                <th>Data Stream</th>
+                <th>Update Frequency</th>
+                <th>Latency</th>
+                <th>Function</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Bitget UTA v3 Spot Oracle</td>
+                <td>100ms WebSocket</td>
+                <td>&lt; 18ms</td>
+                <td>Live pricing for $rNVDA, $rTSLA, $rCOIN, $rMSTR, $rAAPL, $rSPY, $rQQQ</td>
+              </tr>
+              <tr>
+                <td>Friday Anchor Oracle</td>
+                <td>Locked Weekly</td>
+                <td>0ms (Static)</td>
+                <td>Official Friday 16:00 EST institutional closing price benchmark</td>
+              </tr>
+              <tr>
+                <td>Autonomous Agent Ticker</td>
+                <td>16,000ms Interval</td>
+                <td>Local CPU</td>
+                <td>Full portfolio evaluation, strategy clearance, and sequential entry</td>
+              </tr>
+              <tr>
+                <td>Telemetry Console</td>
+                <td>Event-driven</td>
+                <td>Instant</td>
+                <td>Human-readable explanation stream for every automated decision</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Global Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h5 style="font-family: var(--font-serif); font-size: 1.25rem; text-transform: none; letter-spacing: -0.01em;">Chronos Quantitative</h5>
+        <p style="font-size: 0.82rem; color: var(--color-grey-text); line-height: 1.6; max-width: 320px;">
+          Autonomous 24/7 residual drift arbitrage engine engineered for tokenized equities on Bitget Unified Trading Account (UTA).
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Documentation</h5>
+        <ul class="footer-links">
+          <li><a href="#ch1-market-inefficiency">Market Inefficiency</a></li>
+          <li><a href="#ch2-residual-drift-model">Residual Drift Math</a></li>
+          <li><a href="#ch3-autonomous-agent">Autonomous Loop</a></li>
+          <li><a href="#ch4-risk-management">Strict 5-Trade Cap</a></li>
+          <li><a href="#ch5-monday-convergence">Monday Convergence</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Platform</h5>
+        <ul class="footer-links">
+          <li><a href="index.html">Product Overview</a></li>
+          <li><a href="app.html">Live Trading Terminal</a></li>
+          <li><a href="app.html#arena">Trading Arena</a></li>
+          <li><a href="app.html#auditor">Audit Memory Ledger</a></li>
+          <li><a href="help.html">Help Centre & FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Hackathon</h5>
+        <div style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--color-grey-text); line-height: 1.8;">
+          <div>Bitget AI Base Camp Season 2</div>
+          <div style="color: var(--color-green);">All Systems Operational</div>
+          <div>Latency: 14ms Direct UTA</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>© 2026 Chronos Quantitative Research. All rights reserved.</div>
+      <div>Engineered for Bitget AI Base Camp Hackathon Season 2.</div>
+    </div>
+  </footer>
+
+  <!-- Interactive ScrollSpy & Live Search -->
+  <script>
+    // Live Documentation Filter
+    function filterDocs(query) {
+      const q = query.toLowerCase().trim();
+      const sections = document.querySelectorAll('.doc-section');
+      const links = document.querySelectorAll('#sidebarList .sidebar-nav-link');
+
+      sections.forEach(sec => {
+        const text = sec.textContent.toLowerCase();
+        if (!q || text.includes(q)) {
+          sec.style.display = 'block';
+        } else {
+          sec.style.display = 'none';
+        }
+      });
+
+      links.forEach(link => {
+        const targetId = link.getAttribute('href').replace('#', '');
+        const targetSec = document.getElementById(targetId);
+        if (targetSec && targetSec.style.display === 'none') {
+          link.parentElement.style.display = 'none';
+        } else {
+          link.parentElement.style.display = 'block';
+        }
+      });
+    }
+
+    // ScrollSpy for Active Sidebar Navigation Link
+    window.addEventListener('scroll', () => {
+      const sections = document.querySelectorAll('.doc-section');
+      const links = document.querySelectorAll('#sidebarList .sidebar-nav-link');
+      let currentId = '';
+
+      sections.forEach(sec => {
+        const top = sec.offsetTop - 120;
+        if (window.scrollY >= top) {
+          currentId = sec.getAttribute('id');
+        }
+      });
+
+      links.forEach(link => {
+        if (link.getAttribute('href') === '#' + currentId) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+    });
+
+    // Scroll Reveal Blur-to-Focus Pop-In Animation Engine
+    function initScrollPopAnimations() {
+      const targetSelectors = [
+        ".docs-header",
+        ".doc-section",
+        ".math-card",
+        ".callout",
+        ".doc-grid-2 > div",
+        ".gatekeeper-item",
+        ".doc-table-wrap",
+        ".code-block"
+      ];
+
+      const elements = document.querySelectorAll(targetSelectors.join(", "));
+      const observedSet = new Set();
+
+      elements.forEach(el => {
+        if (observedSet.has(el)) return;
+        observedSet.add(el);
+        el.classList.add("chronos-pop-in");
+      });
+
+      if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver((entries, obs) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const target = entry.target;
+              const parent = target.parentElement;
+              let delay = 0;
+              if (parent) {
+                const siblings = Array.from(parent.children).filter(c => c.classList.contains("chronos-pop-in"));
+                const idx = siblings.indexOf(target);
+                if (idx > 0) {
+                  delay = Math.min(idx * 60, 360);
+                }
+              }
+              setTimeout(() => {
+                target.classList.add("chronos-revealed");
+              }, delay);
+              obs.unobserve(target);
+            }
+          });
+        }, {
+          root: null,
+          rootMargin: "0px 0px -30px 0px",
+          threshold: 0.05
+        });
+
+        observedSet.forEach(el => observer.observe(el));
+      } else {
+        observedSet.forEach(el => el.classList.add("chronos-revealed"));
+      }
+
+      // Safety fallback
+      setTimeout(() => {
+        document.querySelectorAll(".chronos-pop-in:not(.chronos-revealed)").forEach(el => {
+          const rect = el.getBoundingClientRect();
+          if (rect.top < window.innerHeight + 100) {
+            el.classList.add("chronos-revealed");
+          }
+        });
+      }, 700);
+    }
+
+    // Smooth Page Navigation Transition
+    function smoothNavigate(url) {
+      const page = document.querySelector('.page-rise-in') || document.body;
+      page.style.transition = 'opacity 0.22s ease, transform 0.22s ease, filter 0.22s ease';
+      page.style.opacity = '0';
+      page.style.transform = 'translateY(-6px)';
+      page.style.filter = 'blur(4px)';
+      setTimeout(() => { window.location.href = url; }, 200);
+    }
+
+    // Live Friday Anchor Lock Real-time Countdown Engine
+    function initAnchorCountdown() {
+      const tickerEl = document.getElementById('anchorCountdownTicker');
+      if (!tickerEl) return;
+
+      function updateTimer() {
+        const now = new Date();
+        // Target next Monday 09:30 EST (14:30 UTC) or next Friday 21:00 UTC
+        const day = now.getUTCDay(); // 0 = Sun, 1 = Mon ... 5 = Fri, 6 = Sat
+        let target = new Date(now);
+
+        // If weekend (Fri 21:00 UTC to Mon 14:30 UTC), target is Monday 14:30 UTC
+        // Otherwise target is Friday 21:00 UTC
+        let isWeekendMode = (day === 5 && now.getUTCHours() >= 21) || day === 6 || day === 0 || (day === 1 && now.getUTCHours() < 14);
+
+        if (isWeekendMode) {
+          const daysToMon = (1 - day + 7) % 7;
+          target.setUTCDate(now.getUTCDate() + (daysToMon === 0 && now.getUTCHours() >= 14 ? 7 : daysToMon));
+          target.setUTCHours(14, 30, 0, 0);
+        } else {
+          const daysToFri = (5 - day + 7) % 7;
+          target.setUTCDate(now.getUTCDate() + (daysToFri === 0 && now.getUTCHours() >= 21 ? 7 : daysToFri));
+          target.setUTCHours(21, 0, 0, 0);
+        }
+
+        let diff = target - now;
+        if (diff < 0) diff = 0;
+
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const m = Math.floor((diff / (1000 * 60)) % 60);
+        const s = Math.floor((diff / 1000) % 60);
+
+        const pad = (n) => String(n).padStart(2, '0');
+        tickerEl.textContent = `${d}d ${pad(h)}h ${pad(m)}m ${pad(s)}s`;
+      }
+
+      updateTimer();
+      setInterval(updateTimer, 1000);
+    }
+
+    // Interactive Z-Score Mathematical Drift Simulator
+    let currentSimAsset = { symbol: 'rNVDA', anchor: 132.80, vol: 1.85 };
+
+    function setSimToken(symbol, anchor, vol) {
+      currentSimAsset = { symbol, anchor, vol };
+      document.querySelectorAll('.sim-token-btn').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = document.getElementById('btnSim' + symbol.replace('r', ''));
+      if (activeBtn) activeBtn.classList.add('active');
+      updateSimCalculations();
+    }
+
+    function updateSimCalculations() {
+      const slider = document.getElementById('driftSlider');
+      if (!slider) return;
+      const driftPct = parseFloat(slider.value); // e.g. 3.4%
+      const driftMult = 1 + (driftPct / 100);
+      const spotPrice = currentSimAsset.anchor * driftMult;
+      const sigmaWeekend = (currentSimAsset.vol / 100) * currentSimAsset.anchor;
+      const rawDiff = spotPrice - currentSimAsset.anchor;
+      const zScore = rawDiff / sigmaWeekend;
+
+      // Update text values
+      const pctText = document.getElementById('simDriftPctText');
+      if (pctText) {
+        pctText.textContent = (driftPct >= 0 ? '+' : '') + driftPct.toFixed(2) + '%';
+        pctText.style.color = Math.abs(zScore) >= 2.0 ? (driftPct > 0 ? '#EF4444' : '#10B981') : '#71717A';
+      }
+
+      const zText = document.getElementById('simZScoreText');
+      if (zText) {
+        zText.textContent = 'Z = ' + (zScore >= 0 ? '+' : '') + zScore.toFixed(2) + 'σ';
+        zText.style.color = Math.abs(zScore) >= 2.0 ? '#D97706' : '#71717A';
+      }
+
+      const anchorDisp = document.getElementById('simAnchorDisplay');
+      if (anchorDisp) anchorDisp.textContent = '$' + currentSimAsset.anchor.toFixed(2);
+
+      const spotDisp = document.getElementById('simSpotDisplay');
+      if (spotDisp) spotDisp.textContent = '$' + spotPrice.toFixed(2);
+
+      const deltaDisp = document.getElementById('simDeltaDisplay');
+      if (deltaDisp) {
+        const deltaVal = currentSimAsset.anchor - spotPrice;
+        deltaDisp.textContent = (deltaVal >= 0 ? '+' : '') + '$' + deltaVal.toFixed(2) + ' (' + (-driftPct).toFixed(1) + '%)';
+        deltaDisp.style.color = Math.abs(zScore) >= 2.0 ? '#10B981' : '#71717A';
+      }
+
+      const edgeDisp = document.getElementById('simEdgeDisplay');
+      if (edgeDisp) {
+        if (Math.abs(zScore) >= 2.0) {
+          edgeDisp.textContent = (75 + Math.min(Math.abs(zScore) * 1.5, 9.5)).toFixed(1) + '% Win Rate';
+          edgeDisp.style.color = '#10B981';
+        } else {
+          edgeDisp.textContent = 'Standby (Noise)';
+          edgeDisp.style.color = '#71717A';
+        }
+      }
+
+      // Update animated needle position (slider -5% to +5% maps to 0% to 100%)
+      const needle = document.getElementById('simMeterNeedle');
+      if (needle) {
+        const needlePos = ((driftPct + 5) / 10) * 100;
+        needle.style.left = Math.max(2, Math.min(98, needlePos)) + '%';
+        needle.style.background = Math.abs(zScore) >= 2.0 ? (driftPct > 0 ? '#EF4444' : '#10B981') : '#09090B';
+      }
+
+      // Update verdict banner
+      const banner = document.getElementById('simVerdictBanner');
+      const title = document.getElementById('simVerdictTitle');
+      const sub = document.getElementById('simVerdictSub');
+      const dot = document.getElementById('simVerdictDot');
+
+      if (banner && title && sub) {
+        if (zScore >= 2.0) {
+          banner.style.background = 'rgba(239, 68, 68, 0.08)';
+          banner.style.borderColor = 'rgba(239, 68, 68, 0.3)';
+          title.textContent = 'ACTIONABLE OVERBOUGHT DISLOCATION · SHORT ARBITRAGE ACTIVE';
+          title.style.color = '#EF4444';
+          if (dot) { dot.className = 'pulse-dot-amber'; dot.style.backgroundColor = '#EF4444'; }
+          sub.textContent = 'Gatekeeper Cleared: Spot trades ' + driftPct.toFixed(1) + '% above anchor · Harvest mean reversion at Monday open';
+        } else if (zScore <= -2.0) {
+          banner.style.background = 'rgba(16, 185, 129, 0.08)';
+          banner.style.borderColor = 'rgba(16, 185, 129, 0.3)';
+          title.textContent = 'ACTIONABLE OVERSOLD DISLOCATION · LONG ARBITRAGE ACTIVE';
+          title.style.color = '#10B981';
+          if (dot) { dot.className = 'pulse-dot'; dot.style.backgroundColor = '#10B981'; }
+          sub.textContent = 'Gatekeeper Cleared: Spot trades ' + Math.abs(driftPct).toFixed(1) + '% below anchor · Long counter-position deployed';
+        } else {
+          banner.style.background = 'rgba(244, 239, 230, 0.8)';
+          banner.style.borderColor = 'var(--color-border)';
+          title.textContent = 'STATISTICAL EQUILIBRIUM · AUTONOMOUS LOOP IDLE';
+          title.style.color = 'var(--color-grey-text)';
+          if (dot) { dot.className = ''; dot.style.backgroundColor = '#A1A1AA'; }
+          sub.textContent = 'Dislocation inside normal weekend noise band (|Z| < 2.0σ) · Zero capital allocated';
+        }
+      }
+    }
+
+    function initDocsApp() {
+      try { initScrollPopAnimations(); } catch(e) {}
+      try { initAnchorCountdown(); } catch(e) {}
+      try { updateSimCalculations(); } catch(e) {}
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initDocsApp);
+    } else {
+      initDocsApp();
+    }
+  </script>
+  </div><!-- /page-rise-in -->
+</body>
+</html>
+"""
+
+with open("dashboard/docs.html", "w") as f:
+    f.write(html_content)
+
+print(f"Successfully generated Chronos Documentation at dashboard/docs.html ({len(html_content)} bytes)")

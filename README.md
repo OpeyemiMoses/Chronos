@@ -29,7 +29,12 @@ During weekends, breaking macroeconomic news, geopolitical developments, and soc
 4. **Real-Time Mark-to-Market Pricing & True Loss Realism:** Live 2.4s order book ticker, two-sided floating PnL with taker fee drag, and authentic early exit pricing (booking real profits or audited losses).
 5. **Strict Multi-Wallet State Isolation:** RainbowKit Web3 connect where each wallet receives an independent $50,000 USDT sandbox balance, dedicated ledger, isolated open positions, and separate cognitive memory.
 6. **Official Bitget MCP Integration (`agent.bitget.com/mcp`):** Native Model Context Protocol client querying tokenized quotes, company fundamentals, orderbook depth, and macro benchmark spreads over UTA v3.
-7. **Monday Pre-Market Convergence & Cash Sweep:** Coordinated profit harvesting during institutional pre-market liquidity (08:00–09:30 EST), returning to **100% USDT cash** before regular market open.
+7. **Monday Pre-Market Convergence & Cash Sweep:** Coordinated position unwinding into institutional pre-market liquidity (08:00–09:30 EST), returning to a **flat 100% USDT cash allocation (zero active market exposure)** before regular market open. Trades settle at live market prices and can close at audited profits or losses; there is never any principal guarantee.
+
+> [!CAUTION]
+> **Risk Disclosure & No Principal Guarantee:** There is **no principal guarantee** in quantitative or algorithmic trading. Tokenized equity synthetics trade against real market volatility, slippage, and taker fees. Individual trades **can and do close at a loss** if dislocations widen or dynamic stop losses (3.5% adverse excursion threshold) are triggered.
+> 
+> *Terminology Clarification:* Phrases such as **"100% Cash Allocation"** or **"100% Cash Sleep"** refer exclusively to **portfolio asset weighting**—all positions are completely closed into liquid USDT cash so that the portfolio carries 0% market risk during normal weekday trading hours. It does **not** mean starting principal is guaranteed or immune from trading losses.
 
 ---
 
@@ -42,15 +47,15 @@ Chronos operates on a strict 4-phase weekly lifecycle designed to exploit the we
  ┌──────────────────────┐  ┌───────────────────────┐  ┌──────────────────────┐  ┌───────────────────┐
  │       PHASE 1        │  │        PHASE 2        │  │       PHASE 3        │  │      PHASE 4      │
  │  Anchor Snapshot     │  │  Weekend Alpha Hunt   │  │  Pre-Market Harvest  │  │  Self-Audit &     │
- │  Lock Cash Close &   │─>│  Scan Retail Drift &  │─>│  Unwind into deep    │─>│  100% Cash Sleep  │
+ │  Lock Cash Close &   │─>│  Scan Retail Drift &  │─>│  Unwind into deep    │─>│  Flat Cash Sleep  │
  │  BTC Macro Baseline  │  │  Enter |Z| >= 2.0σ    │  │  Institutional Books │  │  Tune Parameters  │
  └──────────────────────┘  └───────────────────────┘  └──────────────────────┘  └───────────────────┘
 ```
 
 1. **Phase 1: Friday 16:00 EST Anchor Snapshot:** Freezes consensus institutional closing prices for all 7 equities and Bitcoin macro baseline.
 2. **Phase 2: Weekend 24/7 Dislocation Alpha Hunt:** Scans continuous retail drift, separates macro drift via rolling beta, verifies pre-trade strategy clearance, and enters risk-parity positions when $|Z| \ge 2.0\sigma$.
-3. **Phase 3: Monday 08:00–09:30 EST Institutional Pre-Market Harvest:** Closes all positions into deep institutional returning liquidity, returning **100% to USDT cash** before 09:30 EST open.
-4. **Phase 4: Monday Post-Trade Cognitive Self-Audit & Sleep:** Evaluates outcomes, diagnoses root causes, adapts Z-thresholds into `data/audit_memory.json`, and sleeps in **100% Cash with zero weekday market risk**.
+3. **Phase 3: Monday 08:00–09:30 EST Institutional Pre-Market Harvest:** Closes all positions into deep institutional returning liquidity, returning the portfolio to a **flat 100% USDT cash posture (zero market exposure)** before 09:30 EST open. Trades close at market prices and may book gains or audited losses.
+4. **Phase 4: Monday Post-Trade Cognitive Self-Audit & Sleep:** Evaluates outcomes, diagnoses root causes for wins and losses alike, adapts Z-thresholds into `data/audit_memory.json`, and sleeps in **100% Cash allocation with zero weekday market risk**.
 
 👉 **[Read the complete Operational Lifecycle Specification](docs/OPERATIONAL_LIFECYCLE.md)**
 
@@ -159,10 +164,92 @@ Chronos natively integrates with the official **Bitget Agent Hub Model Context P
 
 ---
 
+## 🚀 Bitget Live Trading Engine & Backend Server (`server.py`)
+
+Chronos features an official **Bitget Live Execution Client** and high-performance **Flask REST Backend Server** (`server.py`) that bridges the Web3 trading terminal to Bitget's Unified Trading Account (UTA v3) and an in-memory paper simulation sandbox.
+
+```
+┌────────────────────────────────────────────────────────┐
+│      Unified Web3 Terminal (RainbowKit Wallet Mode)     │
+│   • Multi-Wallet State Isolation & Demo Sandbox Vault  │
+│   • Autonomous Agent Scanning & Discretionary Orders   │
+└──────────────────────────┬─────────────────────────────┘
+                           │  REST API (JSON)
+                           ▼
+┌────────────────────────────────────────────────────────┐
+│           Chronos Server (localhost:8899)              │
+│   • Flask REST API with CORS & Live Telemetry          │
+│   • Static Asset Serving for Terminal & Documentation  │
+└──────────────────────────┬─────────────────────────────┘
+                           │
+             ┌─────────────┴─────────────┐
+             ▼                           ▼
+┌──────────────────────────┐┌────────────────────────────┐
+│   TRADING_MODE=PAPER     ││    TRADING_MODE=LIVE       │
+│  In-Memory Paper Sandbox ││   Bitget UTA v3 REST API   │
+│  Zero Capital at Risk    ││   HMAC-SHA256 Signatures   │
+│  Simulated Order Fills   ││   Real Order Dispatch      │
+└──────────────────────────┘└────────────────────────────┘
+```
+
+### 🔐 Web3 Wallet Connect Mode (Preserved & Active)
+
+Your **Web3 Wallet Connect mode (RainbowKit)** remains completely functional and active:
+* **Multi-Wallet State Isolation:** Connect seamlessly using MetaMask, Rainbow, Coinbase Wallet, or injected Web3 providers.
+* **Isolated User Margins & Ledgers:** Every connected wallet retains its own $50,000 USDT isolated balance, dedicated order book, trade history, and cognitive self-audit log.
+* **Demo Sandbox Vault:** When operating without an external Web3 wallet, 1-click connection activates the isolated Demo Sandbox Vault (`0x0356...`) with $50,000 isolated margin.
+* **Unified Bridge:** While Web3 wallets manage identity, isolated state, and risk allocation, live order execution routes asynchronously through the Bitget backend engine.
+
+### 🌐 Backend REST API Endpoints
+
+The backend server runs on `http://localhost:8899` and provides the following endpoints:
+
+| Endpoint | Method | Purpose |
+|---|---|---|
+| `/` | `GET` | Serves Master Institutional Showcase (`dashboard/index.html`) |
+| `/terminal` or `/app` | `GET` | Serves Unified Web3 Trading Terminal (`dashboard/app.html`) |
+| `/api/status` | `GET` | Returns connection health, trading mode (`PAPER`/`LIVE`), and auth validation |
+| `/api/balance` | `GET` | Fetches real-time USDT account balance (live from Bitget or paper sandbox) |
+| `/api/trade` | `POST` | Places single-leg or basket trade orders on Bitget / paper sandbox |
+| `/api/positions` | `GET` | Queries all currently active open futures positions |
+| `/api/close` | `POST` | Dispatches close/unwind order for a specific position |
+
+### ⚙️ Configuration (`.env`)
+
+Configure your credentials and execution mode in `.env`:
+
+```env
+# 1. Official Bitget API Credentials (https://www.bitget.com/account/newapi)
+BITGET_API_KEY=your_bitget_api_key
+BITGET_API_SECRET=your_bitget_api_secret
+BITGET_PASSPHRASE=your_bitget_passphrase
+
+# 2. Execution Endpoints
+BITGET_REST_URL=https://api.bitget.com
+BITGET_MCP_ENDPOINT=https://agent.bitget.com/mcp
+
+# 3. Execution Mode: "PAPER" (simulated sandbox) or "LIVE" (real capital execution)
+TRADING_MODE=PAPER
+
+# 4. Portfolio Risk Parameters
+INITIAL_CAPITAL_USDT=10000.0
+MAX_GROSS_LEVERAGE=1.20
+MAX_SINGLE_WEIGHT=0.25
+STOP_LOSS_PCT=0.035
+Z_ENTRY_THRESHOLD=2.0
+Z_EXIT_THRESHOLD=0.4
+```
+
+> [!TIP]
+> **Safety First:** The system defaults to `TRADING_MODE=PAPER`. In this mode, order routing, telemetry, and portfolio balances are simulated safely without placing real capital at risk. To trade live with real USDT, configure a valid API key with **Unified Account (UTA)** and **Futures** permissions, set `TRADING_MODE=LIVE`, and restart the server.
+
+---
+
 ## 🏗️ Repository Structure
 
 ```
 chronos/
+├── server.py                          # Live Trading Flask REST API & static server (port 8899)
 ├── data/
 │   ├── fetcher.py                     # 24/7 multi-asset data generation & cache
 │   ├── chart_data.json                # Continuous 120-hour price series (NVDA, TSLA, MSTR, BTC)
@@ -170,6 +257,7 @@ chronos/
 │   ├── audit_memory.json              # Cognitive self-auditor diagnostic memory
 │   └── cache/                         # Cached hourly continuous OHLCV candles
 ├── src/
+│   ├── bitget_live_trader.py          # HMAC-SHA256 authenticated Bitget UTA v3 client & paper sandbox
 │   ├── strategy.py                    # Single-asset baseline alpha strategy
 │   ├── portfolio_strategy.py          # Multi-asset basket & risk parity allocator
 │   ├── mcp_client.py                  # Bitget MCP Server client connector
@@ -186,7 +274,7 @@ chronos/
 │   ├── build_landing.py               # Master Landing Page compiler
 │   ├── build_terminal.py              # Unified Web3 Terminal compiler
 │   ├── index.html                     # Master Institutional Showcase (123 KB)
-│   ├── app.html                       # Unified Web3 Trading Terminal (442 KB)
+│   ├── app.html                       # Unified Web3 Trading Terminal (469 KB)
 │   ├── theme.css                      # Ghost Torus design tokens & typography
 │   └── assets/                        # High-resolution 3D renders, SVGs, and RainbowKit bundle
 │       ├── chronos_3d_hero.png        # Clean spherical clockwork render
@@ -211,13 +299,15 @@ chronos/
 
 ## ⚡ Quickstart & Reproduction
 
-### 1. Run the Institutional Python Pipeline
+### 1. Run the Live Trading Server & Terminal
 ```bash
-# Activate virtual environment
-source .venv/bin/activate
+# Start the backend server on http://localhost:8899
+npm run serve
+# or
+python3 server.py
 
-# Execute full institutional backtest, risk-parity allocation & figures
-python main.py
+# Open the trading terminal:
+# http://localhost:8899/terminal
 ```
 
 ### 2. Run the End-to-End Automated Test Suites
@@ -231,7 +321,16 @@ node test_wallet_isolation.js
 node test_floating_pnl_and_losses.js
 ```
 
-### 3. Compile the Web Experiences
+### 3. Run the Institutional Python Pipeline
+```bash
+# Activate virtual environment
+source .venv/bin/activate
+
+# Execute full institutional backtest, risk-parity allocation & figures
+python main.py
+```
+
+### 4. Compile the Web Experiences
 ```bash
 # Compile Master Institutional Showcase
 python3 dashboard/build_landing.py

@@ -6,7 +6,9 @@
     "build:rainbowkit": "esbuild src/rainbowkit.jsx --bundle --minify --format=iife --outfile=dashboard/assets/rainbowkit.bundle.js",
     "build:landing": "python3 dashboard/build_landing.py",
     "build:terminal": "python3 dashboard/build_terminal.py",
-    "build": "npm run build:landing && npm run build:terminal"
+    "build": "npm run build:landing && npm run build:terminal",
+    "serve": "python3 server.py",
+    "dev": "python3 server.py"
   },
   "dependencies": {
     "@rainbow-me/rainbowkit": "^2.2.11",

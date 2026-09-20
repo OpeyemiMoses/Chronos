@@ -40,7 +40,7 @@
 
 html {
   scroll-behavior: smooth;
-  font-size: 14.5px;
+  font-size: 13px;
   width: 100%;
 }
 
@@ -48,8 +48,8 @@ body {
   background-color: var(--color-canvas-light);
   color: var(--color-black);
   font-family: var(--font-sans-body);
-  font-size: 0.9rem;
-  line-height: 1.6;
+  font-size: 0.88rem;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   width: 100%;
   position: relative;
@@ -449,6 +449,119 @@ img, svg, video, canvas {
   filter: blur(0px) !important;
 }
 
+@keyframes headerSlideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.header-wrapper {
+  animation: headerSlideDown 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes pulseRing {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6);
+  }
+  70% {
+    transform: scale(1.08);
+    box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+@keyframes pulseAmberRing {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.6);
+  }
+  70% {
+    transform: scale(1.08);
+    box-shadow: 0 0 0 6px rgba(217, 119, 6, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(217, 119, 6, 0);
+  }
+}
+
+.pulse-dot, .ghost-status-dot {
+  display: inline-block;
+  border-radius: 50%;
+  animation: pulseRing 2.2s infinite cubic-bezier(0.45, 0, 0.55, 1);
+  vertical-align: middle;
+}
+
+.ghost-status-dot {
+  width: 6px;
+  height: 6px;
+  background-color: var(--color-green);
+}
+
+.pulse-dot-amber {
+  display: inline-block;
+  border-radius: 50%;
+  animation: pulseAmberRing 2.2s infinite cubic-bezier(0.45, 0, 0.55, 1);
+  vertical-align: middle;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+}
+
+.anim-fade-up {
+  animation: fadeInUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.anim-delay-1 { animation-delay: 0.06s; }
+.anim-delay-2 { animation-delay: 0.14s; }
+.anim-delay-3 { animation-delay: 0.22s; }
+.anim-delay-4 { animation-delay: 0.30s; }
+.anim-delay-5 { animation-delay: 0.38s; }
+
+/* Interactive Hover Micro-Elevations */
+.landing-card, .thesis-card, .signal-card, .metric-box, .rule-box {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.2s ease !important;
+}
+
+.landing-card:hover, .thesis-card:hover, .signal-card:hover, .metric-box:hover, .rule-box:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 10px 24px -4px rgba(0, 0, 0, 0.06) !important;
+  border-color: #D4CEBF !important;
+}
+
+/* Button Micro-Interactions */
+.btn-launch-black, .btn-docs-grey, .btn-pill-dark-outline, .btn-action {
+  transition: transform 0.15s ease, box-shadow 0.2s ease, background-color 0.2s ease !important;
+}
+
+.btn-launch-black:hover, .btn-action:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.14);
+}
+
+.btn-launch-black:active, .btn-docs-grey:active, .btn-action:active {
+  transform: scale(0.98);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .chronos-pop-in {
     opacity: 1 !important;
@@ -456,7 +569,7 @@ img, svg, video, canvas {
     filter: none !important;
     transition: none !important;
   }
-  .page-rise-in, .view-rise-in {
+  .page-rise-in, .view-rise-in, .header-wrapper, .anim-fade-up, .pulse-dot, .pulse-dot-amber {
     animation: none !important;
   }
 }

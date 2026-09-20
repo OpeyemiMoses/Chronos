@@ -213,6 +213,7 @@ html_content = f"""<!DOCTYPE html>
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
+      padding-top: 5rem;
     }}
 
     .container {{
@@ -346,13 +347,13 @@ html_content = f"""<!DOCTYPE html>
     }}
 
     .landing-hero-container {{
-      padding-top: 4.5rem !important;
-      padding-bottom: 2rem !important;
+      padding-top: 2.75rem !important;
+      padding-bottom: 1.5rem !important;
     }}
 
     /* Section Spacing */
     .section-spacious {{
-      padding: 2.75rem 0 !important;
+      padding: 2.25rem 0 !important;
       border-bottom: 1px solid #EEE9DF;
     }}
 
@@ -361,12 +362,12 @@ html_content = f"""<!DOCTYPE html>
       align-items: center;
       gap: 0.4rem;
       font-family: var(--font-terminal);
-      font-size: 0.66rem !important;
+      font-size: 0.64rem !important;
       font-weight: 700;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--color-grey-text);
-      margin-bottom: 0.4rem !important;
+      margin-bottom: 0.35rem !important;
     }}
 
     .section-tag-dot {{
@@ -378,12 +379,12 @@ html_content = f"""<!DOCTYPE html>
 
     .section-title {{
       font-family: var(--font-serif-editorial);
-      font-size: 1.75rem !important;
+      font-size: 1.38rem !important;
       font-weight: 700;
       line-height: 1.2 !important;
       letter-spacing: -0.015em;
       color: var(--color-black);
-      margin-bottom: 0.5rem !important;
+      margin-bottom: 0.45rem !important;
     }}
 
     .section-title em {{
@@ -391,21 +392,23 @@ html_content = f"""<!DOCTYPE html>
     }}
 
     .section-desc {{
-      font-size: 0.88rem !important;
+      font-size: 0.82rem !important;
       color: var(--color-grey-text);
-      max-width: 880px;
+      max-width: 780px;
       line-height: 1.55 !important;
     }}
 
     .hero-h1 {{
       font-family: var(--font-serif-editorial);
-      font-size: 2.85rem !important;
+      font-size: clamp(1.85rem, 3.2vw, 2.45rem) !important;
       font-weight: 700;
-      line-height: 1.12 !important;
+      line-height: 1.15 !important;
       letter-spacing: -0.02em;
       color: var(--color-black);
-      margin-bottom: 0.85rem !important;
-      max-width: 1040px !important;
+      margin-bottom: 0.75rem !important;
+      max-width: 780px !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
     }}
 
     .hero-h1 em {{
@@ -413,16 +416,13 @@ html_content = f"""<!DOCTYPE html>
     }}
 
     .hero-subtext {{
-      font-size: 1.02rem !important;
+      font-size: 0.88rem !important;
       color: var(--color-grey-text);
-      line-height: 1.6 !important;
-      margin-bottom: 1.5rem !important;
-      max-width: 820px !important;
-    }}
-
-    .landing-hero-container {{
-      padding: 5.5rem 0 2rem !important;
-      text-align: center;
+      line-height: 1.55 !important;
+      margin-bottom: 1.35rem !important;
+      max-width: 680px !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
     }}
 
     /* 24/7 Market Dislocation Ticker Tape */
@@ -433,8 +433,8 @@ html_content = f"""<!DOCTYPE html>
       border-top: 1px solid var(--color-border-hairline);
       border-bottom: 1px solid var(--color-border-hairline);
       overflow: hidden;
-      padding: 0.65rem 0;
-      margin-top: 2rem;
+      padding: 0.55rem 0;
+      margin-top: 1.6rem;
     }}
 
     .market-ticker-track {{
@@ -759,7 +759,7 @@ html_content = f"""<!DOCTYPE html>
     }}
   </style>
 </head>
-<body class="page-rise-in">
+<body>
 
   <!-- Floating Dynamic Pill Header -->
   <div class="header-wrapper">
@@ -778,6 +778,8 @@ html_content = f"""<!DOCTYPE html>
       <!-- Middle: Dynamic Nav links expanding on scroll -->
       <nav class="header-nav">
         <a href="app.html" onclick="event.preventDefault(); smoothNavigate('app.html');" style="color: var(--color-green); font-weight: 700;">Live Terminal</a>
+        <a href="docs.html" style="font-weight: 600;">Documentation</a>
+        <a href="help.html" style="font-weight: 600;">Help Centre</a>
         <a href="#platform">Dislocation Radar</a>
         <a href="#thesis">Thesis</a>
         <a href="#metrics">Alpha Metrics</a>
@@ -795,26 +797,30 @@ html_content = f"""<!DOCTYPE html>
     </header>
   </div>
 
+  <!-- Page Content Wrapper (animation applied here, NOT on body, to keep fixed nav working) -->
+  <div class="page-rise-in">
+
   <!-- Hero Section -->
   <section class="landing-hero-container container" id="hero">
-    <div class="hero-pop" style="max-width: 1140px; margin: 0 auto; text-align: center;">
-      <div style="display: inline-flex; align-items: center; gap: 0.45rem; margin-bottom: 1.1rem; font-family: var(--font-terminal); font-size: 0.72rem; color: #10B981; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;">
-        <span style="width: 6px; height: 6px; border-radius: 50%; background-color: #10B981; display: inline-block;"></span>
+    <div class="hero-pop" style="max-width: 880px; margin: 0 auto; text-align: center;">
+
+      <div class="anim-fade-up anim-delay-1" style="display: inline-flex; align-items: center; gap: 0.45rem; margin-bottom: 0.85rem; font-family: var(--font-terminal); font-size: 0.68rem; color: #10B981; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;">
+        <span class="pulse-dot" style="width: 6px; height: 6px; background-color: #10B981; display: inline-block;"></span>
         <span>Track 1: Alpha Factory · After-Hours Information Pricing</span>
       </div>
-      <h1 class="hero-h1" style="font-size: clamp(2.5rem, 4.8vw, 3.8rem); line-height: 1.12; max-width: 1040px; margin: 0 auto 1.15rem;">
+      <h1 class="hero-h1 anim-fade-up anim-delay-2" style="font-size: clamp(1.85rem, 3.2vw, 2.45rem); line-height: 1.15; max-width: 780px; margin: 0 auto 0.85rem;">
         Autonomous After-Hours<br>
         <em>Information Pricing</em> &<br>
         Convergence Engine.
       </h1>
-      <p class="hero-subtext" style="font-size: 1.02rem; line-height: 1.65; max-width: 820px; margin: 0 auto 1.85rem;">
+      <p class="hero-subtext anim-fade-up anim-delay-3" style="font-size: 0.88rem; line-height: 1.55; max-width: 660px; margin: 0 auto 1.45rem;">
         Chronos monetizes the 128-hour weekly closure gap of traditional equity markets by capturing retail price dislocations across tokenized U.S. equities (rTokens) and harvesting mean-reversion profits during Monday institutional pre-market liquidity.
       </p>
 
-      <div style="display: flex; align-items: center; justify-content: center; gap: 0.85rem; flex-wrap: wrap;">
+      <div class="anim-fade-up anim-delay-4" style="display: flex; align-items: center; justify-content: center; gap: 0.75rem; flex-wrap: wrap;">
         <button class="btn-launch-black" onclick="smoothNavigate('app.html')">
           <span>Launch Dashboard</span>
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </button>
         <a href="#platform" class="btn-docs-grey">
           <span>Explore Dislocation Radar</span>
@@ -824,12 +830,12 @@ html_content = f"""<!DOCTYPE html>
         </a>
       </div>
 
-      <div style="display: flex; align-items: center; justify-content: center; gap: 2rem; margin-top: 2.5rem; font-size: 0.82rem; color: var(--color-grey-text); font-family: var(--font-terminal); flex-wrap: wrap;">
-        <div><strong style="color: var(--color-black); font-size: 0.95rem;">120D</strong> Horizon</div>
-        <div><strong style="color: var(--color-green); font-size: 0.95rem;">+39.71%</strong> Alpha</div>
-        <div><strong style="color: var(--color-green); font-size: 0.95rem;">4.44</strong> Full Sharpe</div>
-        <div><strong style="color: var(--color-black); font-size: 0.95rem;">1.26x</strong> Anti-Overfit</div>
-        <div><strong style="color: var(--color-black); font-size: 0.95rem;">100%</strong> Weekday Cash</div>
+      <div class="anim-fade-up anim-delay-5" style="display: flex; align-items: center; justify-content: center; gap: 1.75rem; margin-top: 1.85rem; font-size: 0.76rem; color: var(--color-grey-text); font-family: var(--font-terminal); flex-wrap: wrap;">
+        <div><strong style="color: var(--color-black); font-size: 0.88rem;">120D</strong> Horizon</div>
+        <div><strong style="color: var(--color-green); font-size: 0.88rem;">+39.71%</strong> Alpha</div>
+        <div><strong style="color: var(--color-green); font-size: 0.88rem;">4.44</strong> Full Sharpe</div>
+        <div><strong style="color: var(--color-black); font-size: 0.88rem;">1.26x</strong> Anti-Overfit</div>
+        <div><strong style="color: var(--color-black); font-size: 0.88rem;">100%</strong> Weekday Cash</div>
       </div>
     </div>
   </section>
@@ -1495,12 +1501,13 @@ html_content = f"""<!DOCTYPE html>
         </div>
 
         <div>
-          <h5 style="font-family: var(--font-terminal); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1.1rem;">Hackathon</h5>
+          <h5 style="font-family: var(--font-terminal); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1.1rem;">Resources & Links</h5>
           <ul style="list-style: none; font-size: 0.88rem; color: var(--color-grey-text); display: flex; flex-direction: column; gap: 0.6rem;">
-            <li><a href="https://github.com/OpeyemiMoses/Chronos" target="_blank" style="color: inherit; text-decoration: none;">GitHub Repository</a></li>
+            <li><a href="docs.html" style="color: inherit; text-decoration: none; font-weight: 600;">Engine Documentation</a></li>
+            <li><a href="help.html" style="color: inherit; text-decoration: none; font-weight: 600;">Help Centre & FAQ</a></li>
             <li><a href="app.html" style="color: inherit; text-decoration: none;">Live Trading Dashboard</a></li>
             <li><a href="app.html#auditor" style="color: inherit; text-decoration: none;">Cognitive Self-Auditor</a></li>
-            <li><a href="app.html#settings" style="color: inherit; text-decoration: none;">Autonomous Settings</a></li>
+            <li><a href="https://github.com/OpeyemiMoses/Chronos" target="_blank" style="color: inherit; text-decoration: none;">GitHub Repository</a></li>
           </ul>
         </div>
 
@@ -1795,6 +1802,7 @@ html_content = f"""<!DOCTYPE html>
       initIndexApp();
     }}
   </script>
+  </div><!-- /page-rise-in -->
 </body>
 </html>
 """

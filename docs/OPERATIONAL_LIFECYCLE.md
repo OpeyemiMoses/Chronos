@@ -6,7 +6,10 @@
 [![State Machine](https://img.shields.io/badge/Status-100%25_Cash_Weekday_Sleep-success)](https://github.com/OpeyemiMoses/Chronos)
 
 > **"When tokenized US stocks make 7×24 the new normal, humans sleep — Agents don't."**  
-> *Chronos exploits the structural 128-hour weekend closure of traditional financial exchanges by capturing retail pricing dislocations on tokenized U.S. equities (rTokens) and harvesting the mean-reversion spread during Monday morning institutional pre-market liquidity, before returning 100% to cash and autonomously self-auditing its strategy.*
+> *Chronos exploits the structural 128-hour weekend closure of traditional financial exchanges by capturing retail pricing dislocations on tokenized U.S. equities (rTokens) and unwinding positions during Monday morning institutional pre-market liquidity, before returning to a flat cash posture (100% USDT cash allocation, zero market exposure) and autonomously self-auditing its strategy.*
+
+> [!CAUTION]
+> **Risk Disclosure & No Principal Guarantee:** There is **no principal guarantee** in quantitative or algorithmic trading. Tokenized equity synthetics trade against real market volatility, slippage, and taker fees. Individual trades **can and do close at a loss** if dislocations widen or dynamic stop losses (3.5% adverse excursion threshold) are triggered. "100% Cash Sleep" refers strictly to **portfolio asset allocation** (holding 0 open contracts and 100% of remaining account equity in USDT cash during weekday hours), not a guarantee of principal preservation.
 
 ---
 
@@ -85,7 +88,7 @@ Chronos does not simply buy dips or sell rallies; it mathematically distinguishe
 4. **Mandatory Liquidation & Cash Unwind:**  
    - Between **08:00 and 09:30 EST**, Chronos executes atomic market orders to close all active weekend positions into deep pre-market liquidity.
    - All collateral and realized profits/losses are credited back to the vault.
-   - **The portfolio is returned to 100% USDT Cash before 09:30 EST** (the official cash market open).
+   - **The portfolio is returned to a flat 100% USDT Cash allocation before 09:30 EST** (the official cash market open). Trades close at prevailing market prices and can book gains or audited losses.
 
 #### Emergency Weekend Exits:
 Chronos does not blindly hold until Monday if market conditions mandate early closure:

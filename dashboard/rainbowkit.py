@@ -178,7 +178,7 @@ RAINBOWKIT_CSS = """
    AUTHENTIC RAINBOWKIT DESIGN SYSTEM
    -------------------------------------------------------------------------- */
 
-/* Header Disconnected Button - Stylized Ultra-Compact Editorial Design */
+/* Header Disconnected & Connected Button - Ultra-Compact Content-Fitting Design */
 #rainbowkitHeaderContainer,
 #rainbowkitHeaderContainer > div,
 #rainbowkitHeaderContainer [data-rk],
@@ -188,14 +188,34 @@ RAINBOWKIT_CSS = """
   align-items: center !important;
   height: 24px !important;
   max-height: 24px !important;
+  width: auto !important;
+  width: fit-content !important;
+  max-width: fit-content !important;
+  flex: 0 0 auto !important;
+  flex-shrink: 0 !important;
+}
+
+
+/* Ethereum only — hide chain switcher button & Switch Networks modal from React bundle */
+[data-testid="rk-chain-button"],
+[aria-label="Switch Networks"],
+[aria-labelledby*="rk-chain"],
+div[data-rk] [aria-label*="Switch"] {
+  display: none !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
 }
 
 #rainbowkitHeaderContainer button,
 #rainbowkitHeaderContainer [data-testid="rk-connect-button"],
 #rainbowkitHeaderContainer [data-testid="rk-account-button"],
-#rainbowkitHeaderContainer [data-testid="rk-chain-button"],
-#rainbowkitHeaderContainer .iekbcc0,
-.rk-connect-btn {
+.rk-connect-btn,
+.rk-pill-account {
+  width: auto !important;
+  width: fit-content !important;
+  max-width: fit-content !important;
+  flex: 0 0 auto !important;
+  flex-shrink: 0 !important;
   background: #18181B !important;
   color: #FFFFFF !important;
   font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif !important;
@@ -829,29 +849,15 @@ RAINBOWKIT_HTML_MARKUP = f"""
   </div>
 </div>
 
-<!-- Network Switcher Modal -->
-<div class="rk-modal-overlay" id="rainbowChainModalOverlay" onclick="handleRainbowBackdrop(event, 'rainbowChainModalOverlay')">
-  <div class="rk-chain-modal">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-      <div style="font-size: 1.05rem; font-weight: 700; color: #1A1B1F;">Switch Networks</div>
-      <button type="button" class="rk-modal-close-btn" onclick="closeRainbowChainModal()" style="position: static;">✕</button>
-    </div>
-    <div id="rkChainsContainer"></div>
-  </div>
-</div>
 """
 
 # ==============================================================================
 # CLIENT JAVASCRIPT ENGINE
 # ==============================================================================
 RAINBOWKIT_JS = '''
-    // Active Web3 & RainbowKit State
+    // Ethereum only — no network switching
     const RAINBOWKIT_CHAINS = [
-      { id: 1, name: "Ethereum", icon: "eth", explorer: "https://etherscan.io" },
-      { id: 42161, name: "Arbitrum One", icon: "arb", explorer: "https://arbiscan.io" },
-      { id: 10, name: "Optimism", icon: "op", explorer: "https://optimistic.etherscan.io" },
-      { id: 137, name: "Polygon", icon: "polygon", explorer: "https://polygonscan.com" },
-      { id: 8453, name: "Base", icon: "base", explorer: "https://basescan.org" }
+      { id: 1, name: "Ethereum", icon: "eth", explorer: "https://etherscan.io" }
     ];
     let rkActiveChain = RAINBOWKIT_CHAINS[0];
 
@@ -890,19 +896,9 @@ RAINBOWKIT_JS = '''
       if (o) o.classList.remove("open");
     }
 
-    // Modal Control: Network Switcher
-    function openRainbowChainModal() {
-      closeRainbowModal();
-      closeRainbowAccountModal();
-      renderChainsList();
-      const o = document.getElementById("rainbowChainModalOverlay");
-      if (o) o.classList.add("open");
-    }
-
-    function closeRainbowChainModal() {
-      const o = document.getElementById("rainbowChainModalOverlay");
-      if (o) o.classList.remove("open");
-    }
+    // Network switching is disabled — Ethereum only
+    function openRainbowChainModal() {}
+    function closeRainbowChainModal() {}
 
     function handleRainbowBackdrop(e, id) {
       if (e.target.id === id) {
@@ -1052,43 +1048,14 @@ RAINBOWKIT_JS = '''
     }
 
     // Switch Chain
-    function switchRainbowChain(chainId) {
-      const c = RAINBOWKIT_CHAINS.find(x => x.id === chainId) || RAINBOWKIT_CHAINS[0];
-      rkActiveChain = c;
-      closeRainbowChainModal();
-      renderRainbowHeader();
-      if (typeof showRecalibrationToast === "function") {
-        showRecalibrationToast("Network Switched", `Active network switched to ${c.name}.`);
-      }
-    }
+    // Ethereum only — network switching disabled
+    function switchRainbowChain(chainId) {}
 
     function getChainSvg(iconKey) {
-      if (iconKey === "eth") return `__SVG_CHAIN_ETH__`;
-      if (iconKey === "arb") return `__SVG_CHAIN_ARB__`;
-      if (iconKey === "op") return `__SVG_CHAIN_OP__`;
-      if (iconKey === "polygon") return `__SVG_CHAIN_POLYGON__`;
-      return `__SVG_CHAIN_BASE__`;
+      return `__SVG_CHAIN_ETH__`;
     }
 
-    function renderChainsList() {
-      const c = document.getElementById("rkChainsContainer");
-      if (!c) return;
-      c.innerHTML = RAINBOWKIT_CHAINS.map(ch => {
-        const isSel = ch.id === rkActiveChain.id;
-        const iconSvg = getChainSvg(ch.icon);
-        return `
-          <button type="button" class="rk-chain-row ${isSel ? 'selected' : ''}" onclick="switchRainbowChain(${ch.id})">
-            <div style="display: flex; align-items: center; gap: 0.75rem;">
-              <div style="width: 22px; height: 22px; display: flex; align-items: center; justify-content: center;">
-                ${iconSvg}
-              </div>
-              <span style="font-size: 0.92rem; font-weight: ${isSel ? '700' : '500'}; color: #1A1B1F;">${ch.name}</span>
-            </div>
-            ${isSel ? '<span style="color: #00C853; font-weight: 700;">✓</span>' : ''}
-          </button>
-        `;
-      }).join("");
-    }
+    function renderChainsList() {}
 
     // Master Header Widget Renderer
     // When the official RainbowKit React bundle is loaded, it manages the container DOM itself.
@@ -1117,13 +1084,12 @@ RAINBOWKIT_JS = '''
 
         container.innerHTML = `
           <div class="rk-connected-group">
-            <button type="button" class="rk-pill-chain" onclick="openRainbowChainModal()" title="Switch Networks">
+            <div class="rk-pill-chain" style="cursor: default; pointer-events: none;" title="Ethereum Mainnet">
               <span style="display: flex; align-items: center; justify-content: center; width: 16px; height: 16px;">
                 ${chainSvg}
               </span>
-              <span>${rkActiveChain.name}</span>
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
-            </button>
+              <span>Ethereum</span>
+            </div>
             <button type="button" class="rk-pill-account" onclick="openRainbowAccountModal()" title="Account & Balance">
               <span class="rk-pill-balance">${balFmt}</span>
               <div class="rk-pill-address-badge">
@@ -1141,11 +1107,10 @@ RAINBOWKIT_JS = '''
 
     // Expose on window
     window.openRainbowModal = openRainbowModal;
+    window.openRainbowKitModal = openRainbowModal;  // alias used by Connect Wallet buttons
     window.closeRainbowModal = closeRainbowModal;
     window.openRainbowAccountModal = openRainbowAccountModal;
     window.closeRainbowAccountModal = closeRainbowAccountModal;
-    window.openRainbowChainModal = openRainbowChainModal;
-    window.closeRainbowChainModal = closeRainbowChainModal;
     window.handleRainbowBackdrop = handleRainbowBackdrop;
     window.showRainbowExplainer = showRainbowExplainer;
     window.handleWalletSelection = handleWalletSelection;
@@ -1153,7 +1118,6 @@ RAINBOWKIT_JS = '''
     window.disconnectRainbowKit = disconnectRainbowKit;
     window.copyConnectedAddress = copyConnectedAddress;
     window.copyRainbowUri = copyRainbowUri;
-    window.switchRainbowChain = switchRainbowChain;
     window.renderRainbowHeader = renderRainbowHeader;
 '''
 

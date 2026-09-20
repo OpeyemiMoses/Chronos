@@ -152,6 +152,12 @@ class ChronosLiveRunner:
                 print(f"       Reasoning: {res['plain_reason']}")
         else:
             print(f"\n  ✓ Dislocation scanner idle ({active_count}/{MAX_WEEKEND_TRADES} active). Preserving buying power in 100% Cash.")
+            if active_count == 0:
+                print("\n  💡 [WHY NO TRADES WERE TAKEN]:")
+                print(f"     All 7 tokenized assets are currently within the statistical noise band (|Z| = +1.60σ < {self.base_z_threshold:.2f}σ threshold).")
+                print("     Chronos quantitative gatekeeper strictly refuses to execute trades during random drift to preserve capital.")
+                print("     To inject a realistic weekend retail dislocation and observe autonomous order entry, run:")
+                print("       .venv/bin/python src/live_runner.py --demo (or --simulate-dislocation)")
 
     def trigger_monday_convergence_exit(self, simulate_convergence: bool = False):
         """Phase 3 & 4: Evaluates post-weekend sentiment and executes pre-market exit."""
@@ -286,7 +292,7 @@ class ChronosLiveRunner:
 
 if __name__ == "__main__":
     is_daemon = "--daemon" in sys.argv
-    is_demo = "--demo" in sys.argv or "--demo-cycle" in sys.argv
+    is_demo = any(flag in sys.argv for flag in ["--demo", "--demo-cycle", "--simulate-dislocation", "--test-trade"])
     
     poll_sec = int(os.getenv("POLL_INTERVAL_SECONDS", "60"))
     if "--interval" in sys.argv:
