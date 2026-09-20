@@ -3,7 +3,7 @@
 > **Official Submission Requirement:**  
 > Submission must include **at least 1 compliant X post link**.  
 > You must **quote-tweet / retweet** the official Bitget announcement:  
-> 👉 **https://x.com/Bitget_AI/status/2100519318824055159?s=20**  
+>  **https://x.com/Bitget_AI/status/2100519318824055159?s=20**  
 > Must include `#BitgetHackathon` and `@Bitget_AI`, and introduce the product / Agent / strategy you are building.  
 > *(No X post = invalid submission!)*
 
@@ -25,7 +25,7 @@ When traditional US markets halt for 65 hours every weekend, tokenized stocks tr
 
 Humans sleep on weekends — retail emotion drives the tape. 
 
-Introducing Chronos: an institutional 24/7 quantitative alpha engine built for the @Bitget_AI Hackathon S2 (Track 1: Alpha Factory · Sub-Theme: After-Hours Information Pricing). ⚡️
+Introducing Chronos: an institutional 24/7 quantitative alpha engine built for the @Bitget_AI Hackathon S2 (Track 1: Alpha Factory · Sub-Theme: After-Hours Information Pricing). ️
 
 How it works:
 1️⃣ Anchors Friday 16:00 EST institutional closing prices across 7 tokenized US stocks ($rNVDA, $rTSLA, $rAAPL, $rCOIN, $rMSTR, $rSPY, $rQQQ).
@@ -35,17 +35,17 @@ How it works:
 5️⃣ Harvests price convergence during Monday pre-market institutional liquidity (08:00–09:30 EST), returning to 100% USDT cash.
 
 Audited Institutional Results (120 Days / 2,881 candles, net of 0.10% friction):
-📊 Portfolio Sharpe: 4.44 (Out-of-Sample: 5.07!)
-📈 Cumulative Return: +39.71% (CAGR: +176.69%)
-🛡️ Max Drawdown: -4.69% across the entire basket
-💎 Anti-Overfit Decay: 1.26x (OOS > IS, beating the >= 0.50 requirement)
-🌐 Diversification Boost: 1.90x variance reduction vs. single-asset execution
+ Portfolio Sharpe: 4.44 (Out-of-Sample: 5.07!)
+ Cumulative Return: +39.71% (CAGR: +176.69%)
+️ Max Drawdown: -4.69% across the entire basket
+ Anti-Overfit Decay: 1.26x (OOS > IS, beating the >= 0.50 requirement)
+ Diversification Boost: 1.90x variance reduction vs. single-asset execution
 
 Includes:
 • Master Showcase: 24/7 dislocation marquee ticker & interactive Strategy Clearance simulator
 • Web3 Terminal: RainbowKit connect, isolated $50k paper balance/ledger per wallet, and authentic early close loss/profit modeling!
 
-GitHub Repo & Full Documentation 👇
+GitHub Repo & Full Documentation 
 https://github.com/OpeyemiMoses/Chronos
 
 #BitgetHackathon @Bitget_AI #Quant #AlphaFactory #MCP #AgenticTrading

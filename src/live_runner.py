@@ -69,12 +69,12 @@ class ChronosLiveRunner:
         
         macro = self.mcp.get_macro_benchmark("BTCUSDT")
         self.macro_anchor = macro["price"]
-        print(f"  ✓ Macro Anchor (BTCUSDT): ${self.macro_anchor:,.2f}")
+        print(f"   Macro Anchor (BTCUSDT): ${self.macro_anchor:,.2f}")
 
         for sym in SUPPORTED_ASSETS.keys():
             ticker = self.mcp.get_tokenized_ticker(sym)
             self.anchors[sym] = ticker["friday_anchor_close"]
-            print(f"  ✓ Anchor {sym:<6} ({ticker['underlying_stock']}): ${self.anchors[sym]:.2f}")
+            print(f"   Anchor {sym:<6} ({ticker['underlying_stock']}): ${self.anchors[sym]:.2f}")
 
     def evaluate_weekend_dislocations(self, simulate_dislocation: bool = False):
         """Phase 2: Real-time scan for retail excess drift and order generation."""
@@ -151,9 +151,9 @@ class ChronosLiveRunner:
                 print(f"    -> Dispatched {res['requested_side']} {res['symbol']} (Qty: {res['quantity']} @ ${res['price']:.2f}) [Order ID: {oid}]")
                 print(f"       Reasoning: {res['plain_reason']}")
         else:
-            print(f"\n  ✓ Dislocation scanner idle ({active_count}/{MAX_WEEKEND_TRADES} active). Preserving buying power in 100% Cash.")
+            print(f"\n   Dislocation scanner idle ({active_count}/{MAX_WEEKEND_TRADES} active). Preserving buying power in 100% Cash.")
             if active_count == 0:
-                print("\n  💡 [WHY NO TRADES WERE TAKEN]:")
+                print("\n   [WHY NO TRADES WERE TAKEN]:")
                 print(f"     All 7 tokenized assets are currently within the statistical noise band (|Z| = +1.60σ < {self.base_z_threshold:.2f}σ threshold).")
                 print("     Chronos quantitative gatekeeper strictly refuses to execute trades during random drift to preserve capital.")
                 print("     To inject a realistic weekend retail dislocation and observe autonomous order entry, run:")
@@ -163,7 +163,7 @@ class ChronosLiveRunner:
         """Phase 3 & 4: Evaluates post-weekend sentiment and executes pre-market exit."""
         print(f"\n[{self.get_current_ny_time().strftime('%Y-%m-%d %H:%M:%S EST')}] [PHASE 3] Institutional Convergence Window Active (08:00-09:30 EST)")
         if not self.active_positions:
-            print("  ✓ No active weekend positions to liquidate. Portfolio is in 100% Cash.")
+            print("   No active weekend positions to liquidate. Portfolio is in 100% Cash.")
             return
 
         print(f"\n  [POST-WEEKEND SENTIMENT ANALYZER] Ingesting trader sentiment & orderbook depth for {len(self.active_positions)} active position(s)...")
@@ -224,8 +224,8 @@ class ChronosLiveRunner:
         for res in exec_results:
             oid = res["response"].get("data", {}).get("orderId", "CLOSED")
             print(f"    -> Liquidated {res['requested_side']} {res['symbol']} @ ${res['price']:.2f} [Order ID: {oid}]")
-        print(f"  ✓ All positions successfully liquidated at institutional pre-market fair value.")
-        print(f"  ✓ Strategy returned to 100% USDT Cash before 09:30 EST Cash Open. Zero weekday risk.")
+        print(f"   All positions successfully liquidated at institutional pre-market fair value.")
+        print(f"   Strategy returned to 100% USDT Cash before 09:30 EST Cash Open. Zero weekday risk.")
 
         # Phase 4: Autonomous Self-Audit & Adaptation
         print(f"\n[{self.get_current_ny_time().strftime('%Y-%m-%d %H:%M:%S EST')}] [PHASE 4] Running Closed-Loop Trade Post-Mortem & Parameter Adaptation...")

@@ -110,11 +110,11 @@ def run_pipeline():
     port_tear_sheet.plot_portfolio_summary_tear_sheet(portfolio_res, weights_df)
     port_tear_sheet.plot_comparative_performance(portfolio_res['equity_df'], single_res.equity_curve)
 
-    print("  ✓ reports/figures/chronos_summary_tear_sheet.png")
-    print("  ✓ reports/figures/chronos_correlation_matrix.png")
-    print("  ✓ reports/figures/chronos_portfolio_summary_tear_sheet.png")
-    print("  ✓ reports/figures/chronos_portfolio_cumulative_returns.png")
-    print("  ✓ dashboard/index.html (Interactive Trading Terminal)")
+    print("   reports/figures/chronos_summary_tear_sheet.png")
+    print("   reports/figures/chronos_correlation_matrix.png")
+    print("   reports/figures/chronos_portfolio_summary_tear_sheet.png")
+    print("   reports/figures/chronos_portfolio_cumulative_returns.png")
+    print("   dashboard/index.html (Interactive Trading Terminal)")
 
     # 7. Autonomous Self-Auditor & Closed-Loop Adaptation
     print("\n[Phase 7] Autonomous Self-Auditor & Closed-Loop Reflection Engine...")
@@ -133,8 +133,8 @@ def run_pipeline():
         })
     ]
     print("\n" + auditor.generate_post_mortem_table(sample_audits))
-    print(f"\n  ✓ Self-Adapted rTSLA Entry Threshold: {auditor.get_asset_z_threshold('rTSLA')}σ (Zero Recurring Mistakes)")
-    print(f"  ✓ Persistent Memory Synced: data/audit_memory.json")
+    print(f"\n   Self-Adapted rTSLA Entry Threshold: {auditor.get_asset_z_threshold('rTSLA')}σ (Zero Recurring Mistakes)")
+    print(f"   Persistent Memory Synced: data/audit_memory.json")
 
     print("\n" + "=" * 78)
     print("  CHRONOS AUDIT & PIPELINE COMPLETED WITH 100% PASSING METRICS!")

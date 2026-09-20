@@ -271,7 +271,7 @@ def main():
                 "end": datetime.fromtimestamp(candles[-1]["ts"] / 1000).strftime("%Y-%m-%d")
             }
             results[sym_key] = backtest_metrics
-            logger.info(f"✓ {sym_key}: Win Rate={backtest_metrics['win_rate_str']} | Profit Factor={backtest_metrics['profit_factor']} | Sharpe={backtest_metrics['sharpe_ratio']} | Drawdown={backtest_metrics['max_drawdown']}")
+            logger.info(f" {sym_key}: Win Rate={backtest_metrics['win_rate_str']} | Profit Factor={backtest_metrics['profit_factor']} | Sharpe={backtest_metrics['sharpe_ratio']} | Drawdown={backtest_metrics['max_drawdown']}")
 
     output_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data")
     os.makedirs(output_dir, exist_ok=True)

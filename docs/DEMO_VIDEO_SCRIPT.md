@@ -1,4 +1,4 @@
-# 🎙️ Chronos — The 3-Minute Investor Pitch & Live Demo Script
+# ️ Chronos — The 3-Minute Investor Pitch & Live Demo Script
 
 > **Tone:** High-conviction, charismatic, crisp, visionary. Think Y Combinator Demo Day meets a top-tier quant fund pitch to Sequoia or a16z.  
 > **Duration:** Exactly 3:00 minutes (180 seconds).  
@@ -6,7 +6,7 @@
 
 ---
 
-## ⚡ 0:00 – 0:40 | THE HOOK: The Multi-Billion Dollar Anomaly
+##  0:00 – 0:40 | THE HOOK: The Multi-Billion Dollar Anomaly
 
 **[SCREEN: Start on your face/webcam for 5 seconds, or start full-screen on the sleek dark terminal at `http://localhost:8899/terminal` with the marquee ticking.]**
 
@@ -30,7 +30,7 @@
 
 ---
 
-## 🔍 0:40 – 1:30 | THE LIVE PROOF: Perception, Z-Scores & Noise Filtering
+##  0:40 – 1:30 | THE LIVE PROOF: Perception, Z-Scores & Noise Filtering
 
 **[SCREEN: Smoothly move cursor across the 7 top asset cards on the terminal: `rNVDA`, `rTSLA`, `rMSTR`, `rCOIN`.]**
 
@@ -58,7 +58,7 @@
 
 ---
 
-## 🛡️ 1:30 – 2:15 | THE MOAT: Qwen AI Intelligence + Deterministic Stress Testing
+## ️ 1:30 – 2:15 | THE MOAT: Qwen AI Intelligence + Deterministic Stress Testing
 
 **[SCREEN: Scroll down to show the "AI Trade Thesis" card, then the "Forward Scenario Stress Matrix" below it.]**
 
@@ -84,7 +84,7 @@
 
 ---
 
-## 📈 2:15 – 2:45 | THE TRACTION: 151 Empirical Trades & Verified Numbers
+##  2:15 – 2:45 | THE TRACTION: 151 Empirical Trades & Verified Numbers
 
 **[SCREEN: Switch to the `docs/PAPER_TRADING_REPORT.md` tab or scroll down to the Audited Trade Ledger table.]**
 
@@ -105,7 +105,7 @@
 
 ---
 
-## 🚀 2:45 – 3:00 | THE VISION: Bitget Playbook & The Scale Opportunity
+##  2:45 – 3:00 | THE VISION: Bitget Playbook & The Scale Opportunity
 
 **[SCREEN: Back to full terminal view or presenter on webcam with product behind.]**
 
@@ -119,7 +119,7 @@
 
 ---
 
-### 💡 Founder Delivery Checklist:
+###  Founder Delivery Checklist:
 1. **Pacing:** Notice the short sentences. Take a deliberate 0.5s pause after *"Agents don't"* and *"Zero hidden friction"*. It makes you sound confident and in control.
 2. **Mouse Movement:** Keep mouse movements slow, deliberate, and smooth. Don't wiggle the cursor nervously. Hover steadily over the numbers as you speak them.
 3. **Audio Quality:** Use a clean mic without room echo. High audio clarity immediately signals an institutional-grade team.

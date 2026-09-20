@@ -1,6 +1,6 @@
 # Bitget AI Hackathon S2: Official Google Form Submission Guide
 
-**Track:** 🟦 Track 1 · Alpha Factory (Quantitative Strategies)  
+**Track:**  Track 1 · Alpha Factory (Quantitative Strategies)  
 **Sub-Theme:** After-Hours Information Pricing  
 **Project Name:** Chronos: 24/7 After-Hours Information Pricing & Multi-Asset Alpha Engine  
 **GitHub Repository:** https://github.com/OpeyemiMoses/Chronos  

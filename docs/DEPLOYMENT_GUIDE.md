@@ -1,4 +1,4 @@
-# 🚀 Chronos — Deployment Guide (Railway & Vercel)
+# Chronos — Deployment Guide (Railway & Vercel)
 
 Chronos is production-ready for deployment to cloud platforms. You have two primary deployment architectures:
 

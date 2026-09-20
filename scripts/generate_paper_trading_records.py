@@ -264,14 +264,14 @@ def generate_paper_trading_records():
 | :--- | :---: | :---: | :---: |
 | **Initial Paper Balance** | **$50,000.00 USDT** | $50,000.00 USDT | Baseline |
 | **Final Portfolio Balance** | **${final_balance:,.2f} USDT** | — | — |
-| **Net P&L (Post-Fee)** | **+${total_net_pnl:,.2f} USDT** | > 0 | 🟢 High Alpha |
-| **Cumulative Net Return** | **+{total_return_pct:.2f}%** | S&P 500 (+4.2%) | 🟢 Outperformed |
+| **Net P&L (Post-Fee)** | **+${total_net_pnl:,.2f} USDT** | > 0 |  High Alpha |
+| **Cumulative Net Return** | **+{total_return_pct:.2f}%** | S&P 500 (+4.2%) |  Outperformed |
 | **Total Executed Trades** | **{len(all_logs)} Trades** | $\ge 20$ Trades | Verified Sample Size |
-| **Overall Win Rate** | **{win_rate_all:.1f}%** | > 55.0% | 🟢 Strong Edge |
-| **Portfolio Profit Factor** | **{overall_pf:.2f}** | > 1.50 | 🟢 Institutional Grade |
-| **Maximum Drawdown** | **-{max_dd_pct:.2f}% (-${max_dd_usd:,.2f} USDT)** | < 8.0% | 🟢 Excellent Capital Preservation |
-| **Sharpe Ratio (Annualized)** | **{sharpe:.2f}** | > 1.50 | 🟢 High Risk-Adjusted Edge |
-| **Sortino Ratio (Downside)** | **{sortino:.2f}** | > 2.00 | 🟢 Minimal Downside Drag |
+| **Overall Win Rate** | **{win_rate_all:.1f}%** | > 55.0% |  Strong Edge |
+| **Portfolio Profit Factor** | **{overall_pf:.2f}** | > 1.50 |  Institutional Grade |
+| **Maximum Drawdown** | **-{max_dd_pct:.2f}% (-${max_dd_usd:,.2f} USDT)** | < 8.0% |  Excellent Capital Preservation |
+| **Sharpe Ratio (Annualized)** | **{sharpe:.2f}** | > 1.50 |  High Risk-Adjusted Edge |
+| **Sortino Ratio (Downside)** | **{sortino:.2f}** | > 2.00 |  Minimal Downside Drag |
 | **Total Exchange Taker Fees Paid**| **${total_fees_paid:,.2f} USDT** | Full Friction Applied | Transparent Deduction |
 
 ---
@@ -299,7 +299,7 @@ Below is a representative sample of autonomous trade executions logged during th
 """
 
     for t in all_logs[:15]:
-        status_icon = "🟢 WIN" if t["status"] == "WIN" else "🔴 LOSS"
+        status_icon = " WIN" if t["status"] == "WIN" else " LOSS"
         report_content += f"| `{t['trade_id']}` | {t['datetime_utc']} | **{t['symbol']}** | `{t['direction']}` | ${t['entry_price']:.2f} | ${t['exit_price']:.2f} | {t['quantity']:.4f} | **{'+' if t['net_pnl_usd'] > 0 else ''}${t['net_pnl_usd']:.2f}** | {t['net_return_pct']:+.2f}% | ${t['balance_after']:,.2f} | {t['z_score']:+.2f}σ | {status_icon} |\n"
 
     report_content += f"""

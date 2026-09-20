@@ -993,7 +993,7 @@ html_content = """<!DOCTYPE html>
       <div class="trouble-grid">
         <div class="trouble-card">
           <div class="trouble-card-title">
-            <span style="color: var(--color-amber);">⚠</span> Page Caching & Outdated Scripts
+            Page Caching & Outdated Scripts
           </div>
           <p class="trouble-card-desc">If UI updates or button widths appear out of sync, your browser may be serving cached JavaScript bundles. Perform a cache-bypassing hard reload:</p>
           <div style="margin-top: 0.5rem; font-family: var(--font-mono); font-size: 0.78rem; font-weight: 600;">

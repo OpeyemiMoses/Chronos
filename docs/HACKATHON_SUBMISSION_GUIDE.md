@@ -9,7 +9,7 @@
 
 ---
 
-# 🟩 SUBMISSION 1: Track 2 — Agentic Trading
+# SUBMISSION 1: Track 2 — Agentic Trading
 
 * **Competition Track (Q9):** `Agentic Trading`
 * **Competition Sub-Theme (Q10):** `Market Sentiment Agent` *(or `Cross-Asset Execution Agent` / `Open Theme`)*
@@ -87,7 +87,7 @@ In Chronos, the LLM (Alibaba Cloud Qwen qwen3.8-max) acts as the autonomous perc
 
 ---
 
-# 🟦 SUBMISSION 2: Track 1 — Alpha Factory
+# SUBMISSION 2: Track 1 — Alpha Factory
 
 * **Competition Track (Q9):** `Alpha Factory`
 * **Competition Sub-Theme (Q10):** `After-Hours Information Pricing` *(or `rToken Factor Strategies` / `Arbitrage`)*
@@ -131,7 +131,7 @@ In Chronos, the LLM (Alibaba Cloud Qwen qwen3.8-max) acts as the autonomous perc
 
 ---
 
-# 📋 General Fields (Common to Both Submissions)
+# General Fields (Common to Both Submissions)
 
 * **Q1 (Team Name):** `Chronos Labs` *(or your custom team name)*
 * **Q2 (Team Lead Bitget UID):** `[Your numerical Bitget UID]`
@@ -148,7 +148,7 @@ In Chronos, the LLM (Alibaba Cloud Qwen qwen3.8-max) acts as the autonomous perc
 
 ---
 
-# 🐦 Mandatory Promotional X Post Template (Q16)
+# Mandatory Promotional X Post Template (Q16)
 
 > **Official Requirement:** Must include `#BitgetHackathon` + `@Bitget_AI`, introduce Chronos, and **quote tweet** `https://x.com/Bitget_AI/status/2100519318824055159?s=20`.
 
@@ -156,17 +156,17 @@ In Chronos, the LLM (Alibaba Cloud Qwen qwen3.8-max) acts as the autonomous perc
 ```text
 When US markets sleep on weekends, @Bitget_AI tokenized stocks never stop.
 
-Excited to introduce Chronos for the #BitgetHackathon S2! ⚡
+Excited to introduce Chronos for the #BitgetHackathon S2!
 
 Chronos is an autonomous 24/7 trading agent designed to capture statistical price dislocations in Bitget rTokens (NVDA, TSLA, COIN, MSTR, AAPL).
 
 Key highlights:
-🔹 24/7 Live Bitget Market Feed + Order Book Depth
-🔹 Deterministic 6-Scenario Stress Testing
-🔹 90-Day Empirical Backtest: 151 trades, 51.0% Win Rate, 1.42 Profit Factor, max DD only -1.36%
-🔹 Full Web3 Wallet Isolation + Post-Trade Audits
+- 24/7 Live Bitget Market Feed + Order Book Depth
+- Deterministic 6-Scenario Stress Testing
+- 90-Day Empirical Backtest: 151 trades, 51.0% Win Rate, 1.42 Profit Factor, max DD only -1.36%
+- Full Web3 Wallet Isolation + Post-Trade Audits
 
-Built with @Bitget_AI Agent Hub & Alibaba Cloud Qwen! 🚀
+Built with @Bitget_AI Agent Hub & Alibaba Cloud Qwen!
 
 https://x.com/Bitget_AI/status/2100519318824055159?s=20
 ```
