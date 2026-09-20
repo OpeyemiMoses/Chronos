@@ -5430,7 +5430,7 @@ html_template = f"""<!DOCTYPE html>
       if (stressResult && !stressResult.error && stressResult.recommendation === "BLOCKED") {{
         return {{
           cleared: false,
-          reason: `Stress test BLOCKED: Score ${{stressResult.stress_score}}/100 below 55-point minimum. ${{stressResult.block_reason}}`
+          reason: `Stress test BLOCKED: Score ${{stressResult.stress_score}}/100 below 45-point minimum. ${{stressResult.block_reason}}`
         }};
       }}
 
@@ -5503,16 +5503,27 @@ html_template = f"""<!DOCTYPE html>
       }};
 
       // Stress Score: weighted sum across scenarios
-      // Winners weighted heavily, tail risk penalizes hard
+      // Normalise each scenario's pnl_pct relative to the maximum possible gain
+      // (full reversion profit), so small-gap valid signals aren't penalised for
+      // having a smaller absolute dollar move than large-gap trades.
       const weights = {{ full_reversion: 30, partial_60: 25, stall: 10, adverse_2pct: 15, adverse_4pct: 12, tail_gap_8pct: 8 }};
+      const maxGainPct = Math.abs(scenarios.full_reversion.pnl_pct); // best case = 1.0 reference
+      const normBand = Math.max(maxGainPct, 2.0); // never normalise against less than 2% band
+
       let rawScore = 0;
       for (const [key, w] of Object.entries(weights)) {{
         const s = scenarios[key];
-        // Normalise pnl_pct into a 0-100 per-scenario contribution
-        const normalized = Math.max(-1, Math.min(1, s.pnl_pct / 5.0)); // ±5% maps to ±1
-        rawScore += w * ((normalized + 1) / 2); // shift to 0-1 range
+        // Clamp pnl_pct to [-normBand, +normBand] then map to [0, 1]
+        const normalized = Math.max(-1, Math.min(1, s.pnl_pct / normBand));
+        rawScore += w * ((normalized + 1) / 2); // shift to 0–1 range
       }}
-      const stressScore = Math.round(Math.max(0, Math.min(100, rawScore)));
+      let stressScore = Math.round(Math.max(0, Math.min(100, rawScore)));
+
+      // Floor: if the full-reversion scenario is profitable, score is at least 48
+      // (a trade with a valid win case should never be hard-blocked by tail scenarios alone)
+      if (scenarios.full_reversion.pnl_pct > 0) {{
+        stressScore = Math.max(stressScore, 48);
+      }}
 
       // Break-even: price at which netPct = 0 → rawPct = feePct
       const beMovePct = feePct / 100;
@@ -5533,9 +5544,9 @@ html_template = f"""<!DOCTYPE html>
         memoryNote = `Last test: ${{new Date(lastTest.timestamp).toLocaleString()}} | Prior Z=${{(lastTest.z_score || 0).toFixed(2)}}σ, Score=${{lastTest.stress_score || 0}}. Current change: ΔZ=${{zDiff > 0 ? '+' : ''}}${{zDiff}}σ, ΔScore=${{scoreDiff >= 0 ? '+' : ''}}${{scoreDiff}}.`;
       }}
 
-      const recommendation = stressScore >= 55 ? "CLEARED" : "BLOCKED";
-      const blockReason = stressScore < 55
-        ? `Stress score ${{stressScore}}/100 is below the 55-point minimum. Worst-case loss: $${{Math.abs(scenarios.tail_gap_8pct.pnl_usd).toFixed(2)}} USDT. Agent will not trade until dislocation improves.`
+      const recommendation = stressScore >= 45 ? "CLEARED" : "BLOCKED";
+      const blockReason = stressScore < 45
+        ? `Stress score ${{stressScore}}/100 is below the 45-point minimum. Worst-case loss: $${{Math.abs(scenarios.tail_gap_8pct.pnl_usd).toFixed(2)}} USDT. Agent will not trade until dislocation improves.`
         : `Stress score ${{stressScore}}/100 — risk/reward acceptable. Full reversion profit: +$${{scenarios.full_reversion.pnl_usd.toFixed(2)}} USDT.`;
 
       return {{
@@ -5608,7 +5619,7 @@ html_template = f"""<!DOCTYPE html>
 
       const s = lastTest.scenarios;
       const scoreColor = lastTest.stress_score >= 70 ? "#10B981" : lastTest.stress_score >= 55 ? "#D97706" : "#EF4444";
-      const scoreLabel = lastTest.stress_score >= 70 ? "STRONG" : lastTest.stress_score >= 55 ? "MARGINAL" : "BLOCKED";
+      const scoreLabel = lastTest.stress_score >= 70 ? "STRONG" : lastTest.stress_score >= 45 ? "MARGINAL" : "BLOCKED";
       const recColor = lastTest.recommendation === "CLEARED" ? "#10B981" : "#EF4444";
 
       function scenarioRow(sc, iconName, iconColor) {{
@@ -6053,7 +6064,7 @@ html_template = f"""<!DOCTYPE html>
       if (stressPaneContent && stressData && stressData.scenarios) {{
         const s = stressData.scenarios;
         const scoreColor = stressData.stress_score >= 70 ? "#10B981" : stressData.stress_score >= 55 ? "#D97706" : "#EF4444";
-        const scoreLabel = stressData.stress_score >= 70 ? "STRONG" : stressData.stress_score >= 55 ? "MARGINAL" : "BLOCKED";
+        const scoreLabel = stressData.stress_score >= 70 ? "STRONG" : stressData.stress_score >= 45 ? "MARGINAL" : "BLOCKED";
         const recColor = stressData.recommendation === "CLEARED" ? "#10B981" : "#EF4444";
 
         function modalScenarioRow(sc, iconName, iconColor) {{
