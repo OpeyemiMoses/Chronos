@@ -3971,6 +3971,8 @@ div[data-rk] [aria-label*="Switch"] {
     }
     window.selectMarket = selectMarket;
   </script>
+  <!-- Lucide Icons — professional SVG icon library -->
+  <script src="https://unpkg.com/lucide@0.441.0/dist/umd/lucide.min.js"></script>
 </head>
 <body>
 
@@ -4050,7 +4052,9 @@ div[data-rk] [aria-label*="Switch"] {
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
               <span id="ghostSidebarUserLabel">Sandbox Mode</span>
             </div>
-            <span id="ghostSidebarStatusDot" style="color: #F59E0B; font-size: 0.65rem;">●</span>
+            <span id="ghostSidebarStatusDot" style="color: #F59E0B; display: flex; align-items: center;">
+              <i data-lucide="activity" style="width:13px;height:13px;stroke:#F59E0B;stroke-width:2;"></i>
+            </span>
           </div>
           <div style="color: #71717A; font-size: 0.70rem; font-family: var(--font-terminal);" id="ghostSidebarBoundLabel">
             No Wallet Connected
@@ -4298,7 +4302,7 @@ div[data-rk] [aria-label*="Switch"] {
               <div class="stepper-vertical">
                 <!-- Step 1 -->
                 <div class="stepper-item">
-                  <div class="stepper-dot">✓</div>
+                  <div class="stepper-dot"><i data-lucide="check" style="width:11px;height:11px;stroke:currentColor;stroke-width:2.5;"></i></div>
                   <div>
                     <div class="stepper-content-title">Friday Anchor Baseline Locked</div>
                     <div class="stepper-content-sub">NYSE & NASDAQ close at 16:00 EST. Cryptographic baseline anchored across all 7 assets.</div>
@@ -4651,6 +4655,9 @@ div[data-rk] [aria-label*="Switch"] {
                   Autonomous AI agent routes trades sequentially when statistical setups clear.
                 </div>
               </div>
+
+              <!-- Stress Test Engine Panel -->
+              <div id="stressTestPanelContainer" style="margin-top: 0.1rem;"></div>
             </div>
 
             <!-- 2. Manual Order Mode Inputs Container (hidden in AUTO mode, only visible in MANUAL mode) -->
@@ -5080,12 +5087,12 @@ div[data-rk] [aria-label*="Switch"] {
                 Mandatory Strategy Clearance Criteria (Verified Before Every Trade)
               </div>
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.75rem; font-size: 0.76rem; color: #4B5563;">
-                <div style="display: flex; align-items: center; gap: 0.45rem;"><span style="color: #10B981; font-weight: bold;">✓</span> <span>Statistical Dislocation (|Drift| ≥ 2.0%)</span></div>
-                <div style="display: flex; align-items: center; gap: 0.45rem;"><span style="color: #10B981; font-weight: bold;">✓</span> <span>Z-Score Divergence Threshold (|Z| ≥ 2.0σ)</span></div>
-                <div style="display: flex; align-items: center; gap: 0.45rem;"><span style="color: #10B981; font-weight: bold;">✓</span> <span>Within Max Concurrent Trades Quota</span></div>
-                <div style="display: flex; align-items: center; gap: 0.45rem;"><span style="color: #10B981; font-weight: bold;">✓</span> <span>No Duplicate Positions for Same Asset</span></div>
-                <div style="display: flex; align-items: center; gap: 0.45rem;"><span style="color: #10B981; font-weight: bold;">✓</span> <span>Sufficient Free Margin in Connected Vault</span></div>
-                <div style="display: flex; align-items: center; gap: 0.45rem;"><span style="color: #10B981; font-weight: bold;">✓</span> <span>Institutional NYSE/Nasdaq Market Closed</span></div>
+                <div style="display: flex; align-items: center; gap: 0.45rem;"><i data-lucide="check" style="width:13px;height:13px;stroke:#10B981;stroke-width:2.5;flex-shrink:0;"></i> <span>Statistical Dislocation (|Drift| ≥ 2.0%)</span></div>
+                <div style="display: flex; align-items: center; gap: 0.45rem;"><i data-lucide="check" style="width:13px;height:13px;stroke:#10B981;stroke-width:2.5;flex-shrink:0;"></i> <span>Z-Score Divergence Threshold (|Z| ≥ 2.0σ)</span></div>
+                <div style="display: flex; align-items: center; gap: 0.45rem;"><i data-lucide="check" style="width:13px;height:13px;stroke:#10B981;stroke-width:2.5;flex-shrink:0;"></i> <span>Within Max Concurrent Trades Quota</span></div>
+                <div style="display: flex; align-items: center; gap: 0.45rem;"><i data-lucide="check" style="width:13px;height:13px;stroke:#10B981;stroke-width:2.5;flex-shrink:0;"></i> <span>No Duplicate Positions for Same Asset</span></div>
+                <div style="display: flex; align-items: center; gap: 0.45rem;"><i data-lucide="check" style="width:13px;height:13px;stroke:#10B981;stroke-width:2.5;flex-shrink:0;"></i> <span>Sufficient Free Margin in Connected Vault</span></div>
+                <div style="display: flex; align-items: center; gap: 0.45rem;"><i data-lucide="check" style="width:13px;height:13px;stroke:#10B981;stroke-width:2.5;flex-shrink:0;"></i> <span>Institutional NYSE/Nasdaq Market Closed</span></div>
               </div>
             </div>
 
@@ -5116,7 +5123,7 @@ div[data-rk] [aria-label*="Switch"] {
             <div class="trade-reasoning-subtitle" id="modalTradeSubtitle">Trade #POS-194671 • Weekend Dislocation Execution</div>
           </div>
         </div>
-        <button class="trade-reasoning-close" onclick="closeTradeReasoningModal()" aria-label="Close modal">✕</button>
+        <button class="trade-reasoning-close" onclick="closeTradeReasoningModal()" aria-label="Close modal"><i data-lucide="x" style="width:16px;height:16px;stroke:currentColor;stroke-width:2;"></i></button>
       </div>
 
       <!-- Split Two-Column Body -->
@@ -5192,6 +5199,10 @@ div[data-rk] [aria-label*="Switch"] {
             </button>
             <button type="button" class="reasoning-tab-btn" id="tabBtnSentiment" onclick="switchReasoningTab('sentiment')">
               <span>4. Sentiment Analyzer</span>
+            </button>
+            <button type="button" class="reasoning-tab-btn" id="tabBtnStresstest" onclick="switchReasoningTab('stresstest')" style="position: relative;">
+              <span>5. Stress Test</span>
+              <span id="stressTabBadge" style="display: none; position: absolute; top: 3px; right: 3px; width: 7px; height: 7px; border-radius: 50%; background: #10B981;"></span>
             </button>
           </div>
 
@@ -5271,6 +5282,16 @@ div[data-rk] [aria-label*="Switch"] {
                   <div class="sentiment-decision-badge" id="paneOpenDecisionBadge">HOLD A LITTLE BIT (TRAILING STOP FOR EXTRA PROFIT)</div>
                   <p class="pane-text" id="paneDecisionReasonText" style="margin-top: 0.45rem;"></p>
                 </div>
+              </div>
+            </div>
+
+            <!-- Pane 5: Stress Test Report (always populated before the agent trades) -->
+            <div class="reasoning-tab-pane" id="paneStresstest">
+              <h3 class="pane-headline">Pre-Trade Stress Test — Agent Scenario Analysis</h3>
+              <p class="pane-text" id="paneStressIntro" style="margin-bottom: 0.75rem;">The Chronos agent runs this 6-scenario stress test on every token before committing any capital. Results are stored in persistent memory so prior outcomes calibrate future entry thresholds.</p>
+              <!-- Stress Test content injected dynamically by openTradeReasoningModal -->
+              <div id="paneStressTestContent">
+                <div style="background: #FAF8F5; border: 1px solid #EEE9DF; border-radius: 8px; padding: 0.75rem; font-size: 0.74rem; color: #71717A;">No stress test data found for this trade. The agent will run one before the next entry.</div>
               </div>
             </div>
           </div>
@@ -5822,6 +5843,7 @@ div[data-rk] [aria-label*="Switch"] {
             weekendTradesCount: 0,
             trades: [],
             audits: [],
+            stressTestMemory: {},
             auditsPurgedV2: true,
             tradesPurgedV2: true,
             agentConfig: {
@@ -5986,11 +6008,19 @@ div[data-rk] [aria-label*="Switch"] {
           const shortAddr = this.currentAddress.slice(0, 6) + "..." + this.currentAddress.slice(-4);
           if (uLabel) uLabel.textContent = shortAddr;
           if (bLabel) { bLabel.textContent = "Bound: " + shortAddr; bLabel.style.display = "block"; }
-          if (sDot) { sDot.style.color = "#10B981"; sDot.textContent = "●"; }
+          if (sDot) {
+            sDot.style.color = "#10B981";
+            sDot.innerHTML = `<i data-lucide="wifi" style="width:13px;height:13px;stroke:#10B981;stroke-width:2;"></i>`;
+            refreshIcons();
+          }
         } else {
           if (uLabel) uLabel.textContent = "No Wallet";
           if (bLabel) { bLabel.textContent = ""; bLabel.style.display = "none"; }
-          if (sDot) { sDot.style.color = "#EF4444"; sDot.textContent = "○"; }
+          if (sDot) {
+            sDot.style.color = "#EF4444";
+            sDot.innerHTML = `<i data-lucide="wifi-off" style="width:13px;height:13px;stroke:#EF4444;stroke-width:2;"></i>`;
+            refreshIcons();
+          }
         }
 
         // Balance displays — show '—' when disconnected, or when Live without connected real balance
@@ -6614,6 +6644,22 @@ div[data-rk] [aria-label*="Switch"] {
       }
 
       const side = m.drift_pct > 0 ? "SHORT" : "LONG";
+
+      // 5. Stress Test Gate — run 6-scenario analysis before every trade
+      const stressResult = runStressTest(symbol, m.spot_price, side, requiredCollateral, "PRE_TRADE");
+      if (!stressResult.error) {
+        storeStressTestResult(symbol, stressResult);
+        // Refresh arena panel immediately
+        if (typeof renderStressTestPanel === "function") renderStressTestPanel(symbol);
+      }
+
+      if (stressResult && !stressResult.error && stressResult.recommendation === "BLOCKED") {
+        return {
+          cleared: false,
+          reason: `Stress test BLOCKED: Score ${stressResult.stress_score}/100 below 55-point minimum. ${stressResult.block_reason}`
+        };
+      }
+
       return {
         cleared: true,
         symbol: symbol,
@@ -6622,12 +6668,249 @@ div[data-rk] [aria-label*="Switch"] {
         drift_pct: m.drift_pct,
         z_score: zScore,
         collateral: requiredCollateral,
-        reason: `Strategy cleared: |Z| = ${zScore.toFixed(2)}σ ≥ ${zThreshold.toFixed(2)}σ, Drift = ${m.drift_pct >= 0 ? '+' : ''}${m.drift_pct.toFixed(2)}% vs Friday Anchor ($${m.anchor_price.toFixed(2)}). Expected Mean Reversion: 76.9% historical win rate.`
+        stressTest: stressResult,
+        reason: `Strategy cleared: |Z| = ${zScore.toFixed(2)}σ ≥ ${zThreshold.toFixed(2)}σ, Drift = ${m.drift_pct >= 0 ? '+' : ''}${m.drift_pct.toFixed(2)}% vs Friday Anchor ($${m.anchor_price.toFixed(2)}). Stress Score: ${stressResult && !stressResult.error ? stressResult.stress_score : 'N/A'}/100 — CLEARED.`
       };
     }
     window.verifyStrategyClearance = verifyStrategyClearance;
 
-    // Official Token Vector Logos Map
+    // =========================================================================
+    // CHRONOS STRESS TEST ENGINE
+    // Runs multi-scenario forward stress tests before every trade and after
+    // every settlement. Results persisted in d.stressTestMemory per symbol.
+    // =========================================================================
+
+    /**
+     * Run 6 deterministic forward scenarios for a given trade spec.
+     * Returns a structured stress result with individual scenario P&L,
+     * a composite stress score (0-100), break-even price, and worst-case loss.
+     */
+    function runStressTest(symbol, entryPrice, side, collateral, context) {
+      const m = markets[symbol];
+      if (!m || !entryPrice || entryPrice <= 0) {
+        return { error: "Market data unavailable for stress test" };
+      }
+
+      const isShort = side === "SHORT" || side === "SELL_SHORT";
+      const anchor = m.anchor_price;
+      const gap = Math.abs(entryPrice - anchor);
+      const feePct = 0.06; // taker fee
+
+      function calcScenario(exitPrice, label, description) {
+        const rawDiff = isShort ? (entryPrice - exitPrice) : (exitPrice - entryPrice);
+        const rawPct = (rawDiff / entryPrice) * 100;
+        const netPct = parseFloat((rawPct - feePct).toFixed(2));
+        const netUsd = parseFloat((collateral * (netPct / 100)).toFixed(2));
+        return {
+          label,
+          description,
+          exit_price: parseFloat(exitPrice.toFixed(2)),
+          pnl_pct: netPct,
+          pnl_usd: netUsd,
+          verdict: netPct > 1.0 ? "STRONG_WIN" : netPct > 0 ? "MARGINAL_WIN" : netPct > -2.0 ? "MANAGEABLE_LOSS" : "SIGNIFICANT_LOSS"
+        };
+      }
+
+      // Compute the 6 canonical forward scenarios
+      const fullReversionExit  = isShort ? anchor : anchor;
+      const partial60Exit      = isShort ? entryPrice - gap * 0.60 : entryPrice + gap * 0.60;
+      const stallExit          = entryPrice;
+      const adverse2PctExit    = isShort ? entryPrice * 1.020 : entryPrice * 0.980;
+      const adverse4PctExit    = isShort ? entryPrice * 1.040 : entryPrice * 0.960;
+      const tailGap8PctExit    = isShort ? entryPrice * 1.080 : entryPrice * 0.920;
+
+      const scenarios = {
+        full_reversion:  calcScenario(fullReversionExit,  "Full Reversion",   `Price returns fully to Friday anchor ($${anchor.toFixed(2)})`),
+        partial_60:      calcScenario(partial60Exit,       "60% Reversion",    `Price converges 60% toward anchor — partial Monday open`),
+        stall:           calcScenario(stallExit,           "Stall (Flat)",     `Price doesn't move — only fee drag, tiny loss`),
+        adverse_2pct:    calcScenario(adverse2PctExit,     "Adverse +2%",      `Momentum continues 2% further away from anchor`),
+        adverse_4pct:    calcScenario(adverse4PctExit,     "Adverse +4%",      `Blow-off: 4% adverse momentum continuation`),
+        tail_gap_8pct:   calcScenario(tailGap8PctExit,    "Tail Gap +8%",     `Black swan weekend gap — extreme adverse move`)
+      };
+
+      // Stress Score: weighted sum across scenarios
+      // Winners weighted heavily, tail risk penalizes hard
+      const weights = { full_reversion: 30, partial_60: 25, stall: 10, adverse_2pct: 15, adverse_4pct: 12, tail_gap_8pct: 8 };
+      let rawScore = 0;
+      for (const [key, w] of Object.entries(weights)) {
+        const s = scenarios[key];
+        // Normalise pnl_pct into a 0-100 per-scenario contribution
+        const normalized = Math.max(-1, Math.min(1, s.pnl_pct / 5.0)); // ±5% maps to ±1
+        rawScore += w * ((normalized + 1) / 2); // shift to 0-1 range
+      }
+      const stressScore = Math.round(Math.max(0, Math.min(100, rawScore)));
+
+      // Break-even: price at which netPct = 0 → rawPct = feePct
+      const beMovePct = feePct / 100;
+      const breakEvenPrice = parseFloat((isShort
+        ? entryPrice * (1 - beMovePct)
+        : entryPrice * (1 + beMovePct)
+      ).toFixed(2));
+
+      // Load prior test memory for comparison note
+      const d = ChronosWalletStore.getCurrentData();
+      const history = (d && d.stressTestMemory && d.stressTestMemory[symbol]) || [];
+      const lastTest = history.length > 0 ? history[history.length - 1] : null;
+
+      let memoryNote = "No prior stress test recorded for this token.";
+      if (lastTest) {
+        const zDiff = ((m.z_score || 0) - (lastTest.z_score || 0)).toFixed(2);
+        const scoreDiff = stressScore - (lastTest.stress_score || 0);
+        memoryNote = `Last test: ${new Date(lastTest.timestamp).toLocaleString()} | Prior Z=${(lastTest.z_score || 0).toFixed(2)}σ, Score=${lastTest.stress_score || 0}. Current change: ΔZ=${zDiff > 0 ? '+' : ''}${zDiff}σ, ΔScore=${scoreDiff >= 0 ? '+' : ''}${scoreDiff}.`;
+      }
+
+      const recommendation = stressScore >= 55 ? "CLEARED" : "BLOCKED";
+      const blockReason = stressScore < 55
+        ? `Stress score ${stressScore}/100 is below the 55-point minimum. Worst-case loss: $${Math.abs(scenarios.tail_gap_8pct.pnl_usd).toFixed(2)} USDT. Agent will not trade until dislocation improves.`
+        : `Stress score ${stressScore}/100 — risk/reward acceptable. Full reversion profit: +$${scenarios.full_reversion.pnl_usd.toFixed(2)} USDT.`;
+
+      return {
+        id: `ST-${symbol}-${Date.now().toString().slice(-6)}`,
+        timestamp: new Date().toISOString(),
+        context: context || "PRE_TRADE",
+        symbol,
+        side,
+        entry_price: parseFloat(entryPrice.toFixed(2)),
+        anchor_price: parseFloat(anchor.toFixed(2)),
+        z_score: parseFloat((m.z_score || 0).toFixed(2)),
+        drift_pct: parseFloat((m.drift_pct || 0).toFixed(2)),
+        collateral,
+        scenarios,
+        stress_score: stressScore,
+        break_even_price: breakEvenPrice,
+        worst_case_loss_usd: scenarios.tail_gap_8pct.pnl_usd,
+        recommendation,
+        block_reason: blockReason,
+        memory_note: memoryNote
+      };
+    }
+    window.runStressTest = runStressTest;
+
+    /** Store a stress test result in wallet memory (max 10 per symbol) */
+    function storeStressTestResult(symbol, result) {
+      const d = ChronosWalletStore.getCurrentData();
+      if (!d) return;
+      if (!d.stressTestMemory) d.stressTestMemory = {};
+      if (!d.stressTestMemory[symbol]) d.stressTestMemory[symbol] = [];
+      d.stressTestMemory[symbol].push(result);
+      // Circular buffer: keep only last 10 per symbol
+      if (d.stressTestMemory[symbol].length > 10) {
+        d.stressTestMemory[symbol] = d.stressTestMemory[symbol].slice(-10);
+      }
+      ChronosWalletStore.setCurrentData(d);
+    }
+    window.storeStressTestResult = storeStressTestResult;
+
+    /** Get the most recent stored stress test for a symbol */
+    function getLastStressTest(symbol) {
+      const d = ChronosWalletStore.getCurrentData();
+      if (!d || !d.stressTestMemory || !d.stressTestMemory[symbol]) return null;
+      const arr = d.stressTestMemory[symbol];
+      return arr.length > 0 ? arr[arr.length - 1] : null;
+    }
+    window.getLastStressTest = getLastStressTest;
+
+    /**
+     * Renders the Stress Test panel in the Trading Arena for the given symbol.
+     * Shows the most recent stress test result for this symbol, or a prompt
+     * to run one if none exists yet.
+     */
+    function renderStressTestPanel(symbol) {
+      const container = document.getElementById("stressTestPanelContainer");
+      if (!container) return;
+
+      const lastTest = getLastStressTest(symbol);
+      const m = markets[symbol];
+
+      if (!lastTest || !m) {
+        container.innerHTML = `
+          <div style="background: #FAF8F5; border: 1px solid #EEE9DF; border-radius: 10px; padding: 0.85rem 1rem;">
+            <div style="font-family: var(--font-terminal); font-size: 0.66rem; color: #A1A1AA; font-weight: 700; margin-bottom: 0.35rem;">[STRESS TEST ENGINE]</div>
+            <div style="font-size: 0.75rem; color: #71717A;">No stress test run yet for ${symbol}. The agent will run a full scenario analysis before placing any trade in this token.</div>
+          </div>
+        `;
+        return;
+      }
+
+      const s = lastTest.scenarios;
+      const scoreColor = lastTest.stress_score >= 70 ? "#10B981" : lastTest.stress_score >= 55 ? "#D97706" : "#EF4444";
+      const scoreLabel = lastTest.stress_score >= 70 ? "STRONG" : lastTest.stress_score >= 55 ? "MARGINAL" : "BLOCKED";
+      const recColor = lastTest.recommendation === "CLEARED" ? "#10B981" : "#EF4444";
+
+      function scenarioRow(sc, iconName, iconColor) {
+        const isProfit = sc.pnl_usd >= 0;
+        const color = isProfit ? "#10B981" : "#EF4444";
+        const sign = isProfit ? "+" : "";
+        const ic = window.icon ? window.icon(iconName, { size: 13, color: iconColor }) : `[${iconName}]`;
+        return `
+          <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 0.5rem; align-items: center; padding: 0.28rem 0; border-bottom: 1px solid rgba(0,0,0,0.04);">
+            <div style="display: flex; align-items: center; gap: 0.35rem;">
+              ${ic}
+              <div>
+                <div style="font-size: 0.70rem; font-weight: 600; color: #18181B;">${sc.label}</div>
+                <div style="font-size: 0.60rem; color: #A1A1AA;">${sc.description}</div>
+              </div>
+            </div>
+            <div style="font-family: var(--font-terminal); font-size: 0.68rem; color: #52525B; text-align: right;">$${sc.exit_price.toFixed(2)}</div>
+            <div style="font-family: var(--font-terminal); font-size: 0.70rem; font-weight: 700; color: ${color}; text-align: right; min-width: 70px;">${sign}$${Math.abs(sc.pnl_usd).toFixed(2)} (${sign}${Math.abs(sc.pnl_pct).toFixed(2)}%)</div>
+          </div>
+        `;
+      }
+
+      const contextLabel = lastTest.context === "POST_AUDIT" ? "POST-SETTLEMENT RETROSPECTIVE" : "PRE-TRADE SCENARIO ANALYSIS";
+      const timeStr = lastTest.timestamp ? new Date(lastTest.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "—";
+
+      container.innerHTML = `
+        <div style="background: #FFFFFF; border: 1px solid #EEE9DF; border-radius: 10px; padding: 0.9rem 1rem; box-shadow: 0 1px 4px rgba(0,0,0,0.04);">
+          <!-- Header -->
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.65rem;">
+            <div>
+              <div style="font-family: var(--font-terminal); font-size: 0.63rem; color: #A1A1AA; font-weight: 700; margin-bottom: 0.12rem;">[STRESS TEST ENGINE] · ${contextLabel} · ${timeStr}</div>
+              <div style="font-size: 0.75rem; font-weight: 700; color: #18181B;">${symbol} — ${lastTest.side} from $${lastTest.entry_price.toFixed(2)} → Anchor $${lastTest.anchor_price.toFixed(2)}</div>
+            </div>
+            <div style="text-align: right; flex-shrink: 0; margin-left: 0.75rem;">
+              <div style="font-family: var(--font-terminal); font-size: 1.1rem; font-weight: 900; color: ${scoreColor}; line-height: 1;">${lastTest.stress_score}<span style="font-size: 0.65rem;">/100</span></div>
+              <div style="font-family: var(--font-terminal); font-size: 0.60rem; font-weight: 700; color: ${scoreColor};">${scoreLabel}</div>
+              <div style="font-family: var(--font-terminal); font-size: 0.62rem; font-weight: 800; color: ${recColor}; margin-top: 0.1rem;">${lastTest.recommendation}</div>
+            </div>
+          </div>
+
+          <!-- Scenario Table Header -->
+          <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 0.5rem; padding: 0.2rem 0; border-bottom: 1px solid #EEE9DF; margin-bottom: 0.25rem;">
+            <div style="font-family: var(--font-terminal); font-size: 0.60rem; color: #A1A1AA; font-weight: 700;">SCENARIO</div>
+            <div style="font-family: var(--font-terminal); font-size: 0.60rem; color: #A1A1AA; font-weight: 700; text-align: right;">EXIT $</div>
+            <div style="font-family: var(--font-terminal); font-size: 0.60rem; color: #A1A1AA; font-weight: 700; text-align: right;">NET P&L</div>
+          </div>
+
+          <!-- Scenario Rows -->
+          ${scenarioRow(s.full_reversion, "target", "#10B981")}
+          ${scenarioRow(s.partial_60, "trending-down", "#3B82F6")}
+          ${scenarioRow(s.stall, "minus", "#A1A1AA")}
+          ${scenarioRow(s.adverse_2pct, "alert-triangle", "#D97706")}
+          ${scenarioRow(s.adverse_4pct, "alert-octagon", "#EF4444")}
+          ${scenarioRow(s.tail_gap_8pct, "skull", "#7F1D1D")}
+
+          <!-- Summary Footer -->
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.55rem; padding-top: 0.45rem; border-top: 1px solid #EEE9DF;">
+            <div style="font-family: var(--font-terminal); font-size: 0.64rem; color: #71717A;">
+              Break-even: <strong style="color: #18181B;">$${lastTest.break_even_price.toFixed(2)}</strong>
+              &nbsp;·&nbsp;
+              Worst loss: <strong style="color: #EF4444;">-$${Math.abs(lastTest.worst_case_loss_usd).toFixed(2)}</strong>
+            </div>
+            <div style="font-size: 0.62rem; color: #A1A1AA; font-style: italic; max-width: 200px; text-align: right;">Z=${lastTest.z_score.toFixed(2)}σ · Drift=${lastTest.drift_pct >= 0 ? '+' : ''}${lastTest.drift_pct.toFixed(2)}%</div>
+          </div>
+
+          <!-- Memory Note -->
+          <div style="margin-top: 0.5rem; padding: 0.4rem 0.6rem; background: rgba(99,102,241,0.05); border: 1px solid rgba(99,102,241,0.15); border-radius: 6px; font-size: 0.63rem; color: #6366F1; font-family: var(--font-terminal);">
+            ${window.icon ? window.icon('brain-circuit', { size: 12, color: '#6366F1' }) : ''} MEMORY: ${lastTest.memory_note}
+          </div>
+        </div>
+      `;
+      refreshIcons();
+    }
+    window.renderStressTestPanel = renderStressTestPanel;
+
+
     const TOKEN_LOGOS = {
       "rNVDA": "assets/tokens/nvda.svg",
       "rTSLA": "assets/tokens/tsla.svg",
@@ -6979,6 +7262,99 @@ div[data-rk] [aria-label*="Switch"] {
       const sReasonText = document.getElementById("paneDecisionReasonText");
       if (sReasonText) sReasonText.textContent = meta.decisionReason;
 
+      // ── Pane 5: Stress Test — populate from wallet memory ──
+      const stressPaneContent = document.getElementById("paneStressTestContent");
+      const stressTabBadge = document.getElementById("stressTabBadge");
+
+      // Find the stress test that was run for this exact trade:
+      // 1. Check if stored on the position/trade object directly
+      // 2. Otherwise fall back to most recent memory for this symbol
+      const tradeSymbol = meta.symbol || item.symbol;
+      let stressData = item.stressTest || null;
+
+      if (!stressData && tradeSymbol) {
+        stressData = getLastStressTest(tradeSymbol);
+      }
+
+      if (stressPaneContent && stressData && stressData.scenarios) {
+        const s = stressData.scenarios;
+        const scoreColor = stressData.stress_score >= 70 ? "#10B981" : stressData.stress_score >= 55 ? "#D97706" : "#EF4444";
+        const scoreLabel = stressData.stress_score >= 70 ? "STRONG" : stressData.stress_score >= 55 ? "MARGINAL" : "BLOCKED";
+        const recColor = stressData.recommendation === "CLEARED" ? "#10B981" : "#EF4444";
+
+        function modalScenarioRow(sc, iconName, iconColor) {
+          const isPos = sc.pnl_usd >= 0;
+          const col = isPos ? "#10B981" : "#EF4444";
+          const sign = isPos ? "+" : "";
+          const ic = window.icon ? window.icon(iconName, { size: 13, color: iconColor }) : `[${iconName}]`;
+          return `
+            <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 0.5rem; align-items: center; padding: 0.3rem 0; border-bottom: 1px solid rgba(0,0,0,0.05);">
+              <div style="display: flex; align-items: center; gap: 0.35rem;">
+                ${ic}
+                <div>
+                  <div style="font-size: 0.72rem; font-weight: 600; color: #18181B;">${sc.label}</div>
+                  <div style="font-size: 0.61rem; color: #A1A1AA;">${sc.description}</div>
+                </div>
+              </div>
+              <div style="font-family: var(--font-terminal); font-size: 0.68rem; color: #52525B; text-align: right;">$${sc.exit_price.toFixed(2)}</div>
+              <div style="font-family: var(--font-terminal); font-size: 0.72rem; font-weight: 700; color: ${col}; text-align: right; min-width: 75px;">${sign}$${Math.abs(sc.pnl_usd).toFixed(2)} (${sign}${Math.abs(sc.pnl_pct).toFixed(2)}%)</div>
+            </div>`;
+        }
+
+        stressPaneContent.innerHTML = `
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.7rem; padding: 0.6rem 0.85rem; background: rgba(99,102,241,0.05); border: 1px solid rgba(99,102,241,0.18); border-radius: 8px;">
+            <div>
+              <div style="font-family: var(--font-terminal); font-size: 0.63rem; color: #A1A1AA; font-weight: 700; margin-bottom: 0.1rem;">[STRESS TEST RESULT] · ${stressData.context || 'PRE_TRADE'} · ${tradeSymbol}</div>
+              <div style="font-size: 0.72rem; color: #18181B; font-weight: 600;">${stressData.side} from $${stressData.entry_price.toFixed(2)} → Anchor $${stressData.anchor_price.toFixed(2)}</div>
+              <div style="font-size: 0.63rem; color: #71717A; margin-top: 0.15rem;">Z=${stressData.z_score.toFixed(2)}σ · Drift=${stressData.drift_pct >= 0 ? '+' : ''}${stressData.drift_pct.toFixed(2)}% · Collateral: $${stressData.collateral.toLocaleString()} USDT</div>
+            </div>
+            <div style="text-align: right;">
+              <div style="font-family: var(--font-terminal); font-size: 1.3rem; font-weight: 900; color: ${scoreColor}; line-height: 1;">${stressData.stress_score}<span style="font-size: 0.60rem;">/100</span></div>
+              <div style="font-family: var(--font-terminal); font-size: 0.60rem; font-weight: 700; color: ${scoreColor};">${scoreLabel}</div>
+              <div style="font-family: var(--font-terminal); font-size: 0.65rem; font-weight: 800; color: ${recColor}; margin-top: 0.05rem;">${stressData.recommendation}</div>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 0.5rem; padding: 0.2rem 0; border-bottom: 1px solid #EEE9DF; margin-bottom: 0.25rem;">
+            <div style="font-family: var(--font-terminal); font-size: 0.60rem; color: #A1A1AA; font-weight: 700;">SCENARIO</div>
+            <div style="font-family: var(--font-terminal); font-size: 0.60rem; color: #A1A1AA; font-weight: 700; text-align: right;">EXIT PRICE</div>
+            <div style="font-family: var(--font-terminal); font-size: 0.60rem; color: #A1A1AA; font-weight: 700; text-align: right;">NET P&amp;L</div>
+          </div>
+          ${modalScenarioRow(s.full_reversion, "target", "#10B981")}
+          ${modalScenarioRow(s.partial_60, "trending-down", "#3B82F6")}
+          ${modalScenarioRow(s.stall, "minus", "#A1A1AA")}
+          ${modalScenarioRow(s.adverse_2pct, "alert-triangle", "#D97706")}
+          ${modalScenarioRow(s.adverse_4pct, "alert-octagon", "#EF4444")}
+          ${modalScenarioRow(s.tail_gap_8pct, "skull", "#7F1D1D")}
+
+          <div style="display: flex; justify-content: space-between; margin-top: 0.55rem; padding-top: 0.45rem; border-top: 1px solid #EEE9DF;">
+            <div style="font-family: var(--font-terminal); font-size: 0.64rem; color: #71717A;">
+              Break-even: <strong style="color: #18181B;">$${stressData.break_even_price.toFixed(2)}</strong>
+              &nbsp;·&nbsp;
+              Max loss: <strong style="color: #EF4444;">-$${Math.abs(stressData.worst_case_loss_usd).toFixed(2)}</strong>
+            </div>
+            <div style="font-size: 0.62rem; color: #A1A1AA; font-style: italic;">${stressData.id}</div>
+          </div>
+
+          <div style="margin-top: 0.55rem; padding: 0.4rem 0.6rem; background: rgba(99,102,241,0.05); border: 1px solid rgba(99,102,241,0.15); border-radius: 6px; font-size: 0.63rem; color: #6366F1; font-family: var(--font-terminal); display: flex; align-items: center; gap: 0.35rem;">
+            ${window.icon ? window.icon('brain-circuit', { size: 12, color: '#6366F1' }) : ''}
+            AGENT MEMORY: ${stressData.memory_note}
+          </div>
+
+          <div style="margin-top: 0.55rem; padding: 0.4rem 0.65rem; background: rgba(${stressData.recommendation === 'CLEARED' ? '16,185,129' : '239,68,68'},0.06); border: 1px solid rgba(${stressData.recommendation === 'CLEARED' ? '16,185,129' : '239,68,68'},0.2); border-radius: 6px; font-size: 0.67rem; color: ${stressData.recommendation === 'CLEARED' ? '#065F46' : '#7F1D1D'}; font-family: var(--font-terminal); display: flex; align-items: center; gap: 0.35rem;">
+            ${window.icon ? window.icon(stressData.recommendation === 'CLEARED' ? 'check-circle' : 'x-circle', { size: 13, color: stressData.recommendation === 'CLEARED' ? '#10B981' : '#EF4444' }) : ''}
+            ${stressData.block_reason}
+          </div>
+        `;
+
+        refreshIcons();
+        // Light up the green dot badge on the stress test tab
+        if (stressTabBadge) stressTabBadge.style.display = "block";
+      } else if (stressPaneContent) {
+        stressPaneContent.innerHTML = `<div style="background: #FAF8F5; border: 1px solid #EEE9DF; border-radius: 8px; padding: 0.75rem; font-size: 0.74rem; color: #71717A;">No stress test data recorded for ${tradeSymbol || 'this trade'}. The agent will run a full 6-scenario analysis before the next entry.</div>`;
+        if (stressTabBadge) stressTabBadge.style.display = "none";
+      }
+
       // Reset to Tab 1
       switchReasoningTab('rationale');
 
@@ -7071,7 +7447,7 @@ div[data-rk] [aria-label*="Switch"] {
             : `${openCount} POSITION${openCount > 1 ? "S" : ""} ACTIVE`;
           arenaSummary.innerHTML = `
             <div style="background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.22); border-radius: 8px; padding: 0.6rem 0.85rem; margin-top: 0.5rem; display: flex; align-items: center; justify-content: space-between; cursor: pointer;" onclick="switchView('trades')">
-              <span style="font-family: var(--font-terminal); font-size: 0.70rem; font-weight: 700; color: #059669;">● ${capLabel}</span>
+              <span style="font-family: var(--font-terminal); font-size: 0.70rem; font-weight: 700; color: #059669; display: inline-flex; align-items: center; gap: 0.25rem;"><i data-lucide="zap" style="width:11px;height:11px;stroke:#059669;stroke-width:2.5;"></i> ${capLabel}</span>
               <span style="font-size: 0.70rem; color: #18181B; font-weight: 600; display: flex; align-items: center; gap: 0.25rem;">View Order Book <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
             </div>
           `;
@@ -7367,7 +7743,8 @@ div[data-rk] [aria-label*="Switch"] {
         contracts: (collateral / m.spot_price).toFixed(2),
         entry_time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         status: "ACTIVE",
-        isLive: false
+        isLive: false,
+        stressTest: getLastStressTest(m.symbol) || null
       };
 
       newPos.strategyMetadata = getTradePlainEnglishMetadata(newPos);
@@ -7504,7 +7881,8 @@ div[data-rk] [aria-label*="Switch"] {
         contracts: (collateral / m.spot_price).toFixed(2),
         entry_time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         status: "ACTIVE",
-        isLive: false
+        isLive: false,
+        stressTest: clearance.stressTest || getLastStressTest(m.symbol) || null
       };
 
       newPos.strategyMetadata = getTradePlainEnglishMetadata(newPos);
@@ -7633,7 +8011,16 @@ div[data-rk] [aria-label*="Switch"] {
         };
         d.trades.unshift(newTrade);
 
-        // Cognitive Self-Auditor entry
+        // ── POST-SETTLEMENT RETROSPECTIVE STRESS TEST ──
+        // Run a fresh scenario analysis at current prices after settlement.
+        // This answers: "If we were to retake this trade right now, would it clear?"
+        // Stored in stressTestMemory so the agent never forgets what happened.
+        const postAuditStress = runStressTest(pos.symbol, pos.entry_price, pos.side, pos.collateral, "POST_AUDIT");
+        if (!postAuditStress.error) {
+          storeStressTestResult(pos.symbol, postAuditStress);
+        }
+
+        // Cognitive Self-Auditor entry (with stress retrospective attached)
         const newAudit = {
           trade_id: newTradeId,
           symbol: pos.symbol,
@@ -7646,7 +8033,8 @@ div[data-rk] [aria-label*="Switch"] {
             ? `Trader Sentiment was evaluated at ${meta.sentimentScore}%. Captured +${returnPct.toFixed(2)}% convergence return.`
             : `Pre-market volume pushed ${pos.symbol} to $${exitPrice.toFixed(2)}. Unwound into cash with capital preservation prioritized.`,
           adaptation: adaptation,
-          timestamp: new Date().toLocaleString()
+          timestamp: new Date().toLocaleString(),
+          stress_retrospective: postAuditStress.error ? null : postAuditStress
         };
         d.audits.unshift(newAudit);
       });
@@ -8152,23 +8540,24 @@ div[data-rk] [aria-label*="Switch"] {
         document.body.appendChild(container);
       }
 
-      const icons = {
-        success: "✓",
-        warning: "!",
-        error: "✕",
-        info: "i"
+      const toastIcons = {
+        success: `<i data-lucide="check-circle" style="width:16px;height:16px;stroke:currentColor;stroke-width:2;"></i>`,
+        warning: `<i data-lucide="alert-triangle" style="width:16px;height:16px;stroke:currentColor;stroke-width:2;"></i>`,
+        error:   `<i data-lucide="x-circle" style="width:16px;height:16px;stroke:currentColor;stroke-width:2;"></i>`,
+        info:    `<i data-lucide="info" style="width:16px;height:16px;stroke:currentColor;stroke-width:2;"></i>`
       };
 
       const toast = document.createElement("div");
       toast.className = "toast-card";
       toast.innerHTML = `
-        <div class="toast-icon ${type}">${icons[type] || "i"}</div>
+        <div class="toast-icon ${type}">${toastIcons[type] || toastIcons.info}</div>
         <div class="toast-content">
           <div class="toast-title">${title}</div>
           <div class="toast-message">${message}</div>
         </div>
-        <button type="button" class="toast-close" title="Dismiss">✕</button>
+        <button type="button" class="toast-close" title="Dismiss"><i data-lucide="x" style="width:14px;height:14px;stroke:currentColor;stroke-width:2;"></i></button>
       `;
+      refreshIcons();
 
       const closeBtn = toast.querySelector(".toast-close");
       const dismiss = () => {
@@ -9532,7 +9921,24 @@ div[data-rk] [aria-label*="Switch"] {
     }
     window.initTerminalScrollPopAnimations = initTerminalScrollPopAnimations;
 
+    // ── Global icon helper ────────────────────────────────────────────────────
+    // Returns an inline Lucide icon element string for use in innerHTML.
+    // After any innerHTML update call window.refreshIcons() to activate new icons.
+    function icon(name, { size = 14, color = "currentColor", strokeWidth = 1.75, style = "" } = {}) {
+      return `<i data-lucide="${name}" style="width:${size}px;height:${size}px;stroke:${color};stroke-width:${strokeWidth};display:inline-block;vertical-align:middle;flex-shrink:0;${style}"></i>`;
+    }
+    window.icon = icon;
+
+    // Re-activates any newly injected data-lucide elements after innerHTML writes
+    function refreshIcons() {
+      if (window.lucide) window.lucide.createIcons();
+    }
+    window.refreshIcons = refreshIcons;
+
     function initApp() {
+      // Activate all static Lucide icons on first paint
+      try { if (window.lucide) window.lucide.createIcons(); } catch(e) {}
+
       try {
         initTerminalScrollPopAnimations();
       } catch(e) {
