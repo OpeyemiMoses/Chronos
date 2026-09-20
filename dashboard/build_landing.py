@@ -1300,10 +1300,6 @@ html_content = f"""<!DOCTYPE html>
   <section class="landing-hero-container container" id="hero">
     <div class="hero-pop" style="max-width: 880px; margin: 0 auto; text-align: center;">
 
-      <div class="anim-fade-up anim-delay-1" style="display: inline-flex; align-items: center; gap: 0.45rem; margin-bottom: 0.85rem; font-family: var(--font-terminal); font-size: 0.68rem; color: #10B981; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;">
-        <span class="pulse-dot" style="width: 6px; height: 6px; background-color: #10B981; display: inline-block;"></span>
-        <span>Track 1: Alpha Factory · After-Hours Information Pricing</span>
-      </div>
       <h1 class="hero-h1 anim-fade-up anim-delay-2" style="font-size: clamp(1.85rem, 3.2vw, 2.45rem); line-height: 1.15; max-width: 780px; margin: 0 auto 0.85rem;">
         Autonomous After-Hours<br>
         <em>Information Pricing</em> &<br>
