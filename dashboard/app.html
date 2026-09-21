@@ -5386,7 +5386,7 @@ div[data-rk] [aria-label*="Switch"] {
               Connect your Bitget account via non-custodial HMAC-SHA256 credentials. Read and trade permissions only.
             </p>
 
-            <div style="background: #FAF8F5; border: 1px dashed #E2D9CC; border-radius: 8px; padding: 0.75rem 0.95rem; margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.65rem;">
+            <div id="bitgetLiveAuditNote" style="display: none; background: #FAF8F5; border: 1px dashed #E2D9CC; border-radius: 8px; padding: 0.75rem 0.95rem; margin-bottom: 1rem; align-items: flex-start; gap: 0.65rem;">
               <div style="color: #D97706; margin-top: 1px; flex-shrink: 0;">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
               </div>
@@ -5404,8 +5404,19 @@ div[data-rk] [aria-label*="Switch"] {
               </select>
             </div>
 
-            <!-- Bitget Credential Inputs (Locked / Coming Soon) -->
-            <div id="bitgetInputsContainer" style="display: flex; flex-direction: column; gap: 1rem; transition: all 0.25s ease; cursor: not-allowed;" onclick="showLiveComingSoonModal()">
+            <!-- Active Paper Vault Status (Visible in Paper Mode) -->
+            <div id="paperModeStatusBox" style="background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 8px; padding: 0.85rem 1rem; margin-top: 0.75rem; display: flex; align-items: flex-start; gap: 0.75rem;">
+              <div style="color: #059669; margin-top: 2px; flex-shrink: 0;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <div style="font-size: 0.82rem; color: #374151; line-height: 1.45;">
+                <strong style="color: #065F46; font-family: var(--font-terminal); font-size: 0.85rem;">INTERNAL VAULT SANDBOX ACTIVE</strong><br>
+                Running in non-custodial paper mode with isolated balance. Live Bitget price feeds and AI reasoning operate seamlessly without requiring exchange API credentials.
+              </div>
+            </div>
+
+            <!-- Bitget Credential Inputs (Hidden in Paper Mode / Locked) -->
+            <div id="bitgetInputsContainer" style="display: none; flex-direction: column; gap: 1rem; transition: all 0.25s ease; cursor: not-allowed;" onclick="showLiveComingSoonModal()">
               <div class="form-group">
                 <label class="form-label">Bitget API Key <span style="font-size: 0.7rem; color: #D97706; font-weight: 600;">(Locked — Coming Soon)</span></label>
                 <input type="text" id="settingsApiKey" class="form-input" placeholder="bg_live_quant_key_******** (Feature Locked)" disabled style="opacity: 0.55; cursor: not-allowed; background: #F3F4F6; pointer-events: none;">
@@ -10280,16 +10291,25 @@ div[data-rk] [aria-label*="Switch"] {
     // Settings Mode Switcher: Internal Vault vs Live Bitget UTA v3 (Locked to Sandbox Vault)
     function handleEnvModeChange(env) {
       const selectEl = document.getElementById("settingsEnvSelect");
+      const inputsContainer = document.getElementById("bitgetInputsContainer");
+      const paperBanner = document.getElementById("paperModeStatusBox");
+      const auditNote = document.getElementById("bitgetLiveAuditNote");
 
       if (env === "live") {
         if (selectEl) selectEl.value = "paper";
         activeTradingEnv = "paper";
+        if (inputsContainer) inputsContainer.style.display = "none";
+        if (auditNote) auditNote.style.display = "none";
+        if (paperBanner) paperBanner.style.display = "flex";
         showLiveComingSoonModal();
         return;
       }
 
       if (selectEl && selectEl.value !== "paper") selectEl.value = "paper";
       activeTradingEnv = "paper";
+      if (inputsContainer) inputsContainer.style.display = "none";
+      if (auditNote) auditNote.style.display = "none";
+      if (paperBanner) paperBanner.style.display = "flex";
 
       const apiKeyInput = document.getElementById("settingsApiKey");
       const apiSecretInput = document.getElementById("settingsApiSecret");
