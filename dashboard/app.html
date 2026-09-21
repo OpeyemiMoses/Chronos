@@ -4495,8 +4495,9 @@ div[data-rk] [aria-label*="Switch"] {
           </div>
         </div>
 
-        <button class="btn-ghost-switch-live" onclick="switchView('settings'); handleEnvModeChange('live');">
-          <span>Switch to Live Bitget</span>
+        <button class="btn-ghost-switch-live" onclick="showLiveComingSoonModal();" title="Live Bitget Gateway (Coming Soon)">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 3px; vertical-align: -1px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span>Live Bitget (Coming Soon)</span>
         </button>
       </div>
     </aside>
@@ -5370,55 +5371,67 @@ div[data-rk] [aria-label*="Switch"] {
         </p>
 
         <div class="settings-grid">
-          <!-- Card 1: Bitget Gateway Configuration -->
+          <!-- Card 1: Bitget Gateway Configuration (Locked / Coming Soon) -->
           <div class="settings-card">
-            <div class="settings-card-title">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-              <span>Bitget Exchange Gateway</span>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem;">
+              <div class="settings-card-title" style="margin-bottom: 0;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <span>Bitget Exchange Gateway</span>
+              </div>
+              <span class="badge-pill-light" style="background: rgba(245, 158, 11, 0.12); color: #B45309; border: 1px solid rgba(245, 158, 11, 0.28); font-family: var(--font-terminal); font-size: 0.68rem; font-weight: 700; padding: 0.2rem 0.65rem; border-radius: 9999px; text-transform: uppercase;">
+                🔒 Coming Soon
+              </span>
             </div>
-            <p style="font-size: 0.85rem; color: var(--color-grey-text); line-height: 1.5;">
+            <p style="font-size: 0.85rem; color: var(--color-grey-text); line-height: 1.5; margin-bottom: 0.75rem;">
               Connect your Bitget account via non-custodial HMAC-SHA256 credentials. Read and trade permissions only.
             </p>
+
+            <div style="background: #FAF8F5; border: 1px dashed #E2D9CC; border-radius: 8px; padding: 0.75rem 0.95rem; margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.65rem;">
+              <div style="color: #D97706; margin-top: 1px; flex-shrink: 0;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              </div>
+              <div style="font-size: 0.78rem; color: #52525B; line-height: 1.45;">
+                <strong style="color: #18181B;">Live Bitget API Key Linking Locked</strong><br>
+                Direct HMAC-SHA256 order routing to live Bitget exchange accounts is undergoing institutional security audits. All live telemetry and order execution are active in the <strong>Internal Vault Sandbox</strong>.
+              </div>
+            </div>
 
             <div class="form-group">
               <label class="form-label">Execution Environment</label>
               <select id="settingsEnvSelect" class="form-input" onchange="handleEnvModeChange(this.value)">
                 <option value="paper" selected>Internal Vault Execution (Non-Custodial Direct)</option>
-                <option value="live">Live Bitget UTA v3 Account (Real Capital)</option>
+                <option value="live" style="color: #9CA3AF;">Live Bitget UTA v3 Account (Real Capital) — Coming Soon</option>
               </select>
             </div>
 
-            <!-- Bitget Credential Inputs (Locked in Internal Vault Mode) -->
-            <div id="bitgetInputsContainer" style="display: flex; flex-direction: column; gap: 1rem; transition: all 0.25s ease;">
+            <!-- Bitget Credential Inputs (Locked / Coming Soon) -->
+            <div id="bitgetInputsContainer" style="display: flex; flex-direction: column; gap: 1rem; transition: all 0.25s ease; cursor: not-allowed;" onclick="showLiveComingSoonModal()">
               <div class="form-group">
-                <label class="form-label">Bitget API Key</label>
-                <input type="text" id="settingsApiKey" class="form-input" placeholder="bg_live_quant_key_********" disabled style="opacity: 0.45; cursor: not-allowed; background: #F3F4F6; pointer-events: none;">
+                <label class="form-label">Bitget API Key <span style="font-size: 0.7rem; color: #D97706; font-weight: 600;">(Locked — Coming Soon)</span></label>
+                <input type="text" id="settingsApiKey" class="form-input" placeholder="bg_live_quant_key_******** (Feature Locked)" disabled style="opacity: 0.55; cursor: not-allowed; background: #F3F4F6; pointer-events: none;">
               </div>
 
               <div class="form-group">
-                <label class="form-label">Bitget API Secret</label>
-                <input type="password" id="settingsApiSecret" class="form-input" placeholder="••••••••••••••••" disabled style="opacity: 0.45; cursor: not-allowed; background: #F3F4F6; pointer-events: none;">
+                <label class="form-label">Bitget API Secret <span style="font-size: 0.7rem; color: #D97706; font-weight: 600;">(Locked — Coming Soon)</span></label>
+                <input type="password" id="settingsApiSecret" class="form-input" placeholder="••••••••••••••••" disabled style="opacity: 0.55; cursor: not-allowed; background: #F3F4F6; pointer-events: none;">
               </div>
 
               <div class="form-group">
-                <label class="form-label">Bitget Passphrase</label>
-                <input type="password" id="settingsPassphrase" class="form-input" placeholder="••••••••" disabled style="opacity: 0.45; cursor: not-allowed; background: #F3F4F6; pointer-events: none;">
+                <label class="form-label">Bitget Passphrase <span style="font-size: 0.7rem; color: #D97706; font-weight: 600;">(Locked — Coming Soon)</span></label>
+                <input type="password" id="settingsPassphrase" class="form-input" placeholder="••••••••" disabled style="opacity: 0.55; cursor: not-allowed; background: #F3F4F6; pointer-events: none;">
               </div>
 
               <div style="background: var(--color-canvas-subtle); border-radius: 6px; padding: 0.75rem 1rem; font-size: 0.78rem; display: flex; justify-content: space-between; align-items: center;">
                 <span>Gateway Endpoint:</span>
-                <strong style="color: var(--color-green); font-family: var(--font-terminal);" id="settingsGatewayPing">api.bitget.com (UTA v3 Direct)</strong>
+                <strong style="color: var(--color-grey-muted); font-family: var(--font-terminal);" id="settingsGatewayPing">api.bitget.com (Live Gateway Locked)</strong>
               </div>
 
               <div style="display: flex; gap: 0.65rem; flex-wrap: wrap;">
                 <button id="btnSaveBitget" class="btn-execute-big" style="flex: 1; padding: 0.65rem; opacity: 0.45; cursor: not-allowed; pointer-events: none;" onclick="saveBitgetSettings()" disabled>
-                  <span>Save Gateway Configuration</span>
+                  <span>Save Gateway Configuration (Coming Soon)</span>
                 </button>
                 <button id="btnTestBitget" class="preset-chip" style="padding: 0.65rem 1rem; font-weight: 700; opacity: 0.45; cursor: not-allowed; pointer-events: none;" onclick="testBitgetConnection()" disabled>
                   <span>Test Connection</span>
-                </button>
-                <button id="btnClearBitget" class="preset-chip" style="padding: 0.65rem 1rem; font-weight: 700; color: var(--color-red); display: none;" onclick="clearBitgetCredentials()">
-                  <span>Clear Keys</span>
                 </button>
               </div>
             </div>
@@ -5863,6 +5876,79 @@ div[data-rk] [aria-label*="Switch"] {
         </div>
         <button type="button" class="btn-execute-big" style="width: auto; padding: 0.5rem 1.45rem; font-size: 0.82rem; background: #0F172A; color: #FFFFFF; font-weight: 700; border-radius: 8px; border: 1px solid #0F172A;" onclick="closeTradeReasoningModal()">
           <span>Done / Close Window</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Live Bitget Account Linking Locked / Coming Soon Modal -->
+  <div id="liveComingSoonModal" class="trade-reasoning-overlay" onclick="handleComingSoonBackdropClick(event)">
+    <div class="trade-reasoning-card" style="max-width: 560px; padding: 0;" onclick="event.stopPropagation()">
+      <!-- Top Bar Header -->
+      <div class="trade-reasoning-header" style="padding: 1.25rem 1.5rem; border-bottom: 1px solid #EEE9DF; background: #FAF8F5;">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <div style="width: 38px; height: 38px; border-radius: 10px; background: rgba(245, 158, 11, 0.14); border: 1px solid rgba(245, 158, 11, 0.35); display: flex; align-items: center; justify-content: center; color: #D97706; flex-shrink: 0;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <div>
+            <div class="trade-reasoning-tag" style="color: #D97706; font-weight: 700; font-size: 0.65rem;">[LIVE GATEWAY // LOCKED]</div>
+            <h2 class="trade-reasoning-title" style="font-size: 1.25rem; margin-top: 0.1rem;">Live Bitget Linking — Coming Soon</h2>
+            <div class="trade-reasoning-subtitle" style="font-size: 0.72rem; color: #71717A;">Feature Locked · Institutional Security Audit Phase</div>
+          </div>
+        </div>
+        <button class="trade-reasoning-close" onclick="closeLiveComingSoonModal()" aria-label="Close modal">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div style="padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
+        <div style="background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.25); border-radius: 10px; padding: 0.85rem 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
+          <div style="color: #D97706; margin-top: 1px; flex-shrink: 0;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <div style="font-size: 0.80rem; color: #78350F; line-height: 1.45;">
+            <strong>Live Capital Trading is Temporarily Locked:</strong><br>
+            Direct HMAC-SHA256 API key integration for live exchange execution on Bitget UTA v3 is currently restricted to private testing and institutional smart contract audits.
+          </div>
+        </div>
+
+        <p style="font-size: 0.82rem; color: #52525B; line-height: 1.55; margin: 0;">
+          To protect user funds during the evaluation phase, live account linking has been locked. However, <strong>100% of Chronos features remain fully interactive</strong> in the non-custodial Sandbox Vault:
+        </p>
+
+        <!-- Feature Status Matrix -->
+        <div style="border: 1px solid #EEE9DF; border-radius: 10px; overflow: hidden; font-family: var(--font-terminal); font-size: 0.74rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.65rem 0.85rem; background: #FAF8F5; border-bottom: 1px solid #EEE9DF;">
+            <span style="font-weight: 700; color: #18181B;">Sandbox Vault Simulation</span>
+            <span style="display: inline-flex; align-items: center; gap: 0.35rem; color: #10B981; font-weight: 700;">
+              <span style="width: 6px; height: 6px; border-radius: 50%; background: #10B981;"></span>
+              ACTIVE NOW
+            </span>
+          </div>
+          <div style="padding: 0.65rem 0.85rem; color: #71717A; line-height: 1.4; border-bottom: 1px solid #EEE9DF; background: #FFFFFF;">
+            Streams real-time 24/7 Bitget futures pricing, computes mathematical anchor drift, executes simulated weekend positions, and logs full PnL analytics with zero capital risk.
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.65rem 0.85rem; background: #FAF8F5; border-bottom: 1px solid #EEE9DF;">
+            <span style="font-weight: 700; color: #71717A;">Live Bitget API Key Execution</span>
+            <span style="display: inline-flex; align-items: center; gap: 0.35rem; color: #D97706; font-weight: 700;">
+              <span style="width: 6px; height: 6px; border-radius: 50%; background: #F59E0B;"></span>
+              COMING SOON
+            </span>
+          </div>
+          <div style="padding: 0.65rem 0.85rem; color: #A1A1AA; line-height: 1.4; background: #FFFFFF;">
+            Direct order placement into Bitget exchange accounts with user-held API keys will be released in an upcoming update following institutional security audits.
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="trade-reasoning-footer" style="padding: 1rem 1.5rem; border-top: 1px solid #EEE9DF; background: #FAF8F5; display: flex; justify-content: space-between; align-items: center;">
+        <span style="font-family: var(--font-terminal); font-size: 0.70rem; color: #71717A;">
+          Current Mode: <strong style="color: #10B981;">Sandbox Vault ($50k Default)</strong>
+        </span>
+        <button type="button" class="btn-execute-big" style="width: auto; padding: 0.5rem 1.45rem; font-size: 0.80rem; background: #18181B; color: #FFFFFF; font-weight: 700; border-radius: 8px; border: 1px solid #18181B;" onclick="closeLiveComingSoonModal()">
+          <span>Continue in Sandbox Vault</span>
         </button>
       </div>
     </div>
@@ -8053,8 +8139,33 @@ div[data-rk] [aria-label*="Switch"] {
       }
     }
 
+    function showLiveComingSoonModal() {
+      const modal = document.getElementById("liveComingSoonModal");
+      if (modal) modal.classList.add("open");
+      showToast(
+        "Feature Locked",
+        "Live Bitget account linking is coming soon. Please trade in the Sandbox Vault.",
+        "warning",
+        5000
+      );
+    }
+
+    function closeLiveComingSoonModal() {
+      const modal = document.getElementById("liveComingSoonModal");
+      if (modal) modal.classList.remove("open");
+    }
+
+    function handleComingSoonBackdropClick(event) {
+      if (event.target.id === "liveComingSoonModal") {
+        closeLiveComingSoonModal();
+      }
+    }
+
     document.addEventListener("keydown", function(e) {
-      if (e.key === "Escape") closeTradeReasoningModal();
+      if (e.key === "Escape") {
+        closeTradeReasoningModal();
+        closeLiveComingSoonModal();
+      }
     });
 
 
@@ -10166,10 +10277,19 @@ div[data-rk] [aria-label*="Switch"] {
       showToast("History Cleared", "Cleared trade ledger history for this wallet.", "info");
     }
 
-    // Settings Mode Switcher: Internal Vault vs Live Bitget UTA v3
+    // Settings Mode Switcher: Internal Vault vs Live Bitget UTA v3 (Locked to Sandbox Vault)
     function handleEnvModeChange(env) {
       const selectEl = document.getElementById("settingsEnvSelect");
-      if (selectEl && selectEl.value !== env) selectEl.value = env;
+
+      if (env === "live") {
+        if (selectEl) selectEl.value = "paper";
+        activeTradingEnv = "paper";
+        showLiveComingSoonModal();
+        return;
+      }
+
+      if (selectEl && selectEl.value !== "paper") selectEl.value = "paper";
+      activeTradingEnv = "paper";
 
       const apiKeyInput = document.getElementById("settingsApiKey");
       const apiSecretInput = document.getElementById("settingsApiSecret");
@@ -10177,133 +10297,47 @@ div[data-rk] [aria-label*="Switch"] {
       const btnSave = document.getElementById("btnSaveBitget");
       const btnTest = document.getElementById("btnTestBitget");
 
-      if (env === "live") {
-        // 1. UNLOCK BITGET INPUTS
-        [apiKeyInput, apiSecretInput, passphraseInput].forEach(inp => {
-          if (!inp) return;
-          inp.disabled = false;
-          inp.style.opacity = "1";
-          inp.style.cursor = "text";
-          inp.style.background = "#FFFFFF";
-          inp.style.pointerEvents = "auto";
-        });
-        [btnSave, btnTest].forEach(btn => {
-          if (!btn) return;
-          btn.disabled = false;
-          btn.style.opacity = "1";
-          btn.style.cursor = "pointer";
-          btn.style.pointerEvents = "auto";
-        });
-        const btnClear = document.getElementById("btnClearBitget");
-        if (btnClear) btnClear.style.display = "inline-flex";
+      // Keep inputs safely locked
+      [apiKeyInput, apiSecretInput, passphraseInput].forEach(inp => {
+        if (!inp) return;
+        inp.disabled = true;
+        inp.style.opacity = "0.45";
+        inp.style.cursor = "not-allowed";
+        inp.style.background = "#F3F4F6";
+        inp.style.pointerEvents = "none";
+      });
+      [btnSave, btnTest].forEach(btn => {
+        if (!btn) return;
+        btn.disabled = true;
+        btn.style.opacity = "0.45";
+        btn.style.cursor = "not-allowed";
+        btn.style.pointerEvents = "none";
+      });
+      const btnClear = document.getElementById("btnClearBitget");
+      if (btnClear) btnClear.style.display = "none";
 
-        // Pre-fill credentials from wallet store ONLY if saved and valid
-        const d = ChronosWalletStore.getCurrentData();
-        const savedGw = d && d.gateway ? d.gateway : null;
-        const hasSavedLiveKey = !!(savedGw && savedGw.mode === "live" && savedGw.apiKey && savedGw.apiKey.length < 50);
-        if (apiKeyInput) {
-          apiKeyInput.value = hasSavedLiveKey ? savedGw.apiKey : "";
+      activeTradingEnv = "paper";
+
+      // RESTORE PAPER STATE
+      const d = ChronosWalletStore.getCurrentData();
+      if (d) {
+        if (d.openPositions && d.openPositions === d.liveOpenPositions) {
+          d.liveOpenPositions = d.openPositions.slice();
         }
-        if (apiSecretInput) {
-          apiSecretInput.value = hasSavedLiveKey ? (savedGw.apiSecret || "") : "";
+        if (d.trades && d.trades === d.liveTrades) {
+          d.liveTrades = d.trades.slice();
         }
-        if (passphraseInput) {
-          passphraseInput.value = hasSavedLiveKey ? (savedGw.passphrase || "") : "";
-        }
-
-        // 2. PAUSE AUTOPILOT
-        activeTradingEnv = "live";
-        if (autoPilotActive) {
-          autoPilotActive = false;
-          updateAutoPilotUI(false);
-          if (autoPilotTimer) clearInterval(autoPilotTimer);
-          if (countdownInterval) clearInterval(countdownInterval);
-        }
-
-        // 3. PRESERVE PAPER STATE & SWITCH TO LIVE STATE (NEVER WIPE PAPER DATA!)
-        if (d) {
-          if (d.openPositions && d.openPositions !== d.liveOpenPositions) {
-            d.paperOpenPositions = d.openPositions.slice();
-          }
-          if (d.trades && d.trades !== d.liveTrades) {
-            d.paperTrades = d.trades.slice();
-          }
-          d.liveOpenPositions = d.liveOpenPositions || [];
-          d.liveTrades = d.liveTrades || [];
-          d.openPositions = d.liveOpenPositions;
-          d.trades = d.liveTrades;
-          ChronosWalletStore.saveData(ChronosWalletStore.currentAddress, d);
-          renderActivePositions();
-          renderOverviewDynamic(d);
-          ChronosWalletStore.syncActiveView();
-        }
-
-        // 4. LOAD UP BITGET ACCOUNT VIEW
-        loadBitgetAccount();
-
-        // 5. BROADCAST TOAST
-        if (!isLiveTradingReady()) {
-          showToast(
-            "Switched to Live Bitget UTA v3",
-            "Please configure and save your Bitget API Key, Secret, and Passphrase below to start live trading.",
-            "warning"
-          );
-        } else {
-          showToast(
-            "Switched to Live Bitget UTA v3",
-            "Vault state synchronized. Active Bitget credentials loaded.",
-            "success"
-          );
-        }
-      } else {
-        // INTERNAL VAULT MODE: LOCK BITGET INPUTS
-        [apiKeyInput, apiSecretInput, passphraseInput].forEach(inp => {
-          if (!inp) return;
-          inp.disabled = true;
-          inp.style.opacity = "0.45";
-          inp.style.cursor = "not-allowed";
-          inp.style.background = "#F3F4F6";
-          inp.style.pointerEvents = "none";
-        });
-        [btnSave, btnTest].forEach(btn => {
-          if (!btn) return;
-          btn.disabled = true;
-          btn.style.opacity = "0.45";
-          btn.style.cursor = "not-allowed";
-          btn.style.pointerEvents = "none";
-        });
-        const btnClear = document.getElementById("btnClearBitget");
-        if (btnClear) btnClear.style.display = "none";
-
-        activeTradingEnv = "paper";
-
-        // RESTORE PAPER STATE (NEVER WIPE LIVE DATA EITHER!)
-        const d = ChronosWalletStore.getCurrentData();
-        if (d) {
-          if (d.openPositions && d.openPositions === d.liveOpenPositions) {
-            d.liveOpenPositions = d.openPositions.slice();
-          }
-          if (d.trades && d.trades === d.liveTrades) {
-            d.liveTrades = d.trades.slice();
-          }
-          d.paperOpenPositions = d.paperOpenPositions || [];
-          d.paperTrades = d.paperTrades || [];
-          d.openPositions = d.paperOpenPositions;
-          d.trades = d.paperTrades;
-          ChronosWalletStore.saveData(ChronosWalletStore.currentAddress, d);
-        }
-
-        restorePaperTradingState();
-        renderActivePositions();
-        if (d) renderOverviewDynamic(d);
-        ChronosWalletStore.syncActiveView();
-
-        showToast(
-          "Switched to Internal Vault Mode",
-          "Paper trading sandbox active. Your paper positions and balance are preserved.",
-          "info"
-        );
+        d.paperOpenPositions = d.paperOpenPositions || [];
+        d.paperTrades = d.paperTrades || [];
+        d.openPositions = d.paperOpenPositions;
+        d.trades = d.paperTrades;
+        ChronosWalletStore.saveData(ChronosWalletStore.currentAddress, d);
       }
+
+      restorePaperTradingState();
+      renderActivePositions();
+      if (d) renderOverviewDynamic(d);
+      ChronosWalletStore.syncActiveView();
     }
 
     function loadBitgetAccount() {
@@ -10435,55 +10469,8 @@ div[data-rk] [aria-label*="Switch"] {
     }
 
     async function testBitgetConnection() {
-      const key = document.getElementById("settingsApiKey").value.trim();
-      const secret = document.getElementById("settingsApiSecret").value.trim();
-      const pass = document.getElementById("settingsPassphrase").value.trim();
-      if (!key || !secret || !pass) {
-        showToast("Credentials Required", "Please enter your Bitget API Key, Secret, and Passphrase to test connection.", "warning");
-        return;
-      }
-      const testBtn = document.getElementById("btnTestBitget");
-      const origText = testBtn ? testBtn.textContent : "Test Connection";
-      if (testBtn) {
-        testBtn.textContent = "Testing Handshake...";
-        testBtn.style.opacity = "0.7";
-      }
-      try {
-        const headers = {
-          "X-Bitget-Api-Key": key,
-          "X-Bitget-Api-Secret": secret,
-          "X-Bitget-Passphrase": pass,
-          "X-Trading-Mode": "LIVE"
-        };
-        const res = await callBackendAPI("/api/balance", "GET", null, headers);
-        if (res && res.ok && res.data && res.data.status === "ok") {
-          const bal = typeof res.data.balance_usdt === "number" ? res.data.balance_usdt : 0;
-          showToast(
-            "Bitget Live Verified",
-            `Connected to api.bitget.com (UTA v3). Live Equity Balance: $${bal.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})} USDT!`,
-            "success"
-          );
-          const balEl = document.getElementById("settingsPaperBalanceDisplay");
-          if (balEl) {
-            balEl.textContent = `$${bal.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})} USDT`;
-            balEl.style.color = "var(--color-green)";
-          }
-          const chipEl = document.getElementById("headerBalanceChipSpan");
-          if (chipEl) {
-            chipEl.textContent = `$${bal.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-          }
-        } else {
-          const msg = (res && res.data && (res.data.message || res.data.msg)) || (res && res.error) || "Authentication failed. Check your API Key, Secret, and Passphrase.";
-          showToast("Bitget Auth Error", msg, "error");
-        }
-      } catch (err) {
-        showToast("Connection Error", err.message || "Could not reach Bitget bridge server.", "error");
-      } finally {
-        if (testBtn) {
-          testBtn.textContent = origText;
-          testBtn.style.opacity = "1";
-        }
-      }
+      showLiveComingSoonModal();
+      return;
     }
 
     async function refreshBitgetAccount() {
@@ -10497,29 +10484,12 @@ div[data-rk] [aria-label*="Switch"] {
     }
 
     async function saveBitgetSettings() {
-      const env = document.getElementById("settingsEnvSelect").value;
-      const key = document.getElementById("settingsApiKey").value.trim();
-      const secret = document.getElementById("settingsApiSecret").value.trim();
-      const pass = document.getElementById("settingsPassphrase").value.trim();
-
+      const env = document.getElementById("settingsEnvSelect") ? document.getElementById("settingsEnvSelect").value : "paper";
       if (env === "live") {
-        if (!key || !secret || !pass) {
-          showToast("Credentials Required", "Please enter your Bitget API Key, Secret, and Passphrase before activating Live mode.", "warning");
-          return;
-        }
+        showLiveComingSoonModal();
+        return;
       }
-
-      const d = ChronosWalletStore.getCurrentData();
-      if (!d) return;
-      d.gateway = { mode: env, apiKey: key, apiSecret: secret, passphrase: pass };
-      ChronosWalletStore.setCurrentData(d);
-
-      if (env === "live") {
-        showToast("Gateway Saved", "Live Bitget credentials saved to your isolated wallet profile. Syncing live balance...", "success");
-        await syncBackendBalance();
-      } else {
-        showToast("Configuration Saved", "Switched to Paper Simulation Vault.", "info");
-      }
+      showToast("Configuration Saved", "Switched to Paper Simulation Vault.", "info");
     }
     window.addEventListener("resize", drawCandleChart);
     window.switchView = switchView;
@@ -10548,6 +10518,9 @@ div[data-rk] [aria-label*="Switch"] {
     window.openTradeReasoningModal = openTradeReasoningModal;
     window.closeTradeReasoningModal = closeTradeReasoningModal;
     window.handleReasoningBackdropClick = handleReasoningBackdropClick;
+    window.showLiveComingSoonModal = showLiveComingSoonModal;
+    window.closeLiveComingSoonModal = closeLiveComingSoonModal;
+    window.handleComingSoonBackdropClick = handleComingSoonBackdropClick;
     window.settleMondayMarketOpen = settleMondayMarketOpen;
     window.executeOpportunisticTrade = executeOpportunisticTrade;
     window.drawCandleChart = drawCandleChart;
