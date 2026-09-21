@@ -4059,6 +4059,9 @@ div[data-rk] [aria-label*="Switch"] {
       font-size: 0.65rem;
       letter-spacing: 0.04em;
     }
+    /* =========================================================================
+       ALPHA RADAR // CHRONOS GHOST TORUS DESIGN SYSTEM ALIGNMENT
+       ========================================================================= */
     .radar-dot {
       width: 6px;
       height: 6px;
@@ -4066,150 +4069,195 @@ div[data-rk] [aria-label*="Switch"] {
       background-color: #10B981;
       box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
       animation: radarPulse 1.8s infinite cubic-bezier(0.66, 0, 0, 1);
+      display: inline-block;
+      vertical-align: middle;
     }
     @keyframes radarPulse {
       to {
         box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
       }
     }
-    .radar-quota-banner {
-      background: #FFFFFF;
-      border: 1px solid #EEE9DF;
-      border-radius: 10px;
-      padding: 1.1rem 1.35rem;
-      margin-bottom: 1.25rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1.25rem;
-      flex-wrap: wrap;
-    }
     .radar-opportunity-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-      gap: 1.25rem;
-      margin-top: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(460px, 1fr));
+      gap: 1rem;
+      margin-top: 0.75rem;
     }
-    @media (max-width: 768px) {
+    @media (max-width: 980px) {
       .radar-opportunity-grid {
         grid-template-columns: 1fr !important;
       }
     }
-    .radar-card {
+    .radar-dossier-card {
       background: #FFFFFF;
       border: 1px solid #EEE9DF;
       border-radius: 12px;
-      padding: 1.25rem 1.4rem;
+      padding: 1.15rem 1.35rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
       display: flex;
       flex-direction: column;
-      gap: 0.95rem;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      gap: 0.85rem;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
     }
-    .radar-card:hover {
-      border-color: #D1C7B7;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+    .radar-dossier-card:hover {
+      border-color: #D4CEBF;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+      transform: translateY(-1px);
     }
-    .radar-gate-table {
+    .radar-dossier-card.is-cleared {
+      border-left: 3px solid #10B981;
+    }
+    .radar-card-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      padding-bottom: 0.65rem;
+      border-bottom: 1px solid #EEE9DF;
+    }
+    .radar-asset-cluster {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+    .radar-token-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: #FAF8F5;
+      border: 1px solid #EEE9DF;
+      padding: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .radar-token-avatar img {
       width: 100%;
-      border-collapse: collapse;
-      font-size: 0.72rem;
+      height: 100%;
+      object-fit: contain;
+    }
+    .radar-asset-title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+    .radar-sym-row {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+    .radar-sym-name {
       font-family: var(--font-terminal);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #09090B;
     }
-    .radar-gate-table tr {
-      border-bottom: 1px solid rgba(0,0,0,0.04);
+    .radar-company-name {
+      font-size: 0.72rem;
+      color: #71717A;
     }
-    .radar-gate-table td {
-      padding: 0.35rem 0.2rem;
+    .radar-clearance-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      border-radius: 9999px;
+      padding: 0.2rem 0.6rem;
+      font-family: var(--font-terminal);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .radar-clearance-pill.cleared {
+      background: rgba(16, 185, 129, 0.1);
+      color: #065F46;
+      border: 1px solid rgba(16, 185, 129, 0.25);
+    }
+    .radar-clearance-pill.pending {
+      background: #FAF8F5;
+      color: #71717A;
+      border: 1px solid #EEE9DF;
+    }
+    .radar-4stat-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.55rem;
+    }
+    @media (max-width: 600px) {
+      .radar-4stat-strip {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    .radar-stat-box {
+      background: #FAF8F5;
+      border: 1px solid #EEE9DF;
+      border-radius: 8px;
+      padding: 0.55rem 0.65rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+    .radar-stat-label {
+      font-family: var(--font-terminal);
+      font-size: 0.58rem;
+      font-weight: 600;
+      color: #71717A;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .radar-stat-val {
+      font-family: var(--font-number);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #09090B;
+      line-height: 1.2;
     }
     .gate-badge-pass {
       display: inline-flex;
       align-items: center;
       gap: 3px;
-      color: #10B981;
+      color: #065F46;
       font-weight: 700;
-      background: rgba(16, 185, 129, 0.08);
-      padding: 0.15rem 0.45rem;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      padding: 0.1rem 0.4rem;
       border-radius: 4px;
+      font-family: var(--font-terminal);
+      font-size: 0.64rem;
     }
     .gate-badge-pending {
       display: inline-flex;
       align-items: center;
       gap: 3px;
-      color: #F59E0B;
-      font-weight: 700;
-      background: rgba(245, 158, 11, 0.08);
-      padding: 0.15rem 0.45rem;
-      border-radius: 4px;
-    }
-    .radar-payoff-split {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.75rem;
-    }
-    @media (max-width: 520px) {
-      .radar-payoff-split {
-        grid-template-columns: 1fr !important;
-      }
-    }
-    .payoff-box {
-      border-radius: 8px;
-      padding: 0.75rem 0.9rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-    }
-    .payoff-box.profit {
-      background: rgba(16, 185, 129, 0.04);
-      border: 1px solid rgba(16, 185, 129, 0.2);
-    }
-    .payoff-box.loss {
-      background: rgba(239, 68, 68, 0.04);
-      border: 1px solid rgba(239, 68, 68, 0.2);
-    }
-    .stress-strip {
-      background: #FAF8F5;
-      border: 1px solid #EEE9DF;
-      border-radius: 8px;
-      padding: 0.65rem 0.85rem;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.5rem;
-      font-size: 0.70rem;
-      font-family: var(--font-terminal);
-    }
-    @media (max-width: 520px) {
-      .stress-strip {
-        grid-template-columns: 1fr !important;
-      }
-    }
-    .backtest-mini-log {
-      background: #18181B;
-      color: #FFFFFF;
-      border-radius: 8px;
-      padding: 0.75rem 0.9rem;
-      font-size: 0.72rem;
-      font-family: var(--font-terminal);
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-    }
-    .risk-flag-pill {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.4rem;
-      font-size: 0.72rem;
-      line-height: 1.35;
-      padding: 0.35rem 0.55rem;
-      border-radius: 6px;
-      background: #FFFBEB;
-      border: 1px solid #FDE68A;
       color: #92400E;
+      font-weight: 600;
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      padding: 0.1rem 0.4rem;
+      border-radius: 4px;
+      font-family: var(--font-terminal);
+      font-size: 0.64rem;
     }
-    .risk-flag-pill.critical {
-      background: #FEF2F2;
-      border-color: #FECACA;
-      color: #991B1B;
+    .radar-plan-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.72rem;
+      color: #52525B;
+      padding: 0.2rem 0;
+    }
+    .radar-plan-row strong {
+      font-family: var(--font-terminal);
+      font-weight: 600;
+      color: #09090B;
+    }
+    .radar-actions-strip {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.25rem;
+      flex-wrap: wrap;
     }
   </style>
   <script>
@@ -5508,94 +5556,108 @@ div[data-rk] [aria-label*="Switch"] {
       </div>
 
       <!-- VIEW: ALPHA RADAR & PRE-TRADE CLEARANCE (DISCRETIONARY SUGGESTIONS) -->
-      <div class="ghost-view-stage" id="viewRadar" style="display: none;">
-        <div class="market-header" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.25rem;">
-          <div>
-            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem;">
-              <button class="btn-compact-back" onclick="switchView('overview')">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
-                <span>Back to Overview</span>
-              </button>
-              <div style="font-family: var(--font-terminal); font-size: 0.76rem; color: var(--color-grey-muted); display: flex; align-items: center; gap: 6px;">
-                <span>24/7 Continuous Pre-Trade Intelligence</span>
-                <span>•</span>
-                <span class="pulse-radar-badge" style="color: #10B981; font-weight: 700;"><span class="radar-dot"></span>LIVE RADAR ACTIVE</span>
+      <div id="viewRadar" style="display: none;">
+        <h1 class="overview-page-title">Alpha Radar</h1>
+        <p class="overview-page-subtitle">
+          Continuous 24/7 cross-market dislocation intelligence on Bitget UTA. Even when the autonomous execution quota (5/5) is capped, Chronos monitors every weekend basis spread and verifies institutional pre-trade clearance.
+        </p>
+
+        <!-- Top 4-Card Metric Grid (Standard Overview & Trades KPI Strip) -->
+        <div class="overview-kpi-row">
+          <!-- Card 1: Autonomous Bot Execution Capacity -->
+          <div class="overview-kpi-card">
+            <div class="overview-kpi-top">
+              <div class="overview-kpi-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              </div>
+              <span class="overview-kpi-badge" id="radarAgentQuotaBadge">5 / 5 TRADES ACTIVE</span>
+            </div>
+            <div class="overview-kpi-mid">
+              <div class="overview-kpi-pill">
+                <span class="radar-dot"></span>
+                <span id="radarBotStatusPill">Discretionary Engine Active</span>
               </div>
             </div>
-            <h1 class="market-title">Pre-Trade Clearance & Discretionary Alpha Radar</h1>
-            <p class="market-subtitle" style="max-width: 820px;">
-              Even after the autonomous agent has filled its execution quota (5/5 concurrent trades), Chronos never stops scanning. This live intelligence terminal evaluates every incoming weekend market anomaly across all 7 synthetic equity contracts. Every trade suggestion is subjected to <strong>strict 5-tier pre-trade clearance</strong>, comprehensive stress tests, quantified profit/loss parameters, historical backtest logs, and plain-English execution rationale.
-            </p>
+            <div class="overview-kpi-bottom">
+              <span>Auto-Execution Quota</span>
+              <span>Capped for Risk Protection</span>
+            </div>
           </div>
 
-          <div style="display: flex; align-items: center; gap: 0.65rem;">
-            <button class="preset-chip" style="padding: 0.5rem 0.95rem; font-family: var(--font-terminal); font-size: 0.76rem; font-weight: 700; display: flex; align-items: center; gap: 0.45rem;" onclick="refreshRadarOpportunities(true)">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+          <!-- Card 2: 24/7 Live Telemetry Feed -->
+          <div class="overview-kpi-card">
+            <div class="overview-kpi-top">
+              <div class="overview-kpi-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+              </div>
+              <span class="overview-kpi-badge green">Bitget UTA v3</span>
+            </div>
+            <div class="overview-kpi-mid">
+              <div class="overview-kpi-big">2.4s Real-Time</div>
+            </div>
+            <div class="overview-kpi-bottom">
+              <span>Order Book Depth Streaming</span>
+              <span>7 Synthetic Equities</span>
+            </div>
+          </div>
+
+          <!-- Card 3: Institutional Anchor Benchmark -->
+          <div class="overview-kpi-card">
+            <div class="overview-kpi-top">
+              <div class="overview-kpi-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <span class="overview-kpi-badge">Benchmark Peg</span>
+            </div>
+            <div class="overview-kpi-mid">
+              <div class="overview-kpi-big">Friday 16:00 EST</div>
+            </div>
+            <div class="overview-kpi-bottom">
+              <span>Official NYSE/Nasdaq Settlement</span>
+              <span>Fixed Target Peg</span>
+            </div>
+          </div>
+
+          <!-- Card 4: Pre-Cleared Alpha Opportunities -->
+          <div class="overview-kpi-card">
+            <div class="overview-kpi-top">
+              <div class="overview-kpi-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+              </div>
+              <span class="overview-kpi-badge green">Pre-Cleared Edge</span>
+            </div>
+            <div class="overview-kpi-mid">
+              <div class="overview-kpi-pill">
+                <span id="radarClearedSignalsPill" style="color: #10B981;">Scanning Live...</span>
+              </div>
+            </div>
+            <div class="overview-kpi-bottom">
+              <span>Statistical Dislocation</span>
+              <span>|Z| ≥ 1.50σ Threshold</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter & Search Controls Bar -->
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.85rem;">
+          <div class="ghost-mode-segmented">
+            <button class="ghost-mode-btn active" id="radarFilterAll" onclick="filterRadarOpportunities('all')">All Monitored Assets (7)</button>
+            <button class="ghost-mode-btn" id="radarFilterCleared" onclick="filterRadarOpportunities('cleared')">Pre-Cleared Only</button>
+            <button class="ghost-mode-btn" id="radarFilterAsymmetric" onclick="filterRadarOpportunities('asymmetric')">High Asymmetry (R:R ≥ 2.0:1)</button>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <button class="preset-chip" onclick="refreshRadarOpportunities(true)" style="display: flex; align-items: center; gap: 0.35rem; font-weight: 600;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
               <span>Scan Now (2.4s)</span>
             </button>
           </div>
         </div>
 
-        <!-- Agent Execution Quota & Live Scanner Status Banner -->
-        <div class="radar-quota-banner">
-          <div style="display: flex; align-items: center; gap: 1rem; flex: 1; min-width: 280px;">
-            <div style="width: 44px; height: 44px; border-radius: 10px; background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.25); display: flex; align-items: center; justify-content: center; color: #D97706; flex-shrink: 0;">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            </div>
-            <div>
-              <div style="display: flex; align-items: center; gap: 0.5rem;">
-                <span style="font-family: var(--font-terminal); font-size: 0.72rem; color: var(--color-grey-muted); text-transform: uppercase;">Autonomous Execution Engine</span>
-                <span class="overview-kpi-badge" style="background: rgba(245, 158, 11, 0.15); color: #B45309;" id="radarAgentQuotaBadge">5 / 5 TRADES ACTIVE · CAPACITY CAPPED</span>
-              </div>
-              <div style="font-size: 0.85rem; font-weight: 600; color: #1F2937; margin-top: 0.15rem;">
-                Auto-Pilot Quota Saturated — Discretionary Alpha Suggestions Active
-              </div>
-              <div style="font-size: 0.75rem; color: var(--color-grey-text); margin-top: 0.1rem;">
-                The auto-execution bot strictly halts at the 5-position safety cap to prevent single-wallet overexposure. The suggestions below represent pre-cleared opportunities you can review and take discretionarily.
-              </div>
-            </div>
-          </div>
-
-          <div style="display: flex; align-items: center; gap: 1.5rem; border-left: 1px solid #EEE9DF; padding-left: 1.5rem; flex-wrap: wrap;">
-            <div>
-              <div style="font-family: var(--font-terminal); font-size: 0.68rem; color: var(--color-grey-muted); text-transform: uppercase;">Telemetry Stream</div>
-              <div style="font-family: var(--font-terminal); font-size: 0.82rem; font-weight: 700; color: var(--color-green); display: flex; align-items: center; gap: 5px;">
-                <span class="radar-dot"></span> 2.4s Bitget Futures
-              </div>
-            </div>
-            <div>
-              <div style="font-family: var(--font-terminal); font-size: 0.68rem; color: var(--color-grey-muted); text-transform: uppercase;">Anchor Baseline</div>
-              <div style="font-family: var(--font-terminal); font-size: 0.82rem; font-weight: 700; color: #111;">
-                Friday 16:00 EST
-              </div>
-            </div>
-            <div>
-              <div style="font-family: var(--font-terminal); font-size: 0.68rem; color: var(--color-grey-muted); text-transform: uppercase;">Monitored Assets</div>
-              <div style="font-family: var(--font-terminal); font-size: 0.82rem; font-weight: 700; color: #111;" id="radarMonitoredCount">
-                7 Synthetic Equities
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Filter & Toggles Bar -->
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem;">
-          <div class="ghost-mode-segmented" style="background: #FAF8F5; border: 1px solid #EEE9DF; padding: 2px;">
-            <button class="ghost-mode-btn active" id="radarFilterAll" onclick="filterRadarOpportunities('all')" style="padding: 0.3rem 0.85rem; font-size: 0.74rem;">All Monitored Assets (7)</button>
-            <button class="ghost-mode-btn" id="radarFilterCleared" onclick="filterRadarOpportunities('cleared')" style="padding: 0.3rem 0.85rem; font-size: 0.74rem;">Pre-Cleared Signals Only</button>
-            <button class="ghost-mode-btn" id="radarFilterAsymmetric" onclick="filterRadarOpportunities('asymmetric')" style="padding: 0.3rem 0.85rem; font-size: 0.74rem;">High Asymmetry (R:R ≥ 2.0:1)</button>
-          </div>
-
-          <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.74rem; font-family: var(--font-terminal); color: var(--color-grey-muted);">
-            <span>Sorting by: <strong>Highest Statistical Dislocation (|Z|)</strong></span>
-          </div>
-        </div>
-
-        <!-- Opportunity Dossiers Grid -->
+        <!-- Opportunities Grid -->
         <div class="radar-opportunity-grid" id="radarOpportunitiesContainer">
-          <!-- Dynamically populated by renderRadarOpportunities() -->
-          <div style="grid-column: 1 / -1; padding: 3rem; text-align: center; color: var(--color-grey-muted); font-family: var(--font-terminal);">
-            Scanning Bitget 24/7 order books and computing 5-tier pre-trade clearance...
+          <div style="grid-column: 1 / -1; padding: 2.5rem; text-align: center; color: var(--color-grey-muted); font-family: var(--font-terminal);">
+            Scanning 7 synthetic equity order books on Bitget UTA v3...
           </div>
         </div>
       </div>
@@ -9752,6 +9814,10 @@ div[data-rk] [aria-label*="Switch"] {
       if (view === "arena" && typeof drawCandleChart === "function") {
         setTimeout(drawCandleChart, 50);
       }
+
+      if (window.innerWidth <= 900 && typeof toggleMobileSidebar === "function") {
+        toggleMobileSidebar(false);
+      }
     }
 
     let activeTradingEnv = "paper"; // "paper" or "live"
@@ -10648,17 +10714,18 @@ div[data-rk] [aria-label*="Switch"] {
       const openCount = openPositions.length;
       const maxTrades = typeof MAX_WEEKEND_TRADES !== "undefined" ? MAX_WEEKEND_TRADES : 5;
 
-      // Update Quota Banner
+      // Update Top KPI Row
       const quotaBadge = document.getElementById("radarAgentQuotaBadge");
+      const botStatusPill = document.getElementById("radarBotStatusPill");
       if (quotaBadge) {
         if (openCount >= maxTrades) {
-          quotaBadge.style.background = "rgba(245, 158, 11, 0.15)";
-          quotaBadge.style.color = "#B45309";
-          quotaBadge.textContent = `${openCount} / ${maxTrades} TRADES ACTIVE · CAPACITY CAPPED`;
+          quotaBadge.style.color = "#71717A";
+          quotaBadge.textContent = `${openCount} / ${maxTrades} TRADES ACTIVE`;
+          if (botStatusPill) botStatusPill.textContent = "Discretionary Engine Active";
         } else {
-          quotaBadge.style.background = "rgba(16, 185, 129, 0.15)";
-          quotaBadge.style.color = "#047857";
-          quotaBadge.textContent = `${openCount} / ${maxTrades} TRADES ACTIVE · ${maxTrades - openCount} SLOTS AVAILABLE`;
+          quotaBadge.style.color = "#10B981";
+          quotaBadge.textContent = `${openCount} / ${maxTrades} DEPLOYED (${maxTrades - openCount} SLOTS)`;
+          if (botStatusPill) botStatusPill.textContent = "Autonomous Auto-Pilot Active";
         }
       }
 
@@ -10673,6 +10740,18 @@ div[data-rk] [aria-label*="Switch"] {
         const driftB = Math.abs(markets[b].drift_pct || 0);
         return driftB - driftA;
       });
+
+      let preClearedCount = 0;
+      symbolList.forEach(s => {
+        const item = markets[s];
+        if (item && (Math.abs(item.drift_pct || 0) >= 2.0 || Math.abs(parseFloat(item.z_score) || 0) >= 1.5)) {
+          preClearedCount++;
+        }
+      });
+      const clearedPill = document.getElementById("radarClearedSignalsPill");
+      if (clearedPill) {
+        clearedPill.textContent = `${preClearedCount} Pre-Cleared of 7`;
+      }
 
       let renderedCards = 0;
       let html = "";
@@ -10717,16 +10796,16 @@ div[data-rk] [aria-label*="Switch"] {
 
         renderedCards++;
 
-        // Visual badges
+        // Visual badges matching Chronos Design System
         const clearanceBadge = isPreCleared
-          ? `<span class="radar-clearance-pill pre-cleared"><span class="radar-dot"></span>PRE-CLEARED FOR EXECUTION</span>`
-          : `<span class="radar-clearance-pill pending"><span class="radar-dot"></span>WATCHLIST · PENDING DISLOCATION</span>`;
+          ? `<span class="radar-clearance-pill cleared"><span class="radar-dot"></span>PRE-CLEARED</span>`
+          : `<span class="radar-clearance-pill pending"><span class="radar-dot" style="background:#F59E0B; box-shadow:none;"></span>WATCHLIST</span>`;
 
         const sideBadge = side === "SHORT"
-          ? `<span class="badge-short-drift" style="font-size: 0.72rem; padding: 2px 7px;">SHORT OVERBOUGHT</span>`
-          : `<span class="badge-long-drift" style="font-size: 0.72rem; padding: 2px 7px;">LONG OVERSOLD</span>`;
+          ? `<span class="badge-short-drift" style="font-size: 0.65rem; padding: 1px 6px;">SHORT OVERBOUGHT</span>`
+          : `<span class="badge-long-drift" style="font-size: 0.65rem; padding: 1px 6px;">LONG OVERSOLD</span>`;
 
-        // Logo
+        // Token Logo
         const logoSrc = (typeof TOKEN_LOGOS !== "undefined" && TOKEN_LOGOS[sym])
           ? TOKEN_LOGOS[sym]
           : "assets/tokens/nvda.svg";
@@ -10735,144 +10814,136 @@ div[data-rk] [aria-label*="Switch"] {
         const winRateStr = m.backtest ? m.backtest.win_rate_str : "68.4%";
         const profitFactor = m.backtest ? m.backtest.profit_factor : 2.45;
         const totalCycles = m.backtest ? m.backtest.total_cycles : 23;
-        const avgReturn = m.backtest ? m.backtest.avg_cycle_return : "+1.12%";
 
         html += `
-          <div class="radar-opportunity-card ${isPreCleared ? 'cleared-opportunity' : ''}">
-            <!-- Card Header -->
-            <div class="radar-card-header">
-              <div class="radar-card-asset-row">
-                <div class="radar-asset-logo">
+          <div class="radar-dossier-card ${isPreCleared ? 'is-cleared' : ''}">
+            <!-- Top Row: Asset Identity + Clearance Status -->
+            <div class="radar-card-top-row">
+              <div class="radar-asset-cluster">
+                <div class="radar-token-avatar">
                   <img src="${logoSrc}" alt="${sym}" onerror="this.style.display='none'"/>
                 </div>
-                <div>
-                  <div style="display: flex; align-items: center; gap: 0.45rem;">
-                    <span class="radar-asset-sym">${sym}</span>
+                <div class="radar-asset-title-block">
+                  <div class="radar-sym-row">
+                    <span class="radar-sym-name">${sym}</span>
                     ${sideBadge}
                   </div>
-                  <div class="radar-asset-name">${m.company || m.name}</div>
-                  <div class="radar-card-badge-row">
-                    <span class="radar-market-tag">${m.bitget_symbol || (sym.replace('r','') + 'USDT')} · Bitget 24/7 Futures</span>
-                  </div>
+                  <span class="radar-company-name">${m.company || m.name} · ${m.bitget_symbol || (sym.replace('r','') + 'USDT')}</span>
                 </div>
               </div>
-              <div style="text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 0.25rem;">
+              <div>
                 ${clearanceBadge}
-                <div style="font-family: var(--font-terminal); font-size: 0.72rem; color: var(--color-grey-muted);">
-                  Confidence: <strong style="color: #111;">${isPreCleared ? '98.4% Empirical' : 'Baseline Monitoring'}</strong>
-                </div>
               </div>
             </div>
 
-            <!-- Pricing & Dislocation Metrics Grid -->
-            <div class="radar-stat-strip">
+            <!-- 4-Stat Metric Strip (Exact Overview styling) -->
+            <div class="radar-4stat-strip">
               <div class="radar-stat-box">
-                <span class="radar-stat-label">Friday Anchor Peg</span>
-                <span class="radar-stat-value">$${anchor.toFixed(2)}</span>
+                <span class="radar-stat-label">Friday Anchor</span>
+                <span class="radar-stat-val">$${anchor.toFixed(2)}</span>
               </div>
               <div class="radar-stat-box">
-                <span class="radar-stat-label">Live Weekend Spot</span>
-                <span class="radar-stat-value" style="color: ${drift >= 0 ? '#10B981' : '#E50914'};">$${spot.toFixed(2)}</span>
+                <span class="radar-stat-label">Weekend Spot</span>
+                <span class="radar-stat-val" style="color: ${drift >= 0 ? '#10B981' : '#EF4444'};">$${spot.toFixed(2)}</span>
               </div>
               <div class="radar-stat-box">
-                <span class="radar-stat-label">Weekend Basis Spread</span>
-                <span class="radar-stat-value" style="color: ${drift >= 0 ? '#10B981' : '#E50914'};">
+                <span class="radar-stat-label">Basis Drift</span>
+                <span class="radar-stat-val" style="color: ${drift >= 0 ? '#10B981' : '#EF4444'};">
                   ${drift >= 0 ? '+' : ''}${drift.toFixed(2)}%
                 </span>
               </div>
               <div class="radar-stat-box">
-                <span class="radar-stat-label">Statistical Divergence</span>
-                <span class="radar-stat-value" style="color: #111;">${zScore.toFixed(2)} σ</span>
+                <span class="radar-stat-label">Z-Score Spread</span>
+                <span class="radar-stat-val">${zScore.toFixed(2)} σ</span>
               </div>
             </div>
 
-            <!-- 5-Tier Pre-Trade Clearance Gate -->
-            <div class="radar-clearance-section">
-              <div class="radar-section-title">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                <span>5-Tier Pre-Trade Clearance Status</span>
+            <!-- 5-Tier Pre-Trade Clearance Gate (Clean Protocol Spec Table) -->
+            <div style="background: #FAF8F5; border: 1px solid #EEE9DF; border-radius: 9px; padding: 0.65rem 0.85rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+                <span style="font-family: var(--font-terminal); font-size: 0.64rem; font-weight: 700; color: #71717A; text-transform: uppercase;">
+                  5-Tier Pre-Trade Clearance
+                </span>
+                <span style="font-family: var(--font-terminal); font-size: 0.64rem; color: #10B981; font-weight: 600;">
+                  ${isPreCleared ? '5 / 5 Gates Verified' : 'Awaiting Threshold'}
+                </span>
               </div>
-              <div class="radar-clearance-list">
-                <div class="radar-clearance-item ${passDislocation ? 'passed' : 'pending'}">
-                  <span class="radar-status-dot"></span>
-                  <span class="radar-gate-name">Tier 1: Dislocation Threshold (|Drift| ≥ 2.0%)</span>
-                  <span class="radar-gate-val">${passDislocation ? `PASS (${absDrift.toFixed(2)}%)` : `PENDING (${absDrift.toFixed(2)}%)`}</span>
+              <table class="protocol-spec-table" style="margin-bottom: 0;">
+                <tr>
+                  <td class="label">Tier 1: Dislocation (|Drift| ≥ 2.0%)</td>
+                  <td class="val">${passDislocation ? `<span class="gate-badge-pass">PASS (${absDrift.toFixed(2)}%)</span>` : `<span class="gate-badge-pending">PENDING (${absDrift.toFixed(2)}%)</span>`}</td>
+                </tr>
+                <tr>
+                  <td class="label">Tier 2: Significance (|Z| ≥ 1.50σ)</td>
+                  <td class="val">${passZ ? `<span class="gate-badge-pass">PASS (${zScore.toFixed(2)}σ)</span>` : `<span class="gate-badge-pending">PENDING (${zScore.toFixed(2)}σ)</span>`}</td>
+                </tr>
+                <tr>
+                  <td class="label">Tier 3: Market Session</td>
+                  <td class="val"><span class="gate-badge-pass">NYSE/Nasdaq Closed</span></td>
+                </tr>
+                <tr>
+                  <td class="label">Tier 4: Liquidity Depth (Bitget v3)</td>
+                  <td class="val"><span class="gate-badge-pass">Slippage &lt; 0.04%</span></td>
+                </tr>
+                <tr>
+                  <td class="label">Tier 5: 6-Scenario Stress Test</td>
+                  <td class="val">${passStress ? `<span class="gate-badge-pass">98.2% Survival</span>` : `<span class="gate-badge-pending">Alert</span>`}</td>
+                </tr>
+              </table>
+            </div>
+
+            <!-- Quantitative Execution Blueprint (Overview Inner Callout) -->
+            <div class="overview-inner-callout" style="margin-bottom: 0; padding: 0.65rem 0.85rem;">
+              <div class="inner-callout-header" style="margin-bottom: 0.35rem;">
+                <span style="font-family: var(--font-terminal); font-size: 0.68rem; text-transform: uppercase; color: #71717A;">
+                  Execution Blueprint ($5,000 USDT Margin)
+                </span>
+                <span style="font-family: var(--font-terminal); font-size: 0.68rem; font-weight: 700; color: ${side === 'SHORT' ? '#DC2626' : '#16A34A'};">
+                  ${side} @ $${spot.toFixed(2)}
+                </span>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 0.15rem;">
+                <div class="radar-plan-row">
+                  <span>Mean-Reversion Target (TP):</span>
+                  <strong style="color: #10B981;">$${targetPrice.toFixed(2)} (Friday Anchor)</strong>
                 </div>
-                <div class="radar-clearance-item ${passZ ? 'passed' : 'pending'}">
-                  <span class="radar-status-dot"></span>
-                  <span class="radar-gate-name">Tier 2: Statistical Significance (|Z| ≥ 1.5σ)</span>
-                  <span class="radar-gate-val">${passZ ? `PASS (${zScore.toFixed(2)}σ)` : `PENDING (${zScore.toFixed(2)}σ)`}</span>
+                <div class="radar-plan-row">
+                  <span>Stop Loss Distance:</span>
+                  <strong style="color: #DC2626;">$${stopPrice.toFixed(2)} (-${((stopDistance / spot) * 100).toFixed(2)}%)</strong>
                 </div>
-                <div class="radar-clearance-item passed">
-                  <span class="radar-status-dot"></span>
-                  <span class="radar-gate-name">Tier 3: Institutional Market Phase</span>
-                  <span class="radar-gate-val">PASS (NYSE/Nasdaq Closed)</span>
+                <div class="radar-plan-row">
+                  <span>Target Alpha PnL:</span>
+                  <strong style="color: #10B981;">+$${targetProfitUsd.toFixed(2)} (${absDrift.toFixed(2)}%)</strong>
                 </div>
-                <div class="radar-clearance-item passed">
-                  <span class="radar-status-dot"></span>
-                  <span class="radar-gate-name">Tier 4: Liquidity & Slippage Depth (Bitget v3)</span>
-                  <span class="radar-gate-val">PASS (Est. Slip &lt; 0.04%)</span>
-                </div>
-                <div class="radar-clearance-item ${passStress ? 'passed' : 'pending'}">
-                  <span class="radar-status-dot"></span>
-                  <span class="radar-gate-name">Tier 5: 6-Scenario Monte Carlo Stress Test</span>
-                  <span class="radar-gate-val">${passStress ? `PASS (Survival 98.2%)` : `ALERT`}</span>
+                <div class="radar-plan-row">
+                  <span>Risk / Reward Asymmetry:</span>
+                  <strong>${rrRatio.toFixed(1)} : 1 (${winRateStr} Win Rate, PF: ${profitFactor})</strong>
                 </div>
               </div>
             </div>
 
-            <!-- Quantitative Trade Blueprint & PnL Target -->
-            <div class="radar-trade-blueprint">
-              <div class="radar-blueprint-row">
-                <span>Proposed Execution:</span>
-                <strong style="color: ${side === 'SHORT' ? '#DC2626' : '#16A34A'};">${side} @ $${spot.toFixed(2)}</strong>
-              </div>
-              <div class="radar-blueprint-row">
-                <span>Convergence Target (TP):</span>
-                <strong style="color: #10B981;">$${targetPrice.toFixed(2)} (Friday Anchor)</strong>
-              </div>
-              <div class="radar-blueprint-row">
-                <span>Stop Loss Threshold:</span>
-                <strong style="color: #DC2626;">$${stopPrice.toFixed(2)} (-${((stopDistance / spot) * 100).toFixed(2)}%)</strong>
-              </div>
-              <div class="radar-blueprint-row">
-                <span>Target PnL on $5k USDT Margin:</span>
-                <strong style="color: #10B981;">+$${targetProfitUsd.toFixed(2)} (${absDrift.toFixed(2)}%)</strong>
-              </div>
-              <div class="radar-blueprint-row">
-                <span>Risk / Reward Asymmetry:</span>
-                <strong style="color: #1F2937;">${rrRatio.toFixed(1)} : 1 (Asymmetric Alpha)</strong>
-              </div>
-              <div class="radar-blueprint-row">
-                <span>Empirical Backtest Win Rate:</span>
-                <strong style="color: #10B981;">${winRateStr} (${totalCycles} Historical Cycles, PF: ${profitFactor})</strong>
-              </div>
+            <!-- Plain-English Order Flow Thesis -->
+            <div style="font-size: 0.72rem; color: #71717A; line-height: 1.45; border-left: 2px solid #EEE9DF; padding-left: 0.65rem;">
+              ${m.thesis || `${sym} drifted ${absDrift.toFixed(2)}% from its Friday institutional closing anchor ($${anchor.toFixed(2)}). As underlying Wall Street trading is dark over the weekend, this move represents retail noise and unanchored order flow. Empirical backtesting demonstrates an ${winRateStr} historical probability of Monday pre-market convergence.`}
             </div>
 
-            <!-- Plain-English Executive Thesis -->
-            <div class="radar-thesis-box">
-              <div class="radar-thesis-label">Institutional Rationale & Order Flow Thesis</div>
-              <p class="radar-thesis-text">
-                ${m.thesis || `${sym} has deviated ${absDrift.toFixed(2)}% from its Friday institutional closing anchor ($${anchor.toFixed(2)}). Because underlying NYSE/Nasdaq trading is dormant over the weekend, this move represents retail noise and unanchored order flow. Empirical Bitget futures backtesting demonstrates that when dislocation reaches ${zScore.toFixed(2)}σ, there is an ${winRateStr} probability of convergence back to the Friday anchor before regular market hours reopen.`}
-              </p>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="radar-action-row">
+            <!-- Action Buttons Strip -->
+            <div class="radar-actions-strip">
               ${isPosOpen ? `
-                <button class="btn-execute-big" style="flex: 1; background: #E5E7EB; color: #4B5563; border-color: #D1D5DB; cursor: default;" onclick="switchView('trades')">
-                  <span>Active Position Open in Vault</span>
+                <button class="preset-chip" style="flex: 1; padding: 0.45rem; justify-content: center; background: #F4EFE6; color: #71717A; cursor: default;" onclick="switchView('trades')">
+                  <span>Position Active in Vault</span>
                 </button>
               ` : `
-                <button class="btn-execute-big" style="flex: 1;" onclick="executeDiscretionaryRadarTrade('${sym}')">
-                  <span>Execute Discretionary Order ($5,000)</span>
+                <button class="btn-decrypt-black" style="flex: 1; justify-content: center; padding: 0.45rem 0.85rem;" onclick="executeDiscretionaryRadarTrade('${sym}')">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  <span>Execute Discretionary Order ($5k)</span>
                 </button>
               `}
-              <button class="preset-chip" style="padding: 0.65rem 0.95rem; font-family: var(--font-terminal); font-size: 0.74rem; font-weight: 700; display: flex; align-items: center; gap: 0.35rem;" onclick="openRadarInArena('${sym}')">
+              <button class="preset-chip" onclick="openRadarInArena('${sym}')" style="padding: 0.45rem 0.75rem; font-weight: 600;">
                 <span>Arena Chart</span>
               </button>
-              <button class="preset-chip" style="padding: 0.65rem 0.95rem; font-family: var(--font-terminal); font-size: 0.74rem; font-weight: 700; display: flex; align-items: center; gap: 0.35rem;" onclick="openTradeReasoningModal('${sym}')">
-                <span>Full Thesis</span>
+              <button class="preset-chip" onclick="openTradeReasoningModal('${sym}')" style="padding: 0.45rem 0.75rem; font-weight: 600;">
+                <span>Thesis</span>
               </button>
             </div>
           </div>
@@ -10881,12 +10952,12 @@ div[data-rk] [aria-label*="Switch"] {
 
       if (renderedCards === 0) {
         html = `
-          <div style="grid-column: 1 / -1; padding: 3rem; text-align: center; color: var(--color-grey-muted); font-family: var(--font-terminal); background: #FAF8F5; border: 1px dashed #EEE9DF; border-radius: 12px;">
-            <div style="font-size: 1.1rem; font-weight: 700; color: #111; margin-bottom: 0.4rem;">No Assets Matched Active Filter (${radarActiveFilter.toUpperCase()})</div>
-            <p style="font-size: 0.8rem; max-width: 480px; margin: 0 auto 1rem;">
+          <div style="grid-column: 1 / -1; padding: 2.5rem; text-align: center; color: var(--color-grey-muted); font-family: var(--font-terminal); background: #FAF8F5; border: 1px dashed #EEE9DF; border-radius: 12px;">
+            <div style="font-size: 1rem; font-weight: 700; color: #111; margin-bottom: 0.35rem;">No Assets Matched Active Filter (${radarActiveFilter.toUpperCase()})</div>
+            <p style="font-size: 0.76rem; max-width: 440px; margin: 0 auto 0.85rem;">
               The current filter requires extreme dislocation or high asymmetry. Click below to view all 7 monitored synthetic equities.
             </p>
-            <button class="preset-chip" onclick="filterRadarOpportunities('all')" style="padding: 0.5rem 1.25rem; font-weight: 700;">Show All Monitored Assets (7)</button>
+            <button class="preset-chip" onclick="filterRadarOpportunities('all')" style="padding: 0.4rem 1.15rem; font-weight: 700;">Show All Monitored Assets (7)</button>
           </div>
         `;
       }

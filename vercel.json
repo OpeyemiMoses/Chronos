@@ -8,7 +8,7 @@
       "source": "/api/:match*",
       "destination": "https://chronos-production-a1e4.up.railway.app/api/:match*"
     },
-    { "source": "/terminal", "destination": "/terminal.html" },
+    { "source": "/terminal", "destination": "/app.html" },
     { "source": "/app", "destination": "/app.html" }
   ],
   "headers": [
