@@ -6538,6 +6538,61 @@ div[data-rk] [aria-label*="Switch"] {
     }
     window.isWeekendWindowActive = isWeekendWindowActive;
 
+    function getTimeUntilWeekendWindowMs() {
+      if (typeof isWeekendWindowActive === "function" && isWeekendWindowActive()) {
+        return 0;
+      }
+      try {
+        const now = new Date();
+        const nyDateStr = now.toLocaleString("en-US", { timeZone: "America/New_York" });
+        const ny = new Date(nyDateStr);
+        const day = ny.getDay(); // 0=Sun, 1=Mon, 2=Tue, 3=Wed, 4=Thu, 5=Fri, 6=Sat
+        const hour = ny.getHours();
+        const min = ny.getMinutes();
+        const sec = ny.getSeconds();
+        const currentDecHour = hour + min / 60.0 + sec / 3600.0;
+
+        let daysUntilFriday = (5 - day + 7) % 7;
+        if (daysUntilFriday === 0 && currentDecHour >= 16.0) {
+          return 0;
+        }
+
+        const targetNy = new Date(ny.getFullYear(), ny.getMonth(), ny.getDate() + daysUntilFriday, 16, 0, 0);
+        const diffMs = targetNy.getTime() - ny.getTime();
+        return Math.max(0, diffMs);
+      } catch (e) {
+        console.error("Error calculating weekend window diff:", e);
+        return 0;
+      }
+    }
+    window.getTimeUntilWeekendWindowMs = getTimeUntilWeekendWindowMs;
+
+    function formatWeekendCountdown(diffMs) {
+      if (diffMs <= 0) return "WINDOW OPEN";
+      const totalSec = Math.floor(diffMs / 1000);
+      const hours = Math.floor(totalSec / 3600);
+      const mins = Math.floor((totalSec % 3600) / 60);
+      const secs = totalSec % 60;
+      return `${hours}h ${String(mins).padStart(2, '0')}m ${String(secs).padStart(2, '0')}s`;
+    }
+    window.formatWeekendCountdown = formatWeekendCountdown;
+
+    function updateWeekendCountdownDisplays() {
+      const diffMs = getTimeUntilWeekendWindowMs();
+      const str = formatWeekendCountdown(diffMs);
+      const radarEl = document.getElementById("radarSleepCountdownDisplay");
+      if (radarEl) radarEl.textContent = str;
+      const modalEl = document.getElementById("weekdaySleepCountdownDisplay");
+      if (modalEl) modalEl.textContent = str;
+    }
+    window.updateWeekendCountdownDisplays = updateWeekendCountdownDisplays;
+
+    // Run live 1-second countdown interval
+    if (typeof window !== "undefined") {
+      if (window._weekendCountdownTimer) clearInterval(window._weekendCountdownTimer);
+      window._weekendCountdownTimer = setInterval(updateWeekendCountdownDisplays, 1000);
+    }
+
     // =========================================================================
     // AUTONOMOUS AGENT CONFIGURATION & STRATEGY CLEARANCE CONSTANTS
     // =========================================================================
@@ -9538,7 +9593,7 @@ div[data-rk] [aria-label*="Switch"] {
       if (autoPilotTimer) clearInterval(autoPilotTimer);
       if (countdownInterval) clearInterval(countdownInterval);
 
-      autoPilotCountdownVal = 8;
+      autoPilotCountdownVal = 2;
       countdownInterval = setInterval(() => {
         const countdownEl = document.getElementById("autoPilotCountdown");
         if (!autoPilotActive || !ChronosWalletStore.currentAddress) {
@@ -9546,14 +9601,14 @@ div[data-rk] [aria-label*="Switch"] {
         }
         autoPilotCountdownVal--;
         if (autoPilotCountdownVal <= 0) {
-          autoPilotCountdownVal = 8;
+          autoPilotCountdownVal = 2;
           if (countdownEl) countdownEl.textContent = "Scanning...";
         } else {
           if (countdownEl) countdownEl.textContent = `${autoPilotCountdownVal}s`;
         }
       }, 1000);
 
-      autoPilotTimer = setInterval(runAutonomousAgentTick, 8000);
+      autoPilotTimer = setInterval(runAutonomousAgentTick, 2400);
     }
 
     function handleMainActionButtonClick() {
@@ -9822,7 +9877,7 @@ div[data-rk] [aria-label*="Switch"] {
       if (livePriceSyncInterval) clearInterval(livePriceSyncInterval);
       syncLiveMarketPrices();
       syncRealBacktestData();
-      livePriceSyncInterval = setInterval(syncLiveMarketPrices, 3500);
+      livePriceSyncInterval = setInterval(syncLiveMarketPrices, 2400);
     }
 
     function updateMarketView() {
@@ -11027,13 +11082,7 @@ div[data-rk] [aria-label*="Switch"] {
 
       if (!isWeekend) {
         const timeDiff = (typeof getTimeUntilWeekendWindowMs === "function") ? getTimeUntilWeekendWindowMs() : 0;
-        let countdownStr = "--h --m";
-        if (timeDiff > 0) {
-          const totalSec = Math.floor(timeDiff / 1000);
-          const h = Math.floor(totalSec / 3600);
-          const m = Math.floor((totalSec % 3600) / 60);
-          countdownStr = `${h}h ${m}m remaining`;
-        }
+        const countdownStr = (typeof formatWeekendCountdown === "function") ? formatWeekendCountdown(timeDiff) : "--h --m";
         html += `
           <div style="grid-column: 1 / -1; background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.25); border-radius: 12px; padding: 1rem 1.25rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 0.5rem;">
             <div style="display: flex; align-items: center; gap: 0.85rem;">
@@ -11047,7 +11096,7 @@ div[data-rk] [aria-label*="Switch"] {
               </div>
             </div>
             <div style="text-align: right; flex-shrink: 0;">
-              <div style="font-family: var(--font-terminal); font-size: 0.95rem; font-weight: 800; color: #2563EB;">${countdownStr}</div>
+              <div id="radarSleepCountdownDisplay" style="font-family: var(--font-terminal); font-size: 0.95rem; font-weight: 800; color: #2563EB;">${countdownStr}</div>
               <div style="font-size: 0.68rem; color: #71717A;">Until Weekend Window</div>
             </div>
           </div>
