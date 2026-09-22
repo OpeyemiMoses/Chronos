@@ -8757,6 +8757,16 @@ div[data-rk] [aria-label*="Switch"] {
         ? (manualTradeSide === "BUY" ? "LONG" : "SHORT")
         : (m.drift_pct > 0 ? "SHORT" : "LONG");
 
+      // Tier 5: Fresh Pre-Flight Stress Test Gate
+      const freshStress = runStressTest(m.symbol, m.spot_price, side, collateral, "PRE_TRADE");
+      if (!freshStress.error) {
+        storeStressTestResult(m.symbol, freshStress);
+        if (freshStress.recommendation === "BLOCKED") {
+          showToast("Stress Test Blocked", `Pre-flight stress test scored ${freshStress.stress_score}/100. Order blocked by risk guardrails: ${freshStress.block_reason}`, "error");
+          return;
+        }
+      }
+
       // Deduct margin
       d.paperBalance -= collateral;
       const posId = `POS-${Date.now().toString().slice(-6)}`;
@@ -8772,7 +8782,7 @@ div[data-rk] [aria-label*="Switch"] {
         entry_time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         status: "ACTIVE",
         isLive: false,
-        stressTest: getLastStressTest(m.symbol) || null
+        stressTest: (!freshStress.error ? freshStress : (getLastStressTest(m.symbol) || null))
       };
 
       newPos.strategyMetadata = getTradePlainEnglishMetadata(newPos);
@@ -11305,6 +11315,19 @@ div[data-rk] [aria-label*="Switch"] {
       }
 
       const side = (m.drift_pct > 0) ? "SHORT" : "LONG";
+
+      // Tier 5: Fresh Pre-Flight Stress Test Gate
+      const freshStress = runStressTest(symbol, m.spot_price, side, collateral, "PRE_TRADE");
+      if (!freshStress.error) {
+        storeStressTestResult(symbol, freshStress);
+        if (freshStress.recommendation === "BLOCKED") {
+          if (typeof showToast === "function") {
+            showToast("Stress Test Blocked", `Pre-flight stress test scored ${freshStress.stress_score}/100. Discretionary trade blocked: ${freshStress.block_reason}`, "error");
+          }
+          return;
+        }
+      }
+
       d.paperBalance -= collateral;
       const posId = `POS-RADAR-${Date.now().toString().slice(-6)}`;
 
@@ -11320,7 +11343,7 @@ div[data-rk] [aria-label*="Switch"] {
         status: "ACTIVE",
         isLive: false,
         source: "DISCRETIONARY_RADAR",
-        stressTest: getLastStressTest(m.symbol) || null
+        stressTest: (!freshStress.error ? freshStress : (getLastStressTest(m.symbol) || null))
       };
 
       if (typeof getTradePlainEnglishMetadata === "function") {
