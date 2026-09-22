@@ -9424,24 +9424,30 @@ div[data-rk] [aria-label*="Switch"] {
         return;
       }
 
-      // 2. Opportunistic Entry: Find next candidate asset whose strategy strictly clears
+      // 2. Opportunistic Entry: Find candidate asset with highest statistical conviction whose strategy strictly clears
       const openSymbols = new Set(d.openPositions.map(p => p.symbol));
-      const candidateSymbols = ["rNVDA", "rTSLA", "rCOIN", "rMSTR", "rAAPL", "rSPY", "rQQQ"].filter(sym => !openSymbols.has(sym));
+      const candidateSymbols = ["rMSTR", "rNVDA", "rTSLA", "rQQQ", "rCOIN", "rAAPL", "rSPY"].filter(sym => !openSymbols.has(sym));
 
       if (candidateSymbols.length === 0) {
         updateAgentTelemetry(`[HOLDING] ${openCount}/${MAX_WEEKEND_TRADES} weekend positions active. All available market slots allocated. Holding for Monday open.`);
         return;
       }
 
-      // Check candidates for statistical clearance
+      // Check all candidates for statistical clearance and rank by dislocation conviction
       let targetSymbol = null;
       let clearInfo = null;
+      let bestRankScore = -1;
+
       for (const sym of candidateSymbols) {
         const res = verifyStrategyClearance(sym);
         if (res.cleared) {
-          targetSymbol = sym;
-          clearInfo = res;
-          break;
+          const stressVal = (res.stressTest && res.stressTest.stress_score) ? res.stressTest.stress_score : 50;
+          const rankScore = Math.abs(res.z_score || 0) * (stressVal / 50.0);
+          if (rankScore > bestRankScore) {
+            bestRankScore = rankScore;
+            targetSymbol = sym;
+            clearInfo = res;
+          }
         }
       }
 
@@ -9751,6 +9757,31 @@ div[data-rk] [aria-label*="Switch"] {
 
           // Dynamic floating PnL update on open orderbook positions strictly using live spot_price
           renderActivePositions();
+
+          // ── DYNAMIC PRE-FLIGHT STRESS TESTS ACROSS ALL 7 ASSETS ───────────────
+          // Re-evaluate multi-scenario stress engine on every live Bitget feed tick
+          const curWalletData = (typeof ChronosWalletStore !== "undefined") ? ChronosWalletStore.getCurrentData() : null;
+          const defaultCollateral = (curWalletData && curWalletData.strategyConfig && curWalletData.strategyConfig.default_collateral) || 2500;
+          Object.keys(markets).forEach(s => {
+            const itemM = markets[s];
+            if (itemM && itemM.spot_price > 0) {
+              const testSide = (itemM.drift_pct > 0) ? "SHORT" : "LONG";
+              const freshStress = runStressTest(s, itemM.spot_price, testSide, defaultCollateral, "LIVE_SCAN");
+              if (!freshStress.error) {
+                storeStressTestResult(s, freshStress);
+              }
+            }
+          });
+
+          // Live refresh stress test panel for the active symbol
+          if (typeof renderStressTestPanel === "function") {
+            renderStressTestPanel(selectedSymbol);
+          }
+
+          // Live refresh Alpha Radar if container exists
+          if (typeof renderRadarOpportunities === "function" && document.getElementById("radarOpportunitiesContainer")) {
+            renderRadarOpportunities();
+          }
         }
       } catch (err) {
         console.warn("[LIVE FEED] Network sync paused:", err);
@@ -10981,7 +11012,37 @@ div[data-rk] [aria-label*="Switch"] {
       }
 
       let renderedCards = 0;
+      const isWeekend = (typeof isWeekendWindowActive === "function") ? isWeekendWindowActive() : true;
       let html = "";
+
+      if (!isWeekend) {
+        const timeDiff = (typeof getTimeUntilWeekendWindowMs === "function") ? getTimeUntilWeekendWindowMs() : 0;
+        let countdownStr = "--h --m";
+        if (timeDiff > 0) {
+          const totalSec = Math.floor(timeDiff / 1000);
+          const h = Math.floor(totalSec / 3600);
+          const m = Math.floor((totalSec % 3600) / 60);
+          countdownStr = `${h}h ${m}m remaining`;
+        }
+        html += `
+          <div style="grid-column: 1 / -1; background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.25); border-radius: 12px; padding: 1rem 1.25rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 0.5rem;">
+            <div style="display: flex; align-items: center; gap: 0.85rem;">
+              <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(59, 130, 246, 0.15); display: flex; align-items: center; justify-content: center; color: #2563EB; flex-shrink: 0;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div>
+                <div style="font-family: var(--font-terminal); font-size: 0.65rem; color: #2563EB; font-weight: 700; text-transform: uppercase;">[PHASE 4 // 100% CASH SLEEP — WEEKDAY INTERMISSION]</div>
+                <div style="font-size: 0.88rem; font-weight: 700; color: #18181B;">Alpha Radar Dormant — US Cash Equities (NYSE/NASDAQ) In Session</div>
+                <div style="font-size: 0.74rem; color: #52525B;">Chronos operates strictly during weekend market closures to eliminate unhedged regular-hours market beta. Real-time scanning & execution unlock Friday at 16:00 EST.</div>
+              </div>
+            </div>
+            <div style="text-align: right; flex-shrink: 0;">
+              <div style="font-family: var(--font-terminal); font-size: 0.95rem; font-weight: 800; color: #2563EB;">${countdownStr}</div>
+              <div style="font-size: 0.68rem; color: #71717A;">Until Weekend Window</div>
+            </div>
+          </div>
+        `;
+      }
 
       symbolList.forEach(sym => {
         const m = markets[sym];
@@ -10998,11 +11059,11 @@ div[data-rk] [aria-label*="Switch"] {
         // 5-Tier Pre-Trade Clearance Verification
         const passDislocation = absDrift >= 2.0;
         const passZ = zScore >= 1.5;
-        const passSession = true; // Weekend Wall Street closed
+        const passSession = isWeekend; // Weekend Wall Street closed
         const passLiquidity = true; // Bitget UTA v3 depth checked
         const passStress = m.backtest && m.backtest.win_rate >= 50.0;
 
-        const isPreCleared = passDislocation || passZ;
+        const isPreCleared = (passDislocation || passZ) && passSession;
 
         // Risk / Reward & PnL Projections (Standard $5,000 USDT Discretionary Order)
         const stdMargin = 5000;
@@ -11024,9 +11085,11 @@ div[data-rk] [aria-label*="Switch"] {
         renderedCards++;
 
         // Visual badges matching Chronos Design System
-        const clearanceBadge = isPreCleared
-          ? `<span class="radar-clearance-pill cleared"><span class="radar-dot"></span>PRE-CLEARED</span>`
-          : `<span class="radar-clearance-pill pending"><span class="radar-dot" style="background:#F59E0B; box-shadow:none;"></span>WATCHLIST</span>`;
+        const clearanceBadge = !isWeekend
+          ? `<span class="radar-clearance-pill pending" style="background: rgba(59, 130, 246, 0.1); color: #2563EB; border-color: rgba(59, 130, 246, 0.3);"><span class="radar-dot" style="background:#2563EB; box-shadow:none;"></span>WEEKDAY SLEEP</span>`
+          : isPreCleared
+            ? `<span class="radar-clearance-pill cleared"><span class="radar-dot"></span>PRE-CLEARED</span>`
+            : `<span class="radar-clearance-pill pending"><span class="radar-dot" style="background:#F59E0B; box-shadow:none;"></span>WATCHLIST</span>`;
 
         const sideBadge = side === "SHORT"
           ? `<span class="badge-short-drift" style="font-size: 0.65rem; padding: 1px 6px;">SHORT OVERBOUGHT</span>`
@@ -11196,6 +11259,16 @@ div[data-rk] [aria-label*="Switch"] {
 
     // Discretionary Trade Execution directly from Alpha Radar
     function executeDiscretionaryRadarTrade(symbol) {
+      // GUARD: Strictly enforce weekend window (Phase 4 is 100% Cash Sleep)
+      if (typeof isWeekendWindowActive === "function" && !isWeekendWindowActive()) {
+        if (typeof showWeekdaySleepModal === "function") {
+          showWeekdaySleepModal();
+        } else if (typeof showToast === "function") {
+          showToast("Phase 4 Cash Sleep", "US Equity markets are in session. Trading is locked until Friday 16:00 EST.", "warning");
+        }
+        return;
+      }
+
       if (!ChronosWalletStore.currentAddress) {
         if (typeof openRainbowModal === "function") openRainbowModal();
         if (typeof showToast === "function") {
