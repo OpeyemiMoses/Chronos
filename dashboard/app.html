@@ -5962,10 +5962,86 @@ div[data-rk] [aria-label*="Switch"] {
           <span>Continue in Sandbox Vault</span>
         </button>
       </div>
+  <!-- Weekday 100% Cash Sleep Protocol Modal -->
+  <div id="weekdaySleepModal" class="trade-reasoning-overlay" onclick="handleWeekdaySleepBackdropClick(event)">
+    <div class="trade-reasoning-card" style="max-width: 600px; padding: 0;" onclick="event.stopPropagation()">
+      <!-- Top Bar Header -->
+      <div class="trade-reasoning-header" style="padding: 1.25rem 1.5rem; border-bottom: 1px solid #EEE9DF; background: #FAF8F5;">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <div style="width: 38px; height: 38px; border-radius: 10px; background: rgba(59, 130, 246, 0.12); border: 1px solid rgba(59, 130, 246, 0.3); display: flex; align-items: center; justify-content: center; color: #2563EB; flex-shrink: 0;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div>
+            <div class="trade-reasoning-tag" style="color: #2563EB; font-weight: 700; font-size: 0.65rem;">[PHASE 4 // 100% CASH SLEEP]</div>
+            <h2 class="trade-reasoning-title" style="font-size: 1.25rem; margin-top: 0.1rem;">Weekday Sleep: Zero Equity Beta</h2>
+            <div class="trade-reasoning-subtitle" style="font-size: 0.72rem; color: #71717A;">NYSE / NASDAQ In Session · Capital Preserved in 100% Cash Vault</div>
+          </div>
+        </div>
+        <button class="trade-reasoning-close" onclick="closeWeekdaySleepModal()" aria-label="Close modal">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div style="padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
+        <div style="background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.25); border-radius: 10px; padding: 0.85rem 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
+          <div style="color: #2563EB; margin-top: 1px; flex-shrink: 0;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          </div>
+          <div style="font-size: 0.80rem; color: #1E3A8A; line-height: 1.45;">
+            <strong>Chronos Execution Window Is Closed:</strong><br>
+            Chronos is strictly an off-hours statistical arbitrage protocol. During regular Wall Street market hours (Mon 09:30 – Fri 16:00 EST), US equity order books are deeply liquid and efficient. Chronos eliminates unhedged equity beta by holding 100% cash until the next weekend session.
+          </div>
+        </div>
+
+        <!-- Weekend Countdown Box -->
+        <div style="background: #FAF8F5; border: 1px solid #EEE9DF; border-radius: 10px; padding: 1rem; text-align: center;">
+          <div style="font-family: var(--font-terminal); font-size: 0.70rem; color: #71717A; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.35rem;">
+            Time Until Next Weekend Deployment Window (Friday 16:00 EST)
+          </div>
+          <div id="weekdaySleepCountdownDisplay" style="font-family: var(--font-terminal); font-size: 1.6rem; font-weight: 800; color: #18181B; letter-spacing: 0.05em;">
+            --h --m --s
+          </div>
+          <div style="font-size: 0.72rem; color: #71717A; margin-top: 0.35rem;">
+            Autonomous agent & manual trade executions unlock automatically at Friday 16:00 EST.
+          </div>
+        </div>
+
+        <!-- 4-Phase Operating Matrix -->
+        <div style="border: 1px solid #EEE9DF; border-radius: 10px; overflow: hidden; font-family: var(--font-terminal); font-size: 0.72rem;">
+          <div style="padding: 0.55rem 0.85rem; background: #FAF8F5; border-bottom: 1px solid #EEE9DF; font-weight: 700; color: #18181B;">
+            CHRONOS 4-PHASE EXECUTION ARCHITECTURE
+          </div>
+          <div style="padding: 0.55rem 0.85rem; border-bottom: 1px solid #EEE9DF; display: flex; justify-content: space-between; align-items: center; background: #FFFFFF;">
+            <span><strong style="color: #18181B;">Phase 1:</strong> Anchor Capture (Fri 16:00 – 20:00 EST)</span>
+            <span style="color: #71717A;">Locks official 4:00 PM equity close</span>
+          </div>
+          <div style="padding: 0.55rem 0.85rem; border-bottom: 1px solid #EEE9DF; display: flex; justify-content: space-between; align-items: center; background: #FFFFFF;">
+            <span><strong style="color: #18181B;">Phase 2:</strong> Weekend Arbitrage (Fri 20:00 – Mon 04:00 EST)</span>
+            <span style="color: #10B981; font-weight: 700;">Active Trading Window</span>
+          </div>
+          <div style="padding: 0.55rem 0.85rem; border-bottom: 1px solid #EEE9DF; display: flex; justify-content: space-between; align-items: center; background: #FFFFFF;">
+            <span><strong style="color: #18181B;">Phase 3:</strong> Monday Convergence (Mon 04:00 – 09:30 EST)</span>
+            <span style="color: #D97706; font-weight: 700;">Mandatory Unwind / Liquidation</span>
+          </div>
+          <div style="padding: 0.55rem 0.85rem; display: flex; justify-content: space-between; align-items: center; background: rgba(59, 130, 246, 0.06);">
+            <span><strong style="color: #2563EB;">Phase 4:</strong> 100% Cash Sleep (Mon 09:30 – Fri 16:00 EST)</span>
+            <span style="color: #2563EB; font-weight: 700;">CURRENT PHASE (0% Beta)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="trade-reasoning-footer" style="padding: 1rem 1.5rem; border-top: 1px solid #EEE9DF; background: #FAF8F5; display: flex; justify-content: space-between; align-items: center;">
+        <span style="font-family: var(--font-terminal); font-size: 0.70rem; color: #71717A;">
+          Mode: <strong style="color: #2563EB;">Capital Preservation Vault</strong>
+        </span>
+        <button type="button" class="btn-execute-big" style="width: auto; padding: 0.5rem 1.45rem; font-size: 0.80rem; background: #18181B; color: #FFFFFF; font-weight: 700; border-radius: 8px; border: 1px solid #18181B;" onclick="closeWeekdaySleepModal()">
+          <span>Dismiss & View Terminal</span>
+        </button>
+      </div>
     </div>
   </div>
-
-  <!-- Authentic RainbowKit Modals -->
   
 <!-- ==========================================================================
      AUTHENTIC RAINBOWKIT MODALS & WIDGETS
@@ -6238,9 +6314,22 @@ div[data-rk] [aria-label*="Switch"] {
     // =========================================================================
     // BITGET LIVE TRADING BACKEND BRIDGE
     // =========================================================================
-    const API_BASE = (window.location.origin && window.location.origin.startsWith("http"))
-      ? (window.location.port === "8899" ? "" : "http://localhost:8899")
-      : "http://localhost:8899";
+    const API_BASE = (function() {
+      if (typeof window === "undefined" || !window.location || !window.location.origin) {
+        return "https://chronos-production-a1e4.up.railway.app";
+      }
+      const host = window.location.hostname;
+      const port = window.location.port;
+      // On Vercel, Railway, or local Flask dev server (port 8899), use relative root ""
+      if (host.includes("vercel.app") || host.includes("railway.app") || port === "8899") {
+        return "";
+      }
+      // On local dev without port 8899 or file:// origin, proxy to live Railway API
+      if (window.location.origin.startsWith("file://") || host === "localhost" || host === "127.0.0.1") {
+        return "https://chronos-production-a1e4.up.railway.app";
+      }
+      return "";
+    })();
 
     function getActiveGatewayHeaders() {
       const headers = { "Content-Type": "application/json" };
@@ -6329,7 +6418,49 @@ div[data-rk] [aria-label*="Switch"] {
     }
     window.isLiveTradingReady = isLiveTradingReady;
 
-    function isWeekendWindowActive() {
+    // =========================================================================
+    // CHRONOS 4-PHASE OPERATIONAL LIFECYCLE ENGINE
+    // =========================================================================
+    // Wall Street NYSE/NASDAQ Schedule in EST/EDT:
+    // Phase 1 (Fri 15:30-16:00 EST): Anchor Baseline Lock Preparation
+    // Phase 2 (Fri 16:00 - Mon 08:00 EST): 24/7 Weekend Alpha Hunt (Only window for new entries)
+    // Phase 3 (Mon 08:00 - 09:30 EST): Monday Pre-Market Convergence Harvest (Settles into 100% USDT cash)
+    // Phase 4 (Mon 09:30 - Fri 16:00 EST): 100% Cash Sleep (Zero weekday exposure - no new trades)
+    // =========================================================================
+    window.chronosWeekendSimActive = false;
+
+    function toggleWeekendSimulation() {
+      window.chronosWeekendSimActive = !window.chronosWeekendSimActive;
+      const simActive = window.chronosWeekendSimActive;
+      showToast(
+        simActive ? "Weekend Simulation Active" : "Real EST Schedule Restored",
+        simActive 
+          ? "Simulating Friday 16:00 - Monday 08:00 market closure for sandbox demonstration." 
+          : "Chronos schedule returned to real-time Wall Street market hours.",
+        simActive ? "warning" : "info"
+      );
+      if (typeof renderLifecycleState === "function") renderLifecycleState();
+      if (typeof updateMarketView === "function") updateMarketView();
+      if (typeof recalcExecution === "function") recalcExecution();
+    }
+    window.toggleWeekendSimulation = toggleWeekendSimulation;
+
+    function getChronosOperationalPhase() {
+      if (window.chronosWeekendSimActive) {
+        return {
+          phase: 2,
+          code: "PHASE_2_ALPHA_HUNT",
+          title: "PHASE 2: WEEKEND ALPHA HUNT (SANDBOX OVERRIDE)",
+          badgeText: "PHASE 2: WEEKEND ALPHA HUNT (SIMULATION)",
+          isWeekend: true,
+          canEnterTrades: true,
+          canSettle: false,
+          isSleep: false,
+          isSimulated: true,
+          statusText: "Sandbox Weekend Simulation Override active. Simulating Friday 16:00 - Monday 08:00 EST."
+        };
+      }
+
       try {
         const now = new Date();
         const nyString = now.toLocaleString("en-US", { timeZone: "America/New_York" });
@@ -6339,18 +6470,71 @@ div[data-rk] [aria-label*="Switch"] {
         const min = ny.getMinutes();
         const t = hour + min / 60.0;
 
-        // Fri >= 16:00 EST
-        if (day === 5 && t >= 16.0) return true;
-        // Sat all day
-        if (day === 6) return true;
-        // Sun all day
-        if (day === 0) return true;
-        // Mon <= 9:30 EST
-        if (day === 1 && t <= 9.5) return true;
-        return false;
+        // Phase 2: Friday >= 16:00, Saturday all day, Sunday all day, Monday < 08:00 EST
+        if ((day === 5 && t >= 16.0) || day === 6 || day === 0 || (day === 1 && t < 8.0)) {
+          return {
+            phase: 2,
+            code: "PHASE_2_ALPHA_HUNT",
+            title: "PHASE 2: 24/7 WEEKEND ALPHA HUNT",
+            badgeText: "PHASE 2: 24/7 WEEKEND ALPHA HUNT",
+            isWeekend: true,
+            canEnterTrades: true,
+            canSettle: false,
+            isSleep: false,
+            isSimulated: false,
+            statusText: "US cash equity markets closed. Tokenized synthetics trading 24/7. Hunting retail dislocations."
+          };
+        }
+
+        // Phase 3: Monday 08:00 - 09:30 EST (Pre-Market Institutional Convergence Harvest)
+        if (day === 1 && t >= 8.0 && t <= 9.5) {
+          return {
+            phase: 3,
+            code: "PHASE_3_CONVERGENCE",
+            title: "PHASE 3: MONDAY PRE-MARKET HARVEST",
+            badgeText: "PHASE 3: MONDAY PRE-MARKET HARVEST",
+            isWeekend: false,
+            canEnterTrades: false, // Strict: No new entries during exit convergence!
+            canSettle: true,
+            isSleep: false,
+            isSimulated: false,
+            statusText: "Institutional pre-market liquidity returning. Unwinding weekend positions into 100% USDT cash."
+          };
+        }
+
+        // Phase 4: Weekday Intermission (Monday > 09:30 EST through Friday < 16:00 EST)
+        // Covers Monday afternoon/night, all Tuesday, all Wednesday, all Thursday, and Friday daytime!
+        return {
+          phase: 4,
+          code: "PHASE_4_CASH_SLEEP",
+          title: "PHASE 4: 100% CASH SLEEP (WEEKDAY INTERMISSION)",
+          badgeText: "PHASE 4: 100% CASH SLEEP (ZERO OVERNIGHT RISK)",
+          isWeekend: false,
+          canEnterTrades: false,
+          canSettle: false,
+          isSleep: true,
+          isSimulated: false,
+          statusText: "US cash equity markets (NYSE/NASDAQ) are open. Chronos is in Phase 4: 100% Cash Sleep (Zero Weekday Exposure). Next weekend alpha hunt initiates Friday at 16:00 EST."
+        };
       } catch (e) {
-        return true;
+        return {
+          phase: 4,
+          code: "PHASE_4_CASH_SLEEP",
+          title: "PHASE 4: 100% CASH SLEEP",
+          badgeText: "PHASE 4: 100% CASH SLEEP",
+          isWeekend: false,
+          canEnterTrades: false,
+          canSettle: false,
+          isSleep: true,
+          isSimulated: false,
+          statusText: "Weekday intermission active."
+        };
       }
+    }
+    window.getChronosOperationalPhase = getChronosOperationalPhase;
+
+    function isWeekendWindowActive() {
+      return getChronosOperationalPhase().canEnterTrades;
     }
     window.isWeekendWindowActive = isWeekendWindowActive;
 
@@ -7265,6 +7449,15 @@ div[data-rk] [aria-label*="Switch"] {
       if (!d) return { cleared: false, reason: "No connected wallet found" };
       d.openPositions = d.openPositions || [];
 
+      // 0. OPERATIONAL LIFECYCLE GATE: Weekend Market Closure Check
+      const phaseInfo = getChronosOperationalPhase();
+      if (!phaseInfo.canEnterTrades) {
+        return {
+          cleared: false,
+          reason: `Weekday Intermission Active (${phaseInfo.title}). Chronos operates strictly during weekend market closures (Friday 16:00 EST to Monday 08:00 EST). Today is ${new Date().toLocaleDateString('en-US', {weekday: 'long'})}; US equity markets are open on Wall Street. Strategy is dormant in 100% Cash Sleep to eliminate regular equity market beta.`
+        };
+      }
+
       // 1. Position Capacity Check
       syncAgentConfigSettings();
       if (d.openPositions.length >= MAX_WEEKEND_TRADES) {
@@ -8172,10 +8365,48 @@ div[data-rk] [aria-label*="Switch"] {
       }
     }
 
+    function showWeekdaySleepModal() {
+      const modal = document.getElementById("weekdaySleepModal");
+      if (modal) {
+        const timeBox = document.getElementById("weekdaySleepCountdownDisplay");
+        if (timeBox && typeof getTimeUntilWeekendWindowMs === "function") {
+          const diff = getTimeUntilWeekendWindowMs();
+          if (diff > 0) {
+            const totalSec = Math.floor(diff / 1000);
+            const hours = Math.floor(totalSec / 3600);
+            const mins = Math.floor((totalSec % 3600) / 60);
+            const secs = totalSec % 60;
+            timeBox.textContent = `${hours}h ${mins}m ${secs}s`;
+          } else {
+            timeBox.textContent = "WINDOW OPEN";
+          }
+        }
+        modal.classList.add("open");
+      }
+      showToast(
+        "Weekday Sleep Active",
+        "Chronos is in Phase 4: 100% Cash Sleep (Zero Weekday Beta). Execution unlocks Friday at 16:00 EST.",
+        "info",
+        6000
+      );
+    }
+
+    function closeWeekdaySleepModal() {
+      const modal = document.getElementById("weekdaySleepModal");
+      if (modal) modal.classList.remove("open");
+    }
+
+    function handleWeekdaySleepBackdropClick(event) {
+      if (event.target.id === "weekdaySleepModal") {
+        closeWeekdaySleepModal();
+      }
+    }
+
     document.addEventListener("keydown", function(e) {
       if (e.key === "Escape") {
         closeTradeReasoningModal();
         closeLiveComingSoonModal();
+        closeWeekdaySleepModal();
       }
     });
 
@@ -8491,13 +8722,9 @@ div[data-rk] [aria-label*="Switch"] {
         return;
       }
 
-      // GUARD: In Live Bitget mode, only trade during the weekend window
-      if (typeof activeTradingEnv !== "undefined" && activeTradingEnv === "live" && !isWeekendWindowActive()) {
-        showToast(
-          "100% Cash Sleep Active",
-          "Chronos live execution operates strictly during the weekend window (Friday 16:00 EST to Monday 09:30 EST). Live trading is dormant during weekday hours to protect capital from regular equity beta.",
-          "info"
-        );
+      // GUARD: Strictly enforce weekend trading window across all execution modes
+      if (!isWeekendWindowActive()) {
+        showWeekdaySleepModal();
         return;
       }
 
@@ -8651,9 +8878,10 @@ div[data-rk] [aria-label*="Switch"] {
         return;
       }
 
-      // GUARD: In Live Bitget mode, only trade during the weekend window
-      if (typeof activeTradingEnv !== "undefined" && activeTradingEnv === "live" && !isWeekendWindowActive()) {
-        updateAgentTelemetry("[LIVE DORMANT - 100% CASH SLEEP] Weekday session active on Wall Street. Chronos is in Phase 4: 100% Cash Sleep. Live trading dormant until Friday 16:00 EST.");
+      // GUARD: Strictly enforce weekend window (Phase 4 is 100% Cash Sleep)
+      if (!isWeekendWindowActive()) {
+        const phaseInfo = getChronosOperationalPhase();
+        updateAgentTelemetry(`[100% CASH SLEEP] Weekday session active on Wall Street (${phaseInfo.title}). New trade entry blocked to eliminate regular equity beta.`);
         return;
       }
 
@@ -9176,9 +9404,10 @@ div[data-rk] [aria-label*="Switch"] {
         return;
       }
 
-      // GUARD: In Live Bitget mode, only trade during the weekend window
-      if (typeof activeTradingEnv !== "undefined" && activeTradingEnv === "live" && !isWeekendWindowActive()) {
-        updateAgentTelemetry("[LIVE DORMANT - 100% CASH SLEEP] US equity markets are open. Chronos is in Phase 4: 100% Cash Sleep (Zero Weekday Exposure). Autonomous agent will wake up Friday at 16:00 EST.");
+      // GUARD: Strictly enforce weekend window (Phase 4 is 100% Cash Sleep)
+      if (!isWeekendWindowActive()) {
+        const phaseInfo = getChronosOperationalPhase();
+        updateAgentTelemetry(`[100% CASH SLEEP] US cash equity markets (NYSE/NASDAQ) are open. Chronos is in Phase 4: 100% Cash Sleep (Zero Weekday Beta). Autonomous agent is dormant until Friday 16:00 EST.`);
         if (autoPilotActive) {
           autoPilotActive = false;
           updateAutoPilotUI(false);
@@ -9239,6 +9468,11 @@ div[data-rk] [aria-label*="Switch"] {
       if (!autoPilotActive && !ChronosWalletStore.currentAddress) {
         showToast("Wallet Required", "Connect your wallet first to enable autonomous auto-pilot.", "warning");
         if (window.openRainbowKitModal) window.openRainbowKitModal();
+        return;
+      }
+
+      if (!autoPilotActive && !isWeekendWindowActive()) {
+        showWeekdaySleepModal();
         return;
       }
 

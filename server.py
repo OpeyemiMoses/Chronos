@@ -215,9 +215,9 @@ def is_within_weekend_window(test_dt=None) -> tuple[bool, str]:
     # Monday before 08:00 EST -> Weekend Alpha Hunt (Phase 2)
     if weekday == 0 and time_dec < 8.0:
         return True, "PHASE 2: 24/7 WEEKEND ALPHA HUNT"
-    # Monday 08:00 to 09:30 EST -> Pre-Market Convergence Harvest (Phase 3)
+    # Monday 08:00 to 09:30 EST -> Pre-Market Convergence Harvest (Phase 3 - Settlement only)
     if weekday == 0 and 8.0 <= time_dec <= 9.5:
-        return True, "PHASE 3: MONDAY PRE-MARKET HARVEST"
+        return False, "PHASE 3: MONDAY PRE-MARKET HARVEST (SETTLEMENT ONLY)"
 
     # Weekday: Mon 09:30 -> Fri 15:59 EST -> 100% Cash Sleep
     return False, "PHASE 4: 100% CASH SLEEP (WEEKDAY INTERMISSION)"
@@ -728,18 +728,18 @@ def api_trade():
     if not symbol or not side or collateral <= 0:
         return jsonify({"status": "error", "message": "Missing required fields: symbol, side, collateral"}), 400
 
-    # Enforce Weekend Window for Live Capital Execution
-    if active_trader.is_live and not data.get("bypass_weekend_check"):
+    # Enforce Weekend Window for Execution (Live & Paper)
+    if not data.get("bypass_weekend_check") and not data.get("simulate_weekend"):
         is_active, phase_str = is_within_weekend_window()
         if not is_active:
-            logger.warning(f"[MARKET CLOSED] Live trade rejected outside weekend window: {phase_str}")
+            logger.warning(f"[MARKET CLOSED] Trade rejected outside weekend window: {phase_str}")
             return jsonify({
                 "status": "error",
-                "trading_mode": "LIVE",
+                "trading_mode": "LIVE" if active_trader.is_live else "PAPER",
                 "error_code": "WEEKDAY_SLEEP_ACTIVE",
-                "message": f"Trading blocked: Chronos operates strictly on weekends (Friday 16:00 EST to Monday 09:30 EST). Currently in {phase_str}.",
+                "message": f"Trading blocked: Chronos operates strictly on weekends (Friday 16:00 EST to Monday 08:00 EST). Currently in {phase_str}. Weekday execution is dormant in 100% Cash Sleep to eliminate regular equity market beta.",
                 "phase": phase_str,
-                "is_paper": False
+                "is_paper": not active_trader.is_live
             }), 400
 
     # Calculate position size from collateral and price
